@@ -1,18 +1,20 @@
+/* ================= MAIN SCRIPT ================= */
 document.addEventListener("DOMContentLoaded", () => {
-  /* ===== Sticky Header ===== */
+  /* ===== Sticky Header with Smooth Shadow ===== */
   const header = document.querySelector("header");
   window.addEventListener("scroll", () => {
     header.classList.toggle("sticky", window.scrollY > 50);
-  });
+  }, { passive: true });
 
   /* ===== Mobile Menu ===== */
   const menu = document.querySelector("#menu-icon");
   const navbar = document.querySelector(".navbar");
-  menu.addEventListener("click", () => {
+  menu?.addEventListener("click", () => {
     const expanded = menu.getAttribute("aria-expanded") === "true";
     menu.setAttribute("aria-expanded", String(!expanded));
     menu.classList.toggle("bx-x");
     navbar.classList.toggle("active");
+    document.body.classList.toggle("menu-open");
   });
 
   /* ===== Active Navbar Link on Scroll ===== */
@@ -21,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
     let scrollY = window.pageYOffset;
     sections.forEach(sec => {
-      const secTop = sec.offsetTop - 80;
+      const secTop = sec.offsetTop - 100;
       const secHeight = sec.offsetHeight;
       if (scrollY >= secTop && scrollY < secTop + secHeight) {
         navLinks.forEach(link => {
@@ -32,44 +34,53 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
-  });
+  }, { passive: true });
 
-  /* ===== Scroll-to-Top Button ===== */
+  /* ===== Scroll-to-Top Button (Animated) ===== */
   const scrollBtn = document.getElementById("scrollTopBtn");
   window.addEventListener("scroll", () => {
-    scrollBtn.style.display = window.scrollY > 300 ? "flex" : "none";
-  });
-  scrollBtn.addEventListener("click", () =>
+    if (window.scrollY > 300) {
+      scrollBtn.classList.add("show");
+    } else {
+      scrollBtn.classList.remove("show");
+    }
+  }, { passive: true });
+
+  scrollBtn?.addEventListener("click", () =>
     window.scrollTo({ top: 0, behavior: "smooth" })
   );
 
   /* ===== Contact Form (EmailJS) ===== */
   const form = document.getElementById("contactForm");
   const formMsg = document.getElementById("formMessage");
-  form.addEventListener("submit", async e => {
-    e.preventDefault();
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
 
-    if (!name || !email || !message) {
-      showFormMessage("❌ Please fill all fields!", "error");
-      return;
-    }
-    showFormMessage("⏳ Sending message...", "loading");
+  if (form) {
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
 
-    try {
-      await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID",
-        { from_name: name, from_email: email, message: message },
-        "YOUR_PUBLIC_KEY"
-      );
-      showFormMessage("✅ Message sent successfully!", "success");
-      form.reset();
-    } catch (err) {
-      showFormMessage("❌ Failed to send. Try again!", "error");
-      console.error(err);
-    }
-  });
+      if (!name || !email || !message) {
+        showFormMessage("❌ Please fill all fields!", "error");
+        return;
+      }
+      showFormMessage("⏳ Sending message...", "loading");
+
+      try {
+        await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID",
+          { from_name: name, from_email: email, message: message },
+          "YOUR_PUBLIC_KEY"
+        );
+        showFormMessage("✅ Message sent successfully!", "success");
+        form.reset();
+      } catch (err) {
+        showFormMessage("❌ Failed to send. Try again!", "error");
+        console.error(err);
+      }
+    });
+  }
+
   function showFormMessage(msg, type) {
     formMsg.textContent = msg;
     formMsg.style.display = "block";
@@ -82,10 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (localStorage.getItem("theme") === "light") {
     html.setAttribute("data-theme", "light");
-    themeToggle.classList.add("light");
+    themeToggle?.classList.add("light");
   }
 
-  themeToggle.addEventListener("click", () => {
+  themeToggle?.addEventListener("click", () => {
     if (html.getAttribute("data-theme") === "light") {
       html.removeAttribute("data-theme");
       themeToggle.classList.remove("light");
@@ -98,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* ===== Chatbot System ===== */
+/* ================= CHATBOT SYSTEM ================= */
 (() => {
   const chatbot = document.getElementById("chatbot");
   const toggleBtn = document.getElementById("chatbot-toggle");
@@ -107,6 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const sendBtn = document.getElementById("chatbot-send");
   const input = document.getElementById("chatbot-input");
   const messages = document.getElementById("chatbot-messages");
+
+  if (!chatbot) return;
 
   const responses = {
     hello: ["Hello! 👋 How can I help you?", "Ask about my BI reports."],
@@ -146,12 +159,20 @@ document.addEventListener("DOMContentLoaded", () => {
     botReply(text);
   }
 
+  /* ===== Chatbot Open/Close with Animation ===== */
   toggleBtn.onclick = () => {
-    chatbot.style.display = "flex";
+    chatbot.classList.add("open");
+    chatbot.classList.remove("closing");
     messages.innerHTML = "";
     addMessage("👋 Hi! I’m your Data Bot. Ask me about BI reports!", "bot");
   };
-  closeBtn.onclick = () => (chatbot.style.display = "none");
+
+  closeBtn.onclick = () => {
+    chatbot.classList.remove("open");
+    chatbot.classList.add("closing");
+    setTimeout(() => chatbot.classList.remove("closing"), 400); // sync with CSS animation
+  };
+
   sendBtn.onclick = sendMessage;
   input.addEventListener("keypress", e => e.key === "Enter" && sendMessage());
 })();
