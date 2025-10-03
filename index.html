@@ -155,27 +155,28 @@
   </main>
 
   <!-- ===== SCROLL TO TOP ===== -->
-  <button id="scrollTopBtn" title="Go to top"><i class='bx bx-up-arrow-alt'></i></button>
+  <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to Top"><i class='bx bx-up-arrow-alt'></i></button>
 
   <!-- ===== CHATBOT ===== -->
-  <div id="chatbot">
+  <div id="chatbot" aria-label="Chatbot Window">
     <div id="chatbot-header">
       <h4>Chat with me</h4>
-      <button id="chatbot-close">&times;</button>
+      <button id="chatbot-close" aria-label="Close Chatbot">&times;</button>
     </div>
     <div id="chatbot-body">
       <div id="chatbot-messages"></div>
-      <div id="chatbot-typing">Typing...</div>
+      <div id="chatbot-typing" aria-live="polite">Typing...</div>
     </div>
     <div id="chatbot-footer">
-      <input type="text" id="chatbot-input" placeholder="Ask me about reports...">
-      <button id="chatbot-send">Send</button>
+      <input type="text" id="chatbot-input" placeholder="Ask me about reports..." aria-label="Type your question">
+      <button id="chatbot-send" aria-label="Send Message">Send</button>
     </div>
   </div>
-  <button id="chatIcon">💬</button>
+  <button id="chatIcon" aria-label="Open Chatbot">💬</button>
 
   <!-- Custom JS -->
   <script src="script.js" defer></script>
 
 </body>
+
 </html>
