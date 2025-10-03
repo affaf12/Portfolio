@@ -15,7 +15,7 @@
   <!-- Boxicons -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
@@ -26,7 +26,7 @@
     <h1 class="logo">Muhammad <span>Affaf</span></h1>
     <nav>
       <ul class="navbar">
-        <li><a href="#home">Home</a></li>
+        <li><a href="#home" class="active">Home</a></li>
         <li><a href="#about">About Me</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -39,44 +39,39 @@
   </header>
 
   <!-- ===== Home Section ===== -->
-<section class="home" id="home">
-  <video autoplay loop muted playsinline class="back-video">
-    <source src="img/video4.mp4" type="video/mp4">
-  </video>
-  <div class="home-container">
-    <div class="home-image">
-      <img src="img/profile.jpg" alt="Muhammad Affaf">
+  <section class="home" id="home">
+    <video autoplay loop muted playsinline class="back-video">
+      <source src="img/video4.mp4" type="video/mp4">
+    </video>
+    <div class="home-container">
+      <div class="home-image">
+        <img src="img/profile.jpg" alt="Muhammad Affaf - Data Analyst">
+      </div>
+      <div class="home-text">
+        <h2>Hello</h2>
+        <h1>I’m Muhammad Affaf</h1>
+        <h3>Data Analyst | Power BI Developer | Excel | SQL | Python</h3>
+        <a href="https://docs.google.com/document/d/14KVmLnoh_xIRVsbUnFmLB5dRPEfzprZycsJfIty7EBQ/edit?usp=sharing" 
+           class="btn" target="_blank" rel="noopener noreferrer">📄 Download Resume</a>
+      </div>
     </div>
-    <div class="home-text">
-      <h2>Hello</h2>
-      <h1>I’m Muhammad Affaf</h1>
-      <h3>Data Analyst | Power BI Developer | Excel | SQL | Python</h3>
+  </section>
 
-      <!-- Resume Download Button -->
-      <a href="https://docs.google.com/document/d/14KVmLnoh_xIRVsbUnFmLB5dRPEfzprZycsJfIty7EBQ/edit?usp=sharing" 
-         class="btn" target="_blank">📄 Download Resume</a>
+  <!-- ===== About Section ===== -->
+  <section class="about" id="about">
+    <div class="about-text">
+      <h2>About Me</h2>
+      <p>I am a <strong>Professional Data Analyst</strong> and <strong>Power BI Developer</strong> from Karachi, Pakistan. Passionate about turning raw data into actionable insights.</p>
+      <ul>
+        <li>✔ Data Cleaning & Preparation (Excel, SQL, Python)</li>
+        <li>✔ Data Analysis & Business Insights</li>
+        <li>✔ Dashboarding & Visualization (Power BI, Excel)</li>
+        <li>✔ Reporting & Storytelling with Data</li>
+      </ul>
+      <a href="#contact" class="btn">📬 Contact Me</a>
     </div>
-  </div>
-</section>
+  </section>
 
-
-<!-- ===== About Section ===== -->
-<section class="about" id="about">
-  <div class="about-text">
-    <h2>About Me</h2>
-    <p>I am a <strong>Professional Data Analyst</strong> and <strong>Power BI Developer</strong> from Karachi, Pakistan. Passionate about turning raw data into actionable insights.</p>
-    <ul>
-      <li>✔ Data Cleaning & Preparation (Excel, SQL, Python)</li>
-      <li>✔ Data Analysis & Business Insights</li>
-      <li>✔ Dashboarding & Visualization (Power BI, Excel)</li>
-      <li>✔ Reporting & Storytelling with Data</li>
-    </ul>
-
-    <!-- Contact Me Button -->
-    <a href="#contact" class="btn">📬 Contact Me</a>
-  </div>
-</section>
-  
   <!-- ===== Experience Section ===== -->
   <section class="experience" id="experience">
     <div class="main-text"><h2>My Experiences</h2></div>
@@ -96,22 +91,10 @@
   <section class="skills" id="skills">
     <div class="main-text"><h2>My Skills</h2></div>
     <div class="skills-content">
-      <div class="box">
-        <h3>Data Cleaning & Preparation</h3>
-        <p>Skilled in Excel, SQL & Python for cleaning, transforming, and preparing datasets.</p>
-      </div>
-      <div class="box">
-        <h3>Data Analysis & Insights</h3>
-        <p>Analyzing trends, patterns, and applying statistical methods for insights.</p>
-      </div>
-      <div class="box">
-        <h3>Dashboarding & Visualization</h3>
-        <p>Experienced in building interactive dashboards with Power BI & Excel.</p>
-      </div>
-      <div class="box">
-        <h3>Reporting & Storytelling</h3>
-        <p>Translating data into meaningful reports and stories for decision-making.</p>
-      </div>
+      <div class="box"><h3>Data Cleaning & Preparation</h3><p>Excel, SQL & Python for transforming datasets.</p></div>
+      <div class="box"><h3>Data Analysis & Insights</h3><p>Trends, patterns, and statistical methods.</p></div>
+      <div class="box"><h3>Dashboarding & Visualization</h3><p>Power BI & Excel dashboards.</p></div>
+      <div class="box"><h3>Reporting & Storytelling</h3><p>Turning data into business stories.</p></div>
     </div>
   </section>
 
@@ -119,8 +102,8 @@
   <section class="achievement" id="achievement">
     <div class="main-text"><h2>My Achievements</h2></div>
     <div class="portfolio-content">
-      <div class="row"><h3>Developed multiple Power BI dashboards for Sales, Customer Reviews & Finance Analytics.</h3></div>
-      <div class="row"><h3>Completed PwC & Accenture Virtual Data Analytics Programs on Forage.</h3></div>
+      <div class="row"><h3>Built Power BI dashboards for Sales, Customer Reviews & Finance Analytics.</h3></div>
+      <div class="row"><h3>Completed PwC & Accenture Data Analytics Programs on Forage.</h3></div>
       <div class="row"><h3>Certified in Microsoft Power BI, Google Data Analytics & Project Management.</h3></div>
     </div>
   </section>
@@ -142,9 +125,9 @@
       <h2>Contact Me</h2>
       <p>Let’s work together on your next data project.</p>
       <ul class="contact-list">
-        <li><strong>Location:</strong> Karachi, Pakistan</li>
-        <li><strong>Email:</strong> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
-        <li><strong>Phone:</strong> <a href="tel:+923042365964">+92 304 2365964</a></li>
+        <li><strong>📍 Location:</strong> Karachi, Pakistan</li>
+        <li><strong>📧 Email:</strong> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
+        <li><strong>📞 Phone:</strong> <a href="tel:+923042365964">+92 304 2365964</a></li>
       </ul>
       <div class="contact-icons">
         <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank"><i class='bx bxl-linkedin'></i></a>
@@ -157,15 +140,15 @@
         <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
         <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" required></textarea>
         <button type="submit" class="btn">Send Message</button>
-        <p id="formMessage" style="margin-top:10px;color:var(--main-color);display:none;"></p>
+        <p id="formMessage" class="form-message"></p>
       </form>
     </div>
   </section>
 
-  <!-- ===== Scroll-To-Top Button ===== -->
+  <!-- ===== Scroll-To-Top ===== -->
   <button id="scrollTopBtn" title="Go to top"><i class='bx bx-up-arrow-alt'></i></button>
 
-  <!-- ===== Chatbot ===== -->
+  <!-- ===== Chatbot Widget ===== -->
   <div id="chatbot">
     <div id="chatbot-header">
       <h4>Chat with me</h4>
@@ -173,7 +156,7 @@
     </div>
     <div id="chatbot-body">
       <div id="chatbot-messages"></div>
-      <div id="chatbot-typing" class="bot" style="display:none;">Typing...</div>
+      <div id="chatbot-typing" class="bot">Typing...</div>
     </div>
     <div id="chatbot-footer">
       <input type="text" id="chatbot-input" placeholder="Ask me about reports...">
@@ -182,14 +165,14 @@
   </div>
   <button id="chatbot-toggle" title="Chat 💬">💬</button>
 
-  <!-- ===== Floating Social Buttons ===== -->
+  <!-- Floating Social -->
   <div class="social-btn">
-    <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" title="LinkedIn"><i class="bx bxl-linkedin"></i></a>
-    <a href="https://wa.me/923042365964" target="_blank" title="WhatsApp"><i class="bx bxl-whatsapp"></i></a>
-    <a href="https://github.com/affaf12" target="_blank" title="GitHub"><i class="bx bxl-github"></i></a>
+    <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank"><i class="bx bxl-linkedin"></i></a>
+    <a href="https://wa.me/923042365964" target="_blank"><i class="bx bxl-whatsapp"></i></a>
+    <a href="https://github.com/affaf12" target="_blank"><i class="bx bxl-github"></i></a>
   </div>
 
-  <!-- Custom JS -->
+  <!-- JS -->
   <script src="script.js" defer></script>
 </body>
 </html>
