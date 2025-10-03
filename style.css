@@ -126,9 +126,7 @@ section {
   align-items: center;
   flex-wrap: wrap;
 }
-.about-text {
-  flex: 1;
-}
+.about-text { flex: 1; }
 .about-text p {
   font-size: 1.05rem;
   line-height: 1.8rem;
@@ -149,8 +147,46 @@ section {
   color: var(--bg-color);
   font-weight: 600;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
   transition: all var(--transition);
 }
+
+/* Neon glowing border */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, #3fb8af, #34a39c, #3b82f6, #34d399);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, 
+                 linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+  animation: neonBorder 4s linear infinite;
+  z-index: -1;
+}
+
+/* Ripple effect */
+.btn:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255,255,255,0.5);
+  width: 100%; height: 100%;
+  left: 0; top: 0;
+  transition: transform 0.5s, opacity 1s;
+  z-index: 1;
+}
+.btn:active:after {
+  transform: scale(2);
+  opacity: 0;
+  transition: 0s;
+}
+
 .btn:hover {
   background: var(--gradient-hover);
   transform: scale(1.05);
@@ -163,12 +199,11 @@ section {
   color: #fff;
   padding: 14px 26px;
   font-size: 1.05rem;
-  box-shadow: 0 8px 25px rgba(34,197,94,0.4);
+  box-shadow: 0 8px 25px rgba(34,197,94,0.6);
   animation: pulse 2s infinite;
 }
 .btn.resume:hover {
   background: linear-gradient(135deg, #059669, #34d399);
-  box-shadow: 0 12px 30px rgba(34,197,94,0.6);
 }
 
 /* Contact button (About) */
@@ -177,12 +212,11 @@ section {
   color: #fff;
   padding: 14px 26px;
   font-size: 1.05rem;
-  box-shadow: 0 8px 25px rgba(59,130,246,0.4);
+  box-shadow: 0 8px 25px rgba(59,130,246,0.6);
   animation: pulse 2s infinite;
 }
 .btn.contact:hover {
   background: linear-gradient(135deg, #2563eb, #3b82f6);
-  box-shadow: 0 12px 30px rgba(59,130,246,0.6);
 }
 
 /* ================= SOCIAL ICONS ================= */
@@ -192,20 +226,38 @@ section {
   gap: 15px;
 }
 .social-links a {
-  width: 45px; height: 45px;
+  width: 50px; height: 50px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%;
-  font-size: 20px;
-  background: var(--glass-bg);
+  font-size: 22px;
   color: var(--main-color);
-  transition: all var(--transition);
-  box-shadow: 0 6px 20px rgba(63,184,175,0.2);
+  background: var(--glass-bg);
+  transition: all 0.4s ease;
+  position: relative;
+  box-shadow: 0 0 15px rgba(63,184,175,0.25);
 }
+
+/* Rainbow border + glow */
+.social-links a::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(red, orange, yellow, lime, cyan, blue, violet, red);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, 
+                 linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: rotateRainbow 5s linear infinite;
+}
+
+/* Hover effects */
 .social-links a:hover {
+  transform: translateY(-8px) scale(1.15) rotate(-5deg);
+  color: #fff;
   background: var(--gradient);
-  color: var(--bg-color);
-  transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 12px 30px var(--shadow-color);
+  box-shadow: 0 0 25px var(--main-color), 0 0 50px rgba(63,184,175,0.6);
 }
 
 /* ================= CONTACT FORM ================= */
@@ -302,6 +354,15 @@ section {
 @keyframes pulse {
   0%, 100% { box-shadow: 0 0 0px rgba(255,255,255,0.2); }
   50% { box-shadow: 0 0 25px rgba(255,255,255,0.35); }
+}
+@keyframes neonBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes rotateRainbow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* ================= RESPONSIVE ================= */
