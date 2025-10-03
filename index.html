@@ -144,18 +144,10 @@
       </ul>
 
       <form id="contactForm">
-        <label for="name" class="sr-only">Your Name</label>
         <input type="text" id="name" name="name" placeholder="Your Name" required>
-
-        <label for="email" class="sr-only">Your Email</label>
         <input type="email" id="email" name="email" placeholder="Your Email" required>
-
-        <label for="title" class="sr-only">Subject</label>
         <input type="text" id="title" name="title" placeholder="Subject" required>
-
-        <label for="message" class="sr-only">Message</label>
         <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-
         <button type="submit" class="btn">Send Message</button>
         <p id="formMessage" class="form-message" aria-live="polite"></p>
       </form>
@@ -166,25 +158,21 @@
   <button id="scrollTopBtn" title="Go to top"><i class='bx bx-up-arrow-alt'></i></button>
 
   <!-- ===== CHATBOT ===== -->
-  <div id="chatbot" aria-label="Chatbot Window" role="dialog">
+  <div id="chatbot">
     <div id="chatbot-header">
       <h4>Chat with me</h4>
-      <button id="chatbot-close" aria-label="Close Chat">&times;</button>
+      <button id="chatbot-close">&times;</button>
     </div>
     <div id="chatbot-body">
-      <div id="chatbot-messages" role="log" aria-live="polite"></div>
+      <div id="chatbot-messages"></div>
       <div id="chatbot-typing">Typing...</div>
     </div>
     <div id="chatbot-footer">
-      <input type="text" id="chatbot-input" placeholder="Ask me about reports..." aria-label="Chat input">
+      <input type="text" id="chatbot-input" placeholder="Ask me about reports...">
       <button id="chatbot-send">Send</button>
     </div>
   </div>
-  <button id="chatIcon" aria-label="Open Chatbot">💬</button>
-
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>emailjs.init('ILlSd42qf_3o8DE93');</script>
+  <button id="chatIcon">💬</button>
 
   <!-- Custom JS -->
   <script src="script.js" defer></script>
