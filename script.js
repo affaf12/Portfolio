@@ -70,6 +70,16 @@ document.addEventListener("DOMContentLoaded", () => {
       formMessage.textContent = "❌ Something went wrong. Try again!";
     }
   });
+
+  // ===== Scroll Top Button =====
+  const scrollBtn = document.querySelector(".top");
+  window.addEventListener("scroll", () => {
+    scrollBtn.style.display = window.scrollY > 300 ? "flex" : "none";
+  }, { passive: true });
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
 
 // ===== Chatbot =====
