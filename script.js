@@ -75,7 +75,7 @@ function sendMessage() {
         typingIndicator.style.display = "none";
         const response = botResponses[userText.toLowerCase()] || botResponses["default"];
         addMessage(response, "bot");
-    }, 800); // Slightly faster for better UX
+    }, 800);
 }
 
 function addMessage(text, sender) {
