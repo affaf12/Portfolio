@@ -56,7 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ===== EMAILJS INIT ===== */
-  emailjs.init("ILlSd42qf_3o8DE93"); // Your Public Key
+  if (!emailjs) {
+    console.error("EmailJS library not loaded!");
+  } else {
+    emailjs.init("ILlSd42qf_3o8DE93"); // Your Public Key
+  }
 
   /* ===== CONTACT FORM ===== */
   const contactForm = document.getElementById("contactForm");
@@ -79,6 +83,13 @@ document.addEventListener("DOMContentLoaded", () => {
     formMessage.textContent = "Sending...";
     formMessage.style.color = "#2563eb";
 
+    // Ensure EmailJS is loaded
+    if (!emailjs) {
+      formMessage.textContent = "❌ Email service not loaded!";
+      formMessage.style.color = "red";
+      return;
+    }
+
     emailjs.send('service_q9049ro', 'template_pfvdv6j', {
       title: title,
       name: name,
@@ -93,8 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(error => {
       console.error("FAILED...", error);
-
-      // Show detailed EmailJS error
       const errorMsg = error?.text || JSON.stringify(error);
       formMessage.innerHTML = `❌ Something went wrong:<br>${errorMsg}`;
       formMessage.style.color = "red";
@@ -110,15 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const messages = document.getElementById("chatbot-messages");
   const typing = document.getElementById("chatbot-typing");
 
-  const responses = {
+const responses = {
     hello: ["Hello! 👋 How can I help you?"],
     hi: ["Hi! 👋 Ask me about BI reports."],
     "do you make power bi report": ["✅ Yes, I make Power BI reports!"],
-    retail: ["📊 Retail demo: <a href='#'>View Report</a>"],
-    finance: ["📊 Finance demo: <a href='#'>View Report</a>"],
-    hr: ["📊 HR demo: <a href='#'>View Report</a>"],
+    retail: ["📊 Retail demo: <a href='https://yourdomain.com/retail-report' target='_blank'>View Report</a>"],
+    finance: ["📊 Finance demo: <a href='https://yourdomain.com/finance-report' target='_blank'>View Report</a>"],
+    hr: ["📊 HR demo: <a href='https://yourdomain.com/hr-report' target='_blank'>View Report</a>"],
     default: ["❓ I didn’t understand. Try: Retail, Finance, HR."]
-  };
+};
+
 
   const addMessage = (text, sender) => {
     const div = document.createElement("div");
