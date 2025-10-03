@@ -1,6 +1,9 @@
 /* ================= DOM READY ================= */
 document.addEventListener("DOMContentLoaded", () => {
 
+  /* ========== SCROLL TO TOP BUTTON ========== */
+  const scrollTopBtn = document.querySelector("#scrollTopBtn");
+
   /* ========== STICKY HEADER ========== */
   const header = document.querySelector("header");
   window.addEventListener("scroll", () => {
@@ -46,8 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", revealSection);
   revealSection(); // initial check
 
-  /* ========== SCROLL TO TOP BUTTON ========== */
-  const scrollTopBtn = document.querySelector("#scrollTopBtn");
+  /* ========== SCROLL TO TOP BUTTON EVENT ========== */
   scrollTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
