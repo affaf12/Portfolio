@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Sticky Header
+    // ===== Sticky Header =====
     const header = document.querySelector("header");
     window.addEventListener("scroll", () => {
         if (window.scrollY > 0) header.classList.add("sticky");
         else header.classList.remove("sticky");
     }, { passive: true });
 
-    // Mobile Menu
+    // ===== Mobile Menu =====
     const menu = document.querySelector("#menu-icon");
     const navbar = document.querySelector(".navbar");
     menu.addEventListener("click", () => {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Scroll Reveal
+    // ===== Scroll Reveal =====
     const revealElements = document.querySelectorAll("section");
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => observer.observe(el));
 });
 
-// Chatbot
+// ===== Chatbot =====
 const chatbot = document.getElementById('chatbot');
 const toggleBtn = document.getElementById('chatbot-toggle');
 const closeBtn = document.getElementById('chatbot-close');
@@ -45,6 +45,7 @@ const sendBtn = document.getElementById('chatbot-send');
 const input = document.getElementById('chatbot-input');
 const messages = document.getElementById('chatbot-messages');
 
+// Predefined bot responses
 const botResponses = {
     "retail": "Yes! Here is the Retail Analytics demo report: <a href='https://your-retail-report.com' target='_blank'>View Report</a>",
     "finance": "Finance Analytics demo report is ready: <a href='https://your-finance-report.com' target='_blank'>View Report</a>",
@@ -54,22 +55,27 @@ const botResponses = {
     "default": "Sorry, I didn't understand that. Please ask about Retail, Finance, or HR reports."
 };
 
+// ===== Chatbot Toggle =====
 toggleBtn.addEventListener('click', () => { chatbot.style.display = 'flex'; });
 closeBtn.addEventListener('click', () => { chatbot.style.display = 'none'; });
+
+// ===== Send Message =====
 sendBtn.addEventListener('click', sendMessage);
-input.addEventListener('keypress', (e) => { if(e.key === "Enter") sendMessage(); });
+input.addEventListener('keypress', (e) => { if (e.key === "Enter") sendMessage(); });
 
 function sendMessage() {
     const userText = input.value.trim();
     if (!userText) return;
+
     addMessage(userText, "user");
     input.value = "";
     typingIndicator.style.display = "block";
+
     setTimeout(() => {
         typingIndicator.style.display = "none";
         const response = botResponses[userText.toLowerCase()] || botResponses["default"];
         addMessage(response, "bot");
-    }, 1000);
+    }, 800); // Slightly faster for better UX
 }
 
 function addMessage(text, sender) {
