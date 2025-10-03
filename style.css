@@ -177,21 +177,39 @@ section {
   box-shadow: 0 8px 24px rgba(0,0,0,0.45);
 }
 
-/* resume button */
-.btn.resume{
+/* Resume button */
+.btn.resume {
+  padding: 10px 18px;
+  border-radius: 10px;
   background: var(--resume-grad);
-  color: #fff;
-  padding: 10px 22px;
-  font-weight:700;
+  font-weight: 700;
+  border: none;
+  color: #071018;   /* same text color as contact form */
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn.resume:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
 
-/* contact button */
-.btn.contact{
+
+/* Contact button */
+.btn.contact {
+  padding: 10px 18px;
+  border-radius: 10px;
   background: var(--contact-grad);
-  color: #fff;
-  padding: 10px 22px;
-  font-weight:700;
+  font-weight: 700;
+  border: none;
+  color: #071018;   /* same text color */
+  cursor: pointer;
+  transition: 0.3s;
 }
+.btn.contact:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
 
 /* ================= SOCIAL ICONS ================= */
 .social-links {
