@@ -114,21 +114,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("chatbot-input");
   const messages = document.getElementById("chatbot-messages");
 
-  // Predefined bot responses
+  // Predefined bot responses (all lowercased for matching)
   const botResponses = {
-    
     "hello": ["Hello! How are you?", "How can I help you today?"],
     "hi": ["Hi there! 👋", "Do you want to see Retail, Finance, or HR reports?"],
-    "Do You Make Power BI Reprot": [ "Yes I make Power Bi report"]
-    "Do You Make Looker BI Reprot": [ "Yes I make Looker  Bi report"]
-    "Do You Make Tableau BI Reprot": [ "Yes I make Tableau Bi report"]
-    "Do You Make Oddoo BI Reprot": [ "Yes I make Oddoo Bi report"]
+
+    "do you make power bi report": ["✅ Yes, I make professional Power BI reports!"],
+    "do you make looker bi report": ["✅ Yes, I make Looker BI reports!"],
+    "do you make tableau bi report": ["✅ Yes, I make Tableau BI reports!"],
+    "do you make oddoo bi report": ["✅ Yes, I make Odoo BI reports!"],
+
     "retail": ["✅ Retail Analytics demo report: <a href='https://your-retail-report.com' target='_blank'>View Report</a>"],
     "finance": ["✅ Finance Analytics demo report: <a href='https://your-finance-report.com' target='_blank'>View Report</a>"],
     "hr": ["✅ HR Analytics demo report: <a href='https://your-hr-report.com' target='_blank'>View Report</a>"],
+
     "thanks": ["You're welcome! 🙌", "Anything else you want to explore?"],
     "bye": ["Goodbye 👋", "Have a great day!"],
-    "default": ["Sorry, I didn’t understand that 🤔", "Please ask about Retail, Finance, or HR reports."]
+
+    "default": ["❓ Sorry, I didn’t understand that 🤔", "Please ask about Retail, Finance, HR, or BI reports."]
   };
 
   // Open chatbot
@@ -184,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
       typingIndicator.style.display = "none";
       addMessage("👋 Hi! I’m your Data Bot.", "bot");
       setTimeout(() => {
-        addMessage("Ask me about Retail, Finance, or HR reports anytime!", "bot");
+        addMessage("Ask me about Retail, Finance, HR, or BI reports anytime!", "bot");
       }, 1200);
     }, 900);
   }
