@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
                      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   html.setAttribute("data-theme", savedTheme);
   themeToggle.classList.toggle("light", savedTheme === "light");
+
   themeToggle.addEventListener("click", () => {
     const current = html.getAttribute("data-theme");
     const next = current === "light" ? "dark" : "light";
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ===== EMAILJS INIT ===== */
-  emailjs.init("YOUR_USER_ID"); // Replace with your real EmailJS user ID
+  emailjs.init("ILlSd42qf_3o8DE93"); // Your Public Key
 
   /* ===== CONTACT FORM ===== */
   const contactForm = document.getElementById("contactForm");
@@ -78,9 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formMessage.textContent = "Sending...";
     formMessage.style.color = "#2563eb";
 
-    console.log("Sending email with:", { title, name, email, message });
-
-    emailjs.send('service_q9049ro', 'template_pfvdv6j', {  // Use your Service & Template ID
+    emailjs.send('service_q9049ro', 'template_pfvdv6j', {
       title: title,
       name: name,
       email: email,
