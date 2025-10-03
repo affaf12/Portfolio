@@ -116,8 +116,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Predefined bot responses
   const botResponses = {
+    
     "hello": ["Hello! How are you?", "How can I help you today?"],
     "hi": ["Hi there! 👋", "Do you want to see Retail, Finance, or HR reports?"],
+    "Do You Make Power BI Reprot": [ "Yes I make Power Bi report"]
+    "Do You Make Looker BI Reprot": [ "Yes I make Looker  Bi report"]
+    "Do You Make Tableau BI Reprot": [ "Yes I make Tableau Bi report"]
+    "Do You Make Oddoo BI Reprot": [ "Yes I make Oddoo Bi report"]
     "retail": ["✅ Retail Analytics demo report: <a href='https://your-retail-report.com' target='_blank'>View Report</a>"],
     "finance": ["✅ Finance Analytics demo report: <a href='https://your-finance-report.com' target='_blank'>View Report</a>"],
     "hr": ["✅ HR Analytics demo report: <a href='https://your-hr-report.com' target='_blank'>View Report</a>"],
