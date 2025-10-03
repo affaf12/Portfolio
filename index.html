@@ -135,44 +135,45 @@
         <li><strong>📧 Email:</strong> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
         <li><strong>📞 Phone:</strong> <a href="tel:+923042365964">+92 304 2365964</a></li>
       </ul>
+
       <div class="contact-icons">
         <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
         <a href="https://github.com/affaf12" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github'></i></a>
         <a href="https://wa.me/923042365964" target="_blank" rel="noopener noreferrer"><i class='bx bxl-whatsapp'></i></a>
       </div>
 
-      <form id="contactForm" class="contact-form">
-        <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
-        <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
-        <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" required></textarea>
+      <form id="contactForm" class="contact-form" aria-label="Contact Form">
+        <input type="text" id="name" name="name" placeholder="Enter Your Name" aria-label="Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Enter Your Email" aria-label="Your Email" required>
+        <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" aria-label="Your Message" required></textarea>
         <button type="submit" class="btn">Send Message</button>
-        <p id="formMessage" class="form-message"></p>
+        <p id="formMessage" class="form-message" role="alert" aria-live="polite"></p>
       </form>
     </div>
   </section>
 
-  <!-- ===== Scroll-To-Top ===== -->
-  <button id="scrollTopBtn" title="Go to top"><i class='bx bx-up-arrow-alt'></i></button>
+  <!-- ===== Scroll-To-Top Button ===== -->
+  <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to Top"><i class='bx bx-up-arrow-alt'></i></button>
 
   <!-- ===== Chatbot Widget ===== -->
-  <div id="chatbot">
+  <div id="chatbot" aria-label="Chatbot Widget">
     <div id="chatbot-header">
       <h4>Chat with me</h4>
-      <span id="chatbot-close">&times;</span>
+      <button id="chatbot-close" aria-label="Close Chatbot">&times;</button>
     </div>
     <div id="chatbot-body">
-      <div id="chatbot-messages"></div>
-      <div id="chatbot-typing" class="bot">Typing...</div>
+      <div id="chatbot-messages" aria-live="polite"></div>
+      <div id="chatbot-typing" class="bot" aria-hidden="true">Typing...</div>
     </div>
     <div id="chatbot-footer">
-      <input type="text" id="chatbot-input" placeholder="Ask me about reports...">
-      <button id="chatbot-send">Send</button>
+      <input type="text" id="chatbot-input" placeholder="Ask me about reports..." aria-label="Chat input">
+      <button id="chatbot-send" aria-label="Send Message">Send</button>
     </div>
   </div>
-  <button id="chatbot-toggle" title="Chat 💬">💬</button>
+  <button id="chatbot-toggle" title="Chat 💬" aria-label="Open Chatbot">💬</button>
 
-  <!-- Floating Social -->
-  <div class="social-btn">
+  <!-- Floating Social Buttons -->
+  <div class="social-btn" aria-label="Social Links">
     <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener noreferrer"><i class="bx bxl-linkedin"></i></a>
     <a href="https://wa.me/923042365964" target="_blank" rel="noopener noreferrer"><i class="bx bxl-whatsapp"></i></a>
     <a href="https://github.com/affaf12" target="_blank" rel="noopener noreferrer"><i class="bx bxl-github"></i></a>
