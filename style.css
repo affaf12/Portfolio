@@ -191,6 +191,12 @@ section.visible { opacity: 1; transform: translateY(0); }
   gap: 40px;
   flex-wrap: wrap;
 }
+.home-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
 .home img {
   border-radius: 50%;
   border: 4px solid var(--accent);
@@ -221,7 +227,7 @@ section.visible { opacity: 1; transform: translateY(0); }
   cursor:pointer; box-shadow: 0 6px 18px var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.btn:hover { transform: translateY(-4px) scale(1.05); box-shadow:0 12px 35px var(--shadow-strong); }
+.btn:hover { transform: translateY(-4px) scale(1.05); box-shadow:0 12px 35px var(--shadow-strong); cursor:pointer; }
 
 /* ================= FORM ================= */
 form input, form textarea {
