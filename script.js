@@ -110,14 +110,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ===== CHATBOT FUNCTIONALITY ===== */
-  const chatbot = document.getElementById("chatbot");
-  const chatIcon = document.getElementById("chatIcon");
-  const closeBtn = document.getElementById("chatbot-close");
-  const sendBtn = document.getElementById("chatbot-send");
-  const input = document.getElementById("chatbot-input");
-  const messages = document.getElementById("chatbot-messages");
-  const typing = document.getElementById("chatbot-typing");
+/* ===== CHATBOT FUNCTIONALITY ===== */
+const chatbot = document.getElementById("chatbot");
+const chatIcon = document.getElementById("chatIcon");
+const closeBtn = document.getElementById("chatbot-close");
+const sendBtn = document.getElementById("chatbot-send");
+const input = document.getElementById("chatbot-input");
+const messages = document.getElementById("chatbot-messages");
+const typing = document.getElementById("chatbot-typing");
 
 const responses = {
     hello: ["Hello! 👋 How can I help you?"],
@@ -129,41 +129,58 @@ const responses = {
     default: ["❓ I didn’t understand. Try: Retail, Finance, HR."]
 };
 
-
-  const addMessage = (text, sender) => {
+// Add message to chat
+const addMessage = (text, sender) => {
     const div = document.createElement("div");
     div.classList.add("chatbot-message", sender === "user" ? "user" : "bot");
-    div.innerHTML = sender === "user" ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : text;
+
+    if (sender === "user") {
+        // Escape HTML for user messages
+        div.textContent = text;
+    } else {
+        // Allow bot HTML links
+        div.innerHTML = text;
+        // Make links open in new tab
+        const links = div.querySelectorAll("a");
+        links.forEach(link => {
+            link.setAttribute("target", "_blank");
+            link.setAttribute("rel", "noopener noreferrer");
+        });
+    }
+
     messages.appendChild(div);
     messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
-  };
+};
 
-  const botReply = text => {
+// Bot reply logic
+const botReply = text => {
     typing.style.display = "block";
     setTimeout(() => {
-      typing.style.display = "none";
-      const reply = responses[text.trim().toLowerCase()] || responses.default;
-      reply.forEach((msg, i) => setTimeout(() => addMessage(msg, "bot"), i * 700));
+        typing.style.display = "none";
+        const reply = responses[text.trim().toLowerCase()] || responses.default;
+        reply.forEach((msg, i) => setTimeout(() => addMessage(msg, "bot"), i * 700));
     }, 600);
-  };
+};
 
-  chatIcon.addEventListener("click", () => {
+// Open chatbot
+chatIcon.addEventListener("click", () => {
     chatbot.classList.add("open");
     messages.innerHTML = "";
     addMessage("👋 Hi! I’m your Data Bot. Ask me about BI reports!", "bot");
     input.focus();
-  });
+});
 
-  closeBtn.addEventListener("click", () => chatbot.classList.remove("open"));
+// Close chatbot
+closeBtn.addEventListener("click", () => chatbot.classList.remove("open"));
 
-  sendBtn.addEventListener("click", () => {
+// Send message
+sendBtn.addEventListener("click", () => {
     const text = input.value.trim();
     if (!text) return;
     addMessage(text, "user");
     input.value = "";
     botReply(text);
-  });
-
-  input.addEventListener("keypress", e => { if (e.key === "Enter") sendBtn.click(); });
-
 });
+
+// Send on Enter
+input.addEventListener("keypress", e => { if (e.key === "Enter") sendBtn.click(); });
