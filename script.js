@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
+    const title = document.getElementById("title")?.value.trim() || "No Subject";
     const message = document.getElementById("message").value.trim();
 
     if (!name || !email || !message) {
@@ -76,8 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
     formMessage.style.color = "#2563eb";
 
     emailjs.send('service_o4sgh8w', 'YOUR_TEMPLATE_ID', {
-      to_name: name,    // dynamically replaces {{to_name}} in EmailJS template
-      from_email: email,
+      title: title,
+      name: name,
+      email: email,
       message: message
     })
     .then(response => {
