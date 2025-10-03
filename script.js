@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Sticky Header
+  // ===== Sticky Header =====
   const header = document.querySelector("header");
-  window.addEventListener("scroll", () => {
-    header.classList.toggle("sticky", window.scrollY > 0);
-  }, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => header.classList.toggle("sticky", window.scrollY > 0),
+    { passive: true }
+  );
 
-  // Mobile Menu
+  // ===== Mobile Menu =====
   const menu = document.querySelector("#menu-icon");
   const navbar = document.querySelector(".navbar");
   menu.addEventListener("click", () => {
@@ -22,46 +24,84 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Scroll Reveal
-  const revealElements = document.querySelectorAll("section");
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("reveal-visible");
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
+  // ===== Scroll Reveal =====
+  const revealElements = document.querySelectorAll("section, .reveal");
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
   revealElements.forEach(el => observer.observe(el));
 
-  // Contact Form
+  // ===== Contact Form with EmailJS =====
   const contactForm = document.getElementById("contactForm");
   const formMessage = document.getElementById("formMessage");
-  contactForm.addEventListener("submit", async e => {
-    e.preventDefault();
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
-    if (!name || !email || !message) {
-      formMessage.style.display = "block";
-      formMessage.textContent = "❌ Please fill all fields!";
-      return;
-    }
+  if (contactForm) {
+    contactForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+      if (!name || !email || !message) {
+        showMessage("❌ Please fill all fields!", "error");
+        return;
+      }
+      showMessage("Sending message...", "loading");
+      try {
+        await emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",
+          {from_name:name,from_email:email,message:message},"YOUR_PUBLIC_KEY");
+        showMessage("✅ Message sent successfully!", "success");
+        contactForm.reset();
+      } catch (err) {
+        showMessage("❌ Something went wrong. Try again!", "error");
+        console.error(err);
+      }
+    });
+  }
+  function showMessage(msg, type) {
     formMessage.style.display = "block";
-    formMessage.textContent = "Sending message...";
-    try {
-      await emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{from_name:name,from_email:email,message:message},"YOUR_PUBLIC_KEY");
-      formMessage.textContent = "✅ Message sent successfully!";
-      contactForm.reset();
-    } catch(err){ formMessage.textContent = "❌ Something went wrong. Try again!"; console.error(err);}
-  });
+    formMessage.textContent = msg;
+    formMessage.className = type;
+  }
 
-  // Scroll-to-Top Button
+  // ===== Scroll-to-Top Button =====
   const scrollBtn = document.getElementById("scrollTopBtn");
   window.addEventListener("scroll", () => {
-    scrollBtn.style.display = window.scrollY > 300 ? "flex" : "none";
+    if (scrollBtn) {
+      scrollBtn.style.display = window.scrollY > 300 ? "flex" : "none";
+    }
   });
-  scrollBtn.addEventListener("click", () => window.scrollTo({top:0,behavior:"smooth"}));
+  if (scrollBtn) {
+    scrollBtn.addEventListener("click", () =>
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    );
+  }
+
+  // ===== Auto-Active Navbar Links =====
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".navbar a");
+  window.addEventListener("scroll", () => {
+    let scrollY = window.pageYOffset;
+    sections.forEach(sec => {
+      const secTop = sec.offsetTop - 80;
+      const secHeight = sec.offsetHeight;
+      const secId = sec.getAttribute("id");
+      if (scrollY >= secTop && scrollY < secTop + secHeight) {
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${secId}`) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  });
 });
 
 // ===== Chatbot JS =====
@@ -74,32 +114,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("chatbot-input");
   const messages = document.getElementById("chatbot-messages");
 
+  // Predefined bot responses
   const botResponses = {
     "hello": ["Hello! How are you?", "How can I help you today?"],
-    "hi": ["Hi there! How are you?", "Do you want to see Retail, Finance, or HR reports?"],
+    "hi": ["Hi there! 👋", "Do you want to see Retail, Finance, or HR reports?"],
     "retail": ["✅ Retail Analytics demo report: <a href='https://your-retail-report.com' target='_blank'>View Report</a>"],
     "finance": ["✅ Finance Analytics demo report: <a href='https://your-finance-report.com' target='_blank'>View Report</a>"],
     "hr": ["✅ HR Analytics demo report: <a href='https://your-hr-report.com' target='_blank'>View Report</a>"],
+    "thanks": ["You're welcome! 🙌", "Anything else you want to explore?"],
+    "bye": ["Goodbye 👋", "Have a great day!"],
     "default": ["Sorry, I didn’t understand that 🤔", "Please ask about Retail, Finance, or HR reports."]
   };
 
-  // Open chatbot + greet every time it's opened
+  // Open chatbot
   toggleBtn.addEventListener("click", () => {
     chatbot.style.display = "flex";
     chatbot.classList.add("show");
-    messages.innerHTML = ""; // clear old messages
+    messages.innerHTML = ""; // reset history when reopened
     autoGreet();
   });
 
   // Close chatbot
-  closeBtn.addEventListener("click", () => { 
-    chatbot.style.display = "none"; 
+  closeBtn.addEventListener("click", () => {
+    chatbot.style.display = "none";
     chatbot.classList.remove("show");
   });
 
-  // Send message on button click or Enter key
+  // Send message
   sendBtn.addEventListener("click", sendMessage);
-  input.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+  input.addEventListener("keypress", e => {
+    if (e.key === "Enter") sendMessage();
+  });
 
   function sendMessage() {
     const userText = input.value.trim();
@@ -111,12 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       typingIndicator.style.display = "none";
-      const responseKey = userText.toLowerCase();
-      const responses = botResponses[responseKey] || botResponses["default"];
-
-      // Send multiple bot replies in sequence
+      const key = userText.toLowerCase();
+      const responses = botResponses[key] || botResponses["default"];
       responses.forEach((reply, i) => {
-        setTimeout(() => { addMessage(reply, "bot"); }, i * 1000);
+        setTimeout(() => addMessage(reply, "bot"), i * 1000);
       });
     }, 800);
   }
@@ -129,14 +172,14 @@ document.addEventListener("DOMContentLoaded", () => {
     messages.scrollTop = messages.scrollHeight;
   }
 
-  // Auto greeting message (always on open)
+  // Greeting on open
   function autoGreet() {
     typingIndicator.style.display = "block";
     setTimeout(() => {
       typingIndicator.style.display = "none";
       addMessage("👋 Hi! I’m your Data Bot.", "bot");
-      setTimeout(() => { 
-        addMessage("Ask me about Retail, Finance, or HR reports anytime!", "bot"); 
+      setTimeout(() => {
+        addMessage("Ask me about Retail, Finance, or HR reports anytime!", "bot");
       }, 1200);
     }, 900);
   }
