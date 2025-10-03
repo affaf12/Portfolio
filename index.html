@@ -125,9 +125,10 @@
       </ul>
 
       <form id="contactForm">
-        <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
-        <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
-        <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" required></textarea>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+        <input type="text" id="title" name="title" placeholder="Subject" required>
+        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
         <button type="submit" class="btn">Send Message</button>
         <p id="formMessage" class="form-message"></p>
       </form>
@@ -153,6 +154,10 @@
     </div>
   </div>
   <button id="chatIcon">💬</button>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>emailjs.init('YOUR_USER_ID');</script>
 
   <!-- JS -->
   <script src="script.js" defer></script>
