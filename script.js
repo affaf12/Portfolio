@@ -75,6 +75,27 @@ document.addEventListener("DOMContentLoaded", () => {
     formMsg.style.display = "block";
     formMsg.className = `form-message ${type}`;
   }
+
+  /* ===== Theme Toggle ===== */
+  const themeToggle = document.getElementById("theme-toggle");
+  const html = document.documentElement;
+
+  if (localStorage.getItem("theme") === "light") {
+    html.setAttribute("data-theme", "light");
+    themeToggle.classList.add("light");
+  }
+
+  themeToggle.addEventListener("click", () => {
+    if (html.getAttribute("data-theme") === "light") {
+      html.removeAttribute("data-theme");
+      themeToggle.classList.remove("light");
+      localStorage.setItem("theme", "dark");
+    } else {
+      html.setAttribute("data-theme", "light");
+      themeToggle.classList.add("light");
+      localStorage.setItem("theme", "light");
+    }
+  });
 });
 
 /* ===== Chatbot System ===== */
