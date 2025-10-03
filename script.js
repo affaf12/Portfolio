@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ===== Sticky Header ===== */
   const header = document.querySelector("header");
-  window.addEventListener("scroll", () => {
-    header?.classList.toggle("sticky", window.scrollY > 50);
-  }, { passive: true });
+  const handleHeader = () => header?.classList.toggle("sticky", window.scrollY > 50);
+  window.addEventListener("scroll", () => requestAnimationFrame(handleHeader), { passive: true });
 
   /* ===== Mobile Menu Toggle ===== */
   const menu = document.querySelector("#menu-icon");
@@ -21,52 +20,44 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===== Navbar Active Link on Scroll ===== */
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".navbar a");
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
+  const handleActiveLink = () => {
+    const scrollY = window.scrollY + 150;
     sections.forEach(sec => {
-      const secTop = sec.offsetTop - 100;
+      const secTop = sec.offsetTop;
       const secHeight = sec.offsetHeight;
       if (scrollY >= secTop && scrollY < secTop + secHeight) {
         navLinks.forEach(link => link.classList.remove("active"));
         document.querySelector(`.navbar a[href="#${sec.id}"]`)?.classList.add("active");
       }
     });
-  }, { passive: true });
+  };
+  window.addEventListener("scroll", () => requestAnimationFrame(handleActiveLink), { passive: true });
 
-  /* ===== Scroll-to-Top Button (Fade Effect) ===== */
+  /* ===== Scroll-to-Top Button ===== */
   const scrollBtn = document.getElementById("scrollTopBtn");
-  window.addEventListener("scroll", () => {
+  const toggleScrollBtn = () => {
     if (!scrollBtn) return;
-    if (window.scrollY > 300) {
-      scrollBtn.classList.add("show");
-      scrollBtn.style.opacity = "1";
-    } else {
-      scrollBtn.style.opacity = "0";
-      setTimeout(() => scrollBtn.classList.remove("show"), 300);
-    }
-  }, { passive: true });
-  scrollBtn?.addEventListener("click", () =>
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  );
+    scrollBtn.classList.toggle("show", window.scrollY > 300);
+  };
+  window.addEventListener("scroll", () => requestAnimationFrame(toggleScrollBtn), { passive: true });
+  scrollBtn?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
   /* ===== Theme Toggle ===== */
   const themeToggle = document.getElementById("theme-toggle");
   const html = document.documentElement;
-  if (localStorage.getItem("theme") === "light") {
-    html.setAttribute("data-theme", "light");
-    themeToggle?.classList.add("light");
-  }
+  const initTheme = () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      html.setAttribute("data-theme", savedTheme);
+      themeToggle?.classList.toggle("light", savedTheme === "light");
+    }
+  };
+  initTheme();
   themeToggle?.addEventListener("click", () => {
     const isLight = html.getAttribute("data-theme") === "light";
-    if (isLight) {
-      html.removeAttribute("data-theme");
-      themeToggle.classList.remove("light");
-      localStorage.setItem("theme", "dark");
-    } else {
-      html.setAttribute("data-theme", "light");
-      themeToggle.classList.add("light");
-      localStorage.setItem("theme", "light");
-    }
+    html.setAttribute("data-theme", isLight ? "dark" : "light");
+    themeToggle.classList.toggle("light", !isLight);
+    localStorage.setItem("theme", isLight ? "dark" : "light");
   });
 
   /* ===== Contact Form (EmailJS) ===== */
@@ -74,59 +65,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const formMsg = document.getElementById("formMessage");
   const submitBtn = form?.querySelector('button[type="submit"]');
 
+  const showFormMessage = (msg, type) => {
+    formMsg.textContent = msg;
+    formMsg.style.display = "block";
+    formMsg.className = `form-message ${type}`;
+  };
+
   if (form && formMsg && submitBtn) {
     form.addEventListener("submit", async e => {
       e.preventDefault();
       const name = form.name?.value.trim();
       const email = form.email?.value.trim();
       const message = form.message?.value.trim();
-
       if (!name || !email || !message) return showFormMessage("❌ Please fill all fields!", "error");
 
       submitBtn.disabled = true;
       showFormMessage("⏳ Sending message...", "loading");
-
       try {
-        await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID",
-          { from_name: name, from_email: email, message },
-          "YOUR_PUBLIC_KEY"
-        );
+        await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", { from_name: name, from_email: email, message }, "YOUR_PUBLIC_KEY");
         showFormMessage("✅ Message sent successfully!", "success");
         form.reset();
       } catch (err) {
         console.error(err);
         showFormMessage("❌ Failed to send. Try again!", "error");
-      } finally {
-        submitBtn.disabled = false;
-      }
+      } finally { submitBtn.disabled = false; }
     });
-
-    function showFormMessage(msg, type) {
-      formMsg.textContent = msg;
-      formMsg.style.display = "block";
-      formMsg.className = `form-message ${type}`;
-    }
   }
 
   /* ===== Floating Social Buttons ===== */
   const socialButtons = document.querySelectorAll(".social-btn");
-  window.addEventListener("scroll", () => {
+  const toggleSocialButtons = () => {
     socialButtons.forEach(btn => {
-      btn.style.opacity = window.scrollY > 200 ? "1" : "0";
-      btn.style.transform = window.scrollY > 200 ? "translateX(0)" : "translateX(-50px)";
+      const visible = window.scrollY > 200;
+      btn.style.opacity = visible ? "1" : "0";
+      btn.style.transform = visible ? "translateX(0)" : "translateX(-50px)";
     });
-  }, { passive: true });
+  };
+  window.addEventListener("scroll", () => requestAnimationFrame(toggleSocialButtons), { passive: true });
 
-  /* ===== Chatbot System (Smooth Open/Close) ===== */
+  /* ===== Chatbot System ===== */
   const chatbot = document.getElementById("chatbot");
-  const toggleBtn = document.getElementById("chatbot-toggle");
+  const chatIcon = document.getElementById("chatIcon");
   const closeBtn = document.getElementById("chatbot-close");
-  const typing = document.getElementById("chatbot-typing");
   const sendBtn = document.getElementById("chatbot-send");
   const input = document.getElementById("chatbot-input");
   const messages = document.getElementById("chatbot-messages");
+  const typing = document.getElementById("chatbot-typing");
 
-  if (chatbot && toggleBtn && closeBtn && sendBtn && input && messages && typing) {
+  if (chatbot && chatIcon && closeBtn && sendBtn && input && messages && typing) {
     const responses = {
       hello: ["Hello! 👋 How can I help you?", "Ask about my BI reports."],
       hi: ["Hi there! 👋 Do you want Retail, Finance, or HR reports?"],
@@ -140,15 +126,15 @@ document.addEventListener("DOMContentLoaded", () => {
       default: ["❓ I didn’t understand. Try: Retail, Finance, HR, or BI reports."]
     };
 
-    function addMessage(text, sender) {
+    const addMessage = (text, sender) => {
       const div = document.createElement("div");
       div.classList.add("chatbot-message", sender);
       div.innerHTML = text;
       messages.appendChild(div);
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
-    }
+    };
 
-    function botReply(userText) {
+    const botReply = (userText) => {
       typing.style.display = "flex";
       const normalizedText = userText.trim().toLowerCase();
       setTimeout(() => {
@@ -156,22 +142,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const reply = responses[normalizedText] || responses.default;
         reply.forEach((msg, i) => setTimeout(() => addMessage(msg, "bot"), i * 700));
       }, 600);
-    }
+    };
 
-    function sendMessage() {
+    const sendMessage = () => {
       const text = input.value.trim();
       if (!text) return;
       addMessage(text, "user");
       input.value = "";
       botReply(text);
-    }
+    };
 
-    toggleBtn.addEventListener("click", () => {
+    /* Chat Icon Toggle */
+    chatIcon.addEventListener("click", () => {
       chatbot.classList.add("open", "animate-open");
       chatbot.classList.remove("closing");
       messages.innerHTML = "";
       addMessage("👋 Hi! I’m your Data Bot. Ask me about BI reports!", "bot");
       input.focus();
+      chatIcon.style.transform = "scale(0.9)";
+      setTimeout(() => chatIcon.style.transform = "scale(1)", 150);
     });
 
     closeBtn.addEventListener("click", () => {
