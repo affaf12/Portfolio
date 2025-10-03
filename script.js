@@ -92,9 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("SUCCESS!", response.status, response.text);
     })
     .catch(error => {
-      formMessage.textContent = "❌ Oops! Something went wrong. Try again.";
-      formMessage.style.color = "red";
       console.error("FAILED...", error);
+
+      // Show detailed EmailJS error
+      const errorMsg = error?.text || JSON.stringify(error);
+      formMessage.innerHTML = `❌ Something went wrong:<br>${errorMsg}`;
+      formMessage.style.color = "red";
     });
   });
 
