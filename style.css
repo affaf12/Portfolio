@@ -4,7 +4,7 @@
 *::after {
   box-sizing: border-box;
 }
-html,body { height: 100%; }
+html, body { height: 100%; }
 body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
@@ -17,7 +17,7 @@ body {
 }
 
 /* Theme variables */
-:root{
+:root {
   --bg: #0b0f19;
   --text: #f9fafb;
   --muted: #9ca3af;
@@ -32,10 +32,9 @@ body {
   --main-grad: linear-gradient(135deg,#3fb8af,#34a39c,#298d85);
 }
 
-/* small helper */
 .hidden { display:none !important; }
 
-/* ================= HEADER / NAV ================= */
+/* ================= HEADER ================= */
 header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -62,7 +61,7 @@ header.sticky {
   gap: 12px;
   align-items:center;
 }
-.navbar a{
+.navbar a {
   color: var(--text);
   font-weight:600;
   padding:8px 16px;
@@ -71,7 +70,7 @@ header.sticky {
   position: relative;
   transition: all var(--transition);
 }
-.navbar a::after{
+.navbar a::after {
   content: "";
   position:absolute;
   left: 10px; right: 10px; bottom: 6px;
@@ -80,14 +79,14 @@ header.sticky {
   transition: all var(--transition);
   border-radius: 2px;
 }
-.navbar a:hover{
+.navbar a:hover {
   transform: translateY(-3px) scale(1.02);
   background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.03));
   box-shadow: 0 6px 18px var(--shadow);
 }
-.navbar a:hover::after{ background: var(--accent); }
+.navbar a:hover::after { background: var(--accent); }
 
-/* mobile menu icon */
+/* Mobile menu icon */
 #menu-icon {
   display: none;
   font-size: 30px;
@@ -95,7 +94,7 @@ header.sticky {
   color: var(--text);
 }
 
-/* ================= SECTION LAYOUT ================= */
+/* ================= SECTION ================= */
 section {
   margin-top: 70px;
   padding: 110px 10% 80px;
@@ -104,7 +103,7 @@ section {
   box-shadow: 0 6px 24px rgba(0,0,0,0.35);
   transition: transform 0.7s ease, opacity 0.7s ease;
 }
-.section-title{
+.section-title {
   font-size: clamp(1.8rem, 2.6vw, 2.6rem);
   color: var(--accent);
   text-align:center;
@@ -112,7 +111,7 @@ section {
   font-weight: 700;
   text-shadow: 0 0 8px rgba(63,184,175,0.15);
 }
-.section-title::after{
+.section-title::after {
   display:block;
   content:"";
   width: 76px;
@@ -122,13 +121,13 @@ section {
   border-radius: 3px;
 }
 
-/* responsive padding */
+/* Responsive padding */
 @media (max-width:900px){
   section { padding: 90px 6% 60px; margin-top: 60px; }
   header { padding: 12px 6%; }
 }
 
-/* ================= HOME (hero) ================= */
+/* ================= HOME ================= */
 .home {
   min-height: 78vh;
   display:flex;
@@ -144,7 +143,7 @@ section {
   align-items:center;
   flex-wrap:wrap;
 }
-.home-image img{
+.home-image img {
   width: 160px; height: 160px;
   object-fit: cover;
   border-radius: 50%;
@@ -152,15 +151,15 @@ section {
   box-shadow: 0 10px 30px rgba(63,184,175,0.25);
   transition: transform var(--transition), box-shadow var(--transition);
 }
-.home-image img:hover{ transform: scale(1.06) rotate(-2deg); }
+.home-image img:hover { transform: scale(1.06) rotate(-2deg); }
 
-/* ================= BUTTONS (FANCY) ================= */
-.btn{
+/* ================= BUTTONS ================= */
+.btn {
   position: relative;
   display: inline-flex;
   align-items:center;
   justify-content:center;
-  padding: 10px 18px;    /* smaller */
+  padding: 10px 18px;
   border-radius: 10px;
   font-weight:600;
   font-size: 0.92rem;
@@ -172,44 +171,20 @@ section {
   text-decoration: none;
   min-height: 38px;
 }
-.btn:hover{
+.btn:hover {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 8px 24px rgba(0,0,0,0.45);
 }
-
-/* Resume button */
 .btn.resume {
-  padding: 10px 18px;
-  border-radius: 10px;
   background: var(--resume-grad);
+  color: #071018;
   font-weight: 700;
-  border: none;
-  color: #071018;   /* same text color as contact form */
-  cursor: pointer;
-  transition: 0.3s;
 }
-.btn.resume:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}
-
-
-/* Contact button */
 .btn.contact {
-  padding: 10px 18px;
-  border-radius: 10px;
   background: var(--contact-grad);
+  color: #071018;
   font-weight: 700;
-  border: none;
-  color: #071018;   /* same text color */
-  cursor: pointer;
-  transition: 0.3s;
 }
-.btn.contact:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}
-
 
 /* ================= SOCIAL ICONS ================= */
 .social-links {
@@ -262,7 +237,7 @@ section {
   cursor: pointer;
 }
 
-/* ================= SCROLL BUTTON (left) ================= */
+/* ================= SCROLL BUTTON ================= */
 #scrollTopBtn {
   position: fixed;
   bottom: 26px;
@@ -287,7 +262,7 @@ section {
   visibility: visible;
 }
 
-/* ================= CHATBOT (right) ================= */
+/* ================= CHATBOT ================= */
 #chatbot-toggle {
   position: fixed;
   right: 26px;
@@ -310,7 +285,7 @@ section {
   bottom: 90px;
   width: 300px;
   max-height: 440px;
-  background: rgba(12,16,22,0.9);
+  background: rgba(12,16,22,0.96);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,0.6);
@@ -338,6 +313,33 @@ section {
   overflow-y:auto;
   flex:1;
   font-size: 0.9rem;
+}
+#chatbot-messages {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.chatbot-message {
+  padding: 8px 12px;
+  border-radius: 8px;
+  max-width: 85%;
+  line-height: 1.3;
+}
+.chatbot-message.user {
+  background: var(--accent-2);
+  align-self: flex-end;
+  color:#fff;
+}
+.chatbot-message.bot {
+  background: rgba(255,255,255,0.08);
+  align-self: flex-start;
+  color: var(--text);
+}
+#chatbot-typing {
+  font-size: 0.8rem;
+  color: var(--muted);
+  display:none;
+  margin: 6px 0;
 }
 #chatbot-footer {
   display:flex;
