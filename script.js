@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     header.classList.toggle("sticky", window.scrollY > 0);
   }, { passive: true });
 
-  // ===== Mobile Menu =====
+  // ===== Mobile Menu Toggle =====
   const menu = document.querySelector("#menu-icon");
   const navbar = document.querySelector(".navbar");
 
@@ -41,30 +41,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   const formMessage = document.getElementById("formMessage");
 
-  contactForm.addEventListener("submit", e => {
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
 
-    if (!name || !email || !message) return;
+    if (!name || !email || !message) {
+      formMessage.style.display = "block";
+      formMessage.textContent = "❌ Please fill all fields!";
+      return;
+    }
 
     formMessage.style.display = "block";
     formMessage.textContent = "Sending message...";
 
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-      from_name: name,
-      from_email: email,
-      message: message
-    }, "YOUR_PUBLIC_KEY")
-      .then(() => {
-        formMessage.textContent = "✅ Message sent successfully!";
-        contactForm.reset();
-      })
-      .catch(err => {
-        formMessage.textContent = "❌ Something went wrong. Try again!";
-        console.error("EmailJS error:", err);
-      });
+    try {
+      await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        from_name: name,
+        from_email: email,
+        message: message
+      }, "YOUR_PUBLIC_KEY");
+
+      formMessage.textContent = "✅ Message sent successfully!";
+      contactForm.reset();
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      formMessage.textContent = "❌ Something went wrong. Try again!";
+    }
   });
 });
 
@@ -87,9 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
     "default": "Sorry, I didn't understand that. Please ask about Retail, Finance, or HR reports."
   };
 
+  // Open/Close chatbot
   toggleBtn.addEventListener("click", () => { chatbot.style.display = "flex"; });
   closeBtn.addEventListener("click", () => { chatbot.style.display = "none"; });
 
+  // Send message on button click or Enter key
   sendBtn.addEventListener("click", sendMessage);
   input.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
 
@@ -103,7 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       typingIndicator.style.display = "none";
-      const response = botResponses[userText.toLowerCase()] || botResponses["default"];
+      const responseKey = userText.toLowerCase();
+      const response = botResponses[responseKey] || botResponses["default"];
       addMessage(response, "bot");
     }, 800);
   }
