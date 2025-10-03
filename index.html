@@ -2,6 +2,12 @@
 <html lang="en" data-theme="dark">
 
 <head>
+
+  <link rel="stylesheet" href="css/style.css">
+<script src="js/script.js" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Muhammad Affaf | Data Analyst & Power BI Developer</title>
@@ -180,25 +186,30 @@
   <button id="chatIcon" aria-label="Open Chatbot">💬</button>
 
   <script>
-    // ===== THEME TOGGLE =====
-    const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.addEventListener('click', () => {
-      const html = document.documentElement;
-      if (html.dataset.theme === 'dark') {
-        html.dataset.theme = 'light';
-        themeBtn.innerHTML = "<i class='bx bx-sun'></i>";
-      } else {
-        html.dataset.theme = 'dark';
-        themeBtn.innerHTML = "<i class='bx bx-moon'></i>";
-      }
-    });
+  // THEME TOGGLE
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn.addEventListener('click', () => {
+    const html = document.documentElement;
+    if (html.dataset.theme === 'dark') {
+      html.dataset.theme = 'light';
+      themeBtn.innerHTML = "<i class='bx bx-sun'></i>";
+    } else {
+      html.dataset.theme = 'dark';
+      themeBtn.innerHTML = "<i class='bx bx-moon'></i>";
+    }
+  });
 
-    // ===== MENU TOGGLE =====
-    const menuIcon = document.getElementById('menu-icon');
-    const navbar = document.querySelector('.navbar');
-    menuIcon.addEventListener('click', () => {
-      navbar.classList.toggle('active');
-    });
+  // MENU TOGGLE
+  const menuIcon = document.getElementById('menu-icon');
+  const navbar = document.querySelector('.navbar');
+  menuIcon.addEventListener('click', () => navbar.classList.toggle('active'));
+
+  // SCROLL TO TOP
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+  });
+  scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // ===== SCROLL TO TOP =====
     const scrollBtn = document.getElementById('scrollTopBtn');
