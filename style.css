@@ -65,11 +65,12 @@ header {
     border-radius: 0 0 16px 16px;
     box-shadow: 0 8px 30px var(--shadow);
     z-index: 1200;
+    transition: all 0.4s ease;
 }
 header.sticky {
     background: var(--glass-strong);
     padding: 12px 8%;
-    box-shadow: 0 6px 30px var(--shadow-strong);
+    box-shadow: 0 10px 40px var(--shadow-strong);
     animation: stickyDrop 0.4s ease forwards;
 }
 @keyframes stickyDrop {
@@ -131,6 +132,7 @@ header.sticky {
         max-height: 0;
         overflow: hidden;
         box-shadow: 0 8px 30px var(--shadow-strong);
+        transition: max-height 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     }
     .navbar.active { max-height: 600px; }
 }
@@ -165,7 +167,10 @@ section {
     transform: translateY(40px);
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
-section.visible { opacity: 1; transform: translateY(0); }
+section.visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
 .section-title {
     font-size: clamp(1.8rem,2.6vw,2.6rem);
     color: var(--accent);
@@ -231,8 +236,16 @@ section.visible { opacity: 1; transform: translateY(0); }
     font-size:1rem; font-weight:600;
     background: var(--grad-main); color:#fff; border:none;
     cursor:pointer; box-shadow: 0 6px 18px var(--shadow);
+    position: relative;
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
 }
+.btn::before {
+    content:""; position:absolute; top:0; left:-100%; width:100%; height:100%;
+    background: rgba(255,255,255,0.2); transform: skewX(-20deg);
+    transition: all 0.5s ease;
+}
+.btn:hover::before { left:100%; }
 .btn:hover { 
     transform: translateY(-4px) scale(1.05);
     box-shadow:0 12px 35px var(--shadow-strong); 
@@ -254,6 +267,7 @@ section.visible { opacity: 1; transform: translateY(0); }
     box-shadow: 0 8px 30px var(--shadow);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
     transform-style: preserve-3d;
+    animation: floatCard 4s ease-in-out infinite;
 }
 .skill-card:hover {
     transform: translateY(-10px) rotateY(15deg) scale(1.05);
@@ -261,6 +275,7 @@ section.visible { opacity: 1; transform: translateY(0); }
 }
 .skill-card img { width: 60px; margin-bottom: 10px; transition: transform 0.4s ease; }
 .skill-card:hover img { transform: scale(1.2) rotate(10deg); }
+@keyframes floatCard { 0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
 
 /* ================= SCROLL TO TOP ================= */
 #scrollTopBtn {
@@ -268,8 +283,10 @@ section.visible { opacity: 1; transform: translateY(0); }
     background: var(--accent); color:#fff; border:none; border-radius:50%;
     padding:12px; cursor:pointer; font-size:1.2rem;
     transition: all 0.3s ease;
+    animation: bounceBtn 2s infinite;
 }
 #scrollTopBtn:hover { transform: scale(1.15); }
+@keyframes bounceBtn { 0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);} }
 
 /* ================= CHATBOT ================= */
 #chatbot {
@@ -277,12 +294,14 @@ section.visible { opacity: 1; transform: translateY(0); }
     background: var(--glass-strong); border-radius:16px;
     box-shadow:0 12px 50px var(--shadow-strong); z-index:1500;
     flex-direction: column; overflow:hidden;
+    animation: floatChat 3s ease-in-out infinite;
 }
+@keyframes floatChat { 0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);} }
 #chatbot-header { background: var(--accent); padding:12px; color:#fff; display:flex; justify-content:space-between; align-items:center; }
 #chatbot-body { padding:12px; height:250px; overflow-y:auto; display:flex; flex-direction:column; gap:6px; }
 #chatbot-footer { display:flex; gap:6px; padding:8px; }
 #chatbot-footer input { flex:1; border-radius:12px; padding:8px 12px; border:none; }
-#chatIcon { position:fixed; bottom:20px; right:20px; font-size:28px; cursor:pointer; background: var(--accent); color:#fff; border-radius:50%; width:48px;height:48px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px var(--shadow); }
+#chatIcon { position:fixed; bottom:20px; right:20px; font-size:28px; cursor:pointer; background: var(--accent); color:#fff; border-radius:50%; width:48px;height:48px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px var(--shadow); animation: floatChat 3s ease-in-out infinite; }
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:990px){
