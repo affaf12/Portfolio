@@ -1,264 +1,258 @@
-/* ===== Reset & Variables ===== */
+/* ================= RESET & VARIABLES ================= */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Quicksand', sans-serif;
-    scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+  scroll-behavior: smooth;
 }
 :root {
-    --bg-color: #0b0f19;
-    --text-color: #f9fafb;
-    --main-color: #3fb8af;
-    --gradient: linear-gradient(135deg, #3fb8af, #34a39c, #298d85);
-    --gradient-hover: linear-gradient(135deg, #34a39c, #3fb8af, #2a8d85);
-    --second-color: #9ca3af;
-    --form-bg: rgba(15, 20, 35, 0.65);
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --shadow-color: rgba(63, 184, 175, 0.4);
-    --transition-speed: 0.35s;
+  --bg-color: #0b0f19;
+  --text-color: #f9fafb;
+  --main-color: #3fb8af;
+  --second-color: #9ca3af;
+
+  --gradient: linear-gradient(135deg, #3fb8af, #34a39c, #298d85);
+  --gradient-hover: linear-gradient(135deg, #34a39c, #3fb8af, #2a8d85);
+
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --form-bg: rgba(15, 20, 35, 0.65);
+  --shadow-color: rgba(63, 184, 175, 0.4);
+  --transition: 0.35s ease;
 }
 
-/* ===== Base ===== */
-body { 
-    background: var(--bg-color); 
-    color: var(--text-color); 
-    overflow-x: hidden; 
+/* ================= BASE ================= */
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
 }
 h1,h2,h3,h4,h5,h6 { margin: 0; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--main-color); color: var(--bg-color); }
 
-/* ===== Header ===== */
+/* ================= HEADER ================= */
 header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(11, 15, 25, 0.3);
-    padding: 20px 12%;
-    border-radius: 0 0 15px 15px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 25px rgba(63,184,175,0.2);
-    transition: all 0.5s ease;
-    z-index: 1000;
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 12%;
+  border-radius: 0 0 15px 15px;
+  background: rgba(11,15,25,0.3);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(63,184,175,0.2);
+  transition: background var(--transition), box-shadow var(--transition);
+  z-index: 1000;
 }
-header.sticky { 
-    background: rgba(11,15,25,0.95); 
-    box-shadow:0 4px 25px var(--shadow-color); 
+header.sticky {
+  background: rgba(11,15,25,0.95);
+  box-shadow: 0 4px 25px var(--shadow-color);
 }
 
-/* ===== Navbar ===== */
-.navbar { display: flex; gap: 10px; }
+/* ================= NAVBAR ================= */
+.navbar {
+  display: flex;
+  gap: 12px;
+}
 .navbar a {
-    font-size: 1.05rem;
-    font-weight:600;
-    padding:10px 22px;
-    border-radius:0.7rem;
-    position:relative;
-    transition:all var(--transition-speed);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 0.6rem;
+  position: relative;
+  transition: all var(--transition);
 }
 .navbar a::after {
-    content:'';
-    position:absolute;
-    width:0;
-    height:2px;
-    background:var(--main-color);
-    bottom:0;
-    left:0;
-    transition: width var(--transition-speed);
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--main-color);
+  transition: width var(--transition);
 }
-.navbar a:hover::after { width:100%; }
-.navbar a:hover { 
-    background: var(--gradient-hover); 
-    transform:translateY(-3px) scale(1.05); 
-    box-shadow:0px 6px 20px var(--shadow-color); 
+.navbar a:hover::after { width: 100%; }
+.navbar a:hover {
+  background: var(--gradient-hover);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 18px var(--shadow-color);
 }
 
-/* ===== Menu Icon ===== */
-#menu-icon { 
-    font-size:34px; 
-    cursor:pointer; 
-    color:var(--text-color); 
-    display:none; 
-    transition: transform var(--transition-speed); 
+/* ================= MENU ICON ================= */
+#menu-icon {
+  font-size: 32px;
+  cursor: pointer;
+  color: var(--text-color);
+  display: none;
+  transition: transform var(--transition);
 }
-#menu-icon:hover { transform:rotate(15deg) scale(1.1); }
+#menu-icon:hover { transform: rotate(15deg) scale(1.1); }
 
-/* ===== Sections ===== */
-section { 
-    padding: 150px 12% 90px; 
-    position: relative; 
-    opacity:0; 
-    transform: translateY(50px); 
-    transition: opacity 0.9s ease, transform 0.9s ease; 
-    backdrop-filter: blur(10px);
-    background: var(--glass-bg);
-    border-radius: 20px;
+/* ================= SECTIONS ================= */
+section {
+  padding: 120px 12% 80px;
+  margin-top: 70px;
+  position: relative;
+  background: var(--glass-bg);
+  border-radius: 20px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
-.reveal-visible { 
-    opacity:1; 
-    transform: translateY(0); 
-    animation: fadeInUp 0.9s forwards; 
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
-
-/* ===== Section Titles ===== */
 .section-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: var(--main-color);
-    margin-bottom: 1rem;
-    text-align: center;
-    position: relative;
-    text-shadow: 0 0 10px rgba(63,184,175,0.3);
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--main-color);
+  text-shadow: 0 0 10px rgba(63,184,175,0.3);
+  margin-bottom: 1rem;
 }
 .section-title::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 3px;
-    margin: 12px auto 0;
-    background: var(--gradient);
-    border-radius: 2px;
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin: 12px auto 0;
+  background: var(--gradient);
+  border-radius: 2px;
 }
 
-/* ===== Scroll-To-Top Button (Left Side) ===== */
+/* ================= SCROLL BUTTON (LEFT) ================= */
 #scrollTopBtn {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    width: 55px;
-    height: 55px;
-    background: var(--main-color);
-    color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 6px 20px rgba(63,184,175,0.6);
-    cursor: pointer;
-    font-size: 24px;
-    display: none; /* Hidden by default */
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 1000;
+  position: fixed;
+  bottom: 25px; left: 25px;
+  width: 50px; height: 50px;
+  display: none; /* hidden default */
+  align-items: center; justify-content: center;
+  font-size: 22px;
+  background: var(--main-color);
+  color: var(--bg-color);
+  border: none; border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(63,184,175,0.6);
+  transition: all var(--transition);
+  z-index: 1000;
 }
 #scrollTopBtn:hover {
-    transform: scale(1.2) rotate(-10deg);
-    box-shadow: 0 12px 30px rgba(63,184,175,0.8);
+  transform: scale(1.15) rotate(-10deg);
+  box-shadow: 0 12px 30px rgba(63,184,175,0.8);
 }
 
-/* ===== Chatbot Toggle Button (Right Side) ===== */
+/* ================= CHATBOT BUTTON & PANEL ================= */
 #chatbot-toggle {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: var(--main-color);
-    color: #fff;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 20px rgba(63,184,175,0.5);
-    z-index: 1000;
-    transition: all 0.3s ease;
+  position: fixed;
+  bottom: 25px; right: 25px;
+  width: 55px; height: 55px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  background: var(--main-color);
+  color: #fff;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(63,184,175,0.5);
+  transition: all var(--transition);
+  z-index: 1000;
 }
 #chatbot-toggle:hover {
-    transform: scale(1.15);
-    background: var(--gradient-hover);
+  transform: scale(1.15);
+  background: var(--gradient-hover);
+}
+#chatbot {
+  position: fixed;
+  bottom: 90px; right: 25px;
+  width: 320px; max-height: 480px;
+  display: none; flex-direction: column;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(63,184,175,0.4);
+  overflow: hidden;
+  transition: transform var(--transition);
+  z-index: 9999;
+}
+#chatbot.show { display: flex; }
+
+#chatbot-header {
+  background: var(--main-color);
+  color: var(--bg-color);
+  padding: 12px 16px;
+  font-weight: 600;
+  display: flex; justify-content: space-between; align-items: center;
+}
+#chatbot-body {
+  flex: 1;
+  padding: 12px 16px;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.chatbot-message {
+  padding: 10px 14px;
+  border-radius: 15px;
+  max-width: 80%;
+}
+.chatbot-message.user {
+  align-self: flex-end;
+  background: var(--main-color);
+  color: var(--bg-color);
+}
+.chatbot-message.bot {
+  align-self: flex-start;
+  background: rgba(63,184,175,0.15);
+  color: var(--text-color);
+}
+#chatbot-footer {
+  display: flex; gap: 8px;
+  padding: 10px 12px;
+  background: rgba(11,15,25,0.7);
+}
+#chatbot-footer input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #111827;
+  color: var(--text-color);
+  outline: none;
+}
+#chatbot-footer button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: var(--gradient);
+  color: var(--bg-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+#chatbot-footer button:hover {
+  transform: scale(1.05);
+  background: var(--gradient-hover);
+  box-shadow: 0 8px 20px rgba(63,184,175,0.6);
 }
 
-/* ===== Chatbot Panel ===== */
-#chatbot { 
-    position: fixed; 
-    bottom: 110px; 
-    right: 30px; 
-    width: 340px; 
-    max-height: 500px; 
-    background: var(--glass-bg); 
-    backdrop-filter: blur(15px); 
-    border-radius: 20px; 
-    display: none; 
-    flex-direction: column; 
-    box-shadow: 0 10px 35px rgba(63,184,175,0.4); 
-    z-index: 9999; 
-    overflow: hidden; 
-    transition: transform 0.35s ease, box-shadow 0.35s ease; 
-}
-#chatbot.show { display:flex; transform: translateY(0); }
-#chatbot-header { 
-    background:var(--main-color); 
-    color:var(--bg-color); 
-    padding:15px 20px; 
-    font-weight:600; 
-    display:flex; 
-    justify-content:space-between; 
-    align-items:center; 
-}
-#chatbot-close:hover { transform: scale(1.2); }
-#chatbot-body { 
-    flex:1; 
-    padding:15px 20px; 
-    overflow-y:auto; 
-    display:flex; 
-    flex-direction:column; 
-    gap:10px; 
-}
-.chatbot-message.user { 
-    align-self:flex-end; 
-    background: var(--main-color); 
-    color: var(--bg-color); 
-    padding:10px 15px; 
-    border-radius:15px; 
-}
-.chatbot-message.bot { 
-    align-self:flex-start; 
-    background: rgba(63,184,175,0.15); 
-    color: var(--text-color); 
-    padding:10px 15px; 
-    border-radius:15px; 
-}
-#chatbot-footer { 
-    display:flex; 
-    gap:10px; 
-    padding:10px 15px; 
-    background: rgba(11,15,25,0.7); 
-}
-#chatbot-footer input { 
-    flex:1; 
-    padding:12px 15px; 
-    border-radius:12px; 
-    border:1px solid #333; 
-    background:#111827; 
-    color:var(--text-color); 
-    font-size:1rem; 
-    outline:none; 
-}
-#chatbot-footer button { 
-    padding:12px 16px; 
-    border-radius:12px; 
-    border:none; 
-    background:var(--gradient); 
-    color:var(--bg-color); 
-    font-weight:600; 
-    cursor:pointer; 
-    transition: all 0.3s ease; 
-}
-#chatbot-footer button:hover { 
-    transform: scale(1.05); 
-    box-shadow:0 12px 40px rgba(63,184,175,0.7); 
-    background: var(--gradient-hover); 
-}
-
-/* ===== Responsive ===== */
+/* ================= RESPONSIVE ================= */
 @media screen and (max-width:768px){
-    #chatbot { width:260px; right:15px; bottom:90px; max-height:450px; }
-    #scrollTopBtn { width:45px; height:45px; bottom:60px; left:15px; font-size:20px; }
-    #chatbot-toggle { width:50px; height:50px; bottom:60px; right:15px; font-size:22px; }
+  header { padding: 15px 8%; }
+  section { padding: 100px 8% 60px; }
+  
+  #scrollTopBtn { 
+    width: 45px; height: 45px; 
+    font-size: 18px; 
+    left: 15px; bottom: 60px; 
+  }
+  #chatbot-toggle { 
+    width: 48px; height: 48px; 
+    font-size: 18px; 
+    right: 15px; bottom: 60px; 
+  }
+  #chatbot { 
+    width: 260px; max-height: 420px; 
+    right: 15px; bottom: 80px; 
+  }
 }
