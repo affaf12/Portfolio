@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* Sticky Header */
+  /* ===== STICKY HEADER ===== */
   const header = document.querySelector("header");
-  window.addEventListener("scroll", () => { header.classList.toggle("sticky", window.scrollY > 50); });
+  window.addEventListener("scroll", () => {
+    header.classList.toggle("sticky", window.scrollY > 50);
+  });
 
-  /* Mobile Menu */
+  /* ===== MOBILE MENU ===== */
   const menu = document.getElementById("menu-icon");
   const navbar = document.querySelector(".navbar");
   menu.addEventListener("click", () => {
@@ -14,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navbar.classList.toggle("active");
   });
 
-  /* Navbar active link */
+  /* ===== ACTIVE NAV LINK ON SCROLL ===== */
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".navbar a");
   window.addEventListener("scroll", () => {
@@ -27,17 +29,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* Scroll to top */
+  /* ===== SCROLL TO TOP BUTTON ===== */
   const scrollBtn = document.getElementById("scrollTopBtn");
-  window.addEventListener("scroll", () => { scrollBtn.style.display = window.scrollY > 300 ? "block" : "none"; });
-  scrollBtn.addEventListener("click", () => { window.scrollTo({top:0, behavior:"smooth"}); });
+  window.addEventListener("scroll", () => {
+    scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
+  });
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
 
-  /* Theme Toggle */
+  /* ===== THEME TOGGLE ===== */
   const themeToggle = document.getElementById("theme-toggle");
   const html = document.documentElement;
-  const savedTheme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  const savedTheme = localStorage.getItem("theme") || 
+                     (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   html.setAttribute("data-theme", savedTheme);
   themeToggle.classList.toggle("light", savedTheme==="light");
+
   themeToggle.addEventListener("click", () => {
     const current = html.getAttribute("data-theme");
     const next = current==="light"?"dark":"light";
@@ -46,7 +54,31 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("theme", next);
   });
 
-  /* Chatbot */
+  /* ===== CONTACT FORM ===== */
+  const contactForm = document.getElementById("contactForm");
+  const formMessage = document.getElementById("formMessage");
+
+  contactForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if(!name || !email || !message){
+      formMessage.textContent = "Please fill all fields!";
+      formMessage.style.color = "red";
+      return;
+    }
+
+    // Show success message
+    formMessage.textContent = "✅ Thank you! Your message has been sent.";
+    formMessage.style.color = "green";
+    contactForm.reset();
+    
+    // Optional: Integrate with EmailJS or Formspree here
+  });
+
+  /* ===== CHATBOT FUNCTIONALITY ===== */
   const chatbot = document.getElementById("chatbot");
   const chatIcon = document.getElementById("chatIcon");
   const closeBtn = document.getElementById("chatbot-close");
@@ -60,6 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
     hi:["Hi! 👋 Ask me about BI reports."],
     "do you make power bi report":["✅ Yes, I make Power BI reports!"],
     retail:["📊 Retail demo: <a href='#'>View Report</a>"],
+    finance:["📊 Finance demo: <a href='#'>View Report</a>"],
+    hr:["📊 HR demo: <a href='#'>View Report</a>"],
     default:["❓ I didn’t understand. Try: Retail, Finance, HR."]
   };
 
@@ -76,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       typing.style.display="none";
       const reply = responses[text.trim().toLowerCase()] || responses.default;
-      reply.forEach((msg,i)=> setTimeout(()=>addMessage(msg,"bot"),i*700));
+      reply.forEach((msg,i)=> setTimeout(()=>addMessage(msg,"bot"), i*700));
     },600);
   };
 
@@ -87,11 +121,16 @@ document.addEventListener("DOMContentLoaded", () => {
     input.focus();
   });
 
-  closeBtn.addEventListener("click", () => {
-    chatbot.classList.remove("open");
+  closeBtn.addEventListener("click", () => { chatbot.classList.remove("open"); });
+
+  sendBtn.addEventListener("click", ()=>{
+    const text = input.value.trim();
+    if(!text) return;
+    addMessage(text,"user");
+    input.value="";
+    botReply(text);
   });
 
-  sendBtn.addEventListener("click", ()=>{ const text=input.value.trim(); if(!text) return; addMessage(text,"user"); input.value=""; botReply(text); });
   input.addEventListener("keypress", e=>{ if(e.key==="Enter") sendBtn.click(); });
 
 });
