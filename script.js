@@ -1,5 +1,6 @@
 /* ================= MAIN SCRIPT ================= */
 document.addEventListener("DOMContentLoaded", () => {
+
   /* ===== Sticky Header with Smooth Shadow ===== */
   const header = document.querySelector("header");
   window.addEventListener("scroll", () => {
@@ -26,12 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const secTop = sec.offsetTop - 100;
       const secHeight = sec.offsetHeight;
       if (scrollY >= secTop && scrollY < secTop + secHeight) {
-        navLinks.forEach(link => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${sec.id}`) {
-            link.classList.add("active");
-          }
-        });
+        navLinks.forEach(link => link.classList.remove("active"));
+        const activeLink = document.querySelector(`.navbar a[href="#${sec.id}"]`);
+        activeLink?.classList.add("active");
       }
     });
   }, { passive: true });
@@ -39,11 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===== Scroll-to-Top Button (Animated) ===== */
   const scrollBtn = document.getElementById("scrollTopBtn");
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollBtn.classList.add("show");
-    } else {
-      scrollBtn.classList.remove("show");
-    }
+    scrollBtn.classList.toggle("show", window.scrollY > 300);
   }, { passive: true });
 
   scrollBtn?.addEventListener("click", () =>
@@ -69,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID",
-          { from_name: name, from_email: email, message: message },
+          { from_name: name, from_email: email, message },
           "YOUR_PUBLIC_KEY"
         );
         showFormMessage("✅ Message sent successfully!", "success");
@@ -90,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===== Theme Toggle ===== */
   const themeToggle = document.getElementById("theme-toggle");
   const html = document.documentElement;
-
   if (localStorage.getItem("theme") === "light") {
     html.setAttribute("data-theme", "light");
     themeToggle?.classList.add("light");
@@ -107,10 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", "light");
     }
   });
-});
 
-/* ================= CHATBOT SYSTEM ================= */
-(() => {
+  /* ================= CHATBOT SYSTEM ================= */
   const chatbot = document.getElementById("chatbot");
   const toggleBtn = document.getElementById("chatbot-toggle");
   const closeBtn = document.getElementById("chatbot-close");
@@ -143,12 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function botReply(userText) {
-    typing.style.display = "block";
+    typing.style.display = "flex";
     setTimeout(() => {
       typing.style.display = "none";
       const reply = responses[userText.toLowerCase()] || responses.default;
-      reply.forEach((msg, i) => setTimeout(() => addMessage(msg, "bot"), i * 800));
-    }, 700);
+      reply.forEach((msg, i) => setTimeout(() => addMessage(msg, "bot"), i * 700));
+    }, 600);
   }
 
   function sendMessage() {
@@ -159,20 +150,21 @@ document.addEventListener("DOMContentLoaded", () => {
     botReply(text);
   }
 
-  /* ===== Chatbot Open/Close with Animation ===== */
+  /* Chatbot Open/Close */
   toggleBtn.onclick = () => {
     chatbot.classList.add("open");
     chatbot.classList.remove("closing");
     messages.innerHTML = "";
     addMessage("👋 Hi! I’m your Data Bot. Ask me about BI reports!", "bot");
+    input.focus(); // Auto-focus input
   };
 
   closeBtn.onclick = () => {
     chatbot.classList.remove("open");
     chatbot.classList.add("closing");
-    setTimeout(() => chatbot.classList.remove("closing"), 400); // sync with CSS animation
+    setTimeout(() => chatbot.classList.remove("closing"), 400);
   };
 
   sendBtn.onclick = sendMessage;
   input.addEventListener("keypress", e => e.key === "Enter" && sendMessage());
-})();
+});
