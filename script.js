@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   scrollBtn.addEventListener("click", () => window.scrollTo({top:0,behavior:"smooth"}));
 });
 
-// Chatbot
+// ===== Chatbot JS =====
 (() => {
   const chatbot = document.getElementById("chatbot");
   const toggleBtn = document.getElementById("chatbot-toggle");
@@ -75,35 +75,69 @@ document.addEventListener("DOMContentLoaded", () => {
   const messages = document.getElementById("chatbot-messages");
 
   const botResponses = {
-    "retail": "✅ Retail Analytics demo report: <a href='https://your-retail-report.com' target='_blank'>View Report</a>",
-    "finance": "✅ Finance Analytics demo report: <a href='https://your-finance-report.com' target='_blank'>View Report</a>",
-    "hr": "✅ HR Analytics demo report: <a href='https://your-hr-report.com' target='_blank'>View Report</a>",
-    "hello": "Hello! Ask me about reports: Retail, Finance, HR...",
-    "hi": "Hi there! I can provide demo reports for Retail, Finance, HR...",
-    "default": "Sorry, I didn't understand that. Please ask about Retail, Finance, or HR reports."
+    "hello": ["Hello! How are you?", "How can I help you today?"],
+    "hi": ["Hi there! How are you?", "Do you want to see Retail, Finance, or HR reports?"],
+    "retail": ["✅ Retail Analytics demo report: <a href='https://your-retail-report.com' target='_blank'>View Report</a>"],
+    "finance": ["✅ Finance Analytics demo report: <a href='https://your-finance-report.com' target='_blank'>View Report</a>"],
+    "hr": ["✅ HR Analytics demo report: <a href='https://your-hr-report.com' target='_blank'>View Report</a>"],
+    "default": ["Sorry, I didn’t understand that 🤔", "Please ask about Retail, Finance, or HR reports."]
   };
 
-  toggleBtn.addEventListener("click", ()=>chatbot.style.display="flex");
-  closeBtn.addEventListener("click", ()=>chatbot.style.display="none");
-  sendBtn.addEventListener("click", sendMessage);
-  input.addEventListener("keypress", e => { if(e.key==="Enter") sendMessage(); });
+  // Open chatbot + greet every time it's opened
+  toggleBtn.addEventListener("click", () => {
+    chatbot.style.display = "flex";
+    chatbot.classList.add("show");
+    messages.innerHTML = ""; // clear old messages
+    autoGreet();
+  });
 
-  function sendMessage(){
+  // Close chatbot
+  closeBtn.addEventListener("click", () => { 
+    chatbot.style.display = "none"; 
+    chatbot.classList.remove("show");
+  });
+
+  // Send message on button click or Enter key
+  sendBtn.addEventListener("click", sendMessage);
+  input.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+
+  function sendMessage() {
     const userText = input.value.trim();
-    if(!userText) return;
-    addMessage(userText,"user");
-    input.value="";
-    setTimeout(()=>{
-      const response = botResponses[userText.toLowerCase()] || botResponses["default"];
-      addMessage(response,"bot");
+    if (!userText) return;
+
+    addMessage(userText, "user");
+    input.value = "";
+    typingIndicator.style.display = "block";
+
+    setTimeout(() => {
+      typingIndicator.style.display = "none";
+      const responseKey = userText.toLowerCase();
+      const responses = botResponses[responseKey] || botResponses["default"];
+
+      // Send multiple bot replies in sequence
+      responses.forEach((reply, i) => {
+        setTimeout(() => { addMessage(reply, "bot"); }, i * 1000);
+      });
     }, 800);
   }
 
-  function addMessage(text,sender){
+  function addMessage(text, sender) {
     const div = document.createElement("div");
-    div.classList.add("chatbot-message",sender);
+    div.classList.add("chatbot-message", sender);
     div.innerHTML = text;
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
+  }
+
+  // Auto greeting message (always on open)
+  function autoGreet() {
+    typingIndicator.style.display = "block";
+    setTimeout(() => {
+      typingIndicator.style.display = "none";
+      addMessage("👋 Hi! I’m your Data Bot.", "bot");
+      setTimeout(() => { 
+        addMessage("Ask me about Retail, Finance, or HR reports anytime!", "bot"); 
+      }, 1200);
+    }, 900);
   }
 })();
