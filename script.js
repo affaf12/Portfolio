@@ -10,13 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===== MOBILE MENU TOGGLE ===== */
   const menuIcon = document.querySelector("#menu-icon");
   const navbar = document.querySelector(".navbar");
-  menuIcon.addEventListener("click", () => {
-    navbar.classList.toggle("active");
-  });
-  // Close mobile menu on nav link click
-  document.querySelectorAll(".navbar a").forEach(link => {
-    link.addEventListener("click", () => navbar.classList.remove("active"));
-  });
+  menuIcon.addEventListener("click", () => navbar.classList.toggle("active"));
+  document.querySelectorAll(".navbar a").forEach(link =>
+    link.addEventListener("click", () => navbar.classList.remove("active"))
+  );
 
   /* ===== THEME TOGGLE ===== */
   const themeToggle = document.querySelector(".theme-toggle");
@@ -42,9 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ===== SCROLL TO TOP BUTTON ===== */
   const scrollBtn = document.getElementById("scrollTopBtn");
-  window.addEventListener("scroll", () => {
-    scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
-  });
+  window.addEventListener("scroll", () => scrollBtn.style.display = window.scrollY > 300 ? "block" : "none");
   scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
   /* ===== CHATBOT FUNCTIONALITY ===== */
@@ -83,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       chatTyping.style.display = "none";
-      const response = responses[msg.toLowerCase()] || responses["default"];
+      const response = responses[msg.toLowerCase()] || responses.default;
       addMessage(response[Math.floor(Math.random() * response.length)], "bot");
     }, 800);
   }
@@ -91,15 +86,17 @@ document.addEventListener("DOMContentLoaded", () => {
   chatSend.addEventListener("click", sendMessage);
   chatInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
 
-  /* ===== SCROLL-TRIGGERED ANIMATIONS ===== */
+  /* ===== SCROLL-TRIGGERED STAGGER ANIMATIONS ===== */
   const sections = document.querySelectorAll("section");
   const navLinks = document.querySelectorAll(".navbar a");
 
   function revealSections() {
     const triggerBottom = window.innerHeight * 0.85;
-    sections.forEach(section => {
+    sections.forEach((section, index) => {
       const sectionTop = section.getBoundingClientRect().top;
-      if (sectionTop < triggerBottom) section.classList.add("visible");
+      if (sectionTop < triggerBottom && !section.classList.contains("visible")) {
+        setTimeout(() => section.classList.add("visible"), index * 150); // stagger delay
+      }
     });
   }
 
@@ -107,21 +104,22 @@ document.addEventListener("DOMContentLoaded", () => {
     revealSections();
     highlightNav();
   });
-
-  revealSections(); // initial trigger on page load
+  revealSections(); // initial trigger
 
   /* ===== ACTIVE NAV LINK HIGHLIGHT ===== */
   function highlightNav() {
-    let scrollPos = window.scrollY || window.pageYOffset;
+    const scrollPos = window.scrollY || window.pageYOffset;
     sections.forEach(section => {
       const sectionTop = section.offsetTop - 120;
       const sectionHeight = section.offsetHeight;
       const sectionId = section.getAttribute("id");
+      const link = document.querySelector(`.navbar a[href="#${sectionId}"]`);
       if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-        navLinks.forEach(link => link.classList.remove("active"));
-        document.querySelector(`.navbar a[href="#${sectionId}"]`)?.classList.add("active");
+        link?.classList.add("active");
+      } else {
+        link?.classList.remove("active");
       }
     });
   }
-  highlightNav(); // initial trigger
+  highlightNav();
 });
