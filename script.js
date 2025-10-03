@@ -22,9 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
     let scrollY = window.scrollY + 150;
     sections.forEach(section => {
-      if(scrollY >= section.offsetTop && scrollY < section.offsetTop + section.offsetHeight){
+      if (scrollY >= section.offsetTop && scrollY < section.offsetTop + section.offsetHeight) {
         navLinks.forEach(link => link.classList.remove("active"));
-        document.querySelector(`.navbar a[href="#${section.id}"]`).classList.add("active");
+        const activeLink = document.querySelector(`.navbar a[href="#${section.id}"]`);
+        if (activeLink) activeLink.classList.add("active");
       }
     });
   });
@@ -35,47 +36,61 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
   });
   scrollBtn.addEventListener("click", () => {
-    window.scrollTo({top:0, behavior:"smooth"});
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   /* ===== THEME TOGGLE ===== */
   const themeToggle = document.getElementById("theme-toggle");
   const html = document.documentElement;
-  const savedTheme = localStorage.getItem("theme") || 
+  const savedTheme = localStorage.getItem("theme") ||
                      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   html.setAttribute("data-theme", savedTheme);
-  themeToggle.classList.toggle("light", savedTheme==="light");
+  themeToggle.classList.toggle("light", savedTheme === "light");
 
   themeToggle.addEventListener("click", () => {
     const current = html.getAttribute("data-theme");
-    const next = current==="light"?"dark":"light";
+    const next = current === "light" ? "dark" : "light";
     html.setAttribute("data-theme", next);
-    themeToggle.classList.toggle("light", next==="light");
+    themeToggle.classList.toggle("light", next === "light");
     localStorage.setItem("theme", next);
   });
 
-  /* ===== CONTACT FORM ===== */
+  /* ===== CONTACT FORM WITH EMAILJS ===== */
   const contactForm = document.getElementById("contactForm");
   const formMessage = document.getElementById("formMessage");
 
   contactForm.addEventListener("submit", e => {
     e.preventDefault();
+
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
 
-    if(!name || !email || !message){
+    if (!name || !email || !message) {
       formMessage.textContent = "Please fill all fields!";
       formMessage.style.color = "red";
       return;
     }
 
-    // Show success message
-    formMessage.textContent = "✅ Thank you! Your message has been sent.";
-    formMessage.style.color = "green";
-    contactForm.reset();
-    
-    // Optional: Integrate with EmailJS or Formspree here
+    formMessage.textContent = "Sending...";
+    formMessage.style.color = "#2563eb";
+
+    emailjs.send('service_o4sgh8w', 'YOUR_TEMPLATE_ID', {
+      to_name: name,    // dynamically replaces {{to_name}} in EmailJS template
+      from_email: email,
+      message: message
+    })
+    .then(response => {
+      formMessage.textContent = `✅ Thank you ${name}! Your message has been sent.`;
+      formMessage.style.color = "green";
+      contactForm.reset();
+      console.log("SUCCESS!", response.status, response.text);
+    })
+    .catch(error => {
+      formMessage.textContent = "❌ Oops! Something went wrong. Try again.";
+      formMessage.style.color = "red";
+      console.error("FAILED...", error);
+    });
   });
 
   /* ===== CHATBOT FUNCTIONALITY ===== */
@@ -88,30 +103,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const typing = document.getElementById("chatbot-typing");
 
   const responses = {
-    hello:["Hello! 👋 How can I help you?"],
-    hi:["Hi! 👋 Ask me about BI reports."],
-    "do you make power bi report":["✅ Yes, I make Power BI reports!"],
-    retail:["📊 Retail demo: <a href='#'>View Report</a>"],
-    finance:["📊 Finance demo: <a href='#'>View Report</a>"],
-    hr:["📊 HR demo: <a href='#'>View Report</a>"],
-    default:["❓ I didn’t understand. Try: Retail, Finance, HR."]
+    hello: ["Hello! 👋 How can I help you?"],
+    hi: ["Hi! 👋 Ask me about BI reports."],
+    "do you make power bi report": ["✅ Yes, I make Power BI reports!"],
+    retail: ["📊 Retail demo: <a href='#'>View Report</a>"],
+    finance: ["📊 Finance demo: <a href='#'>View Report</a>"],
+    hr: ["📊 HR demo: <a href='#'>View Report</a>"],
+    default: ["❓ I didn’t understand. Try: Retail, Finance, HR."]
   };
 
-  const addMessage = (text,sender) => {
+  const addMessage = (text, sender) => {
     const div = document.createElement("div");
-    div.classList.add("chatbot-message",sender==="user"?"user":"bot");
-    div.innerHTML = sender==="user"?text.replace(/</g,"&lt;").replace(/>/g,"&gt;"):text;
+    div.classList.add("chatbot-message", sender === "user" ? "user" : "bot");
+    div.innerHTML = sender === "user" ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : text;
     messages.appendChild(div);
-    messages.scrollTo({top:messages.scrollHeight, behavior:"smooth"});
+    messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
   };
 
-  const botReply = (text) => {
-    typing.style.display="block";
+  const botReply = text => {
+    typing.style.display = "block";
     setTimeout(() => {
-      typing.style.display="none";
+      typing.style.display = "none";
       const reply = responses[text.trim().toLowerCase()] || responses.default;
-      reply.forEach((msg,i)=> setTimeout(()=>addMessage(msg,"bot"), i*700));
-    },600);
+      reply.forEach((msg, i) => setTimeout(() => addMessage(msg, "bot"), i * 700));
+    }, 600);
   };
 
   chatIcon.addEventListener("click", () => {
@@ -121,16 +136,16 @@ document.addEventListener("DOMContentLoaded", () => {
     input.focus();
   });
 
-  closeBtn.addEventListener("click", () => { chatbot.classList.remove("open"); });
+  closeBtn.addEventListener("click", () => chatbot.classList.remove("open"));
 
-  sendBtn.addEventListener("click", ()=>{
+  sendBtn.addEventListener("click", () => {
     const text = input.value.trim();
-    if(!text) return;
-    addMessage(text,"user");
-    input.value="";
+    if (!text) return;
+    addMessage(text, "user");
+    input.value = "";
     botReply(text);
   });
 
-  input.addEventListener("keypress", e=>{ if(e.key==="Enter") sendBtn.click(); });
+  input.addEventListener("keypress", e => { if (e.key === "Enter") sendBtn.click(); });
 
 });
