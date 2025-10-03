@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ===== Sticky Header ===== */
   const header = document.querySelector("header");
-  const handleHeader = () => header?.classList.toggle("sticky", window.scrollY > 50);
-  window.addEventListener("scroll", () => requestAnimationFrame(handleHeader), { passive: true });
+  const toggleHeader = () => header?.classList.toggle("sticky", window.scrollY > 50);
+  window.addEventListener("scroll", () => requestAnimationFrame(toggleHeader), { passive: true });
 
   /* ===== Mobile Menu Toggle ===== */
-  const menu = document.querySelector("#menu-icon");
+  const menu = document.getElementById("menu-icon");
   const navbar = document.querySelector(".navbar");
   menu?.addEventListener("click", () => {
     const expanded = menu.getAttribute("aria-expanded") === "true";
@@ -20,25 +20,23 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===== Navbar Active Link on Scroll ===== */
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".navbar a");
-  const handleActiveLink = () => {
+  const highlightNav = () => {
     const scrollY = window.scrollY + 150;
-    sections.forEach(sec => {
-      const secTop = sec.offsetTop;
-      const secHeight = sec.offsetHeight;
-      if (scrollY >= secTop && scrollY < secTop + secHeight) {
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      const id = section.id;
+      if (scrollY >= top && scrollY < top + height) {
         navLinks.forEach(link => link.classList.remove("active"));
-        document.querySelector(`.navbar a[href="#${sec.id}"]`)?.classList.add("active");
+        document.querySelector(`.navbar a[href="#${id}"]`)?.classList.add("active");
       }
     });
   };
-  window.addEventListener("scroll", () => requestAnimationFrame(handleActiveLink), { passive: true });
+  window.addEventListener("scroll", () => requestAnimationFrame(highlightNav), { passive: true });
 
   /* ===== Scroll-to-Top Button ===== */
   const scrollBtn = document.getElementById("scrollTopBtn");
-  const toggleScrollBtn = () => {
-    if (!scrollBtn) return;
-    scrollBtn.classList.toggle("show", window.scrollY > 300);
-  };
+  const toggleScrollBtn = () => scrollBtn?.classList.toggle("show", window.scrollY > 300);
   window.addEventListener("scroll", () => requestAnimationFrame(toggleScrollBtn), { passive: true });
   scrollBtn?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
@@ -46,18 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("theme-toggle");
   const html = document.documentElement;
   const initTheme = () => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      html.setAttribute("data-theme", savedTheme);
-      themeToggle?.classList.toggle("light", savedTheme === "light");
-    }
+    const saved = localStorage.getItem("theme") || "dark";
+    html.setAttribute("data-theme", saved);
+    themeToggle?.classList.toggle("light", saved === "light");
   };
   initTheme();
   themeToggle?.addEventListener("click", () => {
-    const isLight = html.getAttribute("data-theme") === "light";
-    html.setAttribute("data-theme", isLight ? "dark" : "light");
-    themeToggle.classList.toggle("light", !isLight);
-    localStorage.setItem("theme", isLight ? "dark" : "light");
+    const current = html.getAttribute("data-theme");
+    const next = current === "light" ? "dark" : "light";
+    html.setAttribute("data-theme", next);
+    themeToggle.classList.toggle("light", next === "light");
+    localStorage.setItem("theme", next);
   });
 
   /* ===== Contact Form (EmailJS) ===== */
@@ -65,43 +62,50 @@ document.addEventListener("DOMContentLoaded", () => {
   const formMsg = document.getElementById("formMessage");
   const submitBtn = form?.querySelector('button[type="submit"]');
 
-  const showFormMessage = (msg, type) => {
+  const showMessage = (msg, type) => {
+    if (!formMsg) return;
     formMsg.textContent = msg;
     formMsg.style.display = "block";
     formMsg.className = `form-message ${type}`;
   };
 
-  if (form && formMsg && submitBtn) {
-    form.addEventListener("submit", async e => {
-      e.preventDefault();
-      const name = form.name?.value.trim();
-      const email = form.email?.value.trim();
-      const message = form.message?.value.trim();
-      if (!name || !email || !message) return showFormMessage("❌ Please fill all fields!", "error");
+  form?.addEventListener("submit", async e => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+    if (!name || !email || !message) return showMessage("❌ Please fill all fields!", "error");
 
-      submitBtn.disabled = true;
-      showFormMessage("⏳ Sending message...", "loading");
-      try {
-        await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", { from_name: name, from_email: email, message }, "YOUR_PUBLIC_KEY");
-        showFormMessage("✅ Message sent successfully!", "success");
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        showFormMessage("❌ Failed to send. Try again!", "error");
-      } finally { submitBtn.disabled = false; }
-    });
-  }
+    submitBtn.disabled = true;
+    showMessage("⏳ Sending message...", "loading");
+
+    try {
+      await emailjs.send(
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
+        { from_name: name, from_email: email, message },
+        "YOUR_PUBLIC_KEY"
+      );
+      showMessage("✅ Message sent successfully!", "success");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      showMessage("❌ Failed to send. Try again!", "error");
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
 
   /* ===== Floating Social Buttons ===== */
   const socialButtons = document.querySelectorAll(".social-btn");
-  const toggleSocialButtons = () => {
+  const toggleSocials = () => {
     socialButtons.forEach(btn => {
       const visible = window.scrollY > 200;
       btn.style.opacity = visible ? "1" : "0";
       btn.style.transform = visible ? "translateX(0)" : "translateX(-50px)";
     });
   };
-  window.addEventListener("scroll", () => requestAnimationFrame(toggleSocialButtons), { passive: true });
+  window.addEventListener("scroll", () => requestAnimationFrame(toggleSocials), { passive: true });
 
   /* ===== Chatbot System ===== */
   const chatbot = document.getElementById("chatbot");
@@ -128,18 +132,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const addMessage = (text, sender) => {
       const div = document.createElement("div");
-      div.classList.add("chatbot-message", sender);
+      div.classList.add("chatbot-message", sender === "user" ? "user" : "bot");
       div.innerHTML = text;
       messages.appendChild(div);
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
     };
 
-    const botReply = (userText) => {
+    const botReply = (text) => {
       typing.style.display = "flex";
-      const normalizedText = userText.trim().toLowerCase();
+      const key = text.trim().toLowerCase();
       setTimeout(() => {
         typing.style.display = "none";
-        const reply = responses[normalizedText] || responses.default;
+        const reply = responses[key] || responses.default;
         reply.forEach((msg, i) => setTimeout(() => addMessage(msg, "bot"), i * 700));
       }, 600);
     };
@@ -152,15 +156,12 @@ document.addEventListener("DOMContentLoaded", () => {
       botReply(text);
     };
 
-    /* Chat Icon Toggle */
     chatIcon.addEventListener("click", () => {
       chatbot.classList.add("open", "animate-open");
       chatbot.classList.remove("closing");
       messages.innerHTML = "";
       addMessage("👋 Hi! I’m your Data Bot. Ask me about BI reports!", "bot");
       input.focus();
-      chatIcon.style.transform = "scale(0.9)";
-      setTimeout(() => chatIcon.style.transform = "scale(1)", 150);
     });
 
     closeBtn.addEventListener("click", () => {
