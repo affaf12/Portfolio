@@ -19,16 +19,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ===== Navbar Active Link on Scroll ===== */
   const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll(".navbar a");
+  const navLinksMap = {};
+  document.querySelectorAll(".navbar a").forEach(link => {
+    const href = link.getAttribute("href")?.slice(1);
+    if (href) navLinksMap[href] = link;
+  });
+
   const highlightNav = () => {
     const scrollY = window.scrollY + 150;
     sections.forEach(section => {
       const top = section.offsetTop;
       const height = section.offsetHeight;
-      const id = section.id;
       if (scrollY >= top && scrollY < top + height) {
-        navLinks.forEach(link => link.classList.remove("active"));
-        document.querySelector(`.navbar a[href="#${id}"]`)?.classList.add("active");
+        Object.values(navLinksMap).forEach(link => link.classList.remove("active"));
+        navLinksMap[section.id]?.classList.add("active");
       }
     });
   };
@@ -43,12 +47,16 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===== Theme Toggle ===== */
   const themeToggle = document.getElementById("theme-toggle");
   const html = document.documentElement;
+
   const initTheme = () => {
-    const saved = localStorage.getItem("theme") || "dark";
-    html.setAttribute("data-theme", saved);
-    themeToggle?.classList.toggle("light", saved === "light");
+    const saved = localStorage.getItem("theme");
+    const systemPref = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const theme = saved || systemPref;
+    html.setAttribute("data-theme", theme);
+    themeToggle?.classList.toggle("light", theme === "light");
   };
   initTheme();
+
   themeToggle?.addEventListener("click", () => {
     const current = html.getAttribute("data-theme");
     const next = current === "light" ? "dark" : "light";
@@ -74,9 +82,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = form.name.value.trim();
     const email = form.email.value.trim();
     const message = form.message.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!name || !email || !message) return showMessage("❌ Please fill all fields!", "error");
+    if (!emailRegex.test(email)) return showMessage("❌ Invalid email address!", "error");
 
-    submitBtn.disabled = true;
+    submitBtn?.setAttribute("disabled", "true");
     showMessage("⏳ Sending message...", "loading");
 
     try {
@@ -92,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(err);
       showMessage("❌ Failed to send. Try again!", "error");
     } finally {
-      submitBtn.disabled = false;
+      submitBtn?.removeAttribute("disabled");
     }
   });
 
@@ -103,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const visible = window.scrollY > 200;
       btn.style.opacity = visible ? "1" : "0";
       btn.style.transform = visible ? "translateX(0)" : "translateX(-50px)";
+      btn.style.willChange = "opacity, transform";
     });
   };
   window.addEventListener("scroll", () => requestAnimationFrame(toggleSocials), { passive: true });
@@ -133,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addMessage = (text, sender) => {
       const div = document.createElement("div");
       div.classList.add("chatbot-message", sender === "user" ? "user" : "bot");
-      div.innerHTML = text;
+      div.innerHTML = sender === "user" ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : text;
       messages.appendChild(div);
       messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
     };
