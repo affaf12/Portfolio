@@ -131,36 +131,34 @@
     </div>
   </section>
 
-  
   <!-- ===== Contact Section ===== -->
-<section class="contact" id="contact">
-  <div class="contact-text">
-    <h2>Contact Me</h2>
-    <p>Let’s work together on your next data project.</p>
-    <ul class="contact-list">
-      <li><strong>Location:</strong> Karachi, Pakistan</li>
-      <li><strong>Email:</strong> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
-      <li><strong>Phone:</strong> <a href="tel:+923042365964">+92 304 2365964</a></li>
-    </ul>
-    <div class="contact-icons">
-      <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin'></i></a>
-      <a href="https://github.com/affaf12" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github'></i></a>
-      <a href="https://wa.me/923042365964" target="_blank" rel="noopener noreferrer"><i class='bx bxl-whatsapp'></i></a>
+  <section class="contact" id="contact">
+    <div class="contact-text">
+      <h2>Contact Me</h2>
+      <p>Let’s work together on your next data project.</p>
+      <ul class="contact-list">
+        <li><strong>Location:</strong> Karachi, Pakistan</li>
+        <li><strong>Email:</strong> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
+        <li><strong>Phone:</strong> <a href="tel:+923042365964">+92 304 2365964</a></li>
+      </ul>
+      <div class="contact-icons">
+        <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://github.com/affaf12" target="_blank"><i class='bx bxl-github'></i></a>
+        <a href="https://wa.me/923042365964" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+      </div>
+
+      <form id="contactForm" class="contact-form">
+        <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+        <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+        <p id="formMessage" style="margin-top:10px;color:var(--main-color);display:none;"></p>
+      </form>
     </div>
+  </section>
 
-    <form id="contactForm" class="contact-form">
-      <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
-      <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
-      <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" required></textarea>
-      <button type="submit" class="btn">Send Message</button>
-      <p id="formMessage" style="margin-top:10px;color:var(--main-color);display:none;"></p>
-    </form>
-  </div>
-</section>
-
-
-  <!-- ===== Scroll Top ===== -->
-  <a href="#" class="top"><i class='bx bx-up-arrow-alt'></i></a>
+  <!-- ===== Scroll-To-Top Button ===== -->
+  <button id="scrollTopBtn" title="Go to top"><i class='bx bx-up-arrow-alt'></i></button>
 
   <!-- ===== Chatbot ===== -->
   <div id="chatbot">
@@ -170,19 +168,20 @@
     </div>
     <div id="chatbot-body">
       <div id="chatbot-messages"></div>
-      <div id="chatbot-typing" class="bot">Typing...</div>
+      <div id="chatbot-typing" class="bot" style="display:none;">Typing...</div>
     </div>
     <div id="chatbot-footer">
       <input type="text" id="chatbot-input" placeholder="Ask me about reports...">
       <button id="chatbot-send">Send</button>
     </div>
   </div>
-  <button id="chatbot-toggle">💬</button>
+  <button id="chatbot-toggle" title="Chat 💬">💬</button>
 
   <!-- ===== Floating Social Buttons ===== -->
   <div class="social-btn">
     <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" title="LinkedIn"><i class="bx bxl-linkedin"></i></a>
     <a href="https://wa.me/923042365964" target="_blank" title="WhatsApp"><i class="bx bxl-whatsapp"></i></a>
+    <a href="https://github.com/affaf12" target="_blank" title="GitHub"><i class="bx bxl-github"></i></a>
   </div>
 
   <!-- Custom JS -->
