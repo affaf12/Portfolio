@@ -26,7 +26,6 @@ html, body {
   --shadow: rgba(235,74,74,0.25); --shadow-strong: rgba(0,0,0,0.55);
   --h1-font: 4.8rem; --h2-font: 3.2rem; --p-font: 1.05rem; --transition: 0.35s ease;
 }
-
 [data-theme="light"] {
   --bg: #f9fafb; --text: #111827; --muted: #6b7280;
   --glass: rgba(0,0,0,0.04); --glass-strong: rgba(255,255,255,0.95);
@@ -41,33 +40,22 @@ header {
   position: fixed; top: 0; left: 0; right: 0;
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 12%; background: var(--glass); backdrop-filter: blur(10px);
-  border-radius: 0 0 14px 14px;
-  box-shadow: 0 8px 25px var(--shadow); transition: all var(--transition); z-index: 1200;
+  border-radius: 0 0 14px 14px; box-shadow: 0 8px 25px var(--shadow);
+  transition: all var(--transition); z-index: 1200;
 }
 header.sticky {
   background: var(--glass-strong); padding: 12px 8%;
   box-shadow: 0 6px 30px var(--shadow-strong);
   animation: stickyDrop 0.4s ease forwards;
 }
-@keyframes stickyDrop {
-  from { transform: translateY(-60px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
+@keyframes stickyDrop { from { transform: translateY(-60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .logo { font-size: 1.5rem; font-weight: 700; }
 
 /* ================= NAVBAR ================= */
-.navbar {
-  display: flex; gap: 18px; align-items: center;
-  transition: all var(--transition);
-}
+.navbar { display: flex; gap: 18px; align-items: center; transition: all var(--transition); }
 .navbar a {
-  color: var(--text);
-  font-weight: 600;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-size: 1rem;
-  position: relative;
-  transition: all var(--transition);
+  color: var(--text); font-weight: 600; padding: 10px 18px; border-radius: 10px;
+  font-size: 1rem; position: relative; transition: all var(--transition);
 }
 .navbar a::after {
   content:""; position:absolute; left:50%; bottom:-6px; width:0; height:2px; background: var(--accent); transition: all 0.3s ease;
@@ -171,12 +159,15 @@ span { color: var(--accent); }
 .contact-form button { padding:14px; border-radius:12px; border:none; background: var(--grad-main); color:#fff; font-size:1rem; font-weight:600; cursor:pointer; transition: all 0.3s ease; }
 .contact-form button:hover { transform: scale(1.05); box-shadow:0 12px 28px var(--shadow-strong); }
 
-/* ================= CHATBOT ================= */
-#chatbot { 
-  position: fixed; bottom: 120px; right: 30px; width: 380px; max-width: 95%; 
-  background: var(--glass-strong); border-radius: 20px; box-shadow: 0 12px 40px var(--shadow-strong); 
+/* ================= CHATBOT (LEFT SIDE) ================= */
+#chatbot, #chatIcon {
+  transition: all 0.4s ease, transform 0.4s ease;
+}
+#chatbot {
+  position: fixed; bottom: 120px; left: 30px; width: 380px; max-width: 95%;
+  background: var(--glass-strong); border-radius: 20px; box-shadow: 0 12px 40px var(--shadow-strong);
   display: flex; flex-direction: column; overflow: hidden; z-index: 1500; 
-  transition: all 0.4s ease, transform 0.4s ease; opacity: 0; visibility: hidden; transform: translateY(50px); 
+  opacity: 0; visibility: hidden; transform: translateY(50px);
 }
 #chatbot.open { opacity: 1; visibility: visible; transform: translateY(0); }
 #chatbot-header { display:flex; justify-content:space-between; align-items:center; background: var(--grad-main); color:#fff; padding:14px 20px; }
@@ -193,21 +184,16 @@ span { color: var(--accent); }
 #chatbot-footer button { padding:10px 14px; border:none; border-radius:12px; background: var(--grad-main); color:#fff; cursor:pointer; transition: all 0.3s ease; }
 #chatbot-footer button:hover { transform: scale(1.05); box-shadow:0 6px 18px var(--shadow); }
 
-/* ================= FLOATING CHAT ICON ================= */
 #chatIcon {
-  position: fixed; bottom: 40px; right: 30px; width: 70px; height: 70px; border-radius: 50%;
+  position: fixed; bottom: 40px; left: 30px; width: 70px; height: 70px; border-radius: 50%;
   background: var(--grad-main); display: flex; justify-content: center; align-items: center;
   color: #fff; font-size: 2rem; cursor: pointer; box-shadow: 0 12px 35px var(--shadow-strong);
-  transition: all 0.3s ease, transform 0.3s ease; z-index: 1600;
-  animation: pulse 2.2s infinite;
+  animation: pulse 2.2s infinite; z-index: 1600;
 }
 #chatIcon:hover { transform: scale(1.15); animation: none; }
-@keyframes pulse {
-  0%,100% { box-shadow:0 12px 35px var(--shadow-strong); }
-  50% { box-shadow:0 0 40px var(--accent), 0 0 70px var(--accent); }
-}
+@keyframes pulse { 0%,100% { box-shadow:0 12px 35px var(--shadow-strong);} 50% { box-shadow:0 0 40px var(--accent),0 0 70px var(--accent);} }
 
-/* ================= SCROLL TO TOP (RIGHT SIDE) ================= */
+/* ================= SCROLL TO TOP ================= */
 #scrollTopBtn {
   position:fixed; bottom:120px; right:30px; width:48px; height:48px; background: var(--grad-main);
   color:#fff; border:none; border-radius:50%; cursor:pointer; font-size:1.3rem; box-shadow:0 6px 18px var(--shadow); display:none; z-index:1400; transition: all 0.3s ease, opacity 0.3s ease;
@@ -216,13 +202,10 @@ span { color: var(--accent); }
 #scrollTopBtn:hover { transform: scale(1.1); }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width:970px) { 
-  :root { --h1-font:3.5rem; --h2-font:2.5rem; } 
-  .home { text-align:center; justify-content:center; } 
-}
-@media (max-width:768px) {
-  #chatbot { width: 95%; right: 2.5%; bottom: 100px; }
-  #chatIcon { bottom: 20px; right: 20px; width: 60px; height: 60px; font-size: 1.8rem; }
+@media(max-width:970px) { :root { --h1-font:3.5rem; --h2-font:2.5rem; } .home { text-align:center; justify-content:center; } }
+@media(max-width:768px) {
+  #chatbot { width: 95%; left: 2.5%; bottom: 100px; }
+  #chatIcon { bottom: 20px; left: 20px; width: 60px; height: 60px; font-size: 1.8rem; }
   #scrollTopBtn { width:44px; height:44px; font-size:1.1rem; bottom:20px; right:20px; }
   .contact-section { padding:30px 5%; }
 }
