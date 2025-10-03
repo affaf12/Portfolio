@@ -7,11 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
     header.classList.toggle("sticky", window.scrollY > 50);
   }, { passive: true });
 
-  /* ===== MOBILE MENU ===== */
+  /* ===== MOBILE MENU TOGGLE ===== */
   const menuIcon = document.querySelector("#menu-icon");
   const navbar = document.querySelector(".navbar");
   menuIcon.addEventListener("click", () => {
     navbar.classList.toggle("active");
+  });
+  // Close mobile menu on nav link click
+  document.querySelectorAll(".navbar a").forEach(link => {
+    link.addEventListener("click", () => navbar.classList.remove("active"));
   });
 
   /* ===== THEME TOGGLE ===== */
@@ -41,11 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
     scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
   });
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-  /* ===== CHATBOT ===== */
+  /* ===== CHATBOT FUNCTIONALITY ===== */
   const chatIcon = document.getElementById("chatIcon");
   const chatbot = document.getElementById("chatbot");
   const chatInput = document.getElementById("chatbot-input");
@@ -53,10 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatBody = document.getElementById("chatbot-body");
   const chatTyping = document.getElementById("chatbot-typing");
 
-  chatIcon.addEventListener("click", () => {
-    chatbot.classList.toggle("open");
-  });
-
+  chatIcon.addEventListener("click", () => chatbot.classList.toggle("open"));
+  
   const responses = {
     hello: ["Hello! 👋 How can I help you?"],
     hi: ["Hi! 👋 Ask me about BI reports."],
@@ -74,9 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
     chatBody.scrollTop = chatBody.scrollHeight;
   }
 
-  chatSend.addEventListener("click", sendMessage);
-  chatInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
-
   function sendMessage() {
     const msg = chatInput.value.trim();
     if (!msg) return;
@@ -91,18 +88,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 800);
   }
 
-  /* ===== SECTIONS FADE-IN ON SCROLL ===== */
+  chatSend.addEventListener("click", sendMessage);
+  chatInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+
+  /* ===== SCROLL-TRIGGERED ANIMATIONS ===== */
   const sections = document.querySelectorAll("section");
   const navLinks = document.querySelectorAll(".navbar a");
 
   function revealSections() {
     const triggerBottom = window.innerHeight * 0.85;
-
     sections.forEach(section => {
       const sectionTop = section.getBoundingClientRect().top;
-      if (sectionTop < triggerBottom) {
-        section.classList.add("visible");
-      }
+      if (sectionTop < triggerBottom) section.classList.add("visible");
     });
   }
 
@@ -111,28 +108,20 @@ document.addEventListener("DOMContentLoaded", () => {
     highlightNav();
   });
 
-  revealSections(); // trigger on page load
+  revealSections(); // initial trigger on page load
 
-  /* ===== ACTIVE NAV HIGHLIGHT ===== */
+  /* ===== ACTIVE NAV LINK HIGHLIGHT ===== */
   function highlightNav() {
     let scrollPos = window.scrollY || window.pageYOffset;
-
     sections.forEach(section => {
       const sectionTop = section.offsetTop - 120;
       const sectionHeight = section.offsetHeight;
       const sectionId = section.getAttribute("id");
-
       if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-        navLinks.forEach(link => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${sectionId}`) {
-            link.classList.add("active");
-          }
-        });
+        navLinks.forEach(link => link.classList.remove("active"));
+        document.querySelector(`.navbar a[href="#${sectionId}"]`)?.classList.add("active");
       }
     });
   }
-
-  highlightNav(); // trigger on page load
-
+  highlightNav(); // initial trigger
 });
