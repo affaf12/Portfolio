@@ -127,17 +127,57 @@ section {
 .contact-form button:hover { transform: scale(1.05); box-shadow:0 12px 50px rgba(63, 184, 175, 0.7); background: var(--gradient-hover); }
 
 /* ===== Chatbot ===== */
-#chatbot { position: fixed; bottom:90px; right:30px; width:340px; max-height:500px; background: var(--glass-bg); backdrop-filter: blur(15px); border-radius:20px; display:none; flex-direction:column; box-shadow:0 10px 35px rgba(63,184,175,0.4); z-index:9999; overflow:hidden; transition: transform 0.35s ease, box-shadow 0.35s ease; }
+#chatbot { 
+    position: fixed; 
+    bottom: 100px; 
+    right: 30px; 
+    width: 340px; 
+    max-height: 500px; 
+    background: var(--glass-bg); 
+    backdrop-filter: blur(15px); 
+    border-radius: 20px; 
+    display: none; 
+    flex-direction: column; 
+    box-shadow: 0 10px 35px rgba(63,184,175,0.4); 
+    z-index: 9999; 
+    overflow: hidden; 
+    transition: transform 0.35s ease, box-shadow 0.35s ease; 
+}
 #chatbot.show { display:flex; transform: translateY(0); }
 #chatbot-header { background:var(--main-color); color:var(--bg-color); padding:15px 20px; font-weight:600; display:flex; justify-content:space-between; align-items:center; }
 #chatbot-close:hover { transform: scale(1.2); }
 #chatbot-body { flex:1; padding:15px 20px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
-.chatbot-message.user { align-self:flex-end; background: var(--main-color); color: var(--bg-color); }
-.chatbot-message.bot { align-self:flex-start; background: rgba(63,184,175,0.15); color: var(--text-color); }
+.chatbot-message.user { align-self:flex-end; background: var(--main-color); color: var(--bg-color); padding:10px 15px; border-radius:15px; }
+.chatbot-message.bot { align-self:flex-start; background: rgba(63,184,175,0.15); color: var(--text-color); padding:10px 15px; border-radius:15px; }
 #chatbot-footer { display:flex; gap:10px; padding:10px 15px; background: rgba(11,15,25,0.7); }
 #chatbot-footer input { flex:1; padding:12px 15px; border-radius:12px; border:1px solid #333; background:#111827; color:var(--text-color); font-size:1rem; outline:none; }
 #chatbot-footer button { padding:12px 16px; border-radius:12px; border:none; background:var(--gradient); color:var(--bg-color); font-weight:600; cursor:pointer; transition: all 0.3s ease; }
 #chatbot-footer button:hover { transform: scale(1.05); box-shadow:0 12px 40px rgba(63,184,175,0.7); background: var(--gradient-hover); }
+
+/* ===== Scroll-To-Top Button ===== */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 100px;
+    left: 30px;
+    width: 55px;
+    height: 55px;
+    background: var(--main-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(63,184,175,0.6);
+    cursor: pointer;
+    font-size: 24px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 9998;
+}
+#scrollTopBtn:hover {
+    transform: scale(1.2) rotate(-10deg);
+    box-shadow: 0 12px 30px rgba(63,184,175,0.8);
+}
 
 /* ===== Floating Social Buttons ===== */
 .social-btn { position:fixed; bottom:30px; right:90px; display:flex; flex-direction:column; gap:15px; z-index:999; }
@@ -155,16 +195,44 @@ section {
     .home-container { flex-direction:column; text-align:center; gap:30px; }
     .home-image, .home-text { order:unset; transform:translateX(0); animation:none; }
     .contact-form { padding:20px; gap:15px; }
+    #chatbot { width:300
     #chatbot { width:300px; right:20px; }
+    #scrollTopBtn { bottom:90px; left:20px; }
 }
 @media screen and (max-width:768px) {
-    .home-text h1{font-size:3rem;}
-    .home-text h2{font-size:1.4rem;}
-    .home-text h3{font-size:1rem;}
-    .home-image img{width:140px;height:140px;}
-    .social-btn{right:20px;flex-direction:row;gap:10px;bottom:80px;}
+    .home-text h1 { font-size:3rem; }
+    .home-text h2 { font-size:1.4rem; }
+    .home-text h3 { font-size:1rem; }
+    .home-image img { width:140px; height:140px; }
+    .social-btn { right:20px; flex-direction:row; gap:10px; bottom:80px; }
     #chatbot { width:260px; right:15px; bottom:70px; max-height:450px; }
+    #scrollTopBtn { width:45px; height:45px; bottom:70px; left:15px; font-size:20px; }
     .contact-form input, .contact-form textarea { padding:12px 15px; }
     .contact-form button { padding:14px 0; }
     .section-title { font-size:2.2rem; }
 }
+
+/* ===== Scroll Reveal Enhancements ===== */
+.reveal { opacity:0; transform: translateY(50px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.reveal-visible { opacity:1; transform: translateY(0); }
+
+/* ===== Hover Glow Effects ===== */
+.card:hover, .grid-item:hover, .skill:hover, .btn:hover {
+    filter: drop-shadow(0 0 10px var(--main-color));
+}
+
+/* ===== Additional Smooth Scroll for Anchor Links ===== */
+html { scroll-behavior: smooth; }
+
+/* ===== Footer (optional) ===== */
+footer {
+    padding: 40px 12%;
+    text-align: center;
+    color: var(--second-color);
+    font-size: 0.95rem;
+    background: rgba(11,15,25,0.8);
+    backdrop-filter: blur(12px);
+}
+footer a:hover { color: var(--main-color); text-decoration: underline; }
+
+
