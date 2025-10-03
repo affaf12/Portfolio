@@ -101,7 +101,8 @@ header.sticky {
 .theme-toggle.light::before { transform: translateX(20px); background: var(--accent-2); }
 .theme-toggle .sun { margin-left: 6px; }
 .theme-toggle .moon { margin-left: auto; margin-right: 6px; opacity: 0.5; }
-.theme-toggle.light .sun { opacity: 0.5; } .theme-toggle.light .moon { opacity: 1; }
+.theme-toggle.light .sun { opacity: 0.5; } 
+.theme-toggle.light .moon { opacity: 1; }
 
 /* ================= SECTIONS ================= */
 section {
@@ -170,14 +171,14 @@ span { color: var(--accent); }
 .contact-form button { padding:14px; border-radius:12px; border:none; background: var(--grad-main); color:#fff; font-size:1rem; font-weight:600; cursor:pointer; transition: all 0.3s ease; }
 .contact-form button:hover { transform: scale(1.05); box-shadow:0 12px 28px var(--shadow-strong); }
 
-/* ================= CHATBOT + FLOAT ICON ================= */
+/* ================= CHATBOT ================= */
 #chatbot { 
-  position:fixed; bottom:100px; right:30px; width:360px; max-width:95%; 
-  background: var(--glass-strong); border-radius:20px; box-shadow:0 12px 40px var(--shadow-strong); 
-  display:flex; flex-direction:column; overflow:hidden; z-index:1500; transition: all 0.4s ease, transform 0.4s ease; 
-  opacity:0; visibility:hidden; transform: translateY(50px); 
+  position: fixed; bottom: 120px; right: 30px; width: 380px; max-width: 95%; 
+  background: var(--glass-strong); border-radius: 20px; box-shadow: 0 12px 40px var(--shadow-strong); 
+  display: flex; flex-direction: column; overflow: hidden; z-index: 1500; 
+  transition: all 0.4s ease, transform 0.4s ease; opacity: 0; visibility: hidden; transform: translateY(50px); 
 }
-#chatbot.open { opacity:1; visibility:visible; transform:translateY(0); }
+#chatbot.open { opacity: 1; visibility: visible; transform: translateY(0); }
 #chatbot-header { display:flex; justify-content:space-between; align-items:center; background: var(--grad-main); color:#fff; padding:14px 20px; }
 #chatbot-header h4 { margin:0; font-size:1.1rem; }
 #chatbot-header button { background:transparent; border:none; color:#fff; font-size:1.4rem; cursor:pointer; }
@@ -192,14 +193,19 @@ span { color: var(--accent); }
 #chatbot-footer button { padding:10px 14px; border:none; border-radius:12px; background: var(--grad-main); color:#fff; cursor:pointer; transition: all 0.3s ease; }
 #chatbot-footer button:hover { transform: scale(1.05); box-shadow:0 6px 18px var(--shadow); }
 
-/* FLOATING CHAT ICON */
+/* ================= FLOATING CHAT ICON ================= */
 #chatIcon {
-  position: fixed; bottom:30px; right:30px; width:60px; height:60px; border-radius:50%; 
-  background: var(--grad-main); display:flex; justify-content:center; align-items:center; 
-  color:#fff; font-size:1.8rem; cursor:pointer; box-shadow:0 8px 25px var(--shadow-strong);
-  transition: all 0.3s ease, transform 0.3s ease; z-index:1600;
+  position: fixed; bottom: 40px; right: 30px; width: 70px; height: 70px; border-radius: 50%;
+  background: var(--grad-main); display: flex; justify-content: center; align-items: center;
+  color: #fff; font-size: 2rem; cursor: pointer; box-shadow: 0 12px 35px var(--shadow-strong);
+  transition: all 0.3s ease, transform 0.3s ease; z-index: 1600;
+  animation: pulse 2.2s infinite;
 }
-#chatIcon:hover { transform: scale(1.1); }
+#chatIcon:hover { transform: scale(1.15); animation: none; }
+@keyframes pulse {
+  0%,100% { box-shadow:0 12px 35px var(--shadow-strong); }
+  50% { box-shadow:0 0 40px var(--accent), 0 0 70px var(--accent); }
+}
 
 /* ================= SCROLL TO TOP ================= */
 #scrollTopBtn {
@@ -212,11 +218,11 @@ span { color: var(--accent); }
 /* ================= RESPONSIVE ================= */
 @media (max-width:970px) { 
   :root { --h1-font:3.5rem; --h2-font:2.5rem; } 
-  .home{text-align:center;justify-content:center;} 
+  .home { text-align:center; justify-content:center; } 
 }
 @media (max-width:768px) {
-  #chatbot{ width:95%; right:2.5%; bottom:80px; }
-  #chatIcon{ bottom:20px; right:20px; width:50px; height:50px; font-size:1.5rem; }
-  .contact-section{ padding:30px 5%; }
+  #chatbot { width: 95%; right: 2.5%; bottom: 100px; }
+  #chatIcon { bottom: 20px; right: 20px; width: 60px; height: 60px; font-size: 1.8rem; }
+  .contact-section { padding:30px 5%; }
   #scrollTopBtn { width:44px; height:44px; font-size:1.1rem; bottom:20px; left:15px; }
 }
