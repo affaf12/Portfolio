@@ -16,9 +16,9 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <!-- Custom JS -->
-  <script src="script.js" defer></script>
+  <script src="js/script.js" defer></script>
 </head>
 
 <body>
@@ -38,11 +38,10 @@
       </ul>
     </nav>
     <button id="menu-icon" aria-label="Toggle Menu"><i class='bx bx-menu'></i></button>
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme"></button>
+    <button id="theme-toggle" aria-label="Toggle Theme"><i class='bx bx-moon'></i></button>
   </header>
 
   <main>
-
     <!-- ===== HOME ===== -->
     <section class="home" id="home">
       <div class="home-container">
@@ -53,7 +52,7 @@
           <h2>Hello 👋</h2>
           <h1>I’m Muhammad Affaf</h1>
           <h3>Data Analyst | Power BI Developer | Excel | SQL | Python</h3>
-          <a href="#" class="btn" target="_blank" rel="noopener noreferrer">📄 Download Resume</a>
+          <a href="files/MuhammadAffaf_Resume.pdf" class="btn" target="_blank" rel="noopener noreferrer">📄 Download Resume</a>
         </div>
       </div>
     </section>
@@ -158,7 +157,6 @@
         <p id="formMessage" class="form-message" aria-live="polite"></p>
       </form>
     </section>
-
   </main>
 
   <!-- ===== SCROLL TO TOP ===== -->
@@ -181,6 +179,41 @@
   </div>
   <button id="chatIcon" aria-label="Open Chatbot">💬</button>
 
+  <script>
+    // ===== THEME TOGGLE =====
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+      const html = document.documentElement;
+      if (html.dataset.theme === 'dark') {
+        html.dataset.theme = 'light';
+        themeBtn.innerHTML = "<i class='bx bx-sun'></i>";
+      } else {
+        html.dataset.theme = 'dark';
+        themeBtn.innerHTML = "<i class='bx bx-moon'></i>";
+      }
+    });
+
+    // ===== MENU TOGGLE =====
+    const menuIcon = document.getElementById('menu-icon');
+    const navbar = document.querySelector('.navbar');
+    menuIcon.addEventListener('click', () => {
+      navbar.classList.toggle('active');
+    });
+
+    // ===== SCROLL TO TOP =====
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== CHATBOT =====
+    const chatIcon = document.getElementById('chatIcon');
+    const chatbot = document.getElementById('chatbot');
+    const chatClose = document.getElementById('chatbot-close');
+
+    chatIcon.addEventListener('click', () => chatbot.style.display = 'block');
+    chatClose.addEventListener('click', () => chatbot.style.display = 'none');
+  </script>
 </body>
 
 </html>
