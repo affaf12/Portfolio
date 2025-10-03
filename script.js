@@ -17,16 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===== THEME TOGGLE ===== */
   const themeToggle = document.querySelector(".theme-toggle");
   const body = document.body;
-
-  // Check saved theme
   const savedTheme = localStorage.getItem("theme") || "dark";
   if (savedTheme === "light") {
     body.setAttribute("data-theme", "light");
     themeToggle.classList.add("light");
   }
-
   themeToggle.addEventListener("click", () => {
-    body.classList.add("transition"); // smooth transition
+    body.classList.add("transition");
     if (body.getAttribute("data-theme") === "light") {
       body.setAttribute("data-theme", "dark");
       themeToggle.classList.remove("light");
@@ -60,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     chatbot.classList.toggle("open");
   });
 
-  // Simple bot responses (can be expanded)
   const responses = {
     hello: ["Hello! 👋 How can I help you?"],
     hi: ["Hi! 👋 Ask me about BI reports."],
@@ -94,5 +90,49 @@ document.addEventListener("DOMContentLoaded", () => {
       addMessage(response[Math.floor(Math.random() * response.length)], "bot");
     }, 800);
   }
+
+  /* ===== SECTIONS FADE-IN ON SCROLL ===== */
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".navbar a");
+
+  function revealSections() {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    sections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      if (sectionTop < triggerBottom) {
+        section.classList.add("visible");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", () => {
+    revealSections();
+    highlightNav();
+  });
+
+  revealSections(); // trigger on page load
+
+  /* ===== ACTIVE NAV HIGHLIGHT ===== */
+  function highlightNav() {
+    let scrollPos = window.scrollY || window.pageYOffset;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute("id");
+
+      if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${sectionId}`) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }
+
+  highlightNav(); // trigger on page load
 
 });
