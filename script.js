@@ -18,26 +18,32 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("menu-open");
   });
 
-  /* ===== Active Navbar Link on Scroll ===== */
+  /* ===== Navbar Active Link on Scroll ===== */
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".navbar a");
   window.addEventListener("scroll", () => {
-    let scrollY = window.pageYOffset;
+    const scrollY = window.scrollY;
     sections.forEach(sec => {
       const secTop = sec.offsetTop - 100;
       const secHeight = sec.offsetHeight;
       if (scrollY >= secTop && scrollY < secTop + secHeight) {
         navLinks.forEach(link => link.classList.remove("active"));
-        const activeLink = document.querySelector(`.navbar a[href="#${sec.id}"]`);
-        activeLink?.classList.add("active");
+        document.querySelector(`.navbar a[href="#${sec.id}"]`)?.classList.add("active");
       }
     });
   }, { passive: true });
 
-  /* ===== Scroll-to-Top Button ===== */
+  /* ===== Scroll-to-Top Button (Fade Effect) ===== */
   const scrollBtn = document.getElementById("scrollTopBtn");
   window.addEventListener("scroll", () => {
-    scrollBtn?.classList.toggle("show", window.scrollY > 300);
+    if (!scrollBtn) return;
+    if (window.scrollY > 300) {
+      scrollBtn.classList.add("show");
+      scrollBtn.style.opacity = "1";
+    } else {
+      scrollBtn.style.opacity = "0";
+      setTimeout(() => scrollBtn.classList.remove("show"), 300);
+    }
   }, { passive: true });
   scrollBtn?.addEventListener("click", () =>
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -51,7 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     themeToggle?.classList.add("light");
   }
   themeToggle?.addEventListener("click", () => {
-    if (html.getAttribute("data-theme") === "light") {
+    const isLight = html.getAttribute("data-theme") === "light";
+    if (isLight) {
       html.removeAttribute("data-theme");
       themeToggle.classList.remove("light");
       localStorage.setItem("theme", "dark");
@@ -74,10 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = form.email?.value.trim();
       const message = form.message?.value.trim();
 
-      if (!name || !email || !message) {
-        showFormMessage("❌ Please fill all fields!", "error");
-        return;
-      }
+      if (!name || !email || !message) return showFormMessage("❌ Please fill all fields!", "error");
 
       submitBtn.disabled = true;
       showFormMessage("⏳ Sending message...", "loading");
@@ -104,7 +108,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* ===== CHATBOT SYSTEM ===== */
+  /* ===== Floating Social Buttons ===== */
+  const socialButtons = document.querySelectorAll(".social-btn");
+  window.addEventListener("scroll", () => {
+    socialButtons.forEach(btn => {
+      btn.style.opacity = window.scrollY > 200 ? "1" : "0";
+      btn.style.transform = window.scrollY > 200 ? "translateX(0)" : "translateX(-50px)";
+    });
+  }, { passive: true });
+
+  /* ===== Chatbot System (Smooth Open/Close) ===== */
   const chatbot = document.getElementById("chatbot");
   const toggleBtn = document.getElementById("chatbot-toggle");
   const closeBtn = document.getElementById("chatbot-close");
@@ -154,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     toggleBtn.addEventListener("click", () => {
-      chatbot.classList.add("open");
+      chatbot.classList.add("open", "animate-open");
       chatbot.classList.remove("closing");
       messages.innerHTML = "";
       addMessage("👋 Hi! I’m your Data Bot. Ask me about BI reports!", "bot");
@@ -162,9 +175,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     closeBtn.addEventListener("click", () => {
-      chatbot.classList.remove("open");
       chatbot.classList.add("closing");
-      setTimeout(() => chatbot.classList.remove("closing"), 400);
+      chatbot.classList.remove("animate-open");
+      setTimeout(() => chatbot.classList.remove("closing", "open"), 400);
     });
 
     sendBtn.addEventListener("click", sendMessage);
