@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
                      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   html.setAttribute("data-theme", savedTheme);
   themeToggle.classList.toggle("light", savedTheme === "light");
-
   themeToggle.addEventListener("click", () => {
     const current = html.getAttribute("data-theme");
     const next = current === "light" ? "dark" : "light";
@@ -55,7 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("theme", next);
   });
 
-  /* ===== CONTACT FORM WITH EMAILJS ===== */
+  /* ===== EMAILJS INIT ===== */
+  emailjs.init("YOUR_USER_ID"); // Replace with your real EmailJS user ID
+
+  /* ===== CONTACT FORM ===== */
   const contactForm = document.getElementById("contactForm");
   const formMessage = document.getElementById("formMessage");
 
@@ -76,7 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
     formMessage.textContent = "Sending...";
     formMessage.style.color = "#2563eb";
 
-    emailjs.send('service_o4sgh8w', 'YOUR_TEMPLATE_ID', {
+    console.log("Sending email with:", { title, name, email, message });
+
+    emailjs.send('service_q9049ro', 'template_pfvdv6j', {  // Use your Service & Template ID
       title: title,
       name: name,
       email: email,
