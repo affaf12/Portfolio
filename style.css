@@ -16,12 +16,13 @@
     --gradient: linear-gradient(135deg, #3fb8af, #34a39c, #298d85);
     --gradient-hover: linear-gradient(135deg, #34a39c, #3fb8af, #2a8d85);
     --second-color: #9ca3af;
-    --other-color: rgba(26, 31, 46, 0.8);
+    --other-color: rgba(26, 31, 46, 0.85);
     --h1-font: 5rem;
     --h2-font: 3.2rem;
     --p-font: 1.05rem;
     --shadow-color: rgba(63, 184, 175, 0.4);
     --transition-speed: 0.35s;
+    --chatbot-bg: rgba(26, 31, 46, 0.95);
 }
 
 /* ===== Base ===== */
@@ -29,7 +30,9 @@ body {
     background: var(--bg-color);
     color: var(--text-color);
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
+a { color: inherit; text-decoration: none; }
 
 /* ===== Header ===== */
 header {
@@ -56,7 +59,7 @@ header.sticky {
 /* ===== Navbar ===== */
 .navbar {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 .navbar a {
     color: var(--text-color);
@@ -78,9 +81,7 @@ header.sticky {
     bottom: 0;
     transition: width var(--transition-speed);
 }
-.navbar a:hover::after {
-    width: 100%;
-}
+.navbar a:hover::after { width: 100%; }
 .navbar a:hover {
     background: var(--gradient-hover);
     transform: translateY(-3px) scale(1.05);
@@ -95,9 +96,7 @@ header.sticky {
     display: none;
     transition: transform var(--transition-speed) ease;
 }
-#menu-icon:hover {
-    transform: rotate(15deg) scale(1.1);
-}
+#menu-icon:hover { transform: rotate(15deg) scale(1.1); }
 
 /* ===== Section Defaults ===== */
 section {
@@ -157,7 +156,7 @@ section {
     transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 .home-image img:hover {
-    transform: scale(1.1) rotate(-2deg);
+    transform: scale(1.12) rotate(-2deg);
     box-shadow: 0 12px 40px rgba(63,184,175,0.7);
 }
 
@@ -200,7 +199,7 @@ section {
     transition: all var(--transition-speed) ease;
 }
 .home-text .btn:hover {
-    transform: scale(1.1) translateY(-4px);
+    transform: scale(1.12) translateY(-4px);
     box-shadow: 0 12px 36px rgba(63,184,175,0.7);
 }
 
@@ -215,6 +214,7 @@ section {
     box-shadow: 0 8px 30px rgba(0,0,0,0.55);
     backdrop-filter: blur(15px);
     transition: all var(--transition-speed) ease;
+    border: 1px solid rgba(63,184,175,0.1);
 }
 
 /* ===== Boxes ===== */
@@ -226,16 +226,12 @@ section {
     box-shadow: 0 4px 18px rgba(0,0,0,0.3);
 }
 .box:hover {
-    transform: translateY(-10px) scale(1.04);
+    transform: translateY(-10px) scale(1.05);
     border-top: 4px solid var(--main-color);
-    box-shadow: 0px 10px 28px var(--shadow-color);
+    box-shadow: 0px 12px 28px var(--shadow-color);
 }
-.box h3 {
-    transition: color var(--transition-speed) ease;
-}
-.box:hover h3 {
-    color: var(--main-color);
-}
+.box h3 { transition: color var(--transition-speed) ease; }
+.box:hover h3 { color: var(--main-color); }
 
 /* ===== Portfolio Rows ===== */
 .row {
@@ -247,7 +243,7 @@ section {
 }
 .row:hover {
     transform: scale(1.05);
-    box-shadow: 0px 10px 28px var(--shadow-color);
+    box-shadow: 0px 12px 28px var(--shadow-color);
 }
 
 /* ===== Contact Section ===== */
@@ -274,7 +270,7 @@ section {
     transform: scale(1.2) rotate(10deg);
     background: var(--gradient-hover);
     color: var(--bg-color);
-    box-shadow: 0 4px 16px var(--shadow-color);
+    box-shadow: 0 6px 20px var(--shadow-color);
 }
 
 /* ===== Contact Form ===== */
@@ -290,18 +286,18 @@ section {
     padding: 14px 20px;
     border-radius: 0.8rem;
     border: none;
-    background: rgba(21,26,40,0.8);
+    background: rgba(21,26,40,0.85);
     color: var(--text-color);
     font-size: 1rem;
-    transition: all var(--transition-speed) ease;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+    transition: all var(--transition-speed) ease, box-shadow 0.4s ease;
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.25);
     resize: none;
 }
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
     background: rgba(21,26,40,0.95);
-    box-shadow: 0 0 15px var(--main-color);
+    box-shadow: 0 0 20px var(--main-color);
 }
 .contact-form button {
     align-self: flex-start;
@@ -313,103 +309,138 @@ section {
     cursor: pointer;
     background: var(--gradient);
     color: var(--bg-color);
-    box-shadow: 0px 6px 20px var(--shadow-color);
+    box-shadow: 0px 8px 24px var(--shadow-color);
     transition: all var(--transition-speed) ease;
 }
 .contact-form button:hover {
     transform: scale(1.1) translateY(-4px);
-    box-shadow: 0 8px 28px var(--shadow-color);
+    box-shadow: 0 12px 36px var(--shadow-color);
 }
 
-/* ===== Thank You Message ===== */
-#formMessage {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--main-color);
-    text-shadow: 0 0 5px var(--main-color);
-    margin-top: 12px;
-}
-
-/* ===== Scroll To Top ===== */
-.top i {
+/* ===== Chatbot Floating Button ===== */
+#chatbot-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--main-color);
     color: var(--bg-color);
-    background: var(--gradient);
-    font-size: 24px;
-    padding: 12px;
-    border-radius: 0.6rem;
-    box-shadow: 0px 5px 18px var(--shadow-color);
-    transition: all var(--transition-speed) ease;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 6px 22px rgba(63,184,175,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.top i:hover {
-    transform: scale(1.25) translateY(-4px);
+#chatbot-toggle:hover {
+    transform: scale(1.15) rotate(-5deg);
+    box-shadow: 0 10px 28px rgba(63,184,175,0.6);
 }
 
-/* ===== Scroll Reveal Animation ===== */
-.home-text, .about, .services, .portfolio, .contact {
+/* ===== Chatbot Container ===== */
+#chatbot {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    width: 360px;
+    max-height: 520px;
+    background: var(--chatbot-bg);
+    border-radius: 20px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.65);
+    z-index: 10000;
+    animation: fadeIn 0.4s ease forwards;
+}
+
+/* Chatbot Header */
+#chatbot-header {
+    background: var(--gradient);
+    color: var(--bg-color);
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(63,184,175,0.2);
+    box-shadow: inset 0 -2px 5px rgba(0,0,0,0.15);
+}
+#chatbot-close { cursor: pointer; font-size: 22px; transition: transform 0.3s ease; }
+#chatbot-close:hover { transform: scale(1.2); }
+
+/* Chatbot Body */
+#chatbot-body {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+#chatbot-messages { display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+.message {
+    padding: 10px 14px;
+    border-radius: 16px;
+    max-width: 80%;
     opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    transform: translateY(20px);
+    animation: slideIn 0.3s forwards;
+    word-break: break-word;
 }
-.reveal-visible {
-    opacity: 1;
-    transform: translateY(0);
+.user { background: #151a28; color: var(--main-color); align-self: flex-end; box-shadow: 0 4px 12px rgba(63,184,175,0.3); }
+.bot { background: rgba(63,184,175,0.15); color: var(--bg-color); align-self: flex-start; box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+#chatbot-typing { display: none; font-style: italic; color: var(--second-color); margin-left: 6px; }
+
+/* Chatbot Footer */
+#chatbot-footer {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(21,26,40,0.9);
+    border-top: 1px solid rgba(63,184,175,0.2);
 }
+#chatbot-footer input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 16px;
+    border: none;
+    background: rgba(21,26,40,0.85);
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+#chatbot-footer input:focus { outline: none; box-shadow: 0 0 15px var(--main-color); }
+#chatbot-footer button {
+    padding: 10px 16px;
+    border-radius: 16px;
+    border: none;
+    background: var(--main-color);
+    color: var(--bg-color);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+#chatbot-footer button:hover { background: var(--gradient-hover); transform: scale(1.05); }
+
+/* ===== Animations ===== */
+@keyframes slideIn { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* ===== Responsive ===== */
-@media (max-width: 970px) {
-    :root {
-        --h1-font: 3.8rem;
-        --h2-font: 2.4rem;
-    }
-    section {
-        padding: 120px 6% 70px;
-    }
-    .about,
-    .contact {
-        grid-template-columns: 1fr;
-    }
-}
 @media (max-width: 768px) {
-    #menu-icon {
-        display: block;
-    }
-    .navbar {
-        position: absolute;
-        top: -500px;
-        left: 0;
-        width: 100%;
-        flex-direction: column;
-        background: #151a28;
-        text-align: center;
-        transition: all var(--transition-speed) ease;
-        border-radius: 0 0 20px 20px;
-    }
-    .navbar.active {
-        top: 100%;
-    }
-    .navbar a {
-        display: block;
-        margin: 1.2rem 0;
-    }
-    .contact-form button {
-        width: 100%;
-        text-align: center;
-    }
+    #menu-icon { display: block; }
+    .navbar { flex-direction: column; top: -500px; background: #151a28; border-radius: 0 0 20px 20px; }
+    .navbar.active { top: 100%; }
+    .navbar a { display: block; margin: 1rem 0; }
+    section { padding: 120px 6% 70px; }
+    #chatbot { width: 90%; right: 5%; bottom: 80px; max-height: 420px; }
+    #chatbot-footer input, #chatbot-footer button { font-size: 14px; }
 }
-@media (max-width: 600px) {
-    .home-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-    .home-image img {
-        width: 140px;
-        height: 140px;
-    }
-    .home-text h1 {
-        font-size: 3rem;
-    }
-    .home-text h3 {
-        font-size: 1.1rem;
-    }
+@media (max-width: 500px) {
+    .home-container { flex-direction: column; text-align: center; gap: 20px; }
+    .home-image img { width: 140px; height: 140px; }
+    .home-text h1 { font-size: 2.8rem; }
+    .home-text h3 { font-size: 1.1rem; }
 }
