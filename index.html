@@ -217,14 +217,10 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ===== CHATBOT =====
-    const chatIcon = document.getElementById('chatIcon');
-    const chatbot = document.getElementById('chatbot');
-    const chatClose = document.getElementById('chatbot-close');
-
-    chatIcon.addEventListener('click', () => chatbot.style.display = 'block');
-    chatClose.addEventListener('click', () => chatbot.style.display = 'none');
-  </script>
-</body>
-
-</html>
+    // CHATBOT
+  const chatIcon = document.getElementById('chatIcon');
+  const chatbot = document.getElementById('chatbot');
+  const chatClose = document.getElementById('chatbot-close');
+  chatIcon.addEventListener('click', () => chatbot.style.display = 'block');
+  chatClose.addEventListener('click', () => chatbot.style.display = 'none');
+</script>
