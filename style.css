@@ -129,7 +129,7 @@ section {
 /* ===== Chatbot ===== */
 #chatbot { 
     position: fixed; 
-    bottom: 100px; 
+    bottom: 120px;  /* leave space for social buttons */
     right: 30px; 
     width: 340px; 
     max-height: 500px; 
@@ -157,7 +157,7 @@ section {
 /* ===== Scroll-To-Top Button ===== */
 #scrollTopBtn {
     position: fixed;
-    bottom: 100px;
+    bottom: 30px;
     left: 30px;
     width: 55px;
     height: 55px;
@@ -180,7 +180,7 @@ section {
 }
 
 /* ===== Floating Social Buttons ===== */
-.social-btn { position:fixed; bottom:30px; right:90px; display:flex; flex-direction:column; gap:15px; z-index:999; }
+.social-btn { position:fixed; bottom:30px; right:30px; display:flex; flex-direction:column; gap:15px; z-index:999; }
 .social-btn a { display:flex; justify-content:center; align-items:center; width:55px; height:55px; border-radius:50%; background:var(--main-color); color:var(--bg-color); font-size:24px; box-shadow:0 6px 20px rgba(63,184,175,0.6); transition: all 0.3s ease; }
 .social-btn a:hover { transform:scale(1.2) rotate(-10deg); box-shadow:0 12px 30px rgba(63,184,175,0.8); }
 
@@ -195,18 +195,17 @@ section {
     .home-container { flex-direction:column; text-align:center; gap:30px; }
     .home-image, .home-text { order:unset; transform:translateX(0); animation:none; }
     .contact-form { padding:20px; gap:15px; }
-    #chatbot { width:300
-    #chatbot { width:300px; right:20px; }
-    #scrollTopBtn { bottom:90px; left:20px; }
+    #chatbot { width:300px; right:20px; bottom:110px; }
+    #scrollTopBtn { bottom:80px; left:20px; }
 }
 @media screen and (max-width:768px) {
     .home-text h1 { font-size:3rem; }
     .home-text h2 { font-size:1.4rem; }
     .home-text h3 { font-size:1rem; }
     .home-image img { width:140px; height:140px; }
-    .social-btn { right:20px; flex-direction:row; gap:10px; bottom:80px; }
-    #chatbot { width:260px; right:15px; bottom:70px; max-height:450px; }
-    #scrollTopBtn { width:45px; height:45px; bottom:70px; left:15px; font-size:20px; }
+    .social-btn { right:15px; flex-direction:row; gap:10px; bottom:70px; }
+    #chatbot { width:260px; right:15px; bottom:90px; max-height:450px; }
+    #scrollTopBtn { width:45px; height:45px; bottom:60px; left:15px; font-size:20px; }
     .contact-form input, .contact-form textarea { padding:12px 15px; }
     .contact-form button { padding:14px 0; }
     .section-title { font-size:2.2rem; }
@@ -234,5 +233,3 @@ footer {
     backdrop-filter: blur(12px);
 }
 footer a:hover { color: var(--main-color); text-decoration: underline; }
-
-
