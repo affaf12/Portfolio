@@ -16,18 +16,18 @@
   <!-- Author -->
   <meta name="author" content="Muhammad Affaf">
 
-  <!-- Open Graph (For Social Media Sharing) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Muhammad Affaf | Data Analyst & Power BI Developer">
   <meta property="og:description" content="Explore my portfolio showcasing Data Analytics, Power BI Dashboards, SQL, Excel & Python projects.">
   <meta property="og:image" content="img/profile.jpg">
-  <meta property="og:url" content="https://affaf12.github.io">
+  <meta property="og:url" content="https://affaf12.github.io/Portfolio/">
   <meta property="og:type" content="website">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="img/profile.jpg">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" type="text/css" href="css/style1.css">
+  <link rel="stylesheet" href="style.css">
 
   <!-- Boxicons -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
@@ -36,6 +36,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <!-- Header -->
   <header>
     <h1 class="logo">Muhammad <span>Affaf</span></h1>
@@ -50,11 +51,10 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
-    <!-- Menu Icon (for mobile) -->
     <div id="menu-icon" aria-label="Menu" aria-expanded="false"><i class='bx bx-menu'></i></div>
   </header>
 
-  <!-- Home -->
+  <!-- Home Section -->
   <section class="home" id="home">
     <video autoplay loop muted playsinline class="back-video">
       <source src="img/video4.mp4" type="video/mp4">
@@ -68,7 +68,7 @@
     </div>
   </section>
 
-  <!-- About -->
+  <!-- About Section -->
   <section class="about" id="about">
     <div class="about-img">
       <img src="img/profile.jpg" alt="Muhammad Affaf - Data Analyst Profile Picture">
@@ -87,11 +87,9 @@
     </div>
   </section>
 
-  <!-- Experience -->
+  <!-- Experience Section -->
   <section class="experience" id="experience">
-    <div class="main-text">
-      <h2>My Experiences</h2>
-    </div>
+    <div class="main-text"><h2>My Experiences</h2></div>
     <div class="experience-content">
       <div class="box">
         <img src="img/pwc.png" alt="PwC Switzerland Logo">
@@ -106,11 +104,9 @@
     </div>
   </section>
 
-  <!-- Skills -->
+  <!-- Skills Section -->
   <section class="skills" id="skills">
-    <div class="main-text">
-      <h2>My Skills</h2>
-    </div>
+    <div class="main-text"><h2>My Skills</h2></div>
     <div class="skills-content">
       <div class="box">
         <img src="img/excel.png" alt="Excel Icon">
@@ -135,11 +131,9 @@
     </div>
   </section>
 
-  <!-- Achievements -->
+  <!-- Achievements Section -->
   <section class="achievement" id="achievement">
-    <div class="main-text">
-      <h2>My Achievements</h2>
-    </div>
+    <div class="main-text"><h2>My Achievements</h2></div>
     <div class="portfolio-content">
       <div class="row">
         <img src="img/coding.jpg" alt="Power BI Dashboard Achievement">
@@ -156,11 +150,9 @@
     </div>
   </section>
 
-  <!-- Portfolio Projects -->
+  <!-- Portfolio Section -->
   <section class="portfolio" id="portfolio">
-    <div class="main-text">
-      <h2>My Projects</h2>
-    </div>
+    <div class="main-text"><h2>My Projects</h2></div>
     <div class="portfolio-content">
       <div class="row">
         <img src="img/coca_cola.jpg" alt="Coca Cola Analytics Project">
@@ -182,66 +174,39 @@
   </section>
 
   <!-- Contact Section -->
-<section class="contact" id="contact">
-  <div class="contact-text">
-    <h2>Contact Me</h2>
-    <p>Let’s work together on your next data project.</p>
+  <section class="contact" id="contact">
+    <div class="contact-text">
+      <h2>Contact Me</h2>
+      <p>Let’s work together on your next data project.</p>
 
-    <!-- Contact Details -->
-    <ul class="contact-list">
-      <li><strong>Location:</strong> Karachi, Pakistan</li>
-      <li><strong>Email:</strong> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
-      <li><strong>Phone:</strong> <a href="tel:+923042365964">+92 304 2365964</a></li>
-    </ul>
+      <ul class="contact-list">
+        <li><strong>Location:</strong> Karachi, Pakistan</li>
+        <li><strong>Email:</strong> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
+        <li><strong>Phone:</strong> <a href="tel:+923042365964">+92 304 2365964</a></li>
+      </ul>
 
-    <div class="contact-icons">
-      <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank"><i class='bx bxl-linkedin'></i></a>
-      <a href="https://github.com/affaf12" target="_blank"><i class='bx bxl-github'></i></a>
-      <a href="https://wa.me/923042365964" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+      <div class="contact-icons">
+        <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://github.com/affaf12" target="_blank"><i class='bx bxl-github'></i></a>
+        <a href="https://wa.me/923042365964" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+      </div>
+
+      <!-- Contact Form -->
+      <form id="contactForm" class="contact-form">
+        <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+        <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+        <p id="formMessage" style="margin-top: 10px; color: var(--main-color); display: none;"></p>
+      </form>
     </div>
-
-    <!-- Contact Form -->
-    <form id="contactForm" class="contact-form">
-      <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
-      <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
-      <textarea id="message" name="message" rows="5" placeholder="Enter Your Message" required></textarea>
-      <button type="submit" class="btn">Send Message</button>
-      <p id="formMessage" style="margin-top: 10px; color: var(--main-color); display: none;"></p>
-    </form>
-  </div>
-</section>
-
-<!-- Script for Form Submission -->
-<script>
-  const form = document.getElementById("contactForm");
-  const formMessage = document.getElementById("formMessage");
-
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    // Simple validation (optional)
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    if(name && email && message) {
-      // Display thank you message
-      formMessage.style.display = "block";
-      formMessage.textContent = `Thanks ${name}! I will reach out to you as soon as possible.`;
-
-      // Clear form fields
-      form.reset();
-
-      // Optionally hide message after few seconds
-      setTimeout(() => {
-        formMessage.style.display = "none";
-      }, 5000);
-    }
-  });
-</script>
-
+  </section>
 
   <!-- Scroll Top -->
   <a href="#" class="top"><i class='bx bx-up-arrow-alt'></i></a>
+
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+
 </body>
 </html>
