@@ -1,10 +1,11 @@
-/* ================= RESET & VARIABLES ================= */
+/* ================= RESET & GLOBAL ================= */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: all 0.35s ease;
 }
 html, body {
   height: 100%;
@@ -13,13 +14,12 @@ html, body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
-  transition: background 0.5s ease, color 0.5s ease;
 }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 img { display: block; max-width: 100%; height: auto; }
 
-/* ================= THEME COLORS ================= */
+/* ================= THEME VARIABLES ================= */
 :root {
   --bg: #0b0f19;
   --text: #f9fafb;
@@ -36,7 +36,6 @@ img { display: block; max-width: 100%; height: auto; }
   --h1-font: 4.8rem;
   --h2-font: 3.2rem;
   --p-font: 1.05rem;
-  --transition: 0.35s ease;
 }
 [data-theme="light"] {
   --bg: #f9fafb;
@@ -51,11 +50,6 @@ img { display: block; max-width: 100%; height: auto; }
   --grad-alt: linear-gradient(135deg,#d946ef,#a21caf);
   --shadow: rgba(0,0,0,0.15);
   --shadow-strong: rgba(0,0,0,0.3);
-}
-
-/* ================= GLOBAL TRANSITIONS ================= */
-*, *::before, *::after {
-  transition: all var(--transition);
 }
 
 /* ================= HEADER ================= */
@@ -155,10 +149,6 @@ header.sticky {
   transition: transform 0.4s ease, background 0.4s ease;
 }
 .theme-toggle.light::before { transform: translateX(22px); background: var(--accent-2); }
-.theme-toggle .sun { margin-left: 6px; }
-.theme-toggle .moon { margin-left: auto; margin-right: 6px; opacity: 0.5; }
-.theme-toggle.light .sun { opacity: 0.5; } 
-.theme-toggle.light .moon { opacity: 1; }
 
 /* ================= SECTIONS ================= */
 section {
@@ -169,7 +159,9 @@ section {
   box-shadow: 0 8px 30px var(--shadow-strong);
   opacity: 0;
   transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
+section.visible { opacity: 1; transform: translateY(0); }
 .section-title {
   font-size: clamp(1.8rem,2.6vw,2.6rem);
   color: var(--accent);
@@ -177,7 +169,6 @@ section {
   margin-bottom: 14px;
   font-weight: 700;
   text-shadow: 0 0 12px rgba(235,74,74,0.35);
-  position: relative;
 }
 .section-title::after {
   content:"";
