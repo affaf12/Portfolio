@@ -15,15 +15,16 @@
     --second-color: #9ca3af;
     --form-bg: rgba(15, 20, 35, 0.65);
     --glass-bg: rgba(255, 255, 255, 0.05);
-    --h1-font: 5rem;
-    --h2-font: 3.2rem;
-    --p-font: 1.05rem;
     --shadow-color: rgba(63, 184, 175, 0.4);
     --transition-speed: 0.35s;
 }
 
 /* ===== Base ===== */
-body { background: var(--bg-color); color: var(--text-color); overflow-x: hidden; }
+body { 
+    background: var(--bg-color); 
+    color: var(--text-color); 
+    overflow-x: hidden; 
+}
 h1,h2,h3,h4,h5,h6 { margin: 0; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--main-color); color: var(--bg-color); }
@@ -52,7 +53,7 @@ header.sticky {
 /* ===== Navbar ===== */
 .navbar { display: flex; gap: 10px; }
 .navbar a {
-    font-size: var(--p-font);
+    font-size: 1.05rem;
     font-weight:600;
     padding:10px 22px;
     border-radius:0.7rem;
@@ -137,7 +138,7 @@ section {
     box-shadow: 0 6px 20px rgba(63,184,175,0.6);
     cursor: pointer;
     font-size: 24px;
-    display: none;
+    display: none; /* Hidden by default */
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
@@ -161,15 +162,16 @@ section {
     border: none;
     cursor: pointer;
     font-size: 24px;
-    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: background 0.3s;
+    box-shadow: 0 6px 20px rgba(63,184,175,0.5);
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 #chatbot-toggle:hover {
-    background: #35a29f;
+    transform: scale(1.15);
+    background: var(--gradient-hover);
 }
 
 /* ===== Chatbot Panel ===== */
