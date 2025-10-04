@@ -23,7 +23,6 @@ const nextBtn = document.querySelector(".right-btn");
 const prevBtn = document.querySelector(".left-btn");
 
 let index = 0;
-let slideInterval;
 
 // Show specific slide
 function showSlide(i) {
@@ -36,35 +35,11 @@ function nextSlide() { showSlide(index + 1); }
 function prevSlide() { showSlide(index - 1); }
 
 // Navigation buttons
-nextBtn.addEventListener("click", () => {
-  nextSlide();
-  resetAutoplay();
-});
-prevBtn.addEventListener("click", () => {
-  prevSlide();
-  resetAutoplay();
-});
-
-// Autoplay every 5s
-function startAutoplay() {
-  slideInterval = setInterval(nextSlide, 5000);
-}
-function stopAutoplay() {
-  clearInterval(slideInterval);
-}
-function resetAutoplay() {
-  stopAutoplay();
-  startAutoplay();
-}
+nextBtn.addEventListener("click", nextSlide);
+prevBtn.addEventListener("click", prevSlide);
 
 // Init
 showSlide(0);
-startAutoplay();
-
-// Pause on hover
-const sliderContainer = document.querySelector(".portfolio-slider");
-sliderContainer.addEventListener("mouseenter", stopAutoplay);
-sliderContainer.addEventListener("mouseleave", startAutoplay);
 
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
 
