@@ -194,6 +194,26 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   font-family: 'Quicksand', sans-serif;
 }
 
+/* SECTION TITLE */
+#contact .section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #3fb8af;
+  text-align: center;
+  position: relative;
+}
+
+#contact .section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #36a9a1;
+  margin: 0.5rem auto 0;
+  border-radius: 3px;
+}
+
 /* CONTACT INFO */
 .contact-info {
   display: flex;
@@ -240,28 +260,11 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   box-shadow: 0 30px 70px rgba(63,184,175,0.6);
 }
 
-/* FORM GROUP */
-.form-group {
-  position: relative;
-  width: 100%;
-}
-
-.form-group i {
-  position: absolute;
-  top: 50%;
-  left: 1rem;
-  transform: translateY(-50%);
-  color: rgba(255,255,255,0.6);
-  font-size: 1.2rem;
-  pointer-events: none;
-  transition: 0.3s;
-}
-
 /* INPUTS & TEXTAREA */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 1rem 1.2rem 1rem 3rem; /* leave space for icon */
+  padding: 1rem 1.2rem;
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.05);
@@ -271,13 +274,25 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: all 0.3s ease;
 }
 
-.contact-form textarea { resize: vertical; min-height: 140px; }
+.contact-form textarea { 
+  resize: vertical; 
+  min-height: 140px; 
+}
+
+/* INPUT FOCUS EFFECT */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border: 1px solid #3fb8af;
+  box-shadow: 0 10px 30px rgba(63,184,175,0.4);
+  background: rgba(63,184,175,0.05);
+  transform: scale(1.02);
+}
 
 /* FLOATING LABELS */
 .contact-form label {
   position: absolute;
   top: 50%;
-  left: 3rem;
+  left: 1.2rem;
   transform: translateY(-50%);
   color: rgba(255,255,255,0.6);
   font-size: 1rem;
@@ -287,31 +302,14 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   padding: 0 0.3rem;
 }
 
-/* FLOATING LABEL EFFECT */
 .contact-form input:focus + label,
 .contact-form input:not(:placeholder-shown) + label,
 .contact-form textarea:focus + label,
 .contact-form textarea:not(:placeholder-shown) + label {
   top: -10px;
-  left: 2.5rem;
   font-size: 0.85rem;
   color: #3fb8af;
   background: rgba(20,25,40,0.9);
-}
-
-/* ICON FOCUS EFFECT */
-.contact-form input:focus + label i,
-.contact-form textarea:focus + label i {
-  color: #3fb8af;
-}
-
-/* INPUT FOCUS */
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border: 1px solid #3fb8af;
-  box-shadow: 0 10px 30px rgba(63,184,175,0.4);
-  background: rgba(63,184,175,0.05);
-  transform: scale(1.02);
 }
 
 /* SUBMIT BUTTON */
@@ -341,10 +339,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 /* RESPONSIVE */
 @media(max-width:768px){
   .contact-form { padding: 2.5rem; }
-  .form-group i { left: 0.8rem; }
-  .contact-form label { left: 2.5rem; }
-  .contact-form input,
-  .contact-form textarea { padding-left: 2.5rem; }
 }
 
 /* ================= SCROLL TOP BUTTON ================= */
