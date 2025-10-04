@@ -16,29 +16,57 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
-// PROJECTS SLIDER JS
-const wrapper = document.querySelector(".projects-wrapper");
-const projects = document.querySelectorAll(".project-card");
-const leftBtn = document.querySelector(".left-btn");
-const rightBtn = document.querySelector(".right-btn");
+// ================= PROJECTS SLIDER =================
+
+
+const slider = document.querySelector(".projects-wrapper");
+const slides = document.querySelectorAll(".project-card");
+const nextBtn = document.querySelector(".right-btn");
+const prevBtn = document.querySelector(".left-btn");
 
 let index = 0;
+let slideInterval;
 
-function showProject(idx) {
-  wrapper.style.transform = `translateX(${-idx * 100}%)`;
+// Show specific slide
+function showSlide(i) {
+  index = (i + slides.length) % slides.length;
+  slider.style.transform = `translateX(${-index * 100}%)`;
 }
 
-rightBtn.addEventListener("click", () => {
-  index = (index + 1) % projects.length;
-  showProject(index);
+// Navigation buttons
+nextBtn.addEventListener("click", () => {
+  nextSlide();
+  resetAutoplay();
+});
+prevBtn.addEventListener("click", () => {
+  prevSlide();
+  resetAutoplay();
 });
 
-leftBtn.addEventListener("click", () => {
-  index = (index - 1 + projects.length) % projects.length;
-  showProject(index);
-});
+function nextSlide() { showSlide(index + 1); }
+function prevSlide() { showSlide(index - 1); }
 
-// Smooth scroll fix for "Projects" in navbar
+// Autoplay every 5s
+function startAutoplay() {
+  slideInterval = setInterval(nextSlide, 5000);
+}
+function stopAutoplay() {
+  clearInterval(slideInterval);
+}
+function resetAutoplay() {
+  stopAutoplay();
+  startAutoplay();
+}
+
+// Start autoplay
+startAutoplay();
+
+// Pause on hover
+const sliderContainer = document.querySelector(".portfolio-slider");
+sliderContainer.addEventListener("mouseenter", stopAutoplay);
+sliderContainer.addEventListener("mouseleave", startAutoplay);
+
+// ================= NAVBAR SMOOTH SCROLL =================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
