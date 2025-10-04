@@ -441,24 +441,25 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 /* ================= SCROLL TO TOP BUTTON ================= */
 #scrollTopBtn {
   position: fixed;
-  bottom: 30px;       /* Slightly closer to bottom */
-  left: 30px;         /* Left-hand side */
+  bottom: 30px;       
+  left: 30px;         
   z-index: 9999;
-  background: linear-gradient(135deg, #36a9a1, #1abc9c);
-  color: #111;
-  border: none;
-  width: 50px;        /* Fixed width */
-  height: 50px;       /* Fixed height */
+  width: 55px;       
+  height: 55px;       
   border-radius: 50%;
-  font-size: 1.6rem;
+  border: none;
+  background: rgba(54, 169, 161, 0.2);  /* semi-transparent */
+  backdrop-filter: blur(12px);          /* glass effect */
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.6rem;
+  color: #fff;
   cursor: pointer;
-  box-shadow: 0 10px 25px rgba(54,169,161,0.5);
-  transition: all 0.35s ease;
-  opacity: 0;         /* Hidden initially */
-  pointer-events: none; /* Prevent click when hidden */
+  box-shadow: 0 8px 20px rgba(54, 169, 161, 0.6), 0 0 15px rgba(54, 169, 161, 0.4);
+  transition: all 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Show button when active */
@@ -467,27 +468,36 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   pointer-events: auto;
 }
 
-/* Hover effect */
+/* Hover effect with gradient and glow */
 #scrollTopBtn:hover {
-  transform: scale(1.2) rotate(-10deg);
-  box-shadow: 0 15px 35px rgba(54,169,161,0.7);
+  background: linear-gradient(135deg, #36a9a1, #1abc9c);
+  color: #111;
+  transform: scale(1.25) rotate(-15deg);
+  box-shadow: 0 0 25px #36a9a1, 0 0 35px #1abc9c, 0 10px 40px rgba(54, 169, 161, 0.7);
 }
 
 /* Icon inside the button */
 #scrollTopBtn i {
   pointer-events: none;
+  transition: transform 0.3s ease;
+}
+
+/* Icon animation on hover */
+#scrollTopBtn:hover i {
+  transform: rotate(-360deg);
 }
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   #scrollTopBtn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.3rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.4rem;
     bottom: 20px;
     left: 20px;
   }
 }
+
 
 
 
