@@ -50,13 +50,24 @@ header {
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   transition: var(--transition);
 }
+
 header.sticky { background: #111; }
+
 header .logo h1 { font-size: 1.8rem; font-weight: 700; color: var(--text); }
 header .logo span { color: var(--primary); }
+
 nav ul { display: flex; list-style: none; gap: 2rem; }
 nav ul li a { color: var(--text); font-weight: 500; text-decoration: none; transition: var(--transition); }
 nav ul li a:hover, nav ul li a.active { color: var(--primary); }
-.header-icons button { background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; margin-left: 1rem; }
+
+.header-icons button {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+}
 
 /* ================= HOME (HERO) ================= */
 .hero {
@@ -71,6 +82,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   animation: heroFade 1.5s ease;
   position: relative;
 }
+
 .hero img.profile-pic {
   width: 160px;
   height: 160px;
@@ -81,13 +93,16 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
+
 .hero img.profile-pic:hover {
   transform: scale(1.1);
   box-shadow: 0 15px 40px rgba(63,184,175,0.6);
 }
+
 .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.8rem; color: #fff; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
 .hero h3 { font-size: 1.6rem; margin-bottom: 2rem; color: #ccc; }
 .hero h3 span { color: var(--primary); font-weight: 700; }
+
 .hero .btn {
   padding: 0.8rem 2rem;
   font-weight: 700;
@@ -99,110 +114,38 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: var(--transition);
   text-decoration: none;
 }
+
 .hero .btn:hover {
   background: var(--hover-bg);
   color: var(--primary);
   transform: scale(1.1);
   box-shadow: 0 10px 35px rgba(63,184,175,0.7);
 }
+
 @keyframes heroFade {
   0% { opacity: 0; transform: translateY(30px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-@media(max-width:768px){
-  .hero h1{ font-size:2.4rem; }
-  .hero h3{ font-size:1.3rem; }
-  .hero img.profile-pic{ width:120px; height:120px; }
-}
 
-/* ================= ABOUT ME ================= */
-.about { display: flex; align-items: center; flex-wrap: wrap; gap:2rem; justify-content:center; }
-.about-text { max-width: 650px; }
-.about-text p { margin-bottom: 1rem; line-height: 1.7; font-size: 1.05rem; }
-.about-text ul { list-style: disc; padding-left: 1.8rem; }
-.about-text ul li { margin-bottom: 0.7rem; }
-.about-image img {
-  max-width: 320px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-.about-image img:hover { transform: scale(1.07); box-shadow: 0 15px 40px rgba(63,184,175,0.6); }
-
-/* ================= EXPERIENCE ================= */
-.experience-grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
-.experience-box {
-  background: var(--secondary);
-  padding: 1.8rem;
-  border-radius: var(--border-radius);
-  max-width: 320px;
-  text-align: center;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-.experience-box:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
-.experience-box h3 { color: var(--primary); margin-bottom: 0.8rem; }
-
-/* ================= SKILLS ================= */
-.skills-grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
-.skill-circle { position: relative; width: 150px; height: 150px; }
-.skill-circle svg { transform: rotate(-90deg); }
-.skill-circle circle { fill: none; stroke-width: 14; transition: var(--transition); }
-.skill-circle .bg { stroke: rgba(255,255,255,0.1); }
-.skill-circle .progress { stroke: var(--primary); stroke-dasharray: 440; stroke-dashoffset: 440; transition: 1s ease; }
-.skill-circle .skill-text { position: absolute; top: 40%; width: 100%; text-align: center; font-weight: 700; }
-.skill-circle .percent { position: absolute; bottom: 10%; width: 100%; text-align: center; font-weight: 800; }
-
-/* ================= ACHIEVEMENTS ================= */
-.achievement-list { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-.achievement-list li {
-  background: var(--secondary);
-  padding: 1rem 1.5rem;
-  border-radius: var(--border-radius);
-  max-width: 420px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  transition: transform 0.4s, box-shadow 0.4s;
-}
-.achievement-list li:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(63,184,175,0.6); }
-
-/* ================= PROJECTS ================= */
-.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 1.8rem; }
-.project { position: relative; overflow: hidden; border-radius: var(--border-radius); cursor: pointer; }
-.project img { width: 100%; border-radius: var(--border-radius); transition: transform 0.6s ease; }
-.project:hover img { transform: scale(1.15); }
-.project h3 {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  color: #fff;
-  background: rgba(0,0,0,0.55);
-  padding: 0.6rem 1rem;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1rem;
-  text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
-}
-
-/* ================= PREMIUM CONTACT SECTION ================= */
+/* ================= CONTACT SECTION ================= */
 #contact {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 5rem 2rem;
   background: linear-gradient(135deg, #0b0f19, #111426);
-  color: #fff;
-  font-family: 'Quicksand', sans-serif;
+  color: var(--text);
 }
 
-/* SECTION TITLE */
 #contact .section-title {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: #3fb8af;
+  color: var(--primary);
   text-align: center;
   position: relative;
 }
+
 #contact .section-title::after {
   content: '';
   display: block;
@@ -213,7 +156,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   border-radius: 3px;
 }
 
-/* ================= CONTACT INFO ================= */
+/* CONTACT INFO */
 .contact-info {
   display: flex;
   flex-direction: column;
@@ -228,13 +171,13 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 }
 
 .contact-info p i {
-  color: #3fb8af;
+  color: var(--primary);
   font-size: 1.3rem;
-  transition: transform 0.3s ease;
+  transition: var(--transition);
 }
 
 .contact-info p:hover i {
@@ -242,10 +185,10 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 }
 
 .contact-info a {
-  color: #3fb8af;
+  color: var(--primary);
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 }
 
 .contact-info a:hover {
@@ -253,7 +196,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   color: #36a9a1;
 }
 
-/* ================= CONTACT FORM ================= */
+/* CONTACT FORM */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -265,7 +208,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   padding: 3rem;
   border-radius: 25px;
   box-shadow: 0 25px 60px rgba(0,0,0,0.7);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition: var(--transition);
   position: relative;
 }
 
@@ -274,7 +217,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   box-shadow: 0 30px 70px rgba(63,184,175,0.6);
 }
 
-/* FORM GROUP */
 .form-group {
   position: relative;
   width: 100%;
@@ -288,29 +230,24 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   color: rgba(255,255,255,0.6);
   font-size: 1.2rem;
   pointer-events: none;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 }
 
-/* INPUTS & TEXTAREA */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 1rem 1.2rem 1rem 3rem; /* space for icon */
+  padding: 1rem 1.2rem 1rem 3rem;
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.05);
   color: #fff;
   font-size: 1rem;
   outline: none;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 }
 
-.contact-form textarea {
-  resize: vertical;
-  min-height: 140px;
-}
+.contact-form textarea { resize: vertical; min-height: 140px; }
 
-/* FLOATING LABELS */
 .contact-form label {
   position: absolute;
   top: 50%;
@@ -319,72 +256,69 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   color: rgba(255,255,255,0.6);
   font-size: 1rem;
   pointer-events: none;
-  transition: all 0.3s ease;
+  transition: var(--transition);
   background: transparent;
   padding: 0 0.3rem;
 }
 
-/* FLOATING LABEL EFFECT */
 .contact-form input:focus + label,
 .contact-form input:not(:placeholder-shown) + label,
 .contact-form textarea:focus + label,
 .contact-form textarea:not(:placeholder-shown) + label {
   top: -10px;
   font-size: 0.85rem;
-  color: #3fb8af;
+  color: var(--primary);
   background: rgba(20,25,40,0.9);
 }
 
-/* ICON FOCUS */
 .contact-form input:focus + label i,
 .contact-form textarea:focus + label i {
-  color: #3fb8af;
+  color: var(--primary);
   transform: scale(1.2);
 }
 
-/* INPUT FOCUS */
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border: 1px solid #3fb8af;
+  border: 1px solid var(--primary);
   box-shadow: 0 10px 30px rgba(63,184,175,0.4);
   background: rgba(63,184,175,0.05);
   transform: scale(1.02);
 }
 
-/* SUBMIT BUTTON */
 .contact-form button.btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   justify-content: center;
-  background: linear-gradient(135deg, #3fb8af, #36a9a1);
-  color: #111;
+  background: linear-gradient(135deg, var(--primary), #36a9a1);
+  color: var(--btn-text);
   font-weight: 700;
   border-radius: 30px;
   padding: 1rem 2.5rem;
   font-size: 1.05rem;
   box-shadow: 0 12px 35px rgba(63,184,175,0.5);
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: var(--transition);
   border: none;
 }
 
 .contact-form button.btn:hover {
   transform: scale(1.1) rotate(-1deg);
   box-shadow: 0 18px 45px rgba(63,184,175,0.7);
-  background: linear-gradient(135deg, #36a9a1, #3fb8af);
+  background: linear-gradient(135deg, #36a9a1, var(--primary));
 }
 
-/* ================= SOCIAL MEDIA ================= */
+/* SOCIAL MEDIA */
 #social-media {
-  margin-top: 3rem;
+  padding: 3rem 2rem;
   text-align: center;
+  background: linear-gradient(135deg, #111, #1a1e2b);
 }
 
 #social-media .section-title {
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #3fb8af;
+  color: var(--primary);
   position: relative;
 }
 
@@ -402,45 +336,30 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   display: flex;
   justify-content: center;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.social-icon {
-  display: inline-flex;
+.social-icons a {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  color: #fff;
-  font-size: 1.5rem;
-  transition: all 0.3s ease;
-  position: relative;
+  gap: 0.5rem;
+  background: var(--secondary);
+  color: var(--text);
+  padding: 0.6rem 1rem;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
 }
 
-.social-icon:hover {
-  background: #3fb8af;
+.social-icons a i { font-size: 1.2rem; }
+
+.social-icons a:hover {
+  transform: translateY(-5px);
+  background: var(--primary);
   color: #111;
-  transform: scale(1.2) rotate(-5deg);
-}
-
-.social-icon::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: -30px;
-  background: rgba(20,25,40,0.9);
-  color: #fff;
-  font-size: 0.8rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.social-icon:hover::after {
-  opacity: 1;
-  transform: translateY(0px);
+  box-shadow: 0 12px 35px rgba(63,184,175,0.6);
 }
 
 /* RESPONSIVE */
@@ -450,86 +369,5 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   .contact-form label { left: 2.5rem; }
   .contact-form input,
   .contact-form textarea { padding-left: 2.5rem; }
-  .social-icons { gap: 1rem; }
-}
-
-/* ================= SCROLL TOP BUTTON ================= */
-#scrollTopBtn {
-  position: fixed; bottom: 2rem; right: 2rem; padding: 0.8rem;
-  font-size: 1.4rem; background: var(--primary); color: var(--btn-text);
-  border-radius: 50%; border: none; cursor: pointer;
-  box-shadow: 0 8px 25px rgba(63,184,175,0.5);
-  transition: var(--transition);
-  display: none;
-}
-#scrollTopBtn:hover { transform: scale(1.15); box-shadow: 0 12px 35px rgba(63,184,175,0.7); }
-
-/* ================= SOCIAL MEDIA ================= */
-#social-media {
-  padding: 3rem 2rem;
-  text-align: center;
-  background: linear-gradient(135deg, #111, #1a1e2b);
-}
-#social-media h2 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--text); }
-.social-icons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
-.social-icons a {
-  display: flex; align-items: center; gap: 0.5rem;
-  background: var(--secondary);
-  color: var(--text);
-  padding: 0.6rem 1rem;
-  border-radius: 25px;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: var(--shadow);
-  transition: all 0.4s ease;
-}
-.social-icons a i { font-size: 1.2rem; }
-.social-icons a:hover {
-  transform: translateY(-5px);
-  background: var(--primary);
-  color: #111;
-  box-shadow: 0 12px 35px rgba(63,184,175,0.6);
-}
-
-/* ================= CHATBOT ================= */
-.chatbot-window {
-  position: fixed; bottom: 4rem; right: 1rem;
-  width: var(--chat-width); max-height: var(--chat-height);
-  display: flex; flex-direction: column;
-  background: linear-gradient(145deg,#1a1e2b,#0b0f19);
-  color: var(--text);
-  border-radius: var(--border-radius);
-  overflow: hidden; z-index:1001;
-  box-shadow: var(--shadow);
-  transform: translateY(20px); opacity:0;
-  transition: all 0.5s ease; font-family: var(--chat-font);
-}
-.chatbot-window.active { transform: translateY(0); opacity:1; }
-.chatbot-header { background: linear-gradient(90deg,#111,#1c1f2b); padding:0.8rem 1rem; display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:1rem; color: var(--text); border-bottom:1px solid rgba(255,255,255,0.1); }
-.chatbot-header button { background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;transition:0.3s; }
-.chatbot-header button:hover { color: var(--primary); }
-.chatbot-body { flex-grow:1; overflow-y:auto; padding:0.8rem 1rem; display:flex; flex-direction:column; gap:0.5rem; scroll-behavior:smooth; }
-.chat-bubble { position:relative; padding:0.6rem 1rem 0.4rem 1rem; border-radius:18px; max-width:75%; line-height:1.4; box-shadow:0 4px 12px rgba(0,0,0,0.3); animation:fadeIn 0.3s ease; }
-.chat-bubble.user { align-self:flex-end; background:var(--primary); color:#111; border-bottom-right-radius:4px; }
-.chat-bubble.bot { align-self:flex-start; background: rgba(255,255,255,0.1); color:var(--text); border-bottom-left-radius:4px; }
-.chatbot-footer{display:flex;gap:0.5rem;padding:0.6rem 1rem;background:linear-gradient(90deg,#111,#1c1f2b);border-top:1px solid rgba(255,255,255,0.1);}
-.chatbot-footer input{flex:1;padding:0.6rem 0.8rem;border-radius:25px;border:none;background:rgba(255,255,255,0.05);color:var(--text);font-size:0.95rem;transition:0.3s;}
-.chatbot-footer input:focus{outline:none;background:rgba(63,184,175,0.15);}
-.chatbot-footer button{padding:0.6rem 1rem;border-radius:25px;border:none;background:var(--primary);color:var(--btn-text);cursor:pointer;font-weight:600;transition:0.3s;}
-.chatbot-footer button:hover{background:#36a9a1;transform:scale(1.05);}
-
-/* ================= RESPONSIVE ================= */
-@media(max-width:1024px){
-  nav ul{gap:1rem;}
-  .about, .contact{flex-direction:column;align-items:center;}
-}
-@media(max-width:768px){
-  header{flex-direction:column;align-items:flex-start;}
-  header .header-icons{margin-top:0.5rem;}
-  nav ul{flex-direction:column;display:none;gap:1rem;width:100%;}
-  nav ul.active{display:flex;}
-  .hero h1{font-size:2.4rem;}
-  .hero h3{font-size:1.3rem;}
-  .chatbot-window{width:90%;right:50%;transform:translateX(50%) translateY(20px);}
-  .social-icons { flex-direction: column; gap: 1rem; }
+  .social-icons { gap: 1rem; flex-direction: column; }
 }
