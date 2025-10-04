@@ -183,67 +183,116 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
 }
 
-/* ================= CONTACT ================= */
+/* ================= CONTACT UPGRADE ================= */
 .contact {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3rem;
-  padding: 4rem 2rem;
+  padding: 5rem 2rem;
   background: linear-gradient(135deg, #0b0f19, #111426);
 }
+
+/* CONTACT INFO */
 .contact-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1rem;
   color: var(--text);
   font-size: 1rem;
   text-align: center;
 }
+
 .contact-info a {
   color: var(--primary);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  font-weight: 600;
 }
 .contact-info a:hover { color: #36a9a1; }
 .contact-info span { font-weight: 600; }
+
+/* CONTACT FORM */
 .contact form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.8rem;
   width: 100%;
   max-width: 700px;
-  background: linear-gradient(145deg, #1c1f2b, #222536);
+  background: rgba(20, 25, 40, 0.85);
+  backdrop-filter: blur(10px);
   padding: 3rem;
   border-radius: var(--border-radius);
   box-shadow: 0 15px 45px rgba(0,0,0,0.6);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-.contact form:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(63,184,175,0.6); }
-.contact input, .contact textarea {
+.contact form:hover { 
+  transform: translateY(-5px); 
+  box-shadow: 0 20px 50px rgba(63,184,175,0.6); 
+}
+
+/* FLOATING LABEL INPUTS */
+.contact form .form-group {
+  position: relative;
+  width: 100%;
+}
+
+.contact form input,
+.contact form textarea {
+  width: 100%;
   padding: 1rem 1.2rem;
-  border-radius: 30px;
-  border: none;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.05);
   color: var(--text);
   font-size: 1rem;
-  transition: all 0.4s ease;
   outline: none;
+  transition: all 0.3s ease;
 }
-.contact input:focus, .contact textarea:focus {
-  background: rgba(63,184,175,0.2);
-  transform: scale(1.03);
+
+.contact form textarea { resize: vertical; min-height: 120px; }
+
+.contact form label {
+  position: absolute;
+  top: 50%;
+  left: 1.2rem;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.6);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Focus effect for floating label */
+.contact form input:focus + label,
+.contact form input:not(:placeholder-shown) + label,
+.contact form textarea:focus + label,
+.contact form textarea:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 1rem;
+  font-size: 0.85rem;
+  color: var(--primary);
+  background: rgba(20,25,40,0.85);
+  padding: 0 0.4rem;
+}
+
+/* Input focus effect */
+.contact form input:focus,
+.contact form textarea:focus {
+  border: 1px solid var(--primary);
   box-shadow: 0 8px 25px rgba(63,184,175,0.4);
+  background: rgba(63,184,175,0.05);
+  transform: scale(1.02);
 }
-.contact input::placeholder, .contact textarea::placeholder { color: rgba(255,255,255,0.6); transition: 0.3s; }
-.contact input:focus::placeholder, .contact textarea:focus::placeholder { color: transparent; }
+
+/* SUBMIT BUTTON */
 .contact button.btn {
   background: linear-gradient(135deg, var(--primary), #36a9a1);
-  color: #fff;
+  color: #111;
   font-weight: 700;
   border-radius: 30px;
-  padding: 0.9rem 2rem;
+  padding: 1rem 2.2rem;
   font-size: 1.05rem;
   box-shadow: 0 10px 30px rgba(63,184,175,0.5);
   cursor: pointer;
@@ -252,7 +301,44 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   letter-spacing: 0.5px;
   align-self: center;
 }
-.contact button.btn:hover { transform: scale(1.1); box-shadow: 0 15px 40px rgba(63,184,175,0.7); background: linear-gradient(135deg, #36a9a1, var(--primary)); }
+
+.contact button.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 40px rgba(63,184,175,0.7);
+  background: linear-gradient(135deg, #36a9a1, var(--primary));
+}
+
+/* SOCIAL LINKS */
+.contact-social {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.contact-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.contact-social a:hover {
+  background: var(--primary);
+  color: #111;
+  transform: scale(1.2);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .contact form { padding: 2.5rem; }
+  .contact-social { gap: 1rem; }
+}
 
 /* ================= SCROLL TOP BUTTON ================= */
 #scrollTopBtn {
