@@ -127,6 +127,140 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
+
+/* ================= ACHIEVEMENTS ================= */
+.achievements-section {
+  padding: 60px 20px;
+  background: var(--bg, #0f0f0f); /* fallback dark background */
+  color: var(--text, #fff);
+}
+
+.achievements-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.achievements-header .section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.achievements-header .section-subtitle {
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievement-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.achievement-card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.achievement-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.icon-wrap {
+  flex: 0 0 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  background: linear-gradient(135deg, #0b5fff, #00c3ff);
+  color: #fff;
+}
+
+.achievement-body {
+  min-width: 0;
+}
+
+.achievement-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.achievement-meta {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin: 0 0 8px 0;
+}
+
+.achievement-desc {
+  font-size: 0.92rem;
+  margin: 0;
+  color: #ddd;
+}
+
+.achievements-footer {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.btn-small {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #0b5fff;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.btn-small:hover {
+  background: #0044cc;
+}
+
+.link-muted {
+  margin-left: 10px;
+  color: #aaa;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.link-muted:hover {
+  text-decoration: underline;
+}
+
+/* Responsive tweak */
+@media (max-width: 520px) {
+  .achievement-card {
+    padding: 14px;
+    gap: 10px;
+  }
+  .icon-wrap {
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+  }
+}
+
 /* ================= PROJECTS ================= */
 .portfolio-section {
   padding: 80px 20px;
