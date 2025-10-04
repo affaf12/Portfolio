@@ -199,19 +199,28 @@
 
 
 
-  <!-- CHATBOT -->
-  <div class="chatbot-window" id="chatbot">
-    <div class="chatbot-header">
+<!-- CHATBOT -->
+<div class="chatbot-window" id="chatbot">
+  <div class="chatbot-header">
+    <div class="chatbot-title">
+      <img src="https://i.pravatar.cc/40" alt="Bot Avatar" class="bot-avatar">
       <span>Chat with me 🤖</span>
-      <button id="chatbot-close"><i class='bx bx-x'></i></button>
     </div>
-    <div class="chatbot-body" id="chatbot-body"></div>
-    <div class="chatbot-footer">
-      <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message...">
-      <button id="chatbot-send"><i class='bx bx-send'></i></button>
-    </div>
+    <button id="chatbot-close"><i class='bx bx-x'></i></button>
   </div>
-  <button class="btn" id="chatbot-toggle">💬 Chat</button>
+
+  <div class="chatbot-body" id="chatbot-body">
+    <div class="typing-indicator" id="typing-indicator">🤖 is typing...</div>
+  </div>
+
+  <div class="chatbot-footer">
+    <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message...">
+    <button id="chatbot-send"><i class='bx bx-send'></i></button>
+  </div>
+</div>
+
+<button class="btn" id="chatbot-toggle">💬 Chat</button>
+
 
   <!-- JS -->
   <script src="script.js"></script>
