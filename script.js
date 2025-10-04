@@ -17,16 +17,30 @@ themeBtn.addEventListener('click', () => {
 });
 
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
-const scrollBtn = document.getElementById('scrollTopBtn');
-const header = document.querySelector('header');
-window.addEventListener('scroll', () => {
+// Get elements
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+const header = document.querySelector("header");
+
+// Scroll event
+window.addEventListener("scroll", () => {
   const scrollY = window.scrollY;
-  scrollBtn.style.display = scrollY > 300 ? 'block' : 'none';
-  header.classList.toggle('sticky', scrollY > 50);
+
+  // Show scroll button after 200px
+  if (scrollY > 200) {
+    scrollTopBtn.classList.add("show");
+  } else {
+    scrollTopBtn.classList.remove("show");
+  }
+
+  // Add sticky class to header after 50px
+  header.classList.toggle("sticky", scrollY > 50);
 });
 
-/* Scroll to top */
-scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+// Scroll to top on button click
+scrollTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 
 /* ================= ACTIVE NAV LINK & SECTION ANIMATION ================= */
 const sections = document.querySelectorAll('section, .hero h1, .hero h3');
