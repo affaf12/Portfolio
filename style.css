@@ -127,6 +127,8 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
+
+/* ================= SKILLs ================= */
 <style>
 #skills {
   padding: 80px 20px;
@@ -142,13 +144,13 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 }
 .skill-circle {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150px;
 }
 .skill-circle svg {
   transform: rotate(-90deg);
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150px;
 }
 .skill-circle circle {
   fill: none;
@@ -159,9 +161,9 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   stroke: rgba(255,255,255,0.15);
 }
 .progress {
-  stroke: #0ff; /* will be overwritten by JS */
-  stroke-dasharray: 377;
-  stroke-dashoffset: 377;
+  stroke: #0ff;
+  stroke-dasharray: 408; /* 2πr = 2*π*65 */
+  stroke-dashoffset: 408;
   transition: stroke-dashoffset 1.8s ease;
 }
 .skill-info {
@@ -172,19 +174,17 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-align: center;
 }
 .skill-info h3 {
-  font-size: 1rem;
-  margin: 0;
+  font-size: 0.9rem;
+  margin-top: 6px;
   color: #0ff;
 }
 .percent {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: #fff;
 }
-.skill-circle:hover .progress {
-  filter: drop-shadow(0 0 8px currentColor);
-}
 </style>
+
 
 /* ================= ACHIEVEMENTS ================= */
 .achievements-section {
