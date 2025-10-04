@@ -17,29 +17,37 @@ themeBtn.addEventListener('click', () => {
 });
 
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
+
 // Get elements
 const scrollTopBtn = document.getElementById("scrollTopBtn");
 const header = document.querySelector("header");
 
-// Scroll event
-window.addEventListener("scroll", () => {
+// Function to handle scroll events
+const handleScroll = () => {
   const scrollY = window.scrollY;
 
-  // Show scroll button after 200px
-  if (scrollY > 200) {
-    scrollTopBtn.classList.add("show");
-  } else {
-    scrollTopBtn.classList.remove("show");
-  }
+  // Show scroll-to-top button after 200px
+  scrollTopBtn.classList.toggle("show", scrollY > 200);
 
   // Add sticky class to header after 50px
   header.classList.toggle("sticky", scrollY > 50);
-});
+};
 
-// Scroll to top on button click
+// Attach scroll event listener
+window.addEventListener("scroll", handleScroll);
+
+// Scroll to top smoothly when button is clicked
 scrollTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+// Optional: Keyboard support (press 'ArrowUp' to scroll up)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowUp") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});
+
 
 
 /* ================= ACTIVE NAV LINK & SECTION ANIMATION ================= */
