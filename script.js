@@ -1,28 +1,91 @@
-const header = document.querySelector("header");
+// =================== UTILITY FUNCTIONS ===================
+const fadeIn = (el, display = "flex", duration = 200) => {
+  el.style.display = display;
+  el.style.opacity = 0;
+  let last = +new Date();
+  const tick = () => {
+    el.style.opacity = +el.style.opacity + (new Date() - last) / duration;
+    last = +new Date();
+    if (+el.style.opacity < 1) requestAnimationFrame(tick);
+  };
+  tick();
+};
 
-window.addEventListener ("scroll", function() {
-    header.classList.toggle ("sticky", window.scrollY >0);
+const fadeOut = (el, duration = 200) => {
+  el.style.opacity = 1;
+  let last = +new Date();
+  const tick = () => {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / duration;
+    last = +new Date();
+    if (+el.style.opacity > 0) requestAnimationFrame(tick);
+    else el.style.display = "none";
+  };
+  tick();
+};
+
+// =================== THEME TOGGLE ===================
+const themeBtn = document.getElementById('theme-toggle');
+themeBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  if (html.dataset.theme === 'dark') {
+    html.dataset.theme = 'light';
+    themeBtn.innerHTML = "<i class='bx bx-sun'></i>";
+  } else {
+    html.dataset.theme = 'dark';
+    themeBtn.innerHTML = "<i class='bx bx-moon'></i>";
+  }
 });
 
-let menu = document.querySelector('#menu-icon');
-let navbar = document.querySelector('.navbar');
+// =================== NAVBAR TOGGLE ===================
+const menuIcon = document.getElementById('menu-icon');
+const navbar = document.querySelector('.navbar');
+menuIcon.addEventListener('click', () => menuIcon.classList.toggle('bx-x'));
+menuIcon.addEventListener('click', () => navbar.classList.toggle('active'));
 
-menu.onclick = () => {
-    menu.classList.toggle('bx-x');
-    navbar.classList.toggle('active');
-};
+// Close navbar on scroll
+window.addEventListener('scroll', () => {
+  menuIcon.classList.remove('bx-x');
+  navbar.classList.remove('active');
+});
 
-window.onscroll = () => {
-    menu.classList.remove('bx-x');
-    navbar.classList.remove('active');
-};
+// =================== SCROLL TO TOP ===================
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+  scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+});
+scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-const sr = ScrollReveal ({
-    distance: '25px',
-    duration: 250,
-    reset: true
-})
+// =================== SMOOTH SCROLL FOR ANCHORS ===================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    target?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
 
-sr.reveal('.home-text',{delay:190, origin:'bottom'})
+// =================== SCROLL REVEAL ===================
+if (typeof ScrollReveal !== "undefined") {
+  const sr = ScrollReveal({ distance: "25px", duration: 400, reset: true });
+  sr.reveal(".home-text, .about, .experience, .skills, .achievement, .portfolio, .contact", { delay: 150, origin: "bottom" });
+}
 
-sr.reveal('.about,.services,.portfolio,.contact',{delay:200, origin:'bottom'})
+// =================== CHATBOT FUNCTIONALITY ===================
+const chatIcon = document.getElementById('chatIcon');
+const chatbot = document.getElementById('chatbot');
+const chatClose = document.getElementById('chatbot-close');
+const chatMinimize = document.querySelector('.chatbot-minimize');
+
+chatIcon.addEventListener('click', () => {
+  fadeIn(chatbot);
+  chatbot.setAttribute('aria-hidden', 'false');
+});
+
+chatClose.addEventListener('click', () => {
+  fadeOut(chatbot);
+  chatbot.setAttribute('aria-hidden', 'true');
+});
+
+chatMinimize?.addEventListener('click', () => {
+  chatbot.classList.toggle('chatbot-minimized');
+});
