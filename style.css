@@ -127,6 +127,65 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
+<!-- ================= CSS ================= -->
+<style>
+#skills {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+  text-align: center;
+  color: #fff;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 40px;
+  justify-items: center;
+}
+.skill-circle {
+  position: relative;
+  width: 140px;
+  height: 140px;
+}
+.skill-circle svg {
+  transform: rotate(-90deg);
+  width: 140px;
+  height: 140px;
+}
+.skill-circle circle {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+.bg {
+  stroke: rgba(255,255,255,0.15);
+}
+.progress {
+  stroke: url(#grad);
+  stroke-dasharray: 377;
+  stroke-dashoffset: 377;
+  transition: stroke-dashoffset 1.8s ease;
+}
+.skill-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.skill-info h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: #0ff;
+}
+.percent {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}
+.skill-circle:hover .progress {
+  filter: drop-shadow(0 0 8px #0ff);
+}
+</style>
+
 
 /* ================= ACHIEVEMENTS ================= */
 .achievements-section {
