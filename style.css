@@ -163,19 +163,19 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   gap: 2rem;
   width: 100%;
   max-width: 700px;
-  background: rgba(30,35,55,0.95);
-  backdrop-filter: blur(20px);
+  background: rgba(25,30,50,0.95);
+  backdrop-filter: blur(22px);
   padding: 3.5rem;
-  border-radius: 30px;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+  border-radius: 35px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.85);
   transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
   position: relative;
 }
 
 .contact-form:hover {
   transform: translateY(-6px);
-  box-shadow: 0 35px 80px rgba(63,184,175,0.6);
-  background: rgba(35,40,60,0.95);
+  box-shadow: 0 35px 80px rgba(54,169,161,0.6);
+  background: rgba(30,35,55,0.95);
 }
 
 .form-group {
@@ -187,19 +187,38 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 1.2rem 1.5rem;
+  padding: 1.3rem 1.5rem;
   border-radius: 25px;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: none;
   background: rgba(255,255,255,0.05);
   color: #fff;
   font-size: 1rem;
   outline: none;
+  position: relative;
   transition: all 0.35s ease;
 }
 
 .contact-form textarea {
   resize: vertical;
   min-height: 150px;
+}
+
+/* Animated underline */
+.contact-form input::after,
+.contact-form textarea::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #36a9a1;
+  transition: width 0.35s ease;
+}
+
+.contact-form input:focus::after,
+.contact-form textarea:focus::after {
+  width: 100%;
 }
 
 /* Label */
@@ -212,7 +231,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   font-size: 1rem;
   pointer-events: none;
   transition: all 0.35s ease;
-  background: transparent;
+  background: rgba(25,30,50,0.95);
   padding: 0 0.3rem;
 }
 
@@ -221,20 +240,18 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 .contact-form input:not(:placeholder-shown) + label,
 .contact-form textarea:focus + label,
 .contact-form textarea:not(:placeholder-shown) + label {
-  top: -10px;
+  top: -12px;
   left: 1.5rem;
   font-size: 0.85rem;
   color: #36a9a1;
-  background: rgba(30,35,55,0.95);
   font-weight: 600;
 }
 
 /* Input focus effect */
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border: 1px solid #36a9a1;
-  box-shadow: 0 10px 25px rgba(54,169,161,0.4);
   background: rgba(54,169,161,0.05);
+  box-shadow: 0 10px 25px rgba(54,169,161,0.4);
   transform: scale(1.01);
 }
 
@@ -248,9 +265,9 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   color: #111;
   font-weight: 700;
   border-radius: 35px;
-  padding: 1.2rem 3rem;
+  padding: 1.3rem 3rem;
   font-size: 1.1rem;
-  box-shadow: 0 15px 40px rgba(54,169,161,0.5);
+  box-shadow: 0 15px 40px rgba(54,169,161,0.55);
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   border: none;
@@ -258,7 +275,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 
 .contact-form button.btn:hover {
   transform: scale(1.1) rotate(-1deg);
-  box-shadow: 0 20px 50px rgba(54,169,161,0.7);
+  box-shadow: 0 20px 50px rgba(54,169,161,0.75);
   background: linear-gradient(135deg, #1abc9c, #36a9a1);
 }
 
