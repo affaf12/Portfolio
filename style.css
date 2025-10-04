@@ -131,8 +131,8 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 #contact {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 6rem 2rem;
+  align-items: flex-start; /* align content to the left */
+  padding: 6rem 5rem;
   background: linear-gradient(135deg, #0b0f19, #111426);
   color: #f0f0f0;
   scroll-margin-top: 100px;
@@ -141,9 +141,9 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 #contact .section-title {
   font-size: 2.8rem;
   font-weight: 800;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   color: #36a9a1;
-  text-align: center;
+  text-align: left;
   position: relative;
   letter-spacing: 1px;
 }
@@ -151,27 +151,27 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 #contact .section-title::after {
   content: '';
   display: block;
-  width: 100px;
+  width: 120px;
   height: 3px;
   background: linear-gradient(90deg, #36a9a1, #1abc9c);
-  margin: 0.5rem auto 0;
+  margin-top: 0.5rem;
   border-radius: 3px;
   transition: width 0.3s ease;
 }
 
 #contact .section-title:hover::after {
-  width: 120px;
+  width: 150px;
 }
 
 /* Contact Info */
 .contact-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* align text to the left */
   gap: 1rem;
-  font-size: 1.1rem;
-  text-align: center;
-  margin-bottom: 3rem;
+  font-size: 1.15rem;
+  text-align: left;
+  margin-top: 2rem;
   transition: all 0.3s ease;
 }
 
@@ -200,25 +200,28 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 
 .contact-info a:hover {
   color: #1abc9c;
-  transform: translateY(-2px);
+  transform: translateX(3px); /* subtle slide effect */
 }
 
 .contact-info p {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 1.1rem;
   color: #f0f0f0;
   transition: transform 0.3s ease;
 }
 
 .contact-info p:hover {
-  transform: translateY(-2px);
+  transform: translateX(3px);
 }
 
 /* Responsive */
+@media(max-width:1024px){
+  #contact { padding: 5rem 3rem; }
+}
+
 @media(max-width:768px){
-  #contact { padding: 4rem 1.5rem; }
+  #contact { padding: 4rem 2rem; }
   #contact .section-title { font-size: 2.2rem; }
   .contact-info { font-size: 1rem; gap: 0.8rem; }
 }
