@@ -208,6 +208,8 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
 }
 
+
+
 /* ================= CONTACT ================= */
 .contact {
   display: flex;
@@ -301,6 +303,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   box-shadow: 0 15px 40px rgba(63,184,175,0.7);
   background: linear-gradient(135deg, #36a9a1, var(--primary));
 }
+
 
 /* RESPONSIVE */
 @media(max-width:1024px){
