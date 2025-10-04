@@ -18,36 +18,42 @@ themeBtn.addEventListener('click', () => {
 
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
 
-// Get elements
 const scrollTopBtn = document.getElementById("scrollTopBtn");
 const header = document.querySelector("header");
+let lastScroll = 0;
 
-// Function to handle scroll events
-const handleScroll = () => {
-  const scrollY = window.scrollY;
+window.addEventListener("scroll", () => {
+  const currentScroll = window.scrollY;
 
-  // Show scroll-to-top button after 200px
-  scrollTopBtn.classList.toggle("show", scrollY > 200);
+  // Show/hide scroll button with fade
+  if (currentScroll > 200) {
+    scrollTopBtn.classList.add("show");
+  } else {
+    scrollTopBtn.classList.remove("show");
+  }
 
-  // Add sticky class to header after 50px
-  header.classList.toggle("sticky", scrollY > 50);
-};
+  // Sticky header slide down/up
+  if (currentScroll > 50) {
+    if (currentScroll > lastScroll) {
+      // scrolling down
+      header.style.transform = "translateY(-120px)";
+    } else {
+      // scrolling up
+      header.style.transform = "translateY(0)";
+    }
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+    header.style.transform = "translateY(0)";
+  }
 
-// Attach scroll event listener
-window.addEventListener("scroll", handleScroll);
+  lastScroll = currentScroll;
+});
 
-// Scroll to top smoothly when button is clicked
+// Smooth scroll to top
 scrollTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
-
-// Optional: Keyboard support (press 'ArrowUp' to scroll up)
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowUp") {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-});
-
 
 
 /* ================= ACTIVE NAV LINK & SECTION ANIMATION ================= */
