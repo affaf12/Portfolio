@@ -351,15 +351,46 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-decoration: none;
   box-shadow: var(--shadow);
   transition: var(--transition);
+  position: relative;
 }
 
-.social-icons a i { font-size: 1.2rem; }
+.social-icons a i { font-size: 1.5rem; }
 
 .social-icons a:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.05);
   background: var(--primary);
   color: #111;
   box-shadow: 0 12px 35px rgba(63,184,175,0.6);
+}
+
+/* TOOLTIP */
+.social-icons a::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  background: rgba(20,25,40,0.9);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .social-icons {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 /* RESPONSIVE */
