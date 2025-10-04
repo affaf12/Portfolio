@@ -118,132 +118,52 @@
     </div>
   </section>
 
-<!------ ACHIEVEMENTS  ------>
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-
+<!-- ================= ACHIEVEMENTS ================= -->
 <section id="achievements" class="achievements-section">
-  <div class="container">
-    <header class="achievements-header">
-      <h2 class="section-title">Achievements</h2>
-      <p class="section-subtitle">Certifications, professional milestones & client impact</p>
-    </header>
+  <h2 class="section-title">🏆 Achievements</h2>
 
-    <ul class="achievements-grid" aria-live="polite">
-      <!-- Certificate 1 -->
-      <li class="achievement-card">
-        <div class="icon-wrap" aria-hidden="true">
-          <i class="bx bxs-bar-chart-alt-2"></i>
-        </div>
-        <div class="achievement-body">
-          <h3 class="achievement-title">Microsoft Power BI Data Analyst</h3>
-          <p class="achievement-meta">Certified • 2023</p>
-          <p class="achievement-desc">Earned Microsoft certification validating advanced Power BI skills in modeling, DAX and dashboarding.</p>
-        </div>
-      </li>
+  <div class="achievements-container">
+    <div class="achievements-slider">
+      <!-- Achievements Wrapper -->
+      <div class="achievements-wrapper">
+        
+        <!-- Achievement 1 -->
+        <article class="achievement-card">
+          <h3>Microsoft Power BI Data Analyst</h3>
+          <p><strong>📅 2023</strong></p>
+          <p>Earned Microsoft certification validating advanced Power BI skills in modeling, DAX and dashboarding.</p>
+        </article>
 
-      <!-- Certificate 2 -->
-      <li class="achievement-card">
-        <div class="icon-wrap" aria-hidden="true">
-          <i class="bx bxs-graduation"></i>
-        </div>
-        <div class="achievement-body">
-          <h3 class="achievement-title">Google Data Analytics Specialization</h3>
-          <p class="achievement-meta">Specialization • 2023</p>
-          <p class="achievement-desc">Comprehensive training in data cleaning, visualization, and data-driven decision making.</p>
-        </div>
-      </li>
+        <!-- Achievement 2 -->
+        <article class="achievement-card">
+          <h3>Google Data Analytics Specialization</h3>
+          <p><strong>📅 2023</strong></p>
+          <p>Completed a comprehensive training in data cleaning, visualization, and business decision-making with analytics.</p>
+        </article>
 
-      <!-- Certificate 3 -->
-      <li class="achievement-card">
-        <div class="icon-wrap" aria-hidden="true">
-          <i class="bx bxs-briefcase-alt-2"></i>
-        </div>
-        <div class="achievement-body">
-          <h3 class="achievement-title">Google Project Management</h3>
-          <p class="achievement-meta">Certificate • 2023</p>
-          <p class="achievement-desc">Project management fundamentals — planning, execution, stakeholder management and agile practices.</p>
-        </div>
-      </li>
+        <!-- Achievement 3 -->
+        <article class="achievement-card">
+          <h3>Google Project Management</h3>
+          <p><strong>📅 2023</strong></p>
+          <p>Acquired skills in planning, execution, agile practices, and stakeholder communication.</p>
+        </article>
 
-      <!-- Client impact -->
-      <li class="achievement-card">
-        <div class="icon-wrap" aria-hidden="true">
-          <i class="bx bxs-user-check"></i>
-        </div>
-        <div class="achievement-body">
-          <h3 class="achievement-title">Dashboards for 50+ clients</h3>
-          <p class="achievement-meta">Data visualization • Ongoing</p>
-          <p class="achievement-desc">Designed and delivered interactive dashboards across retail, logistics and finance — improving decision speed and reporting accuracy.</p>
-        </div>
-      </li>
-    </ul>
+        <!-- Achievement 4 -->
+        <article class="achievement-card">
+          <h3>50+ Client Dashboards</h3>
+          <p><strong>📅 Ongoing</strong></p>
+          <p>Designed and delivered interactive dashboards across multiple industries improving decision speed and reporting accuracy.</p>
+        </article>
 
-    <!-- optional: small CTA or download links -->
-    <div class="achievements-footer">
-      <a href="#contact" class="btn-small">Request case studies</a>
-      <!-- if you have certificate files, replace # with actual file links -->
-      <a href="#" class="link-muted">View certificates</a>
+      </div>
     </div>
+
+    <!-- Navigation Buttons -->
+    <button class="ach-nav-btn ach-left-btn" aria-label="Previous Achievement">&#10094;</button>
+    <button class="ach-nav-btn ach-right-btn" aria-label="Next Achievement">&#10095;</button>
   </div>
 </section>
 
-<!-- Styles (add to your main CSS or inside a <style> block) -->
-<style>
-  .achievements-section { padding: 40px 0; }
-  .achievements-header { text-align: left; margin-bottom: 18px; }
-  .achievements-header .section-title { font-size: 1.6rem; margin-bottom: 4px; }
-  .achievements-header .section-subtitle { color: #7b7b7b; font-size: 0.95rem; margin: 0; }
-
-  .achievements-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    list-style: none;
-    padding: 0;
-    margin: 18px 0 0 0;
-  }
-
-  .achievement-card {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    background: rgba(255,255,255,0.03);
-    border-radius: 12px;
-    padding: 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-  .achievement-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.10); }
-
-  .icon-wrap {
-    flex: 0 0 52px;
-    height: 52px;
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    font-size: 24px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    color: inherit;
-  }
-
-  .achievement-body { min-width: 0; }
-  .achievement-title { font-size: 1.02rem; margin: 0 0 6px 0; }
-  .achievement-meta { font-size: 0.82rem; color: #8f8f8f; margin: 0 0 8px 0; }
-  .achievement-desc { font-size: 0.92rem; margin: 0; color: #bdbdbd; }
-
-  .achievements-footer { margin-top: 16px; display:flex; gap:12px; align-items:center; }
-  .btn-small {
-    display:inline-block; padding:8px 12px; border-radius:8px; background:#0b5fff; color:white; text-decoration:none; font-size:0.9rem;
-  }
-  .link-muted { color:#8c8c8c; font-size:0.9rem; text-decoration:none; }
-  .link-muted:hover { text-decoration:underline; }
-
-  /* Responsive tweak */
-  @media (max-width:520px){
-    .achievement-card { padding: 12px; gap:10px; }
-    .icon-wrap { width:44px; height:44px; font-size:20px; }
-  }
-</style>
 
 
 <!-- ================= PROJECTS / PORTFOLIO ================= -->
