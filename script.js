@@ -77,54 +77,58 @@ window.addEventListener('scroll', () => {
 });
 
 /* ================= CHATBOT ================= */
-const chatbotWindow = document.querySelector('.chatbot-window');
-const chatbotToggleBtn = document.getElementById('chatbot-toggle');
-const chatbotCloseBtn = document.getElementById('chatbot-close');
-const chatbotBody = document.getElementById('chatbot-body');
-const chatbotInput = document.getElementById('chatbot-input');
-const chatbotSend = document.getElementById('chatbot-send');
+const chatbot = document.getElementById('chatbot');
+const toggleBtn = document.getElementById('chatbot-toggle');
+const closeBtn = document.getElementById('chatbot-close');
+const sendBtn = document.getElementById('chatbot-send');
+const input = document.getElementById('chatbot-input');
+const body = document.getElementById('chatbot-body');
+const typingIndicator = document.getElementById('typing-indicator');
 
-chatbotToggleBtn.addEventListener('click', () => chatbotWindow.classList.toggle('active'));
-chatbotCloseBtn.addEventListener('click', () => chatbotWindow.classList.remove('active'));
+toggleBtn.addEventListener('click', () => chatbot.style.display = 'flex');
+closeBtn.addEventListener('click', () => chatbot.style.display = 'none');
 
-function addMessage(msg, sender='bot') {
-  const bubble = document.createElement('div');
-  bubble.classList.add('chat-bubble', sender);
-  bubble.textContent = msg;
-  chatbotBody.appendChild(bubble);
-  chatbotBody.scrollTop = chatbotBody.scrollHeight;
-}
-
-function botReply(msg) {
-  const reply = msg.toLowerCase();
-  if(reply.includes('skills')) return "My skills: Power BI, SQL, Python, Excel, Data Analysis, and BI dashboards.";
-  if(reply.includes('experience')) return "I have experience as a Data Analyst at XYZ Corp and Power BI Developer at ABC Ltd.";
-  if(reply.includes('projects')) return "I built dashboards for Retail Sales, Financial Analysis, and Customer Insights.";
-  if(reply.includes('contact')) return "Email: muhammadaffaf746@gmail.com | Phone: +92 300 1234567";
-  if(reply.includes('social')) return "Connect with me on GitHub, LinkedIn, or WhatsApp!";
-  return "Hello! Ask me about my skills, experience, projects, contact, or social media.";
-}
+sendBtn.addEventListener('click', sendMessage);
+input.addEventListener('keypress', e => { if(e.key === 'Enter') sendMessage(); });
 
 function sendMessage() {
-  const msg = chatbotInput.value.trim();
+  const msg = input.value.trim();
   if(!msg) return;
-  addMessage(msg, 'user');
-  chatbotInput.value = '';
 
-  const typingIndicator = document.createElement('div');
-  typingIndicator.classList.add('chatbot-typing');
-  typingIndicator.innerHTML = `<span></span><span></span><span></span>`;
-  chatbotBody.appendChild(typingIndicator);
-  chatbotBody.scrollTop = chatbotBody.scrollHeight;
+  // Add user message
+  const userMsg = document.createElement('div');
+  userMsg.classList.add('chatbot-message', 'user-msg');
+  userMsg.textContent = msg;
+  body.appendChild(userMsg);
+  input.value = '';
+  scrollToBottom();
 
+  // Show typing indicator
+  typingIndicator.style.display = 'block';
+
+  // Simulate bot response
   setTimeout(() => {
-    typingIndicator.remove();
-    addMessage(botReply(msg), 'bot');
-  }, 1200 + Math.random()*800);
+    typingIndicator.style.display = 'none';
+    const botMsg = document.createElement('div');
+    botMsg.classList.add('chatbot-message', 'bot-msg');
+    botMsg.textContent = getBotResponse(msg);
+    body.appendChild(botMsg);
+    scrollToBottom();
+  }, 1000);
 }
 
-chatbotSend.addEventListener('click', sendMessage);
-chatbotInput.addEventListener('keypress', e => { if(e.key==='Enter') sendMessage(); });
+function scrollToBottom() {
+  body.scrollTop = body.scrollHeight;
+}
+
+function getBotResponse(msg) {
+  // Simple logic
+  msg = msg.toLowerCase();
+  if(msg.includes('hello') || msg.includes('hi')) return "Hello! 👋 How can I help you today?";
+  if(msg.includes('power bi')) return "✅ Yes! I make amazing Power BI dashboards!";
+  return "🤖 I'm here to assist you!";
+}
+
 
 /* ================= SKILL CIRCLES ================= */
 document.querySelectorAll('.skill-circle').forEach(circle => {
