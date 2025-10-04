@@ -183,7 +183,17 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
 }
 
-/* ================= CONTACT FORM UPGRADE ================= */
+/* ================= PREMIUM CONTACT FORM ================= */
+#contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #0b0f19, #111426);
+  color: #fff;
+}
+
+/* FORM CONTAINER */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -191,30 +201,41 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   width: 100%;
   max-width: 700px;
   background: rgba(20,25,40,0.85);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   padding: 3rem;
-  border-radius: 20px;
-  box-shadow: 0 15px 45px rgba(0,0,0,0.6);
-  margin: 0 auto;
-  transition: all 0.4s ease;
+  border-radius: 25px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .contact-form:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 50px rgba(63,184,175,0.6);
+  box-shadow: 0 25px 60px rgba(63,184,175,0.6);
 }
 
+/* FORM GROUP + ICON */
 .form-group {
   position: relative;
   width: 100%;
 }
 
-/* INPUTS AND TEXTAREA */
+.form-group i {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.6);
+  font-size: 1.2rem;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+/* INPUTS & TEXTAREA */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 1rem 1.2rem;
-  border-radius: 15px;
+  padding: 1rem 1.2rem 1rem 3rem; /* space for icon */
+  border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.05);
   color: #fff;
@@ -223,16 +244,13 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: all 0.3s ease;
 }
 
-.contact-form textarea { 
-  resize: vertical; 
-  min-height: 120px; 
-}
+.contact-form textarea { resize: vertical; min-height: 120px; }
 
 /* FLOATING LABELS */
 .contact-form label {
   position: absolute;
   top: 50%;
-  left: 1.2rem;
+  left: 3rem;
   transform: translateY(-50%);
   color: rgba(255,255,255,0.6);
   font-size: 1rem;
@@ -240,20 +258,26 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: all 0.3s ease;
 }
 
-/* FLOATING LABEL EFFECT WHEN FOCUSED OR FILLED */
+/* FLOATING LABEL EFFECT */
 .contact-form input:focus + label,
 .contact-form input:not(:placeholder-shown) + label,
 .contact-form textarea:focus + label,
 .contact-form textarea:not(:placeholder-shown) + label {
   top: -10px;
-  left: 1rem;
+  left: 2.5rem;
   font-size: 0.85rem;
   color: #3fb8af;
   background: rgba(20,25,40,0.85);
   padding: 0 0.4rem;
 }
 
-/* INPUT FOCUS EFFECT */
+/* ICON FOCUS EFFECT */
+.contact-form input:focus + label i,
+.contact-form textarea:focus + label i {
+  color: #3fb8af;
+}
+
+/* INPUT FOCUS */
 .contact-form input:focus,
 .contact-form textarea:focus {
   border: 1px solid #3fb8af;
@@ -264,28 +288,35 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 
 /* SUBMIT BUTTON */
 .contact-form button.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
   background: linear-gradient(135deg, #3fb8af, #36a9a1);
   color: #111;
   font-weight: 700;
-  border-radius: 25px;
-  padding: 1rem 2.2rem;
+  border-radius: 30px;
+  padding: 1rem 2.5rem;
   font-size: 1.05rem;
-  box-shadow: 0 10px 30px rgba(63,184,175,0.5);
+  box-shadow: 0 12px 35px rgba(63,184,175,0.5);
   cursor: pointer;
   transition: all 0.4s ease;
   border: none;
-  align-self: center;
 }
 
 .contact-form button.btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 15px 40px rgba(63,184,175,0.7);
+  transform: scale(1.1) rotate(-1deg);
+  box-shadow: 0 18px 45px rgba(63,184,175,0.7);
   background: linear-gradient(135deg, #36a9a1, #3fb8af);
 }
 
 /* RESPONSIVE */
 @media(max-width:768px){
   .contact-form { padding: 2.5rem; }
+  .form-group i { left: 0.8rem; }
+  .contact-form label { left: 2.5rem; }
+  .contact-form input,
+  .contact-form textarea { padding-left: 2.5rem; }
 }
 
 /* ================= SCROLL TOP BUTTON ================= */
