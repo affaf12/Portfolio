@@ -435,3 +435,36 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   .contact-form textarea { padding-left: 2.5rem; }
   .social-icons { gap: 1rem; flex-direction: column; }
 }
+
+
+
+/* ================= SCROLL TO TOP BUTTON ================= */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 40px;
+  left: 40px; /* Changed from right to left */
+  z-index: 999;
+  background: linear-gradient(135deg, #36a9a1, #1abc9c);
+  color: #111;
+  border: none;
+  padding: 0.8rem 1rem;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(54,169,161,0.5);
+  transition: all 0.3s ease;
+  display: none; /* Hidden by default */
+}
+
+#scrollTopBtn:hover {
+  transform: scale(1.2);
+  box-shadow: 0 15px 35px rgba(54,169,161,0.7);
+}
+
+/* Optional: Icon inside the button */
+#scrollTopBtn i {
+  pointer-events: none;
+}
+
+
+
