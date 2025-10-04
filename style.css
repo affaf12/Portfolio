@@ -145,7 +145,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   letter-spacing: 2px;
 }
 
-/* Container to allow buttons outside */
 .portfolio-container {
   position: relative;
   max-width: 1000px;
