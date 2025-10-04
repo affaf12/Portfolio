@@ -166,6 +166,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   gap: 5rem;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 /* ================= CONTACT INFO ================= */
@@ -175,6 +176,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   flex-direction: column;
   gap: 1.5rem;
   font-size: 1.15rem;
+  min-width: 250px;
 }
 
 .contact-info p {
@@ -233,6 +235,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   border-radius: 35px;
   box-shadow: 0 25px 60px rgba(0,0,0,0.85);
   transition: all 0.4s ease;
+  min-width: 300px;
 }
 
 .contact-form:hover {
@@ -320,15 +323,29 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:1024px){
-  .contact-container { flex-direction: column; gap: 3rem; }
-  #contact { padding: 5rem 3rem; }
+  .contact-container {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  #contact {
+    padding: 5rem 3rem;
+  }
 }
 
 @media(max-width:768px){
-  #contact { padding: 4rem 2rem; }
-  #contact .section-title { font-size: 2.2rem; }
-  .contact-info { font-size: 1rem; gap: 0.8rem; }
-  .contact-form { padding: 2.5rem; }
+  #contact {
+    padding: 4rem 2rem;
+  }
+  #contact .section-title {
+    font-size: 2.2rem;
+  }
+  .contact-info {
+    font-size: 1rem;
+    gap: 0.8rem;
+  }
+  .contact-form {
+    padding: 2.5rem;
+  }
 }
 
 /* SOCIAL MEDIA */
