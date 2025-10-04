@@ -127,20 +127,20 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= PROJECTS ================= */
-#portfolio {
+/* ================= PROJECTS (NEON GLOW) ================= */
+#portfolio-neon {
   padding: 80px 20px;
   background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
   text-align: center;
   color: #fff;
 }
 
-.section-title {
+#portfolio-neon .section-title {
   font-size: 2.5rem;
   margin-bottom: 40px;
   font-weight: 700;
   color: #0ff;
-  text-shadow: 0 0 10px #0ff, 0 0 20px #00e6e6;
+  text-shadow: 0 0 15px #0ff, 0 0 30px #00e6e6;
   letter-spacing: 2px;
 }
 
@@ -163,14 +163,14 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   border-radius: 16px;
   padding: 30px;
   text-align: left;
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
   backdrop-filter: blur(12px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 0 35px rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
 }
 
 .project-card h3 {
@@ -202,10 +202,9 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   position: absolute;
   left: -18px;
   color: #0ff;
-  text-shadow: 0 0 8px #0ff;
+  text-shadow: 0 0 10px #0ff;
 }
 
-/* Navigation Buttons */
 .nav-btn {
   position: absolute;
   top: 50%;
@@ -218,7 +217,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   font-size: 28px;
   border-radius: 50%;
   backdrop-filter: blur(6px);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
   transition: all 0.3s ease;
   z-index: 10;
 }
@@ -227,9 +226,9 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 .right-btn { right: 15px; }
 
 .nav-btn:hover {
-  background: rgba(0, 255, 255, 0.4);
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
-  transform: scale(1.15) translateY(-50%);
+  background: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.9);
+  transform: scale(1.2) translateY(-50%);
 }
 
 /* ================= CONTACT SECTION ================= */
