@@ -16,22 +16,26 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
-<!-- ================= Skill Section ================= -->
-<script>
+// ================= Skill Section =================
 document.addEventListener("DOMContentLoaded", () => {
   const circles = document.querySelectorAll(".skill-circle");
+
   circles.forEach(circle => {
     const percent = parseInt(circle.getAttribute("data-percent"));
     const progress = circle.querySelector(".progress");
     const text = circle.querySelector(".percent");
     const color = circle.getAttribute("data-color");
+    const title = circle.querySelector("h3");
+
     const radius = progress.r.baseVal.value;
     const circumference = 2 * Math.PI * radius;
 
+    // Apply initial styles
     progress.style.strokeDasharray = circumference;
+    progress.style.strokeDashoffset = circumference;
     progress.style.stroke = color;
+    title.style.color = color;
     text.style.color = color;
-    circle.querySelector("h3").style.color = color;
 
     let current = 0;
     const animate = setInterval(() => {
@@ -46,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 20);
   });
 });
-</script>
+
 
 // ================= ACHIEVEMENTS SLIDER =================
 const achSlider = document.querySelector(".achievements-wrapper");
