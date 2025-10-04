@@ -38,6 +38,21 @@ function prevSlide() { showSlide(index - 1); }
 nextBtn.addEventListener("click", nextSlide);
 prevBtn.addEventListener("click", prevSlide);
 
+// Keyboard navigation
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") nextSlide();
+  if (e.key === "ArrowLeft") prevSlide();
+});
+
+// Swipe for touch devices
+let startX = 0;
+slider.addEventListener("touchstart", (e) => startX = e.touches[0].clientX);
+slider.addEventListener("touchend", (e) => {
+  const endX = e.changedTouches[0].clientX;
+  if (startX - endX > 50) nextSlide();   // swipe left
+  if (endX - startX > 50) prevSlide();   // swipe right
+});
+
 // Init
 showSlide(0);
 
