@@ -222,6 +222,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   width: 100%;
 }
 
+/* Icon stays aligned */
 .form-group i {
   position: absolute;
   top: 50%;
@@ -233,6 +234,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
+/* Inputs and textarea */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
@@ -251,6 +253,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   min-height: 140px; 
 }
 
+/* Label placement */
 .contact-form label {
   position: absolute;
   top: 50%;
@@ -264,32 +267,34 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   padding: 0 0.3rem;
 }
 
-/* Floating label effect */
+/* Floating label effect with smooth transition */
 .contact-form input:focus + label,
 .contact-form input:not(:placeholder-shown) + label,
 .contact-form textarea:focus + label,
 .contact-form textarea:not(:placeholder-shown) + label {
-  top: -10px;
+  top: -8px;             /* slightly above */
+  left: 2.8rem;          /* keep aligned with icon */
   font-size: 0.85rem;
   color: var(--primary);
   background: rgba(20,25,40,0.9);
 }
 
+/* Icon color change on focus */
 .contact-form input:focus + label i,
 .contact-form textarea:focus + label i {
   color: var(--primary);
-  transform: scale(1.2);
+  transform: translateY(0) scale(1.1); /* subtle scale */
 }
 
+/* Input focus effect */
 .contact-form input:focus,
 .contact-form textarea:focus {
   border: 1px solid var(--primary);
   box-shadow: 0 10px 30px rgba(63,184,175,0.4);
   background: rgba(63,184,175,0.05);
-  transform: scale(1.02);
 }
 
-/* Submit Button */
+/* Submit button */
 .contact-form button.btn {
   display: inline-flex;
   align-items: center;
