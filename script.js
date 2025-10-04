@@ -17,8 +17,6 @@ themeBtn.addEventListener('click', () => {
 });
 
 // ================= PROJECTS SLIDER =================
-
-
 const slider = document.querySelector(".projects-wrapper");
 const slides = document.querySelectorAll(".project-card");
 const nextBtn = document.querySelector(".right-btn");
@@ -33,6 +31,10 @@ function showSlide(i) {
   slider.style.transform = `translateX(${-index * 100}%)`;
 }
 
+// Next / Prev
+function nextSlide() { showSlide(index + 1); }
+function prevSlide() { showSlide(index - 1); }
+
 // Navigation buttons
 nextBtn.addEventListener("click", () => {
   nextSlide();
@@ -42,9 +44,6 @@ prevBtn.addEventListener("click", () => {
   prevSlide();
   resetAutoplay();
 });
-
-function nextSlide() { showSlide(index + 1); }
-function prevSlide() { showSlide(index - 1); }
 
 // Autoplay every 5s
 function startAutoplay() {
@@ -58,23 +57,14 @@ function resetAutoplay() {
   startAutoplay();
 }
 
-// Start autoplay
+// Init
+showSlide(0);
 startAutoplay();
 
 // Pause on hover
 const sliderContainer = document.querySelector(".portfolio-slider");
 sliderContainer.addEventListener("mouseenter", stopAutoplay);
 sliderContainer.addEventListener("mouseleave", startAutoplay);
-
-// ================= NAVBAR SMOOTH SCROLL =================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute("href")).scrollIntoView({
-      behavior: "smooth"
-    });
-  });
-});
 
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
 
