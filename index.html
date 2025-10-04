@@ -15,8 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- Custom JS -->
-  <script src="js/script.js" defer></script>
 </head>
 
 <body>
@@ -233,46 +231,7 @@
     </footer>
   </div>
 
-  <!-- ===== SCRIPTS ===== -->
-  <script>
-    // THEME TOGGLE
-    const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.addEventListener('click', () => {
-      const html = document.documentElement;
-      if (html.dataset.theme === 'dark') {
-        html.dataset.theme = 'light';
-        themeBtn.innerHTML = "<i class='bx bx-sun'></i>";
-      } else {
-        html.dataset.theme = 'dark';
-        themeBtn.innerHTML = "<i class='bx bx-moon'></i>";
-      }
-    });
-
-    // MENU TOGGLE
-    const menuIcon = document.getElementById('menu-icon');
-    const navbar = document.querySelector('.navbar');
-    menuIcon.addEventListener('click', () => navbar.classList.toggle('active'));
-
-    // SCROLL TO TOP
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-      scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // CHATBOT
-    const chatIcon = document.getElementById('chatIcon');
-    const chatbot = document.getElementById('chatbot');
-    const chatClose = document.getElementById('chatbot-close');
-    chatIcon.addEventListener('click', () => {
-      chatbot.style.display = 'block';
-      chatbot.setAttribute('aria-hidden', 'false');
-    });
-    chatClose.addEventListener('click', () => {
-      chatbot.style.display = 'none';
-      chatbot.setAttribute('aria-hidden', 'true');
-    });
-  </script>
-
+  <!-- ===== JS ===== -->
+  <script src="js/script.js" defer></script>
 </body>
 </html>
