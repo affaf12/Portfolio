@@ -16,6 +16,34 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
+<!-- ================= Skill Section ================= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const circles = document.querySelectorAll(".skill-circle");
+  circles.forEach(circle => {
+    const percent = circle.getAttribute("data-percent");
+    const progress = circle.querySelector(".progress");
+    const text = circle.querySelector(".percent");
+    const radius = progress.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+
+    progress.style.strokeDasharray = circumference;
+
+    let current = 0;
+    const animate = setInterval(() => {
+      if (current >= percent) {
+        clearInterval(animate);
+      } else {
+        current++;
+        text.textContent = current + "%";
+        progress.style.strokeDashoffset = circumference - (current / 100) * circumference;
+      }
+    }, 20);
+  });
+});
+</script>
+
+
 // ================= ACHIEVEMENTS SLIDER =================
 const achSlider = document.querySelector(".achievements-wrapper");
 const achSlides = document.querySelectorAll(".achievement-card");
