@@ -160,43 +160,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   width: 150px;
 }
 
-/* Two-column layout */
-.contact-container {
-  display: flex;
-  gap: 5rem;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-/* ================= CONTACT SECTION ================= */
-#contact {
-  padding: 6rem 5rem;
-  background: linear-gradient(135deg, #0b0f19, #111426);
-  color: #f0f0f0;
-  scroll-margin-top: 100px;
-}
-
-#contact .section-title {
-  font-size: 2.8rem;
-  font-weight: 800;
-  margin-bottom: 3rem;
-  color: #36a9a1;
-  text-align: left;
-  letter-spacing: 1px;
-  position: relative;
-}
-
-#contact .section-title::after {
-  content: '';
-  display: block;
-  width: 120px;
-  height: 3px;
-  background: linear-gradient(90deg, #36a9a1, #1abc9c);
-  margin-top: 0.5rem;
-  border-radius: 3px;
-}
-
 /* ================= CONTACT CONTAINER ================= */
 .contact-container {
   display: flex;
@@ -210,7 +173,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 /* ================= CONTACT INFO ================= */
 .contact-info {
   flex: 1;
-  order: 1; /* ensures left position */
+  order: 1;
   min-width: 250px;
   display: flex;
   flex-direction: column;
