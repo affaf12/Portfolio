@@ -128,8 +128,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 }
 
 
-/* ================= SKILLs ================= */
-<style>
+/* ================= SKILLS ================= */
 #skills {
   padding: 80px 20px;
   background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
@@ -161,10 +160,9 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   stroke: rgba(255,255,255,0.15);
 }
 .progress {
-  stroke: #0ff;
-  stroke-dasharray: 408; /* 2πr = 2*π*65 */
-  stroke-dashoffset: 408;
-  transition: stroke-dashoffset 1.8s ease;
+  stroke: #0ff; /* default, overridden by JS */
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
 }
 .skill-info {
   position: absolute;
@@ -176,14 +174,12 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 .skill-info h3 {
   font-size: 0.9rem;
   margin-top: 6px;
-  color: #0ff;
 }
 .percent {
   font-size: 1.3rem;
   font-weight: bold;
   color: #fff;
 }
-</style>
 
 
 /* ================= ACHIEVEMENTS ================= */
