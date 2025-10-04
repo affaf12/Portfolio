@@ -183,7 +183,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
 }
 
-/* ================= CONTACT UPGRADE ================= */
+/* ================= CONTACT SECTION ================= */
 .contact {
   display: flex;
   flex-direction: column;
@@ -203,7 +203,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   font-size: 1rem;
   text-align: center;
 }
-
+.contact-info h2 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--primary);}
 .contact-info a {
   color: var(--primary);
   text-decoration: none;
@@ -237,7 +237,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   position: relative;
   width: 100%;
 }
-
 .contact form input,
 .contact form textarea {
   width: 100%;
@@ -250,7 +249,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   outline: none;
   transition: all 0.3s ease;
 }
-
 .contact form textarea { resize: vertical; min-height: 120px; }
 
 .contact form label {
@@ -264,7 +262,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: all 0.3s ease;
 }
 
-/* Focus effect for floating label */
+/* FLOATING LABEL ON FOCUS */
 .contact form input:focus + label,
 .contact form input:not(:placeholder-shown) + label,
 .contact form textarea:focus + label,
@@ -277,7 +275,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   padding: 0 0.4rem;
 }
 
-/* Input focus effect */
+/* INPUT FOCUS EFFECT */
 .contact form input:focus,
 .contact form textarea:focus {
   border: 1px solid var(--primary);
@@ -301,7 +299,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   letter-spacing: 0.5px;
   align-self: center;
 }
-
 .contact button.btn:hover {
   transform: scale(1.1);
   box-shadow: 0 15px 40px rgba(63,184,175,0.7);
@@ -314,7 +311,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   justify-content: center;
   gap: 1.5rem;
 }
-
 .contact-social a {
   display: inline-flex;
   align-items: center;
@@ -327,7 +323,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   font-size: 1.4rem;
   transition: all 0.3s ease;
 }
-
 .contact-social a:hover {
   background: var(--primary);
   color: #111;
