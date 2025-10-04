@@ -127,6 +127,70 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* ================= PROJECTS ================= */
+#portfolio {
+  padding: 60px 20px;
+  background: var(--bg, #f9f9f9);
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: var(--text, #333);
+}
+
+.portfolio-slider {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.projects-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.project-card {
+  min-width: 100%;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+}
+
+.project-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.project-card ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 24px;
+  border-radius: 50%;
+}
+
+.left-btn { left: 10px; }
+.right-btn { right: 10px; }
+
+.nav-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+
 /* ================= CONTACT SECTION ================= */
 #contact {
   padding: 6rem 5rem;
