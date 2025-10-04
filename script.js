@@ -76,100 +76,98 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(link => { if(link.getAttribute('href') === '#'+current) link.classList.add('active'); });
 });
 
-// ================= CHATBOT JS =================
 /* ================= CHATBOT JS ================= */
-const chatbot = document.getElementById('chatbot');
-const toggleBtn = document.getElementById('chatbot-toggle');
-const closeBtn = document.getElementById('chatbot-close');
-const sendBtn = document.getElementById('chatbot-send');
-const input = document.getElementById('chatbot-input');
-const body = document.getElementById('chatbot-body');
-const typingIndicator = document.getElementById('typing-indicator');
-const quickRepliesContainer = document.getElementById('chatbot-quick-replies');
-const notification = document.getElementById('chatbot-notification');
+const chatbotWindow = document.getElementById('chatbot');
+const toggleBtnEl = document.getElementById('chatbot-toggle');
+const closeBtnEl = document.getElementById('chatbot-close');
+const sendBtnEl = document.getElementById('chatbot-send');
+const inputEl = document.getElementById('chatbot-input');
+const bodyEl = document.getElementById('chatbot-body');
+const typingEl = document.getElementById('typing-indicator');
+const quickRepliesEl = document.getElementById('chatbot-quick-replies');
+const notificationEl = document.getElementById('chatbot-notification');
 
 let inactivityTimer;
-const chatSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); // message sound
+const chatSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
 
-/* ---------------- TOGGLE CHATBOT ---------------- */
-toggleBtn.addEventListener('click', () => {
-  chatbot.classList.toggle('open');
-  if (chatbot.classList.contains('open')) {
-    notification.style.display = 'none';
-    chatbot.style.bottom = `${toggleBtn.offsetHeight + 30}px`; // above toggle button
+/* ---------------- TOGGLE ---------------- */
+toggleBtnEl.addEventListener('click', () => {
+  chatbotWindow.classList.toggle('open');
+  if (chatbotWindow.classList.contains('open')) {
+    notificationEl.style.display = 'none';
+    chatbotWindow.style.bottom = `${toggleBtnEl.offsetHeight + 30}px`;
   } else {
-    chatbot.style.bottom = '80px'; // default
+    chatbotWindow.style.bottom = '80px';
   }
   resetInactivityTimer();
 });
 
-/* ---------------- CLOSE BUTTON ---------------- */
-closeBtn.addEventListener('click', () => chatbot.classList.remove('open'));
+/* ---------------- CLOSE ---------------- */
+closeBtnEl.addEventListener('click', () => chatbotWindow.classList.remove('open'));
 
 /* ---------------- SEND MESSAGE ---------------- */
-sendBtn.addEventListener('click', () => sendMessage());
-input.addEventListener('keypress', e => { if(e.key === 'Enter') sendMessage(); });
+sendBtnEl.addEventListener('click', () => sendMessage());
+inputEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
 
-/* ---------------- DRAGGABLE ---------------- */
+/* ---------------- DRAG ---------------- */
 let isDragging = false, offsetX, offsetY;
-const header = document.getElementById('chatbot-header');
+const headerEl = document.getElementById('chatbot-header');
 
-header.addEventListener('mousedown', e => {
+headerEl.addEventListener('mousedown', e => {
   isDragging = true;
-  offsetX = e.clientX - chatbot.offsetLeft;
-  offsetY = e.clientY - chatbot.offsetTop;
+  offsetX = e.clientX - chatbotWindow.offsetLeft;
+  offsetY = e.clientY - chatbotWindow.offsetTop;
 });
 document.addEventListener('mouseup', () => isDragging = false);
 document.addEventListener('mousemove', e => {
   if (isDragging) {
-    chatbot.style.left = `${e.clientX - offsetX}px`;
-    chatbot.style.top = `${e.clientY - offsetY}px`;
+    chatbotWindow.style.left = `${e.clientX - offsetX}px`;
+    chatbotWindow.style.top = `${e.clientY - offsetY}px`;
   }
 });
 
 /* ---------------- MOBILE SWIPE ---------------- */
 let touchStartY = 0;
-chatbot.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY);
-chatbot.addEventListener('touchend', e => {
-  const touchEndY = e.changedTouches[0].clientY;
-  if (touchEndY - touchStartY > 100) chatbot.classList.remove('open'); // swipe down to close
+chatbotWindow.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY);
+chatbotWindow.addEventListener('touchend', e => {
+  if (e.changedTouches[0].clientY - touchStartY > 100) chatbotWindow.classList.remove('open');
 });
 
 /* ---------------- AUTO-HIDE ---------------- */
 function resetInactivityTimer() {
   clearTimeout(inactivityTimer);
-  inactivityTimer = setTimeout(() => chatbot.classList.remove('open'), 60000); // 1 min
+  inactivityTimer = setTimeout(() => chatbotWindow.classList.remove('open'), 60000);
 }
 
 /* ---------------- SEND MESSAGE FUNCTION ---------------- */
 function sendMessage(msg = null) {
-  const message = msg || input.value.trim();
+  const message = msg || inputEl.value.trim();
   if (!message) return;
 
   // User message
   const userMsg = document.createElement('div');
-  userMsg.classList.add('chatbot-message', 'user-msg');
+  userMsg.className = 'chatbot-message user-msg';
   userMsg.textContent = message;
-  body.appendChild(userMsg);
-  input.value = '';
+  bodyEl.appendChild(userMsg);
+  inputEl.value = '';
   scrollToBottom();
 
-  // Clear quick replies & show typing
-  quickRepliesContainer.innerHTML = '';
-  typingIndicator.style.display = 'block';
+  // Clear quick replies & typing
+  quickRepliesEl.innerHTML = '';
+  typingEl.style.display = 'block';
   resetInactivityTimer();
 
   setTimeout(() => {
-    typingIndicator.style.display = 'none';
+    typingEl.style.display = 'none';
 
     // Bot message
     const botMsg = document.createElement('div');
-    botMsg.classList.add('chatbot-message', 'bot-msg');
+    botMsg.className = 'chatbot-message bot-msg';
     botMsg.textContent = getBotResponse(message);
 
     // Emoji reactions
     const reactions = document.createElement('div');
-    reactions.classList.add('emoji-reactions');
+    reactions.className = 'emoji-reactions';
     ['👍','❤️','😂'].forEach(emoji => {
       const span = document.createElement('span');
       span.textContent = emoji;
@@ -178,7 +176,7 @@ function sendMessage(msg = null) {
     });
     botMsg.appendChild(reactions);
 
-    body.appendChild(botMsg);
+    bodyEl.appendChild(botMsg);
     scrollToBottom();
     addQuickReplies(message);
 
@@ -186,12 +184,11 @@ function sendMessage(msg = null) {
     chatSound.play();
 
     // Show notification if closed
-    if (!chatbot.classList.contains('open')) notification.style.display = 'inline-block';
+    if (!chatbotWindow.classList.contains('open')) notificationEl.style.display = 'inline-block';
   }, 1000);
 }
 
-/* ---------------- SCROLL ---------------- */
-function scrollToBottom() { body.scrollTop = body.scrollHeight; }
+function scrollToBottom() { bodyEl.scrollTop = bodyEl.scrollHeight; }
 
 /* ---------------- BOT RESPONSE ---------------- */
 function getBotResponse(msg) {
@@ -210,13 +207,12 @@ function addQuickReplies(msg) {
 
   replies.forEach(text => {
     const btn = document.createElement('button');
-    btn.classList.add('quick-btn');
+    btn.className = 'quick-btn';
     btn.textContent = text;
     btn.onclick = () => sendMessage(text);
-    quickRepliesContainer.appendChild(btn);
+    quickRepliesEl.appendChild(btn);
   });
 }
-
 
 
 /* ================= SKILL CIRCLES ================= */
