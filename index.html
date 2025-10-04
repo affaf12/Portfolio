@@ -202,22 +202,38 @@
   <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to Top"><i class='bx bx-up-arrow-alt'></i></button>
 
   <!-- ===== CHATBOT ===== -->
-  <div id="chatbot" aria-label="Chatbot Window">
-    <div id="chatbot-header">
-      <h4>Chat with me</h4>
-      <button id="chatbot-close" aria-label="Close Chatbot">&times;</button>
-    </div>
-    <div id="chatbot-body">
-      <div id="chatbot-messages"></div>
-      <div id="chatbot-typing" aria-live="polite">Typing...</div>
-    </div>
-    <div id="chatbot-footer">
-      <input type="text" id="chatbot-input" placeholder="Ask me about reports..." aria-label="Type your question">
-      <button id="chatbot-send" aria-label="Send Message">Send</button>
-    </div>
-  </div>
-  <button id="chatIcon" aria-label="Open Chatbot">💬</button>
+  <button id="chatIcon" class="chatbot-toggle" aria-label="Open Chatbot">
+    <i class='bx bx-comment-detail'></i>
+  </button>
 
+  <div id="chatbot" class="chatbot-window" aria-label="Chatbot Window" role="dialog" aria-modal="true" aria-hidden="true">
+    <header class="chatbot-header">
+      <div class="chatbot-header-info">
+        <i class="bx bx-user-circle chatbot-avatar"></i>
+        <div class="chatbot-agent">
+          <h3>Sussanah Austin</h3>
+          <span>Agent (Online)</span>
+        </div>
+      </div>
+      <div class="chatbot-header-actions">
+        <button class="chatbot-minimize" aria-label="Minimize Chatbot"><i class="bx bx-window-minimize"></i></button>
+        <button id="chatbot-close" aria-label="Close Chatbot"><i class="bx bx-x"></i></button>
+      </div>
+    </header>
+    <main class="chatbot-body">
+      <div class="chatbot-messages" aria-live="polite">
+        <p class="chatbot-welcome">Hello! I’m here to help you with your data queries and reports. Ask me anything!</p>
+      </div>
+      <div class="chatbot-typing" aria-live="polite" hidden>Typing...</div>
+    </main>
+    <footer class="chatbot-footer">
+      <button class="chatbot-action" aria-label="Attach File"><i class='bx bx-camera'></i></button>
+      <textarea class="chatbot-input" placeholder="Type your message..." aria-label="Type your message"></textarea>
+      <button class="chatbot-action" aria-label="Send Message"><i class='bx bx-paper-plane'></i></button>
+    </footer>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
   <script>
     // THEME TOGGLE
     const themeBtn = document.getElementById('theme-toggle');
@@ -248,8 +264,14 @@
     const chatIcon = document.getElementById('chatIcon');
     const chatbot = document.getElementById('chatbot');
     const chatClose = document.getElementById('chatbot-close');
-    chatIcon.addEventListener('click', () => chatbot.style.display = 'block');
-    chatClose.addEventListener('click', () => chatbot.style.display = 'none');
+    chatIcon.addEventListener('click', () => {
+      chatbot.style.display = 'block';
+      chatbot.setAttribute('aria-hidden', 'false');
+    });
+    chatClose.addEventListener('click', () => {
+      chatbot.style.display = 'none';
+      chatbot.setAttribute('aria-hidden', 'true');
+    });
   </script>
 
 </body>
