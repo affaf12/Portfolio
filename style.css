@@ -181,15 +181,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   position: relative;
   width: 100%;
 }
-
-/* Input focus effect */
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border: 1px solid var(--primary);
-  box-shadow: 0 10px 30px rgba(63,184,175,0.4);
-  background: rgba(63,184,175,0.05);
-}
-
 /* Submit button */
 .contact-form button.btn {
   display: inline-flex;
