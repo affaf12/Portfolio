@@ -19,36 +19,44 @@ themeBtn.addEventListener('click', () => {
 // ================= Skill Section =================
 document.addEventListener("DOMContentLoaded", () => {
   const circles = document.querySelectorAll(".skill-circle");
+  let animated = false;
 
-  circles.forEach(circle => {
-    const percent = parseInt(circle.getAttribute("data-percent"));
-    const progress = circle.querySelector(".progress");
-    const text = circle.querySelector(".percent");
-    const color = circle.getAttribute("data-color");
-    const title = circle.querySelector("h3");
+  function animateSkills() {
+    if (animated) return; // prevent multiple triggers
+    const skillsSection = document.querySelector("#skills");
+    const rect = skillsSection.getBoundingClientRect();
 
-    const radius = progress.r.baseVal.value;
-    const circumference = 2 * Math.PI * radius;
+    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+      animated = true;
+      circles.forEach(circle => {
+        const percent = parseInt(circle.getAttribute("data-percent"));
+        const progress = circle.querySelector(".progress");
+        const text = circle.querySelector(".percent");
+        const color = circle.getAttribute("data-color");
+        const radius = progress.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
 
-    // Apply initial styles
-    progress.style.strokeDasharray = circumference;
-    progress.style.strokeDashoffset = circumference;
-    progress.style.stroke = color;
-    title.style.color = color;
-    text.style.color = color;
+        progress.style.strokeDasharray = circumference;
+        progress.style.stroke = color;
+        text.style.color = color;
+        circle.querySelector("h3").style.color = color;
 
-    let current = 0;
-    const animate = setInterval(() => {
-      if (current >= percent) {
-        clearInterval(animate);
-      } else {
-        current++;
-        text.textContent = current + "%";
-        progress.style.strokeDashoffset =
-          circumference - (current / 100) * circumference;
-      }
-    }, 20);
-  });
+        let current = 0;
+        const animate = setInterval(() => {
+          if (current >= percent) {
+            clearInterval(animate);
+          } else {
+            current++;
+            text.textContent = current + "%";
+            progress.style.strokeDashoffset =
+              circumference - (current / 100) * circumference;
+          }
+        }, 20);
+      });
+    }
+  }
+
+  window.addEventListener("scroll", animateSkills);
 });
 
 
