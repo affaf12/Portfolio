@@ -16,6 +16,29 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
+/* ================= Project  ================= */
+const wrapper = document.querySelector('.projects-wrapper');
+const projects = document.querySelectorAll('.project-card');
+const prevBtn = document.querySelector('.left-btn');
+const nextBtn = document.querySelector('.right-btn');
+
+let index = 0;
+
+function showProject(i) {
+  wrapper.style.transform = `translateX(${-i * 100}%)`;
+}
+
+prevBtn.addEventListener('click', () => {
+  index = (index - 1 + projects.length) % projects.length;
+  showProject(index);
+});
+
+nextBtn.addEventListener('click', () => {
+  index = (index + 1) % projects.length;
+  showProject(index);
+});
+
+
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
 
 const scrollTopBtn = document.getElementById("scrollTopBtn");
