@@ -1,19 +1,15 @@
 /* ================= MENU TOGGLE ================= */
 const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.getElementById('nav-menu');
-
 menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
 /* ================= THEME TOGGLE ================= */
 const themeBtn = document.getElementById('theme-toggle');
 const html = document.documentElement;
-
-// Load saved theme
 if(localStorage.getItem('theme')) {
   html.dataset.theme = localStorage.getItem('theme');
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 }
-
 themeBtn.addEventListener('click', () => {
   html.dataset.theme = html.dataset.theme==='dark' ? 'light' : 'dark';
   localStorage.setItem('theme', html.dataset.theme);
@@ -23,28 +19,26 @@ themeBtn.addEventListener('click', () => {
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
 const scrollBtn = document.getElementById('scrollTopBtn');
 const header = document.querySelector('header');
-
-let lastScroll = 0;
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   scrollBtn.style.display = scrollY > 300 ? 'block' : 'none';
   header.classList.toggle('sticky', scrollY > 50);
-  lastScroll = scrollY;
 });
 
-scrollBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+/* Scroll to top */
+scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-/* ================= SECTION ANIMATION ================= */
+/* ================= ACTIVE NAV LINK & SECTION ANIMATION ================= */
 const sections = document.querySelectorAll('section, .hero h1, .hero h3');
+const navLinks = document.querySelectorAll('nav ul li a');
+
+/* Intersection Observer for section animations */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
 }, { threshold: 0.2 });
 sections.forEach(sec => observer.observe(sec));
 
-/* ================= ACTIVE NAV LINK ================= */
-const navLinks = document.querySelectorAll('nav ul li a');
+/* Highlight nav link based on scroll */
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(sec => {
@@ -65,7 +59,6 @@ const chatbotSend = document.getElementById('chatbot-send');
 chatbotToggleBtn.addEventListener('click', () => chatbotWindow.classList.toggle('active'));
 chatbotCloseBtn.addEventListener('click', () => chatbotWindow.classList.remove('active'));
 
-// Add message (user/bot)
 function addMessage(msg, sender='bot') {
   const bubble = document.createElement('div');
   bubble.classList.add('chat-bubble', sender);
@@ -74,24 +67,22 @@ function addMessage(msg, sender='bot') {
   chatbotBody.scrollTop = chatbotBody.scrollHeight;
 }
 
-// Simulate bot typing
 function botReply(msg) {
   const reply = msg.toLowerCase();
   if(reply.includes('skills')) return "My skills: Power BI, SQL, Python, Excel, Data Analysis, and BI dashboards.";
   if(reply.includes('experience')) return "I have experience as a Data Analyst at XYZ Corp and Power BI Developer at ABC Ltd.";
   if(reply.includes('projects')) return "I built dashboards for Retail Sales, Financial Analysis, and Customer Insights.";
   if(reply.includes('contact')) return "Email: muhammadaffaf746@gmail.com | Phone: +92 300 1234567";
-  return "Hello! Ask me about my skills, experience, projects, or contact.";
+  if(reply.includes('social')) return "Connect with me on GitHub, LinkedIn, or WhatsApp!";
+  return "Hello! Ask me about my skills, experience, projects, contact, or social media.";
 }
 
-// Send user message
 function sendMessage() {
   const msg = chatbotInput.value.trim();
   if(!msg) return;
   addMessage(msg, 'user');
   chatbotInput.value = '';
 
-  // Show typing animation
   const typingIndicator = document.createElement('div');
   typingIndicator.classList.add('chatbot-typing');
   typingIndicator.innerHTML = `<span></span><span></span><span></span>`;
@@ -113,7 +104,6 @@ document.querySelectorAll('.skill-circle').forEach(circle => {
   const progress = circle.querySelector('.progress');
   const percentText = circle.querySelector('.percent');
   const offset = 314 - (314 * percent)/100;
-
   setTimeout(() => {
     progress.style.strokeDashoffset = offset;
     let count = 0;
@@ -129,7 +119,6 @@ document.querySelectorAll('.skill-circle').forEach(circle => {
 const typingText = document.getElementById('typing-text');
 const words = ["Data Analyst","Power BI Developer","SQL Specialist","Python Programmer","Excel Expert","BI Consultant"];
 let wordIndex=0, charIndex=0;
-
 function type() {
   if(wordIndex>=words.length) wordIndex=0;
   const word = words[wordIndex];
