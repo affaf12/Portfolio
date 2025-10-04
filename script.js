@@ -21,13 +21,17 @@ themeBtn.addEventListener('click', () => {
 document.addEventListener("DOMContentLoaded", () => {
   const circles = document.querySelectorAll(".skill-circle");
   circles.forEach(circle => {
-    const percent = circle.getAttribute("data-percent");
+    const percent = parseInt(circle.getAttribute("data-percent"));
     const progress = circle.querySelector(".progress");
     const text = circle.querySelector(".percent");
+    const color = circle.getAttribute("data-color");
     const radius = progress.r.baseVal.value;
     const circumference = 2 * Math.PI * radius;
 
     progress.style.strokeDasharray = circumference;
+    progress.style.stroke = color;
+    text.style.color = color;
+    circle.querySelector("h3").style.color = color;
 
     let current = 0;
     const animate = setInterval(() => {
@@ -36,13 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         current++;
         text.textContent = current + "%";
-        progress.style.strokeDashoffset = circumference - (current / 100) * circumference;
+        progress.style.strokeDashoffset =
+          circumference - (current / 100) * circumference;
       }
     }, 20);
   });
 });
 </script>
-
 
 // ================= ACHIEVEMENTS SLIDER =================
 const achSlider = document.querySelector(".achievements-wrapper");
