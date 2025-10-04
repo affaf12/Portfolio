@@ -211,33 +211,40 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 /* ================= CONTACT ================= */
 .contact {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   gap: 3rem;
-  justify-content: center;
   padding: 4rem 2rem;
   background: linear-gradient(135deg, #0b0f19, #111426);
 }
 
-.contact h2 {
-  width: 100%;
+/* CONTACT INFO */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text);
+  font-size: 1rem;
   text-align: center;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 2rem;
-  letter-spacing: 1px;
 }
+.contact-info a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.contact-info a:hover { color: #36a9a1; }
+.contact-info span { font-weight: 600; }
 
 /* FORM STYLING */
 .contact form {
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 450px;
   width: 100%;
+  max-width: 700px;  /* increased size left-to-right */
   background: linear-gradient(145deg, #1c1f2b, #222536);
-  padding: 2.5rem;
+  padding: 3rem;
   border-radius: var(--border-radius);
   box-shadow: 0 15px 45px rgba(0,0,0,0.6);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -249,7 +256,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 
 /* INPUTS & TEXTAREA */
 .contact input, .contact textarea {
-  position: relative;
   padding: 1rem 1.2rem;
   border-radius: 30px;
   border: none;
@@ -266,7 +272,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   box-shadow: 0 8px 25px rgba(63,184,175,0.4);
 }
 
-/* FLOATING LABEL EFFECT */
+/* FLOATING PLACEHOLDER EFFECT */
 .contact input::placeholder, .contact textarea::placeholder {
   color: rgba(255,255,255,0.6);
   transition: 0.3s;
@@ -288,6 +294,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: all 0.4s ease;
   border: none;
   letter-spacing: 0.5px;
+  align-self: center;
 }
 .contact button.btn:hover {
   transform: scale(1.1);
@@ -296,8 +303,12 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 }
 
 /* RESPONSIVE */
+@media(max-width:1024px){
+  .contact form { max-width: 90%; padding: 2.5rem; }
+}
 @media(max-width:768px){
-  .contact form { width: 90%; padding: 2rem; }
+  .contact form { max-width: 100%; padding: 2rem; }
+  .contact-info { font-size: 0.95rem; }
 }
 
 /* ================= SCROLL TOP BUTTON ================= */
