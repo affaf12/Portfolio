@@ -76,7 +76,7 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(link => { if(link.getAttribute('href') === '#'+current) link.classList.add('active'); });
 });
 
-/* ================= CHATBOT ================= */
+// ================= CHATBOT JS =================
 const chatbot = document.getElementById('chatbot');
 const toggleBtn = document.getElementById('chatbot-toggle');
 const closeBtn = document.getElementById('chatbot-close');
@@ -84,50 +84,104 @@ const sendBtn = document.getElementById('chatbot-send');
 const input = document.getElementById('chatbot-input');
 const body = document.getElementById('chatbot-body');
 const typingIndicator = document.getElementById('typing-indicator');
+const quickRepliesContainer = document.getElementById('chatbot-quick-replies');
+const notification = document.getElementById('chatbot-notification');
 
-toggleBtn.addEventListener('click', () => chatbot.style.display = 'flex');
-closeBtn.addEventListener('click', () => chatbot.style.display = 'none');
+let inactivityTimer;
+const chatSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
 
-sendBtn.addEventListener('click', sendMessage);
-input.addEventListener('keypress', e => { if(e.key === 'Enter') sendMessage(); });
+// Toggle chatbot
+toggleBtn.addEventListener('click', () => {
+  chatbot.classList.toggle('open');
+  if(chatbot.classList.contains('open')) notification.style.display = 'none';
+  resetInactivityTimer();
+});
 
-function sendMessage() {
-  const msg = input.value.trim();
-  if(!msg) return;
+closeBtn.addEventListener('click', () => chatbot.classList.remove('open'));
+sendBtn.addEventListener('click', () => sendMessage());
+input.addEventListener('keypress', e => { if(e.key==='Enter') sendMessage(); });
 
-  // Add user message
-  const userMsg = document.createElement('div');
-  userMsg.classList.add('chatbot-message', 'user-msg');
-  userMsg.textContent = msg;
+// Draggable
+let isDragging=false, offsetX, offsetY;
+const header = document.getElementById('chatbot-header');
+header.addEventListener('mousedown', e => { isDragging=true; offsetX=e.clientX-chatbot.offsetLeft; offsetY=e.clientY-chatbot.offsetTop; });
+document.addEventListener('mouseup', ()=>isDragging=false);
+document.addEventListener('mousemove', e => { if(isDragging){ chatbot.style.left=`${e.clientX-offsetX}px`; chatbot.style.top=`${e.clientY-offsetY}px`; } });
+
+// Mobile swipe
+let touchStartY=0;
+chatbot.addEventListener('touchstart', e => { touchStartY=e.touches[0].clientY; });
+chatbot.addEventListener('touchend', e => { if(e.changedTouches[0].clientY-touchStartY>100) chatbot.classList.remove('open'); });
+
+// Auto-hide
+function resetInactivityTimer(){
+  clearTimeout(inactivityTimer);
+  inactivityTimer=setTimeout(()=>chatbot.classList.remove('open'),60000);
+}
+
+// Send message
+function sendMessage(msg=null){
+  const message=msg||input.value.trim();
+  if(!message) return;
+
+  const userMsg=document.createElement('div');
+  userMsg.classList.add('chatbot-message','user-msg');
+  userMsg.textContent=message;
   body.appendChild(userMsg);
-  input.value = '';
+  input.value='';
   scrollToBottom();
+  quickRepliesContainer.innerHTML='';
+  typingIndicator.style.display='block';
+  resetInactivityTimer();
 
-  // Show typing indicator
-  typingIndicator.style.display = 'block';
+  setTimeout(()=>{
+    typingIndicator.style.display='none';
+    const botMsg=document.createElement('div');
+    botMsg.classList.add('chatbot-message','bot-msg');
+    botMsg.textContent=getBotResponse(message);
 
-  // Simulate bot response
-  setTimeout(() => {
-    typingIndicator.style.display = 'none';
-    const botMsg = document.createElement('div');
-    botMsg.classList.add('chatbot-message', 'bot-msg');
-    botMsg.textContent = getBotResponse(msg);
+    const reactions=document.createElement('div');
+    reactions.classList.add('emoji-reactions');
+    ['👍','❤️','😂'].forEach(e=>{
+      const span=document.createElement('span');
+      span.textContent=e;
+      span.onclick=()=>alert(`You reacted with ${e}`);
+      reactions.appendChild(span);
+    });
+    botMsg.appendChild(reactions);
+
     body.appendChild(botMsg);
     scrollToBottom();
-  }, 1000);
+    addQuickReplies(message);
+    chatSound.play();
+    if(!chatbot.classList.contains('open')) notification.style.display='inline-block';
+  },1000);
 }
 
-function scrollToBottom() {
-  body.scrollTop = body.scrollHeight;
-}
+function scrollToBottom(){ body.scrollTop=body.scrollHeight; }
 
-function getBotResponse(msg) {
-  // Simple logic
-  msg = msg.toLowerCase();
-  if(msg.includes('hello') || msg.includes('hi')) return "Hello! 👋 How can I help you today?";
+function getBotResponse(msg){
+  msg=msg.toLowerCase();
+  if(msg.includes('hello')||msg.includes('hi')) return "Hello! 👋 How can I help you today?";
   if(msg.includes('power bi')) return "✅ Yes! I make amazing Power BI dashboards!";
   return "🤖 I'm here to assist you!";
 }
+
+function addQuickReplies(msg){
+  const replies=[];
+  msg=msg.toLowerCase();
+  if(msg.includes('hello')) replies.push('Power BI','Portfolio','Contact');
+  if(msg.includes('power bi')) replies.push('Show demo','Pricing','Contact');
+
+  replies.forEach(text=>{
+    const btn=document.createElement('button');
+    btn.classList.add('quick-btn');
+    btn.textContent=text;
+    btn.onclick=()=>sendMessage(text);
+    quickRepliesContainer.appendChild(btn);
+  });
+}
+
 
 
 /* ================= SKILL CIRCLES ================= */
