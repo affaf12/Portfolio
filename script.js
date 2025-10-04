@@ -76,11 +76,10 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(link => { if(link.getAttribute('href') === '#'+current) link.classList.add('active'); });
 });
 
-/* ================= CLEAN CHATBOT JS ================= */
+/* ================= UPGRADED CHATBOT JS WITH SNAP-BACK ================= */
 document.addEventListener("DOMContentLoaded", () => {
   const chatbotWindow = document.getElementById('chatbot');
   const toggleBtnEl = document.getElementById('chatbot-toggle');
-  const closeBtnEl = document.getElementById('chatbot-close');
   const sendBtnEl = document.getElementById('chatbot-send');
   const inputEl = document.getElementById('chatbot-input');
   const bodyEl = document.getElementById('chatbot-body');
@@ -94,15 +93,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------------- TOGGLE ---------------- */
   toggleBtnEl.addEventListener('click', () => {
-    chatbotWindow.classList.toggle('open');
-    if (chatbotWindow.classList.contains('open')) {
+    const isOpen = chatbotWindow.classList.toggle('open');
+    toggleBtnEl.classList.toggle('open', isOpen);
+    if (isOpen) {
       notificationEl.style.display = 'none';
+      toggleBtnEl.classList.remove('notify');
+      resetInactivityTimer();
+    } else {
+      clearTimeout(inactivityTimer);
     }
-    resetInactivityTimer();
   });
-
-  /* ---------------- CLOSE ---------------- */
-  closeBtnEl.addEventListener('click', () => chatbotWindow.classList.remove('open'));
 
   /* ---------------- SEND MESSAGE ---------------- */
   sendBtnEl.addEventListener('click', () => sendMessage());
@@ -113,20 +113,48 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------------- AUTO-HIDE ---------------- */
   function resetInactivityTimer() {
     clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => chatbotWindow.classList.remove('open'), 60000);
+    inactivityTimer = setTimeout(() => {
+      chatbotWindow.classList.remove('open');
+      toggleBtnEl.classList.remove('open');
+    }, 60000);
   }
 
-  /* ---------------- DRAG UP/DOWN ONLY ---------------- */
-  let isDragging = false, offsetY;
+  /* ---------------- DRAG FULL (X + Y) WITH SNAP ---------------- */
+  let isDragging = false, offsetX, offsetY;
   headerEl.addEventListener('mousedown', e => {
     isDragging = true;
+    offsetX = e.clientX - chatbotWindow.offsetLeft;
     offsetY = e.clientY - chatbotWindow.offsetTop;
+    chatbotWindow.style.transition = "none"; // no animation while dragging
   });
-  document.addEventListener('mouseup', () => isDragging = false);
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      chatbotWindow.style.transition = "all 0.25s ease"; // smooth snap
+
+      // Get viewport width/height
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const rect = chatbotWindow.getBoundingClientRect();
+
+      // Snap threshold (distance in px from bottom/right)
+      const snapThreshold = 120;
+
+      // If near bottom-right → snap back
+      if ((vw - rect.right) < snapThreshold && (vh - rect.bottom) < snapThreshold) {
+        chatbotWindow.style.left = "auto";
+        chatbotWindow.style.top = "auto";
+        chatbotWindow.style.right = "25px";
+        chatbotWindow.style.bottom = "25px";
+      }
+    }
+  });
   document.addEventListener('mousemove', e => {
     if (isDragging) {
+      chatbotWindow.style.left = `${e.clientX - offsetX}px`;
       chatbotWindow.style.top = `${e.clientY - offsetY}px`;
-      chatbotWindow.style.right = `25px`; // lock to right side
+      chatbotWindow.style.right = "auto";
+      chatbotWindow.style.bottom = "auto";
     }
   });
 
@@ -170,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
       chatSound.play();
       if (!chatbotWindow.classList.contains('open')) {
         notificationEl.style.display = 'inline-block';
+        toggleBtnEl.classList.add('notify');
       }
     }, 1000);
   }
