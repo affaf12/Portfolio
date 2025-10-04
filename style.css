@@ -206,7 +206,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-shadow: 0 0 8px #0ff;
 }
 
-/* Navigation Buttons (outside box) */
+/* Navigation Buttons (outside) */
 .nav-btn {
   position: absolute;
   top: 50%;
@@ -221,14 +221,15 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   backdrop-filter: blur(6px);
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
   transition: all 0.3s ease;
-  z-index: 20;
+  z-index: 50;
 }
 
+/* Put buttons OUTSIDE the slider box */
 .left-btn {
-  left: -60px; /* outside the box */
+  left: -80px; /* pushes left arrow outside */
 }
 .right-btn {
-  right: -60px; /* outside the box */
+  right: -80px; /* pushes right arrow outside */
 }
 
 .nav-btn:hover {
