@@ -199,33 +199,38 @@
 
 
 <!-- ================= CHATBOT ================= -->
-<div class="chatbot-window" id="chatbot">
+<div class="chatbot-window" id="chatbot-window">
+  <!-- Header -->
   <div class="chatbot-header" id="chatbot-header">
     <div class="chatbot-title">
       <img src="https://i.pravatar.cc/40" alt="Bot Avatar" class="bot-avatar">
-      <span>AI Assistant 🤖</span>
+      <span>AI Assistant </span>
     </div>
-    <button id="chatbot-close"><i class='bx bx-x'></i></button>
+    <button id="chatbot-close" class="chatbot-close">
+      <i class='bx bx-x'></i>
+    </button>
   </div>
 
+  <!-- Body -->
   <div class="chatbot-body" id="chatbot-body">
-    <div class="typing-indicator" id="typing-indicator">🤖 Typing...</div>
+    <div class="typing-indicator" id="typing-indicator"> Typing...</div>
   </div>
 
+  <!-- Quick Replies -->
   <div class="chatbot-quick-replies" id="chatbot-quick-replies"></div>
 
+  <!-- Footer -->
   <div class="chatbot-footer">
-    <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message...">
-    <button id="chatbot-send"><i class='bx bx-send'></i></button>
+    <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message..." />
+    <button id="chatbot-send" class="chatbot-send"><i class='bx bx-send'></i></button>
   </div>
 </div>
 
+<!-- Floating Chatbot Toggle Button -->
 <button class="chatbot-toggle" id="chatbot-toggle">
   💬
   <span id="chatbot-notification" class="chatbot-notification">!</span>
 </button>
-
-
 
 
   <!-- JS -->
