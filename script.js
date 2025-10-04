@@ -93,12 +93,8 @@ const chatSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.m
 /* ---------------- TOGGLE ---------------- */
 toggleBtnEl.addEventListener('click', () => {
   chatbotWindow.classList.toggle('open');
-  if (chatbotWindow.classList.contains('open')) {
-    notificationEl.style.display = 'none';
-    chatbotWindow.style.bottom = `${toggleBtnEl.offsetHeight + 30}px`;
-  } else {
-    chatbotWindow.style.bottom = '80px';
-  }
+  notificationEl.style.display = 'none';
+  chatbotWindow.style.bottom = chatbotWindow.classList.contains('open') ? `${toggleBtnEl.offsetHeight + 30}px` : '80px';
   resetInactivityTimer();
 });
 
@@ -109,20 +105,24 @@ closeBtnEl.addEventListener('click', () => chatbotWindow.classList.remove('open'
 sendBtnEl.addEventListener('click', () => sendMessage());
 inputEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
 
-/* ---------------- DRAG ---------------- */
-let isDragging = false, offsetX, offsetY;
+/* ---------------- DRAG (Right-hand friendly) ---------------- */
+let isDragging = false, startX, startY, startRight, startTop;
 const headerEl = document.getElementById('chatbot-header');
 
 headerEl.addEventListener('mousedown', e => {
   isDragging = true;
-  offsetX = e.clientX - chatbotWindow.offsetLeft;
-  offsetY = e.clientY - chatbotWindow.offsetTop;
+  startX = e.clientX;
+  startY = e.clientY;
+  startRight = parseInt(window.getComputedStyle(chatbotWindow).right);
+  startTop = parseInt(window.getComputedStyle(chatbotWindow).top || chatbotWindow.offsetTop);
 });
 document.addEventListener('mouseup', () => isDragging = false);
 document.addEventListener('mousemove', e => {
   if (isDragging) {
-    chatbotWindow.style.left = `${e.clientX - offsetX}px`;
-    chatbotWindow.style.top = `${e.clientY - offsetY}px`;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    chatbotWindow.style.right = `${startRight - dx}px`;
+    chatbotWindow.style.top = `${startTop + dy}px`;
   }
 });
 
@@ -144,7 +144,6 @@ function sendMessage(msg = null) {
   const message = msg || inputEl.value.trim();
   if (!message) return;
 
-  // User message
   const userMsg = document.createElement('div');
   userMsg.className = 'chatbot-message user-msg';
   userMsg.textContent = message;
@@ -152,67 +151,22 @@ function sendMessage(msg = null) {
   inputEl.value = '';
   scrollToBottom();
 
-  // Clear quick replies & typing
   quickRepliesEl.innerHTML = '';
   typingEl.style.display = 'block';
   resetInactivityTimer();
 
   setTimeout(() => {
     typingEl.style.display = 'none';
-
-    // Bot message
     const botMsg = document.createElement('div');
     botMsg.className = 'chatbot-message bot-msg';
     botMsg.textContent = getBotResponse(message);
 
-    // Emoji reactions
     const reactions = document.createElement('div');
     reactions.className = 'emoji-reactions';
     ['👍','❤️','😂'].forEach(emoji => {
       const span = document.createElement('span');
       span.textContent = emoji;
-      span.onclick = () => alert(`You reacted with ${emoji}`);
-      reactions.appendChild(span);
-    });
-    botMsg.appendChild(reactions);
-
-    bodyEl.appendChild(botMsg);
-    scrollToBottom();
-    addQuickReplies(message);
-
-    // Play sound
-    chatSound.play();
-
-    // Show notification if closed
-    if (!chatbotWindow.classList.contains('open')) notificationEl.style.display = 'inline-block';
-  }, 1000);
-}
-
-function scrollToBottom() { bodyEl.scrollTop = bodyEl.scrollHeight; }
-
-/* ---------------- BOT RESPONSE ---------------- */
-function getBotResponse(msg) {
-  msg = msg.toLowerCase();
-  if (msg.includes('hello') || msg.includes('hi')) return "Hello! 👋 How can I help you today?";
-  if (msg.includes('power bi')) return "✅ Yes! I make amazing Power BI dashboards!";
-  return "🤖 I'm here to assist you!";
-}
-
-/* ---------------- QUICK REPLIES ---------------- */
-function addQuickReplies(msg) {
-  const replies = [];
-  msg = msg.toLowerCase();
-  if (msg.includes('hello')) replies.push('Power BI','Portfolio','Contact');
-  if (msg.includes('power bi')) replies.push('Show demo','Pricing','Contact');
-
-  replies.forEach(text => {
-    const btn = document.createElement('button');
-    btn.className = 'quick-btn';
-    btn.textContent = text;
-    btn.onclick = () => sendMessage(text);
-    quickRepliesEl.appendChild(btn);
-  });
-}
+      span.onclick = () => alert(`You reacted
 
 
 /* ================= SKILL CIRCLES ================= */
