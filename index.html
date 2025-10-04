@@ -13,38 +13,46 @@
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-  <!-- ===== HEADER ===== -->
-  <header>
-    <h1 class="logo">Muhammad <span>Affaf</span></h1>
-    <nav aria-label="Main Navigation">
-      <ul class="navbar">
+  <!-- ===== HEADER / NAVBAR ===== -->
+  <header class="header">
+    <div class="logo">
+      <h1>Muhammad <span>Affaf</span></h1>
+    </div>
+    <nav aria-label="Main Navigation" class="navbar">
+      <ul class="nav-links">
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#about">About Me</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
-        <li><a href="#achievement">Achievements</a></li>
+        <li><a href="#achievements">Achievements</a></li>
         <li><a href="#portfolio">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
-    <button id="menu-icon" aria-label="Toggle Menu"><i class='bx bx-menu'></i></button>
-    <button id="theme-toggle" aria-label="Toggle Theme"><i class='bx bx-moon'></i></button>
+    <div class="header-icons">
+      <button id="menu-toggle" aria-label="Toggle Menu"><i class='bx bx-menu'></i></button>
+      <button id="theme-toggle" aria-label="Toggle Theme"><i class='bx bx-moon'></i></button>
+    </div>
   </header>
 
   <main>
     <!-- ===== HOME ===== -->
-    <section class="home" id="home" data-animate>
-      <div class="home-container">
-        <div class="home-image">
+    <section id="home" class="hero">
+      <div class="hero-container">
+        <div class="hero-image">
           <img src="img/profile.jpg" alt="Muhammad Affaf Profile Picture" loading="lazy">
         </div>
-        <div class="home-text">
+        <div class="hero-text">
           <h2>Hello 👋</h2>
           <h1>I’m Muhammad Affaf</h1>
           <h3>Data Analyst | Power BI Developer | Excel | SQL | Python</h3>
@@ -54,12 +62,10 @@
     </section>
 
     <!-- ===== ABOUT ===== -->
-    <section class="about" id="about" data-animate>
+    <section id="about" class="about">
       <h2 class="section-title">About Me</h2>
-      <p>I am a <strong>Professional Data Analyst</strong> and <strong>Power BI Developer</strong> from Karachi,
-        Pakistan, passionate about turning data into actionable insights. I combine technical skills with business understanding to
-        deliver high-quality analytics and dashboards that drive strategic decisions.</p>
-      <ul>
+      <p>I am a <strong>Professional Data Analyst</strong> and <strong>Power BI Developer</strong> from Karachi, Pakistan, passionate about turning data into actionable insights. I combine technical skills with business understanding to deliver high-quality analytics and dashboards that drive strategic decisions.</p>
+      <ul class="about-skills">
         <li>✔ Data Cleaning & Preparation (Excel, SQL, Python)</li>
         <li>✔ Data Analysis & Business Insights</li>
         <li>✔ Dashboarding & Visualization (Power BI, Excel)</li>
@@ -67,28 +73,27 @@
         <li>✔ ETL Development & Automation</li>
         <li>✔ Predictive Modeling & Analytics Simulations</li>
       </ul>
-      <p>Over the years, I have worked on multiple simulations and real-world projects for global firms, honing my analytical and technical
-        expertise while delivering actionable insights to clients and stakeholders.</p>
+      <p>Over the years, I have worked on multiple simulations and real-world projects for global firms, honing my analytical and technical expertise while delivering actionable insights to clients and stakeholders.</p>
       <a href="#contact" class="btn">📬 Contact Me</a>
     </section>
 
     <!-- ===== EXPERIENCE ===== -->
-    <section class="experience" id="experience" data-animate>
+    <section id="experience" class="experience">
       <h2 class="section-title">Experience</h2>
-      <div class="experience-content">
-        <article class="box">
+      <div class="experience-grid">
+        <article class="experience-box">
           <h3>PwC Switzerland – Power BI Simulation</h3>
           <p>Designed ETL workflows, built predictive models, and created dashboards to optimize business performance. Implemented KPIs and reporting structures that mirrored real client scenarios, improving decision-making accuracy.</p>
         </article>
-        <article class="box">
+        <article class="experience-box">
           <h3>Accenture North America – Data Analytics Simulation</h3>
           <p>Developed data pipelines, applied analytics for business insights, and created client-ready dashboards. Applied statistical modeling and visualization techniques to demonstrate actionable insights.</p>
         </article>
-        <article class="box">
+        <article class="experience-box">
           <h3>Freelance Projects – Analytics & BI Solutions</h3>
           <p>Worked on multiple freelance projects involving sales, customer analytics, and financial dashboards. Delivered tailored solutions using Excel, SQL, Python, and Power BI to meet client-specific business needs.</p>
         </article>
-        <article class="box">
+        <article class="experience-box">
           <h3>Data Visualization Consultant – Internship Projects</h3>
           <p>Advised small businesses on analytics implementation, created dashboards and reports to visualize business performance metrics, and suggested actionable improvements based on data insights.</p>
         </article>
@@ -96,74 +101,74 @@
     </section>
 
     <!-- ===== SKILLS ===== -->
-    <section class="skills" id="skills" data-animate>
+    <section id="skills" class="skills">
       <h2 class="section-title">Skills</h2>
-      <div class="skills-content">
-        <article class="box">
+      <div class="skills-grid">
+        <div class="skill-box">
           <h3>Data Cleaning & Preparation</h3>
-          <p>Excel, SQL & Python</p>
-        </article>
-        <article class="box">
+          <p>Excel, SQL, Python</p>
+        </div>
+        <div class="skill-box">
           <h3>Data Analysis & Insights</h3>
-          <p>Trends, patterns, and statistical methods</p>
-        </article>
-        <article class="box">
+          <p>Trends, Patterns, Statistical Methods</p>
+        </div>
+        <div class="skill-box">
           <h3>Dashboarding & Visualization</h3>
-          <p>Power BI & Excel dashboards</p>
-        </article>
-        <article class="box">
+          <p>Power BI, Excel</p>
+        </div>
+        <div class="skill-box">
           <h3>Reporting & Storytelling</h3>
-          <p>Turning data into business stories</p>
-        </article>
-        <article class="box">
+          <p>Turning Data into Business Stories</p>
+        </div>
+        <div class="skill-box">
           <h3>Predictive Modeling</h3>
-          <p>Forecasting, Regression, and Simulations</p>
-        </article>
-        <article class="box">
+          <p>Forecasting, Regression, Simulations</p>
+        </div>
+        <div class="skill-box">
           <h3>Automation & ETL</h3>
-          <p>Data pipelines, task automation, and workflow management</p>
-        </article>
+          <p>Data Pipelines, Task Automation</p>
+        </div>
       </div>
     </section>
 
     <!-- ===== ACHIEVEMENTS ===== -->
-    <section class="achievement" id="achievement" data-animate>
+    <section id="achievements" class="achievements">
       <h2 class="section-title">Achievements</h2>
       <ul class="achievement-list">
         <li>🏆 Built Power BI dashboards for Sales, Customer Reviews & Finance Analytics.</li>
         <li>🏆 Completed PwC & Accenture Data Analytics Programs on Forage.</li>
         <li>🏆 Certified in Microsoft Power BI, Google Data Analytics & Project Management.</li>
         <li>🏆 Participated in Data Competitions, including predictive modeling and price prediction challenges.</li>
-        <li>🏆 Successfully automated data pipelines and dashboards for small businesses.</li>
+        <li>🏆 Automated data pipelines and dashboards for small businesses.</li>
         <li>🏆 Recognized for creating interactive dashboards with advanced visualizations and KPIs.</li>
       </ul>
     </section>
 
-    <!-- ===== PORTFOLIO ===== -->
-    <section class="portfolio" id="portfolio" data-animate>
+    <!-- ===== PORTFOLIO / PROJECTS ===== -->
+    <section id="portfolio" class="portfolio">
       <h2 class="section-title">Projects</h2>
-      <div class="portfolio-content">
-        <article class="row">
+      <div class="portfolio-grid">
+        <article class="project">
           <h3>Coca Cola – Customer Analytics Dashboard</h3>
           <p>Developed dashboards to track customer engagement, sales trends, and regional performance. Implemented predictive insights for campaign planning.</p>
         </article>
-        <article class="row">
+        <article class="project">
           <h3>Chocolate Company – Sales Analytics Dashboard</h3>
           <p>Created interactive visualizations and reports to monitor sales performance, optimize inventory, and improve supply chain insights.</p>
         </article>
-        <article class="row">
+        <article class="project">
           <h3>Retail Operations – Business Intelligence Project</h3>
           <p>Designed Power BI reports covering sales, inventory, and customer segmentation. Delivered executive dashboards for strategic decision-making.</p>
         </article>
-        <article class="row">
+        <article class="project">
           <h3>Healthcare KPI Reporting – Executive Dashboard</h3>
           <p>Built dashboards to track hospital KPIs, patient inflow, test results, and operational efficiency. Automated reporting workflows for management review.</p>
         </article>
-        <article class="row">
+        <article class="project">
           <h3>Financial Reporting – Analytics Simulation</h3>
           <p>Developed dashboards tracking revenue, cost, and profit metrics for simulated corporate clients, showcasing dynamic reporting and insights.</p>
         </article>
-        <article class="row">
+        <article class="project">
           <h3>Customer Review Analysis – Text & Sentiment Dashboard</h3>
           <p>Applied text analytics to reviews, visualized sentiment trends, and created interactive dashboards for client insights.</p>
         </article>
@@ -171,20 +176,19 @@
     </section>
 
     <!-- ===== CONTACT ===== -->
-    <section class="contact" id="contact" data-animate>
+    <section id="contact" class="contact">
       <h2 class="section-title">Contact Me</h2>
-      <p>Let’s work together on your next data project. I’m open to collaboration, freelance work, and full-time opportunities.</p>
-      <ul>
+      <p>Let’s collaborate on your next data project. I’m open to freelance, consulting, and full-time opportunities.</p>
+      <ul class="contact-info">
         <li>📍 Karachi, Pakistan</li>
         <li>📧 <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
         <li>📞 <a href="tel:+923042365964">+92 304 2365964</a></li>
         <li>🌐 LinkedIn: <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank">Muhammad Affaf</a></li>
       </ul>
-
       <form id="contactForm">
         <input type="text" id="name" name="name" placeholder="Your Name" required>
         <input type="email" id="email" name="email" placeholder="Your Email" required>
-        <input type="text" id="title" name="title" placeholder="Subject" required>
+        <input type="text" id="subject" name="subject" placeholder="Subject" required>
         <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
         <button type="submit" class="btn">Send Message</button>
         <p id="formMessage" class="form-message" aria-live="polite"></p>
@@ -196,11 +200,8 @@
   <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to Top"><i class='bx bx-up-arrow-alt'></i></button>
 
   <!-- ===== CHATBOT ===== -->
-  <button id="chatIcon" class="chatbot-toggle" aria-label="Open Chatbot">
-    <i class='bx bx-comment-detail'></i>
-  </button>
-
-  <div id="chatbot" class="chatbot-window" aria-label="Chatbot Window" role="dialog" aria-modal="true" aria-hidden="true">
+  <button id="chatIcon" class="chatbot-toggle" aria-label="Open Chatbot"><i class='bx bx-comment-detail'></i></button>
+  <div id="chatbot" class="chatbot-window" role="dialog" aria-modal="true" aria-hidden="true">
     <header class="chatbot-header">
       <div class="chatbot-header-info">
         <i class="bx bx-user-circle chatbot-avatar"></i>
@@ -227,16 +228,8 @@
     </footer>
   </div>
 
-  <!-- ===== JS ===== -->
+  <!-- JS -->
   <script src="js/script.js" defer></script>
 </body>
 
-
-  <!-- CSS -->
-<link rel="stylesheet" href="css/style.css">
-
-<!-- JS -->
-<script src="js/script.js" defer></script>
-
-  
 </html>
