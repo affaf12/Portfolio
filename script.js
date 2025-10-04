@@ -16,6 +16,44 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
+/* ================= Achievements================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".achievement-card");
+
+  const revealOnScroll = () => {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    cards.forEach((card, i) => {
+      const cardTop = card.getBoundingClientRect().top;
+
+      if (cardTop < triggerBottom) {
+        setTimeout(() => {
+          card.classList.add("show");
+        }, i * 150); // stagger animation
+      }
+    });
+  };
+
+  // Initial check
+  revealOnScroll();
+
+  // On scroll
+  window.addEventListener("scroll", revealOnScroll);
+});
+
+// Extra hover glow (optional)
+document.querySelectorAll(".achievement-card").forEach(card => {
+  card.addEventListener("mouseenter", () => {
+    card.style.boxShadow = "0 0 20px rgba(11, 95, 255, 0.6)";
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.boxShadow = "";
+  });
+});
+
+
+
+
 // ================= PROJECTS SLIDER =================
 const slider = document.querySelector(".projects-wrapper");
 const slides = document.querySelectorAll(".project-card");
