@@ -77,6 +77,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ================= CHATBOT JS =================
+/* ================= CHATBOT JS ================= */
 const chatbot = document.getElementById('chatbot');
 const toggleBtn = document.getElementById('chatbot-toggle');
 const closeBtn = document.getElementById('chatbot-close');
@@ -88,64 +89,91 @@ const quickRepliesContainer = document.getElementById('chatbot-quick-replies');
 const notification = document.getElementById('chatbot-notification');
 
 let inactivityTimer;
-const chatSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+const chatSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3'); // message sound
 
-// Toggle chatbot
+/* ---------------- TOGGLE CHATBOT ---------------- */
 toggleBtn.addEventListener('click', () => {
   chatbot.classList.toggle('open');
-  if(chatbot.classList.contains('open')) notification.style.display = 'none';
+  if (chatbot.classList.contains('open')) {
+    notification.style.display = 'none';
+    chatbot.style.bottom = `${toggleBtn.offsetHeight + 30}px`; // above toggle button
+  } else {
+    chatbot.style.bottom = '80px'; // default
+  }
   resetInactivityTimer();
 });
 
+/* ---------------- CLOSE BUTTON ---------------- */
 closeBtn.addEventListener('click', () => chatbot.classList.remove('open'));
+
+/* ---------------- SEND MESSAGE ---------------- */
 sendBtn.addEventListener('click', () => sendMessage());
-input.addEventListener('keypress', e => { if(e.key==='Enter') sendMessage(); });
+input.addEventListener('keypress', e => { if(e.key === 'Enter') sendMessage(); });
 
-// Draggable
-let isDragging=false, offsetX, offsetY;
+/* ---------------- DRAGGABLE ---------------- */
+let isDragging = false, offsetX, offsetY;
 const header = document.getElementById('chatbot-header');
-header.addEventListener('mousedown', e => { isDragging=true; offsetX=e.clientX-chatbot.offsetLeft; offsetY=e.clientY-chatbot.offsetTop; });
-document.addEventListener('mouseup', ()=>isDragging=false);
-document.addEventListener('mousemove', e => { if(isDragging){ chatbot.style.left=`${e.clientX-offsetX}px`; chatbot.style.top=`${e.clientY-offsetY}px`; } });
 
-// Mobile swipe
-let touchStartY=0;
-chatbot.addEventListener('touchstart', e => { touchStartY=e.touches[0].clientY; });
-chatbot.addEventListener('touchend', e => { if(e.changedTouches[0].clientY-touchStartY>100) chatbot.classList.remove('open'); });
+header.addEventListener('mousedown', e => {
+  isDragging = true;
+  offsetX = e.clientX - chatbot.offsetLeft;
+  offsetY = e.clientY - chatbot.offsetTop;
+});
+document.addEventListener('mouseup', () => isDragging = false);
+document.addEventListener('mousemove', e => {
+  if (isDragging) {
+    chatbot.style.left = `${e.clientX - offsetX}px`;
+    chatbot.style.top = `${e.clientY - offsetY}px`;
+  }
+});
 
-// Auto-hide
-function resetInactivityTimer(){
+/* ---------------- MOBILE SWIPE ---------------- */
+let touchStartY = 0;
+chatbot.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY);
+chatbot.addEventListener('touchend', e => {
+  const touchEndY = e.changedTouches[0].clientY;
+  if (touchEndY - touchStartY > 100) chatbot.classList.remove('open'); // swipe down to close
+});
+
+/* ---------------- AUTO-HIDE ---------------- */
+function resetInactivityTimer() {
   clearTimeout(inactivityTimer);
-  inactivityTimer=setTimeout(()=>chatbot.classList.remove('open'),60000);
+  inactivityTimer = setTimeout(() => chatbot.classList.remove('open'), 60000); // 1 min
 }
 
-// Send message
-function sendMessage(msg=null){
-  const message=msg||input.value.trim();
-  if(!message) return;
+/* ---------------- SEND MESSAGE FUNCTION ---------------- */
+function sendMessage(msg = null) {
+  const message = msg || input.value.trim();
+  if (!message) return;
 
-  const userMsg=document.createElement('div');
-  userMsg.classList.add('chatbot-message','user-msg');
-  userMsg.textContent=message;
+  // User message
+  const userMsg = document.createElement('div');
+  userMsg.classList.add('chatbot-message', 'user-msg');
+  userMsg.textContent = message;
   body.appendChild(userMsg);
-  input.value='';
+  input.value = '';
   scrollToBottom();
-  quickRepliesContainer.innerHTML='';
-  typingIndicator.style.display='block';
+
+  // Clear quick replies & show typing
+  quickRepliesContainer.innerHTML = '';
+  typingIndicator.style.display = 'block';
   resetInactivityTimer();
 
-  setTimeout(()=>{
-    typingIndicator.style.display='none';
-    const botMsg=document.createElement('div');
-    botMsg.classList.add('chatbot-message','bot-msg');
-    botMsg.textContent=getBotResponse(message);
+  setTimeout(() => {
+    typingIndicator.style.display = 'none';
 
-    const reactions=document.createElement('div');
+    // Bot message
+    const botMsg = document.createElement('div');
+    botMsg.classList.add('chatbot-message', 'bot-msg');
+    botMsg.textContent = getBotResponse(message);
+
+    // Emoji reactions
+    const reactions = document.createElement('div');
     reactions.classList.add('emoji-reactions');
-    ['👍','❤️','😂'].forEach(e=>{
-      const span=document.createElement('span');
-      span.textContent=e;
-      span.onclick=()=>alert(`You reacted with ${e}`);
+    ['👍','❤️','😂'].forEach(emoji => {
+      const span = document.createElement('span');
+      span.textContent = emoji;
+      span.onclick = () => alert(`You reacted with ${emoji}`);
       reactions.appendChild(span);
     });
     botMsg.appendChild(reactions);
@@ -153,31 +181,38 @@ function sendMessage(msg=null){
     body.appendChild(botMsg);
     scrollToBottom();
     addQuickReplies(message);
+
+    // Play sound
     chatSound.play();
-    if(!chatbot.classList.contains('open')) notification.style.display='inline-block';
-  },1000);
+
+    // Show notification if closed
+    if (!chatbot.classList.contains('open')) notification.style.display = 'inline-block';
+  }, 1000);
 }
 
-function scrollToBottom(){ body.scrollTop=body.scrollHeight; }
+/* ---------------- SCROLL ---------------- */
+function scrollToBottom() { body.scrollTop = body.scrollHeight; }
 
-function getBotResponse(msg){
-  msg=msg.toLowerCase();
-  if(msg.includes('hello')||msg.includes('hi')) return "Hello! 👋 How can I help you today?";
-  if(msg.includes('power bi')) return "✅ Yes! I make amazing Power BI dashboards!";
+/* ---------------- BOT RESPONSE ---------------- */
+function getBotResponse(msg) {
+  msg = msg.toLowerCase();
+  if (msg.includes('hello') || msg.includes('hi')) return "Hello! 👋 How can I help you today?";
+  if (msg.includes('power bi')) return "✅ Yes! I make amazing Power BI dashboards!";
   return "🤖 I'm here to assist you!";
 }
 
-function addQuickReplies(msg){
-  const replies=[];
-  msg=msg.toLowerCase();
-  if(msg.includes('hello')) replies.push('Power BI','Portfolio','Contact');
-  if(msg.includes('power bi')) replies.push('Show demo','Pricing','Contact');
+/* ---------------- QUICK REPLIES ---------------- */
+function addQuickReplies(msg) {
+  const replies = [];
+  msg = msg.toLowerCase();
+  if (msg.includes('hello')) replies.push('Power BI','Portfolio','Contact');
+  if (msg.includes('power bi')) replies.push('Show demo','Pricing','Contact');
 
-  replies.forEach(text=>{
-    const btn=document.createElement('button');
+  replies.forEach(text => {
+    const btn = document.createElement('button');
     btn.classList.add('quick-btn');
-    btn.textContent=text;
-    btn.onclick=()=>sendMessage(text);
+    btn.textContent = text;
+    btn.onclick = () => sendMessage(text);
     quickRepliesContainer.appendChild(btn);
   });
 }
