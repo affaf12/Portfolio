@@ -182,26 +182,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   width: 100%;
 }
 
-/* Inputs and textarea */
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 1rem 1.2rem; /* Removed left padding for icon */
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.05);
-  color: #fff;
-  font-size: 1rem;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.contact-form textarea { 
-  resize: vertical; 
-  min-height: 140px; 
-}
-
-
 /* Input focus effect */
 .contact-form input:focus,
 .contact-form textarea:focus {
