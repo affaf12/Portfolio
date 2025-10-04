@@ -16,40 +16,45 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
-/* ================= Achievements================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const cards = document.querySelectorAll(".achievement-card");
+// ================= ACHIEVEMENTS SLIDER =================
+const achSlider = document.querySelector(".achievements-wrapper");
+const achSlides = document.querySelectorAll(".achievement-card");
+const achNextBtn = document.querySelector(".ach-right-btn");
+const achPrevBtn = document.querySelector(".ach-left-btn");
 
-  const revealOnScroll = () => {
-    const triggerBottom = window.innerHeight * 0.85;
+let achIndex = 0;
 
-    cards.forEach((card, i) => {
-      const cardTop = card.getBoundingClientRect().top;
+// Show specific slide
+function showAchSlide(i) {
+  achIndex = (i + achSlides.length) % achSlides.length;
+  achSlider.style.transform = `translateX(${-achIndex * 100}%)`;
+}
 
-      if (cardTop < triggerBottom) {
-        setTimeout(() => {
-          card.classList.add("show");
-        }, i * 150); // stagger animation
-      }
-    });
-  };
+// Next / Prev
+function nextAchSlide() { showAchSlide(achIndex + 1); }
+function prevAchSlide() { showAchSlide(achIndex - 1); }
 
-  // Initial check
-  revealOnScroll();
+// Navigation buttons
+achNextBtn.addEventListener("click", nextAchSlide);
+achPrevBtn.addEventListener("click", prevAchSlide);
 
-  // On scroll
-  window.addEventListener("scroll", revealOnScroll);
+// Keyboard navigation
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") nextAchSlide();
+  if (e.key === "ArrowLeft") prevAchSlide();
 });
 
-// Extra hover glow (optional)
-document.querySelectorAll(".achievement-card").forEach(card => {
-  card.addEventListener("mouseenter", () => {
-    card.style.boxShadow = "0 0 20px rgba(11, 95, 255, 0.6)";
-  });
-  card.addEventListener("mouseleave", () => {
-    card.style.boxShadow = "";
-  });
+// Swipe for touch devices
+let achStartX = 0;
+achSlider.addEventListener("touchstart", (e) => achStartX = e.touches[0].clientX);
+achSlider.addEventListener("touchend", (e) => {
+  const achEndX = e.changedTouches[0].clientX;
+  if (achStartX - achEndX > 50) nextAchSlide();   // swipe left
+  if (achEndX - achStartX > 50) prevAchSlide();   // swipe right
 });
+
+// Init
+showAchSlide(0);
 
 
 
