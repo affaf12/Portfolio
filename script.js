@@ -1,9 +1,9 @@
-/* ===== MENU TOGGLE ===== */
+/* MENU TOGGLE */
 const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.getElementById('nav-menu');
-menuToggle.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-/* ===== THEME TOGGLE ===== */
+/* THEME TOGGLE */
 const themeBtn = document.getElementById('theme-toggle');
 themeBtn.addEventListener('click', () => {
   const html = document.documentElement;
@@ -11,7 +11,7 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme === 'dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
-/* ===== SCROLL BUTTON ===== */
+/* SCROLL BUTTON & STICKY HEADER */
 const scrollBtn = document.getElementById('scrollTopBtn');
 window.addEventListener('scroll', () => {
   scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
@@ -19,14 +19,14 @@ window.addEventListener('scroll', () => {
 });
 scrollBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-/* ===== SECTION ANIMATIONS ===== */
+/* SECTION OBSERVER */
 const sections = document.querySelectorAll('section, .hero h1, .hero h3');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
 }, { threshold:0.2 });
 sections.forEach(sec => observer.observe(sec));
 
-/* ===== ACTIVE NAV ===== */
+/* ACTIVE NAV */
 const navLinks = document.querySelectorAll('nav ul li a');
 window.addEventListener('scroll', () => {
   let current = '';
@@ -34,7 +34,7 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(link => { link.classList.remove('active'); if(link.getAttribute('href') === '#' + current) link.classList.add('active'); });
 });
 
-/* ===== CHATBOT ===== */
+/* CHATBOT */
 const chatbot = document.getElementById('chatbot');
 const chatbotToggle = document.getElementById('chatbot-toggle');
 const chatbotClose = document.getElementById('chatbot-close');
@@ -53,20 +53,18 @@ function addMessage(msg, sender) {
   p.style.margin='0.2rem 0';
   p.style.borderRadius='5px';
   p.style.background = sender==='user' ? 'var(--primary)' : 'rgba(255,255,255,0.1)';
-  p.style.color = sender==='user'?'var(--dark-text)':'var(--dark-text)';
+  p.style.color = '#f9fafb';
   chatbotBody.appendChild(p);
   chatbotBody.scrollTop = chatbotBody.scrollHeight;
 }
-
 function botReply(msg){
   msg = msg.toLowerCase();
-  if(msg.includes('skills')) return "My skills include Power BI, SQL, Python, Excel, Data Analysis, Business Intelligence, and Tableau.";
+  if(msg.includes('skills')) return "My skills include Power BI, SQL, Python, Excel, Data Analysis, and BI.";
   if(msg.includes('experience')) return "I have worked as a Data Analyst at XYZ Corp and as a Power BI Developer at ABC Ltd.";
   if(msg.includes('projects')) return "I have developed dashboards for Retail Sales, Financial Analysis, and Customer Reviews Insights.";
   if(msg.includes('contact')) return "You can email me at muhammadaffaf746@gmail.com or call +92 300 1234567.";
   return "Hello! I can provide info about my skills, experience, projects, or contact details.";
 }
-
 chatbotSend.addEventListener('click', () => {
   const msg = chatbotInput.value.trim();
   if(!msg) return;
@@ -75,7 +73,7 @@ chatbotSend.addEventListener('click', () => {
 });
 chatbotInput.addEventListener('keypress', e=>{ if(e.key==='Enter') chatbotSend.click(); });
 
-/* ===== SKILL ANIMATION ===== */
+/* SKILL ANIMATION */
 const skillCircles = document.querySelectorAll('.skill-circle');
 skillCircles.forEach(circle => {
   const percent = circle.dataset.percent;
@@ -93,7 +91,7 @@ skillCircles.forEach(circle => {
   }, 500);
 });
 
-/* ===== HERO TYPING EFFECT ===== */
+/* HERO TYPING EFFECT */
 const typingText = document.getElementById('typing-text');
 const words = ["Data Analyst","Power BI Developer","SQL Specialist","Python Programmer","Excel Expert","BI Consultant"];
 let wordIndex=0, charIndex=0;
