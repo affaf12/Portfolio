@@ -76,11 +76,12 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(link => { if(link.getAttribute('href') === '#'+current) link.classList.add('active'); });
 });
 
-/* ================= UPGRADED CHATBOT JS WITH SNAP-BACK ================= */
+/* ================= UPGRADED CHATBOT JS ================= */
 document.addEventListener("DOMContentLoaded", () => {
-  const chatbotWindow = document.getElementById('chatbot');
-  const toggleBtnEl = document.getElementById('chatbot-toggle');
-  const sendBtnEl = document.getElementById('chatbot-send');
+  const chatbotWindow = document.getElementById('chatbot-window');
+  const toggleBtn = document.getElementById('chatbot-toggle');
+  const closeBtn = document.getElementById('chatbot-close');
+  const sendBtn = document.getElementById('chatbot-send');
   const inputEl = document.getElementById('chatbot-input');
   const bodyEl = document.getElementById('chatbot-body');
   const typingEl = document.getElementById('typing-indicator');
@@ -91,78 +92,35 @@ document.addEventListener("DOMContentLoaded", () => {
   let inactivityTimer;
   const chatSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
 
-  /* ---------------- TOGGLE ---------------- */
-  toggleBtnEl.addEventListener('click', () => {
+  /* ---------------- TOGGLE (💬 / ❌) ---------------- */
+  function toggleChat() {
     const isOpen = chatbotWindow.classList.toggle('open');
-    toggleBtnEl.classList.toggle('open', isOpen);
+    toggleBtn.classList.toggle('open', isOpen);
     if (isOpen) {
+      chatbotWindow.style.display = "flex";
       notificationEl.style.display = 'none';
-      toggleBtnEl.classList.remove('notify');
+      toggleBtn.textContent = "❌"; // change button to close icon
       resetInactivityTimer();
     } else {
+      chatbotWindow.style.display = "none";
+      toggleBtn.textContent = "💬"; // back to chat icon
       clearTimeout(inactivityTimer);
     }
-  });
+  }
+  toggleBtn.addEventListener('click', toggleChat);
+  if (closeBtn) closeBtn.addEventListener('click', toggleChat);
 
   /* ---------------- SEND MESSAGE ---------------- */
-  sendBtnEl.addEventListener('click', () => sendMessage());
+  sendBtn.addEventListener('click', () => sendMessage());
   inputEl.addEventListener('keypress', e => {
     if (e.key === 'Enter') sendMessage();
   });
 
-  /* ---------------- AUTO-HIDE ---------------- */
-  function resetInactivityTimer() {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
-      chatbotWindow.classList.remove('open');
-      toggleBtnEl.classList.remove('open');
-    }, 60000);
-  }
-
-  /* ---------------- DRAG FULL (X + Y) WITH SNAP ---------------- */
-  let isDragging = false, offsetX, offsetY;
-  headerEl.addEventListener('mousedown', e => {
-    isDragging = true;
-    offsetX = e.clientX - chatbotWindow.offsetLeft;
-    offsetY = e.clientY - chatbotWindow.offsetTop;
-    chatbotWindow.style.transition = "none"; // no animation while dragging
-  });
-  document.addEventListener('mouseup', () => {
-    if (isDragging) {
-      isDragging = false;
-      chatbotWindow.style.transition = "all 0.25s ease"; // smooth snap
-
-      // Get viewport width/height
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const rect = chatbotWindow.getBoundingClientRect();
-
-      // Snap threshold (distance in px from bottom/right)
-      const snapThreshold = 120;
-
-      // If near bottom-right → snap back
-      if ((vw - rect.right) < snapThreshold && (vh - rect.bottom) < snapThreshold) {
-        chatbotWindow.style.left = "auto";
-        chatbotWindow.style.top = "auto";
-        chatbotWindow.style.right = "25px";
-        chatbotWindow.style.bottom = "25px";
-      }
-    }
-  });
-  document.addEventListener('mousemove', e => {
-    if (isDragging) {
-      chatbotWindow.style.left = `${e.clientX - offsetX}px`;
-      chatbotWindow.style.top = `${e.clientY - offsetY}px`;
-      chatbotWindow.style.right = "auto";
-      chatbotWindow.style.bottom = "auto";
-    }
-  });
-
-  /* ---------------- SEND MESSAGE FUNCTION ---------------- */
   function sendMessage(msg = null) {
     const message = msg || inputEl.value.trim();
     if (!message) return;
 
+    // User message
     const userMsg = document.createElement('div');
     userMsg.className = 'chatbot-message user-msg';
     userMsg.textContent = message;
@@ -170,10 +128,12 @@ document.addEventListener("DOMContentLoaded", () => {
     inputEl.value = '';
     scrollToBottom();
 
+    // Clear quick replies
     quickRepliesEl.innerHTML = '';
     typingEl.style.display = 'block';
     resetInactivityTimer();
 
+    // Bot response delay
     setTimeout(() => {
       typingEl.style.display = 'none';
       const botMsg = document.createElement('div');
@@ -198,22 +158,19 @@ document.addEventListener("DOMContentLoaded", () => {
       chatSound.play();
       if (!chatbotWindow.classList.contains('open')) {
         notificationEl.style.display = 'inline-block';
-        toggleBtnEl.classList.add('notify');
       }
     }, 1000);
   }
 
-  function scrollToBottom() {
-    bodyEl.scrollTop = bodyEl.scrollHeight;
-  }
-
-  /* ---------------- BOT RESPONSE ---------------- */
+  /* ---------------- BOT RESPONSES ---------------- */
   function getBotResponse(msg) {
     msg = msg.toLowerCase();
     if (msg.includes('hello') || msg.includes('hi'))
       return "Hello! 👋 How can I help you today?";
     if (msg.includes('power bi'))
-      return "✅ Yes! I make amazing Power BI dashboards!";
+      return "✅ Yes! I build amazing Power BI dashboards!";
+    if (msg.includes('contact'))
+      return "📩 You can reach me at muhammadaffaf746@gmail.com";
     return "🤖 I'm here to assist you!";
   }
 
@@ -231,6 +188,57 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.onclick = () => sendMessage(text);
       quickRepliesEl.appendChild(btn);
     });
+  }
+
+  /* ---------------- AUTO-HIDE ---------------- */
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+      chatbotWindow.classList.remove('open');
+      toggleBtn.classList.remove('open');
+      chatbotWindow.style.display = "none";
+      toggleBtn.textContent = "💬";
+    }, 60000); // auto-hide after 1 min
+  }
+
+  /* ---------------- DRAG SNAP-BACK ---------------- */
+  let isDragging = false, offsetX, offsetY;
+  headerEl.addEventListener('mousedown', e => {
+    isDragging = true;
+    offsetX = e.clientX - chatbotWindow.offsetLeft;
+    offsetY = e.clientY - chatbotWindow.offsetTop;
+    chatbotWindow.style.transition = "none";
+  });
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      chatbotWindow.style.transition = "all 0.25s ease";
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const rect = chatbotWindow.getBoundingClientRect();
+
+      const snapThreshold = 120;
+      if ((vw - rect.right) < snapThreshold && (vh - rect.bottom) < snapThreshold) {
+        chatbotWindow.style.left = "auto";
+        chatbotWindow.style.top = "auto";
+        chatbotWindow.style.right = "25px";
+        chatbotWindow.style.bottom = "25px";
+      }
+    }
+  });
+  document.addEventListener('mousemove', e => {
+    if (isDragging) {
+      chatbotWindow.style.left = `${e.clientX - offsetX}px`;
+      chatbotWindow.style.top = `${e.clientY - offsetY}px`;
+      chatbotWindow.style.right = "auto";
+      chatbotWindow.style.bottom = "auto";
+    }
+  });
+
+  /* ---------------- HELPERS ---------------- */
+  function scrollToBottom() {
+    bodyEl.scrollTop = bodyEl.scrollHeight;
   }
 });
 
