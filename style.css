@@ -135,35 +135,43 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-align: center;
   color: #fff;
 }
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 40px;
   justify-items: center;
 }
+
 .skill-circle {
   position: relative;
   width: 150px;
   height: 150px;
 }
+
 .skill-circle svg {
   transform: rotate(-90deg);
   width: 150px;
   height: 150px;
 }
+
 .skill-circle circle {
   fill: none;
   stroke-width: 12;
   stroke-linecap: round;
 }
+
 .bg {
-  stroke: rgba(255,255,255,0.15);
+  stroke: rgba(255, 255, 255, 0.15);
 }
+
 .progress {
-  stroke: #0ff; /* default, overridden by JS */
-  stroke-dasharray: 0;
-  stroke-dashoffset: 0;
+  stroke: #0ff;
+  stroke-dasharray: 408; /* 2πr where r = 65 */
+  stroke-dashoffset: 408;
+  transition: stroke-dashoffset 1.8s ease;
 }
+
 .skill-info {
   position: absolute;
   top: 50%;
@@ -171,10 +179,13 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transform: translate(-50%, -50%);
   text-align: center;
 }
+
 .skill-info h3 {
   font-size: 0.9rem;
   margin-top: 6px;
+  color: #0ff;
 }
+
 .percent {
   font-size: 1.3rem;
   font-weight: bold;
