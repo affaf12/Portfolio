@@ -441,29 +441,52 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 /* ================= SCROLL TO TOP BUTTON ================= */
 #scrollTopBtn {
   position: fixed;
-  bottom: 40px;
-  left: 40px; /* Changed from right to left */
-  z-index: 999;
+  bottom: 30px;       /* Slightly closer to bottom */
+  left: 30px;         /* Left-hand side */
+  z-index: 9999;
   background: linear-gradient(135deg, #36a9a1, #1abc9c);
   color: #111;
   border: none;
-  padding: 0.8rem 1rem;
+  width: 50px;        /* Fixed width */
+  height: 50px;       /* Fixed height */
   border-radius: 50%;
   font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   box-shadow: 0 10px 25px rgba(54,169,161,0.5);
-  transition: all 0.3s ease;
-  display: none; /* Hidden by default */
+  transition: all 0.35s ease;
+  opacity: 0;         /* Hidden initially */
+  pointer-events: none; /* Prevent click when hidden */
 }
 
+/* Show button when active */
+#scrollTopBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hover effect */
 #scrollTopBtn:hover {
-  transform: scale(1.2);
+  transform: scale(1.2) rotate(-10deg);
   box-shadow: 0 15px 35px rgba(54,169,161,0.7);
 }
 
-/* Optional: Icon inside the button */
+/* Icon inside the button */
 #scrollTopBtn i {
   pointer-events: none;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  #scrollTopBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
+    bottom: 20px;
+    left: 20px;
+  }
 }
 
 
