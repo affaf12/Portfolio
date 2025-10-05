@@ -18,10 +18,10 @@ themeBtn.addEventListener('click', () => {
 
 // ================= EXPERIENCE SECTION ANIMATION =================
 document.addEventListener("DOMContentLoaded", () => {
-  const expBoxes = document.querySelectorAll(".experience-box");
+  const expCards = document.querySelectorAll(".experience-card");
 
   const observerOptions = {
-    threshold: 0.2, // trigger when 20% of the box is visible
+    threshold: 0.2, // trigger when 20% of the card is visible
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -29,13 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
       } else {
-        // Remove this line if you want the animation only once
+        // Allows animation to trigger again when scrolling back up
         entry.target.classList.remove("visible");
       }
     });
   }, observerOptions);
 
-  expBoxes.forEach(box => observer.observe(box));
+  expCards.forEach(card => observer.observe(card));
 });
 
 
