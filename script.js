@@ -294,7 +294,9 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
+/* ================= Contact Foam================= */
 
+<script>
 const form = document.querySelector('.contact-form');
 const formMessage = document.querySelector('.form-message');
 
@@ -309,29 +311,34 @@ form.addEventListener('submit', async (e) => {
   };
 
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbyVNgSgJF3jexrbCYvh5ry9-oxRqIgdxqNhEOGT8fV0zp8D78yynlVnWdZKlkWH6GUH/exec', {
       method: 'POST',
       body: JSON.stringify(data),
-      headers: {'Content-Type':'application/json'}
+      headers: { 'Content-Type': 'application/json' }
     });
 
     const result = await response.json();
 
-    if(result.result === "success") {
+    if (result.result === "success") {
       formMessage.style.display = 'block';
-      formMessage.style.color = '#0f0'; // green
+      formMessage.style.color = '#0f0'; // Green for success
       formMessage.textContent = "✅ Message sent successfully!";
       form.reset();
-
+      setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
+    } else {
+      formMessage.style.display = 'block';
+      formMessage.style.color = '#f00'; // Red for error
+      formMessage.textContent = "❌ " + (result.message || "Error sending message!");
       setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
     }
-  } catch(err) {
+  } catch (err) {
     formMessage.style.display = 'block';
-    formMessage.style.color = '#f00'; // red
+    formMessage.style.color = '#f00';
     formMessage.textContent = "❌ Error sending message!";
     setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
   }
 });
+</script>
 
 
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
