@@ -199,7 +199,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   opacity: 0;
 }
 
-/* Neon glow pulse animation */
+/* Glow pulse animation */
 .btn-contact.glow {
   animation: neonPulse 1.8s infinite alternate;
 }
@@ -210,8 +210,10 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transform: scale(1.05);
 }
 
+/* Neon pulse keyframes */
 @keyframes neonPulse {
   0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 28px rgba(0, 255, 255, 0.6); }
   100% { box-shadow: 0 0 35px rgba(0, 255, 255, 0.8); }
 }
 
