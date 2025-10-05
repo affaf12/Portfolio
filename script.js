@@ -294,6 +294,34 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
+
+/* ================= Contact Button Section ================= */
+const form = document.querySelector('.contact-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value
+      };
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {'Content-Type':'application/json'}
+        });
+        const result = await response.json();
+        if(result.result === "success") {
+          alert("✅ Message sent successfully!");
+          form.reset();
+        }
+      } catch(err) {
+        alert("❌ Error sending message!");
+      }
+    });
+
+
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
 
 const scrollTopBtn = document.getElementById("scrollTopBtn");
