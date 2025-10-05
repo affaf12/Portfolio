@@ -16,7 +16,6 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
-
 // ================= HERO SECTION ANIMATION =================
 document.addEventListener("DOMContentLoaded", () => {
   const heroItems = document.querySelectorAll("#home [data-animate]");
