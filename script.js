@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     body.classList.toggle("dark-theme");
     const isDark = body.classList.contains("dark-theme");
     themeBtn.textContent = isDark ? "🌞" : "🌙";
+    themeBtn.classList.toggle("active", isDark);
     localStorage.setItem("theme", isDark ? "dark" : "light");
   });
 });
