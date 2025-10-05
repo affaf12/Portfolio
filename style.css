@@ -183,7 +183,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   color: #0ff;
 }
 
-/* Contact Button */
+/* ================= CONTACT BUTTON ================= */
 .btn-contact {
   background: rgba(0, 255, 255, 0.3);
   color: #000;
@@ -199,13 +199,23 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   opacity: 0;
 }
 
+/* Neon glow pulse animation */
+.btn-contact.glow {
+  animation: neonPulse 1.8s infinite alternate;
+}
+
 .btn-contact:hover {
   background: #00e6e6;
   box-shadow: 0 0 35px rgba(0, 255, 255, 0.6);
   transform: scale(1.05);
 }
 
-/* Visible Animation */
+@keyframes neonPulse {
+  0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
+  100% { box-shadow: 0 0 35px rgba(0, 255, 255, 0.8); }
+}
+
+/* Visible animation */
 [data-animate].visible {
   transform: translateY(0) scale(1);
   opacity: 1;
@@ -213,16 +223,9 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .about-section .section-title {
-    font-size: 2rem;
-  }
-  .about-text {
-    padding: 0 10px;
-  }
-  .btn-contact {
-    padding: 10px 22px;
-    font-size: 0.95rem;
-  }
+  .about-section .section-title { font-size: 2rem; }
+  .about-text { padding: 0 10px; }
+  .btn-contact { padding: 10px 22px; font-size: 0.95rem; }
 }
 
 
