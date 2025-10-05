@@ -16,6 +16,53 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
+// ================= HEADER JS =================
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.getElementById("header");
+  const menuToggle = document.getElementById("menu-toggle");
+  const navMenu = document.getElementById("nav-menu");
+  const themeToggle = document.getElementById("theme-toggle");
+  const body = document.body;
+
+  // Sticky header on scroll
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+    setActiveNavLink();
+  });
+
+  // Mobile menu toggle
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("show");
+  });
+
+  // Dark/Light theme toggle
+  themeToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-theme");
+    themeToggle.innerHTML = body.classList.contains("dark-theme") 
+                             ? "<i class='bx bx-sun'></i>" 
+                             : "<i class='bx bx-moon'></i>";
+  });
+
+  // Highlight active section link
+  const sections = document.querySelectorAll("section");
+  function setActiveNavLink() {
+    let scrollPos = window.scrollY + 100;
+    sections.forEach(section => {
+      const id = section.id;
+      if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+        document.querySelectorAll("#nav-menu a").forEach(link => link.classList.remove("active"));
+        const activeLink = document.querySelector(`#nav-menu a[href="#${id}"]`);
+        if(activeLink) activeLink.classList.add("active");
+      }
+    });
+  }
+});
+
+
 // ================= HERO SECTION ANIMATION =================
 document.addEventListener("DOMContentLoaded", () => {
   const heroItems = document.querySelectorAll("#home [data-animate]");
