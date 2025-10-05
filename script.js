@@ -6,28 +6,25 @@ menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 // ================= FLOATING THEME TOGGLE JS =================
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
-  const lightBtn = document.getElementById("light-theme-btn");
-  const darkBtn = document.getElementById("dark-theme-btn");
-
-  // Apply Light Theme
-  lightBtn.addEventListener("click", () => {
-    body.classList.remove("dark-theme");
-    localStorage.setItem("theme", "light");
-  });
-
-  // Apply Dark Theme
-  darkBtn.addEventListener("click", () => {
-    body.classList.add("dark-theme");
-    localStorage.setItem("theme", "dark");
-  });
+  const themeBtn = document.getElementById("theme-toggle-btn");
 
   // Load saved theme on page load
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
     body.classList.add("dark-theme");
+    themeBtn.textContent = "🌞";
   } else {
     body.classList.remove("dark-theme");
+    themeBtn.textContent = "🌙";
   }
+
+  // Toggle dark/light theme
+  themeBtn.addEventListener("click", () => {
+    body.classList.toggle("dark-theme");
+    const isDark = body.classList.contains("dark-theme");
+    themeBtn.textContent = isDark ? "🌞" : "🌙";
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  });
 });
 
 
