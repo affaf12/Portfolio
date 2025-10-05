@@ -127,26 +127,33 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= ABOUT SECTION ================= */
+/* ================= ABOUT SECTION - NEON GLASS ================= */
 .about-section {
   padding: 80px 20px;
   background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
   color: #fff;
   text-align: center;
+  position: relative;
 }
 
 .about-section .section-title {
   font-size: 2.5rem;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   color: #0ff;
   text-shadow: 0 0 10px #0ff, 0 0 20px #00e6e6;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease;
 }
 
 .about-text {
   max-width: 800px;
   margin: 0 auto;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease;
 }
 
 .about-text p {
@@ -176,9 +183,9 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   color: #0ff;
 }
 
-/* Contact button */
+/* Contact Button */
 .btn-contact {
-  background: #0ff;
+  background: rgba(0, 255, 255, 0.3);
   color: #000;
   font-weight: 700;
   padding: 12px 28px;
@@ -188,12 +195,34 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   font-size: 1rem;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
   transition: all 0.3s ease;
+  transform: translateY(50px);
+  opacity: 0;
 }
 
 .btn-contact:hover {
   background: #00e6e6;
   box-shadow: 0 0 35px rgba(0, 255, 255, 0.6);
   transform: scale(1.05);
+}
+
+/* Visible Animation */
+[data-animate].visible {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-section .section-title {
+    font-size: 2rem;
+  }
+  .about-text {
+    padding: 0 10px;
+  }
+  .btn-contact {
+    padding: 10px 22px;
+    font-size: 0.95rem;
+  }
 }
 
 
