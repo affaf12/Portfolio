@@ -3,7 +3,7 @@ const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.getElementById('nav-menu');
 menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-// ================= THEME TOGGLE JS =================
+// ================= FLOATING THEME TOGGLE JS =================
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   const lightBtn = document.getElementById("light-theme-btn");
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("theme", "dark");
   });
 
-  // Remember theme on page load
+  // Load saved theme on page load
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
     body.classList.add("dark-theme");
