@@ -1084,7 +1084,7 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
 #social-media .section-title {
     font-size: 2.2rem;
     margin-bottom: 2rem;
-    color: #0ff; /* neon primary color */
+    color: #0ff;
     font-weight: 700;
     position: relative;
     text-shadow: 0 0 5px #0ff, 0 0 10px #00e6e6;
@@ -1101,47 +1101,48 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
     border-radius: 3px;
 }
 
+/* Social icons container */
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
 }
 
+/* Social buttons as circular icons */
 .social-icons a {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 0.8rem;
-    background: #111; /* dark background */
-    color: #fff;
-    padding: 0.8rem 1.2rem;
-    border-radius: 30px;
-    font-weight: 600;
-    text-decoration: none;
+    width: 60px;
+    height: 60px;
+    background: #111;
+    border-radius: 50%;
+    padding: 0;
     box-shadow: 0 4px 15px rgba(0,255,255,0.2);
     transition: all 0.35s ease;
     position: relative;
     overflow: hidden;
 }
 
-/* Social media images */
-.social-img {
-    width: 28px;
-    height: 28px;
+/* Social images inside circle */
+.social-icon {
+    width: 32px;
+    height: 32px;
     object-fit: contain;
-    transition: transform 0.3s;
+    transition: transform 0.3s, filter 0.3s;
 }
 
-/* Hover effect for links */
+/* Hover effects */
 .social-icons a:hover {
-    transform: translateY(-5px) scale(1.05);
-    background: #0ff;
-    color: #111;
+    transform: scale(1.15);
     box-shadow: 0 0 20px #0ff, 0 0 40px #00e6e6;
+    background: #0ff;
 }
 
-.social-icons a:hover .social-img {
+.social-icons a:hover .social-icon {
     transform: scale(1.2);
+    filter: drop-shadow(0 0 8px #00e6e6);
 }
 
 /* Tooltip */
@@ -1167,12 +1168,12 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
     transform: translateX(-50%) translateY(0);
 }
 
-/* RESPONSIVE */
+/* Responsive */
 @media(max-width:768px){
     .social-icons {
-        flex-direction: column;
+        flex-direction: row;
         gap: 1rem;
-        align-items: center;
+        justify-content: center;
     }
 }
 
