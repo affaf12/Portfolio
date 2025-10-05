@@ -390,7 +390,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerEl = document.getElementById('chatbot-header');
 
   let inactivityTimer;
-  const chatSound = new Audio('https://voca.ro/1nhMbUDxfVHh');
+const chatSound = new Audio('https://raw.githubusercontent.com/affaf12/Portfolio/162e9272addefb04d11992d0017d4da47afcc9e2/live-chat-353605.mp3');
+
 
   /* ---------------- TOGGLE CHATBOT ---------------- */
   function toggleChat() {
