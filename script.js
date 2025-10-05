@@ -3,18 +3,33 @@ const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.getElementById('nav-menu');
 menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-/* ================= THEME TOGGLE ================= */
-const themeBtn = document.getElementById('theme-toggle');
-const html = document.documentElement;
-if(localStorage.getItem('theme')) {
-  html.dataset.theme = localStorage.getItem('theme');
-  themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
-}
-themeBtn.addEventListener('click', () => {
-  html.dataset.theme = html.dataset.theme==='dark' ? 'light' : 'dark';
-  localStorage.setItem('theme', html.dataset.theme);
-  themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
+// ================= THEME TOGGLE JS =================
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const lightBtn = document.getElementById("light-theme-btn");
+  const darkBtn = document.getElementById("dark-theme-btn");
+
+  // Apply Light Theme
+  lightBtn.addEventListener("click", () => {
+    body.classList.remove("dark-theme");
+    localStorage.setItem("theme", "light");
+  });
+
+  // Apply Dark Theme
+  darkBtn.addEventListener("click", () => {
+    body.classList.add("dark-theme");
+    localStorage.setItem("theme", "dark");
+  });
+
+  // Remember theme on page load
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    body.classList.add("dark-theme");
+  } else {
+    body.classList.remove("dark-theme");
+  }
 });
+
 
 // ================= HEADER JS =================
 document.addEventListener("DOMContentLoaded", () => {
