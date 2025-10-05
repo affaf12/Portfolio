@@ -16,7 +16,7 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
-// ================= EXPERIENCE SECTION STAGGERED ANIMATION =================
+// ================= EXPERIENCE SECTION ENHANCED STAGGERED ANIMATION =================
 document.addEventListener("DOMContentLoaded", () => {
   const expCards = document.querySelectorAll(".experience-card");
 
@@ -26,15 +26,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      const index = Array.from(expCards).indexOf(entry.target);
+
       if (entry.isIntersecting) {
-        // Add staggered delay based on index
-        const index = Array.from(expCards).indexOf(entry.target);
+        // Add staggered delay
+        entry.target.style.transition = `transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                                         opacity 0.6s ease, 
+                                         box-shadow 0.3s ease`;
         entry.target.style.transitionDelay = `${index * 0.2}s`;
+
+        // Add visible + scale
         entry.target.classList.add("visible");
       } else {
-        // Reset delay and remove visible for repeat animation
+        // Reset for repeat animation
         entry.target.style.transitionDelay = "0s";
         entry.target.classList.remove("visible");
+        entry.target.style.transform = "translateY(50px) scale(1)";
       }
     });
   }, observerOptions);
