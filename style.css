@@ -959,10 +959,12 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
 }
 
 /* ================= CONTACT FORM ================= */
+/* ================= Contact Form CSS - Upgraded ================= */
+
 /* Container to push form to right */
 .contact-container {
   display: flex;
-  justify-content: flex-end; /* form on right */
+  justify-content: flex-end; /* keeps form on right */
   align-items: flex-start;
   min-height: 80vh;
   padding: 80px 20px;
@@ -971,7 +973,7 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
 
 /* Contact Form Styling */
 .contact-form {
-  flex: 0 0 500px;
+  flex: 0 0 500px; /* fixed width */
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -983,7 +985,7 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   transition: all 0.4s ease;
   opacity: 0;
   transform: translateX(50px);
-  animation: formFadeIn 0.8s forwards;
+  animation: formFadeIn 0.8s forwards ease-in-out;
 }
 
 /* Form hover effect */
@@ -993,7 +995,7 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   background: rgba(30,35,55,0.95);
 }
 
-/* Fade in animation */
+/* Fade in animation for form */
 @keyframes formFadeIn {
   to {
     opacity: 1;
@@ -1001,15 +1003,16 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   }
 }
 
-/* Floating label & input */
+/* Floating label & input animations */
 .form-group {
   position: relative;
   width: 100%;
   opacity: 0;
   transform: translateY(20px);
-  animation: inputFadeUp 0.5s forwards;
+  animation: inputFadeUp 0.5s forwards ease-in-out;
 }
 
+/* Stagger animation delay for each input */
 .contact-form .form-group:nth-child(2) { animation-delay: 0.2s; }
 .contact-form .form-group:nth-child(3) { animation-delay: 0.4s; }
 .contact-form .form-group:nth-child(4) { animation-delay: 0.6s; }
@@ -1036,7 +1039,10 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   transition: all 0.35s ease;
 }
 
-.contact-form textarea { min-height: 150px; resize: vertical; }
+.contact-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
 
 /* Labels */
 .contact-form label {
@@ -1060,7 +1066,7 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   top: -12px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #36a9a1;
+  color: #36a9a1; /* accent color */
 }
 
 /* Focus effect */
@@ -1109,9 +1115,9 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   transform: translateY(0);
 }
 
-/* Responsive */
+/* ================= Responsive ================= */
 @media(max-width:1024px){
-  .contact-container { justify-content: center; }
+  .contact-container { justify-content: center; } /* center form on smaller screens */
   .contact-form { width: 100%; max-width: 450px; padding: 3rem; }
 }
 
