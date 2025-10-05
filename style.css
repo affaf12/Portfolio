@@ -160,19 +160,22 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   text-align: left;
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
   backdrop-filter: blur(12px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  transform: translateY(50px);
+  transform: translateY(50px) scale(1);
   opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+              opacity 0.6s ease, 
+              box-shadow 0.3s ease;
 }
 
 .experience-card.visible {
-  transform: translateY(0);
   opacity: 1;
+  transform: translateY(0) scale(1.02);
+  animation: glowPulse 1.2s ease-in-out infinite alternate;
 }
 
 .experience-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 0 35px rgba(0, 255, 255, 0.5);
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 0 45px rgba(0, 255, 255, 0.6);
 }
 
 .experience-card h3 {
@@ -202,6 +205,12 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 .experience-card ul li span {
   color: #0ff;
   font-weight: bold;
+}
+
+/* Glow pulse animation */
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.25); }
+  100% { box-shadow: 0 0 50px rgba(0, 255, 255, 0.6); }
 }
 
 /* Responsive */
