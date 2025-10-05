@@ -196,7 +196,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   font-weight: bold;
 }
 
-/* ================= EXPERIENCE SECTION ================= */
+/* ================= EXPERIENCE SECTION - MINIMAL WHITE THEME ================= */
 .experience-section.white {
   background: #f9f9f9;
   color: #222;
@@ -219,18 +219,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 
 .experience-section.white .experience-card ul li span {
   color: #007bff;
-}
-
-/* ================= SCROLL ANIMATION ================= */
-@keyframes fadeUp {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
 /* ================= RESPONSIVE ================= */
