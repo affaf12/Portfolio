@@ -127,21 +127,22 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= EXPERIENCE SECTION - DARK NEON THEME ================= */
+/* ================= EXPERIENCE SECTION - NEON GLASS STYLE ================= */
 .experience-section {
-  background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
   padding: 80px 20px;
-  color: #fff;
+  background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
   text-align: center;
+  color: #fff;
   position: relative;
 }
 
-.section-title {
+.experience-section .section-title {
   font-size: 2.5rem;
   margin-bottom: 50px;
   font-weight: 700;
-  color: #00ffff;
-  text-shadow: 0 0 15px #00ffff;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #00e6e6;
+  letter-spacing: 2px;
 }
 
 .experience-grid {
@@ -153,14 +154,15 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 
 .experience-card {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 25px;
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 30px;
   text-align: left;
-  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   transform: translateY(50px);
   opacity: 0;
-  transition: all 0.6s ease;
 }
 
 .experience-card.visible {
@@ -168,10 +170,16 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   opacity: 1;
 }
 
+.experience-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.5);
+}
+
 .experience-card h3 {
-  font-size: 1.3rem;
-  color: #00ffff;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #00e6e6;
+  text-shadow: 0 0 10px #00e6e6;
 }
 
 .experience-card .location {
@@ -192,38 +200,13 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
 }
 
 .experience-card ul li span {
-  color: #00ffff;
+  color: #0ff;
   font-weight: bold;
 }
 
-/* ================= EXPERIENCE SECTION - MINIMAL WHITE THEME ================= */
-.experience-section.white {
-  background: #f9f9f9;
-  color: #222;
-}
-
-.experience-section.white .section-title {
-  color: #111;
-  text-shadow: none;
-}
-
-.experience-section.white .experience-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.experience-section.white .experience-card h3 {
-  color: #333;
-}
-
-.experience-section.white .experience-card ul li span {
-  color: #007bff;
-}
-
-/* ================= RESPONSIVE ================= */
+/* Responsive */
 @media (max-width: 768px) {
-  .section-title {
+  .experience-section .section-title {
     font-size: 2rem;
   }
   .experience-card {
