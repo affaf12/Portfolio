@@ -296,7 +296,6 @@ showSlide(0);
 
 /* ================= Contact Foam================= */
 
-<script>
 const form = document.querySelector('.contact-form');
 const formMessage = document.querySelector('.form-message');
 
@@ -338,7 +337,7 @@ form.addEventListener('submit', async (e) => {
     setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
   }
 });
-</script>
+
 
 
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
