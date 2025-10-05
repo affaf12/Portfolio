@@ -294,18 +294,24 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
-/* ================= Contact Foam================= */
+/* ================= Upgraded Contact Form JS ================= */
 const form = document.querySelector('.contact-form');
 const formMessage = document.querySelector('.form-message');
+const submitBtn = form.querySelector('button[type="submit"]');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  // Disable button to prevent multiple submissions
+  submitBtn.disabled = true;
+  submitBtn.style.cursor = 'not-allowed';
+  submitBtn.textContent = 'Sending...';
+
   const data = {
-    name: form.name.value,
-    email: form.email.value,
-    subject: form.subject.value,
-    message: form.message.value
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    subject: form.subject.value.trim(),
+    message: form.message.value.trim()
   };
 
   try {
@@ -317,25 +323,50 @@ form.addEventListener('submit', async (e) => {
 
     const result = await response.json();
 
-    if (result.result === "success") {
-      formMessage.classList.add('show');
-      formMessage.style.color = '#0f0';
-      formMessage.textContent = "✅ Message sent successfully!";
-      form.reset();
-      setTimeout(() => { formMessage.classList.remove('show'); }, 4000);
-    } else {
-      formMessage.classList.add('show');
-      formMessage.style.color = '#f00';
-      formMessage.textContent = "❌ " + (result.message || "Error sending message!");
-      setTimeout(() => { formMessage.classList.remove('show'); }, 4000);
-    }
+    formMessage.classList.add('show');
+    formMessage.style.opacity = '0';
+    formMessage.style.transform = 'translateY(-10px)';
+
+    // Slight delay for smooth fade-in
+    setTimeout(() => {
+      formMessage.style.opacity = '1';
+      formMessage.style.transform = 'translateY(0)';
+      if (result.result === "success") {
+        formMessage.style.color = '#0f0';
+        formMessage.textContent = "✅ Message sent successfully!";
+        form.reset();
+      } else {
+        formMessage.style.color = '#f00';
+        formMessage.textContent = "❌ " + (result.message || "Error sending message!");
+      }
+    }, 50);
+
+    // Hide message after 4s
+    setTimeout(() => {
+      formMessage.style.opacity = '0';
+      formMessage.style.transform = 'translateY(-10px)';
+      setTimeout(() => { formMessage.classList.remove('show'); }, 500);
+    }, 4000);
+
   } catch (err) {
     formMessage.classList.add('show');
     formMessage.style.color = '#f00';
+    formMessage.style.opacity = '1';
+    formMessage.style.transform = 'translateY(0)';
     formMessage.textContent = "❌ Error sending message!";
-    setTimeout(() => { formMessage.classList.remove('show'); }, 4000);
+    setTimeout(() => {
+      formMessage.style.opacity = '0';
+      formMessage.style.transform = 'translateY(-10px)';
+      setTimeout(() => { formMessage.classList.remove('show'); }, 500);
+    }, 4000);
+  } finally {
+    // Re-enable button
+    submitBtn.disabled = false;
+    submitBtn.style.cursor = 'pointer';
+    submitBtn.textContent = 'Send Message';
   }
 });
+
 
 
 
