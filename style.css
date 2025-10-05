@@ -1074,99 +1074,106 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   .contact-form { padding: 2.5rem; }
 }
 
-/* SOCIAL MEDIA */
+/* ================= SOCIAL MEDIA ================= */
 #social-media {
-  padding: 3rem 2rem;
-  text-align: center;
-  background: linear-gradient(135deg, #111, #1a1e2b);
+    padding: 4rem 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, #111, #1a1e2b);
 }
 
 #social-media .section-title {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: var(--primary);
-  position: relative;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    color: #0ff; /* neon primary color */
+    font-weight: 700;
+    position: relative;
+    text-shadow: 0 0 5px #0ff, 0 0 10px #00e6e6;
 }
 
 #social-media .section-title::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: #36a9a1;
-  margin: 0.5rem auto 0;
-  border-radius: 3px;
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #0ff;
+    box-shadow: 0 0 8px #0ff, 0 0 15px #00e6e6;
+    margin: 0.5rem auto 0;
+    border-radius: 3px;
 }
 
 .social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .social-icons a {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--secondary);
-  color: var(--text);
-  padding: 0.6rem 1rem;
-  border-radius: 25px;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-  position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #111; /* dark background */
+    color: #fff;
+    padding: 0.8rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,255,255,0.2);
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.social-icons a i { font-size: 1.5rem; }
+/* Social media images */
+.social-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
 
+/* Hover effect for links */
 .social-icons a:hover {
-  transform: translateY(-5px) scale(1.05);
-  background: var(--primary);
-  color: #111;
-  box-shadow: 0 12px 35px rgba(63,184,175,0.6);
+    transform: translateY(-5px) scale(1.05);
+    background: #0ff;
+    color: #111;
+    box-shadow: 0 0 20px #0ff, 0 0 40px #00e6e6;
 }
 
-/* TOOLTIP */
+.social-icons a:hover .social-img {
+    transform: scale(1.2);
+}
+
+/* Tooltip */
 .social-icons a::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: -28px;
-  left: 50%;
-  transform: translateX(-50%) translateY(5px);
-  background: rgba(20,25,40,0.9);
-  color: #fff;
-  font-size: 0.75rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background: rgba(20,25,40,0.95);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .social-icons a:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .social-icons {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .contact-form { padding: 2.5rem; }
-  .form-group i { left: 0.8rem; }
-  .contact-form label { left: 2.5rem; }
-  .contact-form input,
-  .contact-form textarea { padding-left: 2.5rem; }
-  .social-icons { gap: 1rem; flex-direction: column; }
+    .social-icons {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
 }
 
 
