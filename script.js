@@ -295,31 +295,45 @@ slider.addEventListener("touchend", (e) => {
 showSlide(0);
 
 
-/* ================= Contact Button Section ================= */
+/* ================= Contact Foam Section ================= */
 const form = document.querySelector('.contact-form');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        subject: form.subject.value,
-        message: form.message.value
-      };
-      try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {'Content-Type':'application/json'}
-        });
-        const result = await response.json();
-        if(result.result === "success") {
-          alert("✅ Message sent successfully!");
-          form.reset();
-        }
-      } catch(err) {
-        alert("❌ Error sending message!");
-      }
+const formMessage = document.querySelector('.form-message');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const data = {
+    name: form.name.value,
+    email: form.email.value,
+    subject: form.subject.value,
+    message: form.message.value
+  };
+
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {'Content-Type':'application/json'}
     });
+
+    const result = await response.json();
+
+    if(result.result === "success") {
+      formMessage.style.display = 'block';
+      formMessage.style.color = '#0f0'; // green for success
+      formMessage.textContent = "✅ Message sent successfully!";
+      form.reset();
+
+      // Hide message after 4 seconds
+      setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
+    }
+  } catch(err) {
+    formMessage.style.display = 'block';
+    formMessage.style.color = '#f00'; // red for error
+    formMessage.textContent = "❌ Error sending message!";
+    setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
+  }
+});
 
 
 /* ================= SCROLL BUTTON & STICKY HEADER ================= */
