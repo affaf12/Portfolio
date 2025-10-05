@@ -318,22 +318,22 @@ form.addEventListener('submit', async (e) => {
     const result = await response.json();
 
     if (result.result === "success") {
-      formMessage.style.display = 'block';
-      formMessage.style.color = '#0f0'; // Green for success
+      formMessage.classList.add('show');
+      formMessage.style.color = '#0f0';
       formMessage.textContent = "✅ Message sent successfully!";
       form.reset();
-      setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
+      setTimeout(() => { formMessage.classList.remove('show'); }, 4000);
     } else {
-      formMessage.style.display = 'block';
-      formMessage.style.color = '#f00'; // Red for error
+      formMessage.classList.add('show');
+      formMessage.style.color = '#f00';
       formMessage.textContent = "❌ " + (result.message || "Error sending message!");
-      setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
+      setTimeout(() => { formMessage.classList.remove('show'); }, 4000);
     }
   } catch (err) {
-    formMessage.style.display = 'block';
+    formMessage.classList.add('show');
     formMessage.style.color = '#f00';
     formMessage.textContent = "❌ Error sending message!";
-    setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
+    setTimeout(() => { formMessage.classList.remove('show'); }, 4000);
   }
 });
 
