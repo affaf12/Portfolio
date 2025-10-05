@@ -16,6 +16,30 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
+// ================= EXPERIENCE SECTION ANIMATION =================
+document.addEventListener("DOMContentLoaded", () => {
+  const expBoxes = document.querySelectorAll(".experience-box");
+
+  const observerOptions = {
+    threshold: 0.2, // trigger when 20% of the box is visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      } else {
+        // Remove this line if you want the animation only once
+        entry.target.classList.remove("visible");
+      }
+    });
+  }, observerOptions);
+
+  expBoxes.forEach(box => observer.observe(box));
+});
+
+
+
 // ================= Skill Section =================
 document.addEventListener("DOMContentLoaded", () => {
   const circles = document.querySelectorAll(".skill-circle");
