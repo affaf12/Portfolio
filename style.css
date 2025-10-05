@@ -76,7 +76,6 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   align-items: center;
   padding: 0 3rem;
   background: linear-gradient(135deg, #111, #1a1e2b);
-  position: relative;
 }
 
 .hero-container {
@@ -121,6 +120,13 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.8s ease;
 }
 
+.hero-right h1, .hero-right h3, .hero-right .btn {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease;
+}
+
+/* Heading styles */
 .hero-right h1 {
   font-size: 3rem;
   font-weight: 800;
@@ -153,7 +159,7 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   transition: all 0.3s ease;
 }
 
-/* Neon Glow Pulse on Button */
+/* Neon Glow Pulse */
 .hero-right .btn.glow {
   animation: neonPulse 1.8s infinite alternate;
 }
