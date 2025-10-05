@@ -17,11 +17,35 @@ themeBtn.addEventListener('click', () => {
 });
 
 
-// ================= SCROLL TO CONTACT =================
-document.getElementById("contactBtn").addEventListener("click", () => {
-  const contactSection = document.getElementById("contact");
-  contactSection.scrollIntoView({ behavior: "smooth" });
+// ================= ABOUT SECTION STAGGERED ANIMATION =================
+document.addEventListener("DOMContentLoaded", () => {
+  const animItems = document.querySelectorAll("#about [data-animate]");
+  const contactBtn = document.getElementById("contactBtn");
+
+  const observerOptions = { threshold: 0.2 };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const index = Array.from(animItems).indexOf(entry.target);
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = `${index * 0.2}s`;
+        entry.target.classList.add("visible");
+      } else {
+        entry.target.style.transitionDelay = "0s";
+        entry.target.classList.remove("visible");
+      }
+    });
+  }, observerOptions);
+
+  animItems.forEach(item => observer.observe(item));
+
+  // ================= SCROLL TO CONTACT =================
+  contactBtn.addEventListener("click", () => {
+    const contactSection = document.getElementById("contact");
+    contactSection.scrollIntoView({ behavior: "smooth" });
+  });
 });
+
 
 
 
