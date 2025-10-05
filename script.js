@@ -30,9 +30,19 @@ document.addEventListener("DOMContentLoaded", () => {
       if (entry.isIntersecting) {
         entry.target.style.transitionDelay = `${index * 0.2}s`;
         entry.target.classList.add("visible");
+
+        // Add glow animation for button
+        if(entry.target.classList.contains("btn-contact")){
+          entry.target.classList.add("glow");
+        }
       } else {
         entry.target.style.transitionDelay = "0s";
         entry.target.classList.remove("visible");
+
+        // Remove glow when out of view
+        if(entry.target.classList.contains("btn-contact")){
+          entry.target.classList.remove("glow");
+        }
       }
     });
   }, observerOptions);
