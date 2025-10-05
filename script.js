@@ -17,6 +17,40 @@ themeBtn.addEventListener('click', () => {
 });
 
 
+// ================= HERO SECTION ANIMATION =================
+document.addEventListener("DOMContentLoaded", () => {
+  const heroItems = document.querySelectorAll("#home [data-animate]");
+  const resumeBtn = document.querySelector("#home .btn");
+
+  const observerOptions = { threshold: 0.2 };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const index = Array.from(heroItems).indexOf(entry.target);
+
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = `${index * 0.2}s`;
+        entry.target.classList.add("visible");
+
+        // Add glow animation to resume button
+        if(entry.target.classList.contains("btn")){
+          setTimeout(() => entry.target.classList.add("glow"), 300);
+        }
+      } else {
+        entry.target.style.transitionDelay = "0s";
+        entry.target.classList.remove("visible");
+        if(entry.target.classList.contains("btn")){
+          entry.target.classList.remove("glow");
+        }
+      }
+    });
+  }, observerOptions);
+
+  heroItems.forEach(item => observer.observe(item));
+});
+
+
+
 // ================= ABOUT SECTION STAGGERED ANIMATION =================
 document.addEventListener("DOMContentLoaded", () => {
   const animItems = document.querySelectorAll("#about [data-animate]");
