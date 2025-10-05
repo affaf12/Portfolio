@@ -295,7 +295,6 @@ slider.addEventListener("touchend", (e) => {
 showSlide(0);
 
 
-/* ================= Contact Foam Section ================= */
 const form = document.querySelector('.contact-form');
 const formMessage = document.querySelector('.form-message');
 
@@ -320,16 +319,15 @@ form.addEventListener('submit', async (e) => {
 
     if(result.result === "success") {
       formMessage.style.display = 'block';
-      formMessage.style.color = '#0f0'; // green for success
+      formMessage.style.color = '#0f0'; // green
       formMessage.textContent = "✅ Message sent successfully!";
       form.reset();
 
-      // Hide message after 4 seconds
       setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
     }
   } catch(err) {
     formMessage.style.display = 'block';
-    formMessage.style.color = '#f00'; // red for error
+    formMessage.style.color = '#f00'; // red
     formMessage.textContent = "❌ Error sending message!";
     setTimeout(() => { formMessage.style.display = 'none'; }, 4000);
   }
