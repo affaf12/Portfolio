@@ -16,6 +16,15 @@ themeBtn.addEventListener('click', () => {
   themeBtn.innerHTML = html.dataset.theme==='dark' ? "<i class='bx bx-moon'></i>" : "<i class='bx bx-sun'></i>";
 });
 
+
+// ================= SCROLL TO CONTACT =================
+document.getElementById("contactBtn").addEventListener("click", () => {
+  const contactSection = document.getElementById("contact");
+  contactSection.scrollIntoView({ behavior: "smooth" });
+});
+
+
+
 // ================= EXPERIENCE SECTION ENHANCED STAGGERED ANIMATION =================
 document.addEventListener("DOMContentLoaded", () => {
   const expCards = document.querySelectorAll(".experience-card");
