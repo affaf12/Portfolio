@@ -84,26 +84,31 @@ nav ul li a {
   transition: 0.3s;
 }
 
-nav ul li a:hover,
-nav ul li a.active {
-  color: #0ff;
-  text-shadow: 0 0 8px #0ff, 0 0 15px #00e6e6;
-}
-
+/* Neon glow underline for active link */
 nav ul li a::after {
   content: '';
   position: absolute;
   width: 0;
-  height: 2px;
+  height: 3px;
   left: 0;
-  bottom: -4px;
+  bottom: -6px;
   background: #0ff;
-  transition: 0.3s;
+  box-shadow: 0 0 8px #0ff, 0 0 15px #00e6e6;
+  transition: width 0.3s ease-in-out;
 }
 
-nav ul li a:hover::after,
 nav ul li a.active::after {
   width: 100%;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff, 0 0 15px #00e6e6;
 }
 
 /* Header Icons */
@@ -139,7 +144,7 @@ nav ul li a.active::after {
     flex-direction: column;
     justify-content: flex-start;
     padding: 2rem 1rem;
-    transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease;
     opacity: 0;
   }
 
@@ -159,6 +164,17 @@ nav ul li a.active::after {
     0% { opacity: 0; transform: translateX(20px); }
     100% { opacity: 1; transform: translateX(0); }
   }
+}
+
+/* Neon glow pulse for menu toggle */
+.glow-pulse {
+  animation: neonPulse 1.5s infinite alternate;
+}
+
+@keyframes neonPulse {
+  0% { text-shadow: 0 0 5px #0ff, 0 0 10px #00e6e6; }
+  50% { text-shadow: 0 0 10px #0ff, 0 0 20px #00e6e6; }
+  100% { text-shadow: 0 0 15px #0ff, 0 0 30px #00e6e6; }
 }
 
 /* ================= HERO SECTION ================= */
