@@ -127,6 +127,77 @@ nav ul li a:hover, nav ul li a.active { color: var(--primary); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* ================= ABOUT SECTION ================= */
+.about-section {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+  color: #fff;
+  text-align: center;
+}
+
+.about-section .section-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #00e6e6;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.about-text {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.about-text ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 30px;
+}
+
+.about-text ul li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #ccc;
+  position: relative;
+  padding-left: 20px;
+}
+
+.about-text ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #0ff;
+}
+
+/* Contact button */
+.btn-contact {
+  background: #0ff;
+  color: #000;
+  font-weight: 700;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-contact:hover {
+  background: #00e6e6;
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.6);
+  transform: scale(1.05);
+}
+
+
+
 /* ================= EXPERIENCE SECTION - NEON GLASS STYLE ================= */
 .experience-section {
   padding: 80px 20px;
