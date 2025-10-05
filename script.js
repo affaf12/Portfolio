@@ -3,22 +3,49 @@ const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.getElementById('nav-menu');
 menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-// ================= FLOATING THEME TOGGLE JS =================
 document.addEventListener("DOMContentLoaded", () => {
-  const body = document.body;
+  const header = document.getElementById("header");
+  const menuToggle = document.getElementById("menu-toggle");
+  const navMenu = document.getElementById("nav-menu");
+  const sections = document.querySelectorAll("section");
   const themeBtn = document.getElementById("theme-toggle-btn");
+  const body = document.body;
 
-  // Load saved theme on page load
+  // ================= STICKY HEADER =================
+  window.addEventListener("scroll", () => {
+    if(window.scrollY > 50) header.classList.add("sticky");
+    else header.classList.remove("sticky");
+
+    // Active nav link
+    const scrollPos = window.scrollY + 100;
+    sections.forEach(section => {
+      const id = section.id;
+      if(scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight){
+        document.querySelectorAll("#nav-menu a").forEach(link => link.classList.remove("active"));
+        const activeLink = document.querySelector(`#nav-menu a[href="#${id}"]`);
+        if(activeLink) activeLink.classList.add("active");
+      }
+    });
+  });
+
+  // ================= MOBILE MENU =================
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("show");
+    menuToggle.classList.toggle("glow-pulse");
+  });
+
+  // ================= THEME TOGGLE =================
   const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
+  if(savedTheme === "dark"){
     body.classList.add("dark-theme");
     themeBtn.textContent = "🌞";
+    themeBtn.classList.add("active");
   } else {
     body.classList.remove("dark-theme");
     themeBtn.textContent = "🌙";
+    themeBtn.classList.remove("active");
   }
 
-  // Toggle dark/light theme
   themeBtn.addEventListener("click", () => {
     body.classList.toggle("dark-theme");
     const isDark = body.classList.contains("dark-theme");
@@ -26,52 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
     themeBtn.classList.toggle("active", isDark);
     localStorage.setItem("theme", isDark ? "dark" : "light");
   });
-});
-
-
-// ================= HEADER JS =================
-document.addEventListener("DOMContentLoaded", () => {
-  const header = document.getElementById("header");
-  const menuToggle = document.getElementById("menu-toggle");
-  const navMenu = document.getElementById("nav-menu");
-  const themeToggle = document.getElementById("theme-toggle");
-  const body = document.body;
-
-  // Sticky header on scroll
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) header.classList.add("sticky");
-    else header.classList.remove("sticky");
-
-    setActiveNavLink();
-  });
-
-  // Mobile menu toggle with neon glow
-  menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("show");
-    menuToggle.classList.toggle("glow-pulse");
-  });
-
-  // Dark/Light theme toggle
-  themeToggle.addEventListener("click", () => {
-    body.classList.toggle("dark-theme");
-    themeToggle.innerHTML = body.classList.contains("dark-theme")
-                             ? "<i class='bx bx-sun'></i>"
-                             : "<i class='bx bx-moon'></i>";
-  });
-
-  // Highlight active section link with neon underline
-  const sections = document.querySelectorAll("section");
-  function setActiveNavLink() {
-    const scrollPos = window.scrollY + 100;
-    sections.forEach(section => {
-      const id = section.id;
-      if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-        document.querySelectorAll("#nav-menu a").forEach(link => link.classList.remove("active"));
-        const activeLink = document.querySelector(`#nav-menu a[href="#${id}"]`);
-        if(activeLink) activeLink.classList.add("active");
-      }
-    });
-  }
 });
 
 
