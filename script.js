@@ -389,8 +389,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const notificationEl = document.getElementById('chatbot-notification');
   const headerEl = document.getElementById('chatbot-header');
 
-  let inactivityTimer;
+/* ================= CHAT SOUND ================= */
+let inactivityTimer;
+
+// Load chat sound from your GitHub repo
 const chatSound = new Audio('https://raw.githubusercontent.com/affaf12/Portfolio/162e9272addefb04d11992d0017d4da47afcc9e2/live-chat-353605.mp3');
+
+// Function to play sound without overlapping
+function playChatSound() {
+    if (!chatSound.paused) {
+        chatSound.pause();       // Stop if already playing
+        chatSound.currentTime = 0; // Reset to start
+    }
+    chatSound.play();            // Play the sound
+}
 
 
   /* ---------------- TOGGLE CHATBOT ---------------- */
