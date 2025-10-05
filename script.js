@@ -26,37 +26,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Sticky header on scroll
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-      header.classList.add("sticky");
-    } else {
-      header.classList.remove("sticky");
-    }
+    if (window.scrollY > 50) header.classList.add("sticky");
+    else header.classList.remove("sticky");
+
     setActiveNavLink();
   });
 
   // Mobile menu toggle with neon glow
   menuToggle.addEventListener("click", () => {
     navMenu.classList.toggle("show");
-    menuToggle.classList.toggle("glow"); // Neon glow on toggle
-  });
-
-  // Neon glow animation
-  setInterval(() => {
     menuToggle.classList.toggle("glow-pulse");
-  }, 1000);
+  });
 
   // Dark/Light theme toggle
   themeToggle.addEventListener("click", () => {
     body.classList.toggle("dark-theme");
-    themeToggle.innerHTML = body.classList.contains("dark-theme") 
-                             ? "<i class='bx bx-sun'></i>" 
+    themeToggle.innerHTML = body.classList.contains("dark-theme")
+                             ? "<i class='bx bx-sun'></i>"
                              : "<i class='bx bx-moon'></i>";
   });
 
-  // Highlight active section link
+  // Highlight active section link with neon underline
   const sections = document.querySelectorAll("section");
   function setActiveNavLink() {
-    let scrollPos = window.scrollY + 100;
+    const scrollPos = window.scrollY + 100;
     sections.forEach(section => {
       const id = section.id;
       if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
