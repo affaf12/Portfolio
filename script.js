@@ -354,7 +354,29 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(link => { if(link.getAttribute('href') === '#'+current) link.classList.add('active'); });
 });
 
-/* ================= UPGRADED CHATBOT JS ================= */
+/* ================= CHATBOT QUESTION-ANSWER LIST ================= */
+const chatbotQA = [
+  { question: ["hi", "hello", "hey"], answer: "Hello! 👋 How can I help you today?" },
+  { question: ["power bi", "dashboard", "bi report"], answer: "✅ Yes! I build amazing Power BI dashboards!" },
+  { question: ["contact", "email", "reach you"], answer: "📩 You can reach me at muhammadaffaf746@gmail.com" },
+  { question: ["portfolio", "projects", "work"], answer: "💼 Check out my projects in the Projects section of this site!" },
+  { question: ["services", "what do you do"], answer: "I provide Data Analytics, Power BI, SQL, and Excel consulting services." },
+  { question: ["pricing", "cost"], answer: "💰 For pricing details, please contact me directly via email." },
+  { question: ["demo", "show me demo"], answer: "🎯 I can show you live demos of my Power BI dashboards!" }
+];
+
+/* ================= GET BOT RESPONSE FUNCTION ================= */
+function getBotResponse(message) {
+  const msg = message.toLowerCase().trim();
+  for (let qa of chatbotQA) {
+    for (let keyword of qa.question) {
+      if (msg.includes(keyword.toLowerCase())) return qa.answer;
+    }
+  }
+  return "🤖 I'm here to assist you!";
+}
+
+/* ================= UPGRADED CHATBOT JS WITH TYPING DOTS ================= */
 document.addEventListener("DOMContentLoaded", () => {
   const chatbotWindow = document.getElementById('chatbot-window');
   const toggleBtn = document.getElementById('chatbot-toggle');
@@ -370,18 +392,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let inactivityTimer;
   const chatSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
 
-  /* ---------------- TOGGLE (💬 / ❌) ---------------- */
+  /* ---------------- TOGGLE CHATBOT ---------------- */
   function toggleChat() {
     const isOpen = chatbotWindow.classList.toggle('open');
     toggleBtn.classList.toggle('open', isOpen);
     if (isOpen) {
       chatbotWindow.style.display = "flex";
       notificationEl.style.display = 'none';
-      toggleBtn.textContent = "❌"; // change button to close icon
+      toggleBtn.textContent = "❌";
       resetInactivityTimer();
     } else {
       chatbotWindow.style.display = "none";
-      toggleBtn.textContent = "💬"; // back to chat icon
+      toggleBtn.textContent = "💬";
       clearTimeout(inactivityTimer);
     }
   }
@@ -390,13 +412,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------------- SEND MESSAGE ---------------- */
   sendBtn.addEventListener('click', () => sendMessage());
-  inputEl.addEventListener('keypress', e => {
-    if (e.key === 'Enter') sendMessage();
-  });
+  inputEl.addEventListener('keypress', e => { if(e.key==='Enter') sendMessage(); });
 
-  function sendMessage(msg = null) {
+  function sendMessage(msg=null){
     const message = msg || inputEl.value.trim();
-    if (!message) return;
+    if(!message) return;
 
     // User message
     const userMsg = document.createElement('div');
@@ -406,149 +426,138 @@ document.addEventListener("DOMContentLoaded", () => {
     inputEl.value = '';
     scrollToBottom();
 
-    // Clear quick replies
     quickRepliesEl.innerHTML = '';
     typingEl.style.display = 'block';
     resetInactivityTimer();
 
-    // Bot response delay
-    setTimeout(() => {
-      typingEl.style.display = 'none';
-      const botMsg = document.createElement('div');
-      botMsg.className = 'chatbot-message bot-msg';
-      botMsg.textContent = getBotResponse(message);
+    setTimeout(()=>{
+      typingEl.style.display='none';
+      const response = getBotResponse(message);
+      displayBotTypingWithDots(response);
+    }, 400); // small delay before bot starts typing
+  }
 
-      // Emoji reactions
-      const reactions = document.createElement('div');
-      reactions.className = 'emoji-reactions';
-      ['👍','❤️','😂'].forEach(emoji => {
-        const span = document.createElement('span');
-        span.textContent = emoji;
-        span.onclick = () => alert(`You reacted with ${emoji}`);
-        reactions.appendChild(span);
-      });
-      botMsg.appendChild(reactions);
+  /* ---------------- BOT TYPING WITH DOTS ---------------- */
+  function displayBotTypingWithDots(text) {
+    const botMsg = document.createElement('div');
+    botMsg.className = 'chatbot-message bot-msg';
+    bodyEl.appendChild(botMsg);
 
-      bodyEl.appendChild(botMsg);
+    scrollToBottom();
+
+    // Add "typing dots" animation first
+    const dots = document.createElement('span');
+    dots.className = 'typing-dots';
+    dots.textContent = '...';
+    botMsg.appendChild(dots);
+
+    let dotInterval = setInterval(() => {
+      dots.textContent = dots.textContent.length < 3 ? dots.textContent + '.' : '.';
       scrollToBottom();
-      addQuickReplies(message);
+    }, 500);
 
-      chatSound.play();
-      if (!chatbotWindow.classList.contains('open')) {
-        notificationEl.style.display = 'inline-block';
+    // After short delay, start typing the actual text
+    setTimeout(() => {
+      clearInterval(dotInterval);
+      botMsg.removeChild(dots);
+      typeText(botMsg, text);
+    }, 1200); // duration of "thinking"
+  }
+
+  /* ---------------- CHARACTER-BY-CHARACTER TYPING ---------------- */
+  function typeText(botMsg, text) {
+    let i = 0;
+    const typingInterval = setInterval(() => {
+      botMsg.textContent += text.charAt(i);
+      i++;
+      scrollToBottom();
+      if(i >= text.length) {
+        clearInterval(typingInterval);
+        addBotExtras(botMsg, text);
       }
-    }, 1000);
+    }, 35);
   }
 
-  /* ---------------- BOT RESPONSES ---------------- */
-  function getBotResponse(msg) {
-    msg = msg.toLowerCase();
-    if (msg.includes('hello') || msg.includes('hi'))
-      return "Hello! 👋 How can I help you today?";
-    if (msg.includes('power bi'))
-      return "✅ Yes! I build amazing Power BI dashboards!";
-    if (msg.includes('contact'))
-      return "📩 You can reach me at muhammadaffaf746@gmail.com";
-    return "🤖 I'm here to assist you!";
+  /* ---------------- EMOJIS & QUICK REPLIES ---------------- */
+  function addBotExtras(botMsg, response){
+    const reactions = document.createElement('div');
+    reactions.className = 'emoji-reactions';
+    ['👍','❤️','😂'].forEach(emoji=>{
+      const span = document.createElement('span');
+      span.textContent = emoji;
+      span.onclick = ()=>alert(`You reacted with ${emoji}`);
+      reactions.appendChild(span);
+    });
+    botMsg.appendChild(reactions);
+
+    addQuickRepliesFromAnswer(response);
+
+    chatSound.play();
+    if(!chatbotWindow.classList.contains('open')) notificationEl.style.display='inline-block';
   }
 
-  /* ---------------- QUICK REPLIES ---------------- */
-  function addQuickReplies(msg) {
-    const replies = [];
-    msg = msg.toLowerCase();
-    if (msg.includes('hello')) replies.push('Power BI', 'Portfolio', 'Contact');
-    if (msg.includes('power bi')) replies.push('Show demo', 'Pricing', 'Contact');
-
-    replies.forEach(text => {
+  function addQuickRepliesFromAnswer(response){
+    quickRepliesEl.innerHTML='';
+    let replies = [];
+    for(let qa of chatbotQA){
+      if(qa.answer === response){
+        replies.push(...qa.question.slice(0,3));
+        break;
+      }
+    }
+    replies = [...new Set(replies)];
+    replies.forEach(text=>{
       const btn = document.createElement('button');
-      btn.className = 'quick-btn';
+      btn.className='quick-btn';
       btn.textContent = text;
-      btn.onclick = () => sendMessage(text);
+      btn.onclick = ()=>sendMessage(text);
       quickRepliesEl.appendChild(btn);
     });
   }
 
   /* ---------------- AUTO-HIDE ---------------- */
-  function resetInactivityTimer() {
+  function resetInactivityTimer(){
     clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
+    inactivityTimer = setTimeout(()=>{
       chatbotWindow.classList.remove('open');
       toggleBtn.classList.remove('open');
-      chatbotWindow.style.display = "none";
-      toggleBtn.textContent = "💬";
-    }, 60000); // auto-hide after 1 min
+      chatbotWindow.style.display="none";
+      toggleBtn.textContent="💬";
+    }, 60000);
   }
 
-  /* ---------------- DRAG SNAP-BACK ---------------- */
-  let isDragging = false, offsetX, offsetY;
-  headerEl.addEventListener('mousedown', e => {
-    isDragging = true;
+  /* ---------------- DRAG & SNAP ---------------- */
+  let isDragging=false, offsetX, offsetY;
+  headerEl.addEventListener('mousedown', e=>{
+    isDragging=true;
     offsetX = e.clientX - chatbotWindow.offsetLeft;
     offsetY = e.clientY - chatbotWindow.offsetTop;
-    chatbotWindow.style.transition = "none";
+    chatbotWindow.style.transition="none";
   });
-  document.addEventListener('mouseup', () => {
-    if (isDragging) {
-      isDragging = false;
-      chatbotWindow.style.transition = "all 0.25s ease";
-
+  document.addEventListener('mouseup', ()=>{
+    if(isDragging){
+      isDragging=false;
+      chatbotWindow.style.transition="all 0.25s ease";
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const rect = chatbotWindow.getBoundingClientRect();
-
       const snapThreshold = 120;
-      if ((vw - rect.right) < snapThreshold && (vh - rect.bottom) < snapThreshold) {
-        chatbotWindow.style.left = "auto";
-        chatbotWindow.style.top = "auto";
-        chatbotWindow.style.right = "25px";
-        chatbotWindow.style.bottom = "25px";
+      if((vw-rect.right)<snapThreshold && (vh-rect.bottom)<snapThreshold){
+        chatbotWindow.style.left="auto";
+        chatbotWindow.style.top="auto";
+        chatbotWindow.style.right="25px";
+        chatbotWindow.style.bottom="25px";
       }
     }
   });
-  document.addEventListener('mousemove', e => {
-    if (isDragging) {
-      chatbotWindow.style.left = `${e.clientX - offsetX}px`;
-      chatbotWindow.style.top = `${e.clientY - offsetY}px`;
-      chatbotWindow.style.right = "auto";
-      chatbotWindow.style.bottom = "auto";
+  document.addEventListener('mousemove', e=>{
+    if(isDragging){
+      chatbotWindow.style.left=`${e.clientX - offsetX}px`;
+      chatbotWindow.style.top=`${e.clientY - offsetY}px`;
+      chatbotWindow.style.right="auto";
+      chatbotWindow.style.bottom="auto";
     }
   });
 
-  /* ---------------- HELPERS ---------------- */
-  function scrollToBottom() {
-    bodyEl.scrollTop = bodyEl.scrollHeight;
-  }
+  function scrollToBottom(){ bodyEl.scrollTop = bodyEl.scrollHeight; }
 });
-
-
-
-/* ================= SKILL CIRCLES ================= */
-document.querySelectorAll('.skill-circle').forEach(circle => {
-  const percent = circle.dataset.percent;
-  const progress = circle.querySelector('.progress');
-  const percentText = circle.querySelector('.percent');
-  const offset = 314 - (314 * percent)/100;
-  setTimeout(() => {
-    progress.style.strokeDashoffset = offset;
-    let count = 0;
-    const interval = setInterval(() => {
-      count++;
-      percentText.textContent = count+'%';
-      if(count >= percent) clearInterval(interval);
-    }, 12);
-  }, 500);
-});
-
-/* ================= HERO TYPING EFFECT ================= */
-const typingText = document.getElementById('typing-text');
-const words = ["Data Analyst","Power BI Developer","SQL Specialist","Python Programmer","Excel Expert","BI Consultant"];
-let wordIndex=0, charIndex=0;
-function type() {
-  if(wordIndex>=words.length) wordIndex=0;
-  const word = words[wordIndex];
-  typingText.textContent = word.slice(0,charIndex);
-  charIndex++;
-  if(charIndex>word.length){ charIndex=0; wordIndex++; setTimeout(type,1000); }
-  else setTimeout(type,150);
-}
-type();
