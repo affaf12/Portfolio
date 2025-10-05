@@ -34,10 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
     setActiveNavLink();
   });
 
-  // Mobile menu toggle
+  // Mobile menu toggle with neon glow
   menuToggle.addEventListener("click", () => {
     navMenu.classList.toggle("show");
+    menuToggle.classList.toggle("glow"); // Neon glow on toggle
   });
+
+  // Neon glow animation
+  setInterval(() => {
+    menuToggle.classList.toggle("glow-pulse");
+  }, 1000);
 
   // Dark/Light theme toggle
   themeToggle.addEventListener("click", () => {
