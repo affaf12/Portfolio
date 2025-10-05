@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const index = Array.from(animItems).indexOf(entry.target);
 
       if (entry.isIntersecting) {
-        // Staggered transition
+        // Staggered transition for all items
         entry.target.style.transitionDelay = `${index * 0.2}s`;
         entry.target.classList.add("visible");
 
-        // Add glow animation to button after visible
+        // Button: add glow + bounce animation
         if(entry.target.classList.contains("btn-contact")){
           setTimeout(() => entry.target.classList.add("glow"), index * 200);
         }
