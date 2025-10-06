@@ -294,93 +294,107 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
-// ================= CONTACT FORM SCRIPT (UPGRADED) =================
+// ================= CONTACT FORM SCRIPT (NEON CONFIRMATION EDITION) =================
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
-  const formMessage = document.querySelector(".form-message");
   const submitBtn = form.querySelector('button[type="submit"]');
 
-  // ✅ Your deployed Google Apps Script URL (use EXEC not DEV)
+  // Create floating toast container
+  const toast = document.createElement("div");
+  toast.className = "form-toast";
+  toast.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,255,255,0.1);
+    color: #00fff0;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00fff0;
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s, transform 0.5s;
+    z-index: 9999;
+  `;
+  document.body.appendChild(toast);
+
+  // Google Apps Script EXEC URL
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Disable button during send
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = "📨 Sending...";
-    formMessage.textContent = "";
-    formMessage.className = "form-message";
-
-    // Collect & sanitize input
-    const data = {
-      name: form.querySelector("#name").value.trim(),
-      email: form.querySelector("#email").value.trim(),
-      subject: form.querySelector("#subject").value.trim() || "No Subject",
-      message: form.querySelector("#message").value.trim(),
-    };
-
-    // 🧩 Validate fields
-    if (!data.name || !data.email || !data.message) {
-      return showError("⚠️ Please fill in all required fields.");
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      return showError("⚠️ Invalid email format.");
-    }
-
-    // 🧠 Prevent spam (disable for 5s)
     if (form.dataset.sending === "true") return;
     form.dataset.sending = "true";
-    setTimeout(() => (form.dataset.sending = "false"), 5000);
+
+    // Button loader
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<span class="loader"></span> Sending...`;
+
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      subject: form.subject.value.trim() || "No Subject",
+      message: form.message.value.trim(),
+    };
+
+    // Validation
+    if (!data.name || !data.email || !data.message) {
+      showToast("⚠️ Please fill all required fields", false);
+      resetButton();
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      showToast("⚠️ Invalid email format", false);
+      resetButton();
+      return;
+    }
 
     try {
-      // Send to Google Apps Script
       const response = await fetch(SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-        mode: "no-cors", // important: avoid CORS errors
+        headers: { "Content-Type": "application/json" },
+        mode: "no-cors",
       });
 
-      // Since no-cors prevents reading JSON, just show success
-      showSuccess("✅ Message sent successfully!");
-      form.reset();
-    } catch (error) {
-      console.error("❌ Network Error:", error);
-      showError("⚠️ Network or server error. Please try again later.");
+      let result;
+      try { result = await response.json(); } catch { result = { success: true }; }
+
+      if (result.success) {
+        showToast("✅ Message sent successfully!", true);
+        form.reset();
+      } else {
+        showToast("⚠️ Something went wrong. Try again later.", false);
+        console.error("Apps Script error:", result.error);
+      }
+    } catch (err) {
+      console.error("Network Error:", err);
+      showToast("⚠️ Network error. Check your connection.", false);
     } finally {
       resetButton();
+      setTimeout(() => { form.dataset.sending = "false"; }, 5000);
     }
   });
 
-  // ✅ Show success
-  function showSuccess(msg) {
-    formMessage.textContent = msg;
-    formMessage.className = "form-message success";
-    formMessage.style.opacity = 1;
-    fadeOutMessage();
+  // Neon toast popup
+  function showToast(msg, success = true) {
+    toast.textContent = msg;
+    toast.style.background = success ? "rgba(0,255,255,0.1)" : "rgba(255,50,50,0.15)";
+    toast.style.color = success ? "#00fff0" : "#ff5555";
+    toast.style.boxShadow = success ? "0 0 20px #00fff0" : "0 0 20px #ff5555";
+    toast.style.opacity = 1;
+    toast.style.transform = "translateY(0px)";
+    setTimeout(() => {
+      toast.style.opacity = 0;
+      toast.style.transform = "translateY(-20px)";
+    }, 4000);
   }
 
-  // ❌ Show error
-  function showError(msg) {
-    formMessage.textContent = msg;
-    formMessage.className = "form-message error";
-    formMessage.style.opacity = 1;
-    fadeOutMessage();
-    resetButton();
-  }
-
-  // ♻️ Reset button
   function resetButton() {
     submitBtn.disabled = false;
-    submitBtn.innerHTML = "Send Message";
-  }
-
-  // ⏳ Auto fade after 5s
-  function fadeOutMessage() {
-    setTimeout(() => {
-      formMessage.style.opacity = 0;
-    }, 5000);
+    submitBtn.innerHTML = `<i class="bx bx-send"></i> Send Message`;
   }
 });
 
