@@ -294,77 +294,51 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
-/* ================= Upgraded Contact Form JS ================= */
-const form = document.querySelector('.contact-form');
-const formMessage = document.querySelector('.form-message');
-const submitBtn = form.querySelector('button[type="submit"]');
+/* ================= CONTACT FORM SCRIPT ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+  const formMessage = form.querySelector(".form-message");
+  const submitBtn = form.querySelector('button[type="submit"]');
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  // Disable button to prevent multiple submissions
-  submitBtn.disabled = true;
-  submitBtn.style.cursor = 'not-allowed';
-  submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
 
-  const data = {
-    name: form.name.value.trim(),
-    email: form.email.value.trim(),
-    subject: form.subject.value.trim(),
-    message: form.message.value.trim()
-  };
+    const formData = new FormData(form);
 
-  try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbyVNgSgJF3jexrbCYvh5ry9-oxRqIgdxqNhEOGT8fV0zp8D78yynlVnWdZKlkWH6GUH/exec', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' }
-    });
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbyVNgSgJF3jexrbCYvh5ry9-oxRqIgdxqNhEOGT8fV0zp8D78yynlVnWdZKlkWH6GUH/exec",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-    const result = await response.json();
+      const result = await response.json();
 
-    formMessage.classList.add('show');
-    formMessage.style.opacity = '0';
-    formMessage.style.transform = 'translateY(-10px)';
-
-    // Slight delay for smooth fade-in
-    setTimeout(() => {
-      formMessage.style.opacity = '1';
-      formMessage.style.transform = 'translateY(0)';
       if (result.result === "success") {
-        formMessage.style.color = '#0f0';
         formMessage.textContent = "✅ Message sent successfully!";
+        formMessage.style.color = "#0f0";
         form.reset();
       } else {
-        formMessage.style.color = '#f00';
-        formMessage.textContent = "❌ " + (result.message || "Error sending message!");
+        formMessage.textContent =
+          "❌ " + (result.message || "Error sending message!");
+        formMessage.style.color = "#f00";
       }
-    }, 50);
+    } catch (error) {
+      formMessage.textContent = "❌ Network or server error!";
+      formMessage.style.color = "#f00";
+    }
 
-    // Hide message after 4s
-    setTimeout(() => {
-      formMessage.style.opacity = '0';
-      formMessage.style.transform = 'translateY(-10px)';
-      setTimeout(() => { formMessage.classList.remove('show'); }, 500);
-    }, 4000);
-
-  } catch (err) {
-    formMessage.classList.add('show');
-    formMessage.style.color = '#f00';
-    formMessage.style.opacity = '1';
-    formMessage.style.transform = 'translateY(0)';
-    formMessage.textContent = "❌ Error sending message!";
-    setTimeout(() => {
-      formMessage.style.opacity = '0';
-      formMessage.style.transform = 'translateY(-10px)';
-      setTimeout(() => { formMessage.classList.remove('show'); }, 500);
-    }, 4000);
-  } finally {
-    // Re-enable button
     submitBtn.disabled = false;
-    submitBtn.style.cursor = 'pointer';
-    submitBtn.textContent = 'Send Message';
-  }
+    submitBtn.textContent = "Send Message";
+
+    // Hide message after 4 seconds
+    setTimeout(() => (formMessage.textContent = ""), 4000);
+  });
 });
 
 
