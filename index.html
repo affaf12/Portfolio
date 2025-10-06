@@ -318,29 +318,30 @@
 <section id="contact" class="contact-section">
   <h2 class="section-title">Contact Me</h2>
 
- <div class="contact-intro">
-  <h3>💬 Get in Touch</h3>
-  <p>
-    If you'd like to <strong>collaborate</strong>, discuss a project, or just say hello —  
-    feel free to reach out using any of the following platforms or the form below.
-  </p>
-</div>
+  <div class="contact-container">
+    <!-- Left Column: Info & Links -->
+    <div class="contact-intro">
+      <h3>💬 Get in Touch</h3>
+      <p>
+        If you'd like to <strong>collaborate</strong>, discuss a project, or just say hello —
+        feel free to reach out via the platforms below or send me a direct message.
+      </p>
 
       <ul class="info-list">
         <li>
-          <i class='bx bx-envelope'></i>
+          <i class="bx bx-envelope"></i>
           <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a>
         </li>
         <li>
-          <i class='bx bxl-linkedin'></i>
+          <i class="bx bxl-linkedin"></i>
           <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank">LinkedIn Profile</a>
         </li>
         <li>
-          <i class='bx bxl-github'></i>
+          <i class="bx bxl-github"></i>
           <a href="https://github.com/affaf12" target="_blank">GitHub Profile</a>
         </li>
         <li>
-          <i class='bx bxl-whatsapp'></i>
+          <i class="bx bxl-whatsapp"></i>
           <a href="https://wa.me/923042365964" target="_blank">WhatsApp</a>
         </li>
       </ul>
@@ -348,31 +349,35 @@
 
     <!-- Right Column: Contact Form -->
     <div class="contact-form-wrapper">
-      <form id="contactForm" class="contact-form" autocomplete="off">
+      <form id="contactForm" class="contact-form" autocomplete="off" novalidate>
         <h3>Send Me a Message</h3>
 
         <div class="form-group">
-          <input type="text" id="name" name="name" placeholder=" " required />
+          <input type="text" id="name" name="name" required />
           <label for="name">Full Name</label>
         </div>
 
         <div class="form-group">
-          <input type="email" id="email" name="email" placeholder=" " required />
+          <input type="email" id="email" name="email" required />
           <label for="email">Email Address</label>
         </div>
 
         <div class="form-group">
-          <input type="text" id="subject" name="subject" placeholder=" " required />
+          <input type="text" id="subject" name="subject" />
           <label for="subject">Subject</label>
         </div>
 
         <div class="form-group">
-          <textarea id="message" name="message" placeholder=" " required></textarea>
+          <textarea id="message" name="message" rows="5" required></textarea>
           <label for="message">Your Message</label>
         </div>
 
-        <button type="submit" class="btn">Send Message</button>
-        <p class="form-message"></p>
+        <button type="submit" class="btn">
+          <i class="bx bx-send"></i> Send Message
+        </button>
+
+        <!-- ✅ Form status message -->
+        <div class="form-message" aria-live="polite"></div>
       </form>
     </div>
   </div>
