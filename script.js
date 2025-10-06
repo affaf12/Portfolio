@@ -467,13 +467,17 @@ window.addEventListener('scroll', () => {
 /* ================= CHATBOT QUESTION-ANSWER LIST ================= */
 const chatbotQA = [
   { question: ["hi", "hello", "hey"], answer: "Hello! 👋 How can I help you today?" },
-  { question: ["power bi", "dashboard", "bi report"], answer: "✅ Yes! I build amazing Power BI dashboards!" },
+  { question: ["power bi", "dashboard", "bi report"], answer: "✅ Yes! I build amazing Power BI dashboards . Here is a demo you can check out: [Insert Your Demo Link Here]" },
   { question: ["contact", "email", "reach you"], answer: "📩 You can reach me at muhammadaffaf746@gmail.com" },
   { question: ["portfolio", "projects", "work"], answer: "💼 Check out my projects in the Projects section of this site!" },
   { question: ["services", "what do you do"], answer: "I provide Data Analytics, Power BI, SQL, and Excel consulting services." },
   { question: ["pricing", "cost"], answer: "💰 For pricing details, please contact me directly via email." },
-  { question: ["demo", "show me demo"], answer: "🎯 I can show you live demos of my Power BI dashboards!" }
+  { question: ["demo", "show me demo"], answer: "🎯 I can show you live demos of my Power BI dashboards!" },
+  { question: ["hr report", "human resources report", "employee report"], 
+    answer: "✅ Yes! I create HR reports. Here is a demo you can check out: [Insert Your Demo Link Here]" 
+  }
 ];
+
 
 /* ================= GET BOT RESPONSE FUNCTION ================= */
 function getBotResponse(message) {
