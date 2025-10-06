@@ -294,7 +294,7 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
-// ================= CONTACT FORM SCRIPT (NEON CONFIRMATION EDITION) =================
+// ================= CONTACT FORM SCRIPT (NEON CONFIRMATION EDITION v2.0) =================
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const submitBtn = form.querySelector('button[type="submit"]');
@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(toast);
 
   // Google Apps Script EXEC URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -356,21 +356,22 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
-        mode: "no-cors",
       });
 
-      let result;
-      try { result = await response.json(); } catch { result = { success: true }; }
+      const result = await response.json(); // parse JSON from Apps Script
 
-      if (result.success) {
-        showToast("✅ Message sent successfully!", true);
+      if (result.status === "success") {
+        showToast("✅ Message sent successfully! Check your email confirmation.", true);
+        form.reset();
+      } else if (result.status === "warning") {
+        showToast("⚠️ Admin email sent, but user confirmation failed.", false);
         form.reset();
       } else {
         showToast("⚠️ Something went wrong. Try again later.", false);
-        console.error("Apps Script error:", result.error);
+        console.error("Apps Script error:", result);
       }
     } catch (err) {
-      console.error("Network Error:", err);
+      console.error("Network/App Script Error:", err);
       showToast("⚠️ Network error. Check your connection.", false);
     } finally {
       resetButton();
