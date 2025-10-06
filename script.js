@@ -467,16 +467,32 @@ window.addEventListener('scroll', () => {
 /* ================= CHATBOT QUESTION-ANSWER LIST ================= */
 const chatbotQA = [
   { question: ["hi", "hello", "hey"], answer: "Hello! 👋 How can I help you today?" },
-  { question: ["power bi", "dashboard", "bi report"], answer: "✅ Yes! I build amazing Power BI dashboards . Here is a demo you can check out: [Insert Your Demo Link Here]" },
+  { question: ["power bi", "dashboard", "bi report"], answer: "✅ Yes! I build amazing Power BI dashboards. Here is a demo you can check out: [Insert Your Demo Link Here]" },
   { question: ["contact", "email", "reach you"], answer: "📩 You can reach me at muhammadaffaf746@gmail.com" },
   { question: ["portfolio", "projects", "work"], answer: "💼 Check out my projects in the Projects section of this site!" },
   { question: ["services", "what do you do"], answer: "I provide Data Analytics, Power BI, SQL, and Excel consulting services." },
   { question: ["pricing", "cost"], answer: "💰 For pricing details, please contact me directly via email." },
   { question: ["demo", "show me demo"], answer: "🎯 I can show you live demos of my Power BI dashboards!" },
-  { question: ["hr report", "human resources report", "employee report"], 
+  { question: ["hr report", "human resources report", "employee report", "hr dashboard"], 
     answer: "✅ Yes! I create HR reports. Here is a demo you can check out: [Insert Your Demo Link Here]" 
+  },
+  { question: ["financial report", "finance dashboard", "financial analysis"], 
+    answer: "✅ Absolutely! I create Financial reports in Power BI. Here is a demo: [Insert Financial Demo Link]" 
+  },
+  { question: ["healthcare report", "medical dashboard", "hospital report"], 
+    answer: "✅ I build Healthcare reports using Power BI. Here is a demo: [Insert Healthcare Demo Link]" 
+  },
+  { question: ["sales report", "sales dashboard", "revenue report"], 
+    answer: "✅ Yes! I make Sales reports in Power BI. Demo: [Insert Sales Demo Link]" 
+  },
+  { question: ["marketing report", "marketing dashboard", "campaign report"], 
+    answer: "✅ I can create Marketing reports. Demo: [Insert Marketing Demo Link]" 
+  },
+  { question: ["insurance report", "insurance dashboard", "policy report"], 
+    answer: "✅ Sure! I make Insurance reports in Power BI. Demo: [Insert Insurance Demo Link]" 
   }
 ];
+
 
 
 /* ================= GET BOT RESPONSE FUNCTION ================= */
