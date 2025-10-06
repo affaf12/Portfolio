@@ -294,45 +294,54 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
-/* ================= CONTACT FORM SCRIPT ================= */
+<!-- ============ CONTACT FORM SCRIPT ============ -->
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
-  const formMessage = form.querySelector(".form-message");
+  const formMessage = document.querySelector(".form-message");
   const submitBtn = form.querySelector('button[type="submit"]');
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // Disable button during sending
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
+    formMessage.textContent = "";
+    formMessage.style.color = "";
 
-    const formData = new FormData(form);
+    // Prepare JSON data
+    const data = {
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      subject: document.getElementById("subject").value.trim(),
+      message: document.getElementById("message").value.trim(),
+    };
 
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyVNgSgJF3jexrbCYvh5ry9-oxRqIgdxqNhEOGT8fV0zp8D78yynlVnWdZKlkWH6GUH/exec",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch("https://script.google.com/macros/s/AKfycbyVNgSgJF3jexrbCYvh5ry9-oxRqIgdxqNhEOGT8fV0zp8D78yynlVnWdZKlkWH6GUH/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
       const result = await response.json();
 
       if (result.result === "success") {
         formMessage.textContent = "✅ Message sent successfully!";
-        formMessage.style.color = "#0f0";
+        formMessage.style.color = "lime";
         form.reset();
       } else {
-        formMessage.textContent =
-          "❌ " + (result.message || "Error sending message!");
-        formMessage.style.color = "#f00";
+        formMessage.textContent = "❌ " + (result.message || "Error sending message!");
+        formMessage.style.color = "red";
       }
     } catch (error) {
+      console.error("Error:", error);
       formMessage.textContent = "❌ Network or server error!";
-      formMessage.style.color = "#f00";
+      formMessage.style.color = "red";
     }
 
+    // Reset button
     submitBtn.disabled = false;
     submitBtn.textContent = "Send Message";
 
@@ -340,6 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => (formMessage.textContent = ""), 4000);
   });
 });
+</script>
 
 
 
