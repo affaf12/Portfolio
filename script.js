@@ -300,90 +300,87 @@ document.addEventListener("DOMContentLoaded", () => {
   const formMessage = document.querySelector(".form-message");
   const submitBtn = form.querySelector('button[type="submit"]');
 
+  // ✅ Your deployed Google Apps Script URL (use EXEC not DEV)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec";
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Disable button while sending
+    // Disable button during send
     submitBtn.disabled = true;
     submitBtn.innerHTML = "📨 Sending...";
     formMessage.textContent = "";
     formMessage.className = "form-message";
 
-    // Collect form data
+    // Collect & sanitize input
     const data = {
       name: form.querySelector("#name").value.trim(),
       email: form.querySelector("#email").value.trim(),
-      subject: form.querySelector("#subject").value.trim(),
+      subject: form.querySelector("#subject").value.trim() || "No Subject",
       message: form.querySelector("#message").value.trim(),
     };
 
-    // Basic Validation
+    // 🧩 Validate fields
     if (!data.name || !data.email || !data.message) {
-      showMessage("⚠️ Please fill out all required fields!", "error");
-      resetButton();
-      return;
+      return showError("⚠️ Please fill in all required fields.");
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      return showError("⚠️ Invalid email format.");
     }
 
-    // Email format check
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      showMessage("⚠️ Please enter a valid email address!", "error");
-      resetButton();
-      return;
-    }
+    // 🧠 Prevent spam (disable for 5s)
+    if (form.dataset.sending === "true") return;
+    form.dataset.sending = "true";
+    setTimeout(() => (form.dataset.sending = "false"), 5000);
 
     try {
-      // Send data to Google Apps Script
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
+      // Send to Google Apps Script
+      const response = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        mode: "no-cors", // important: avoid CORS errors
+      });
 
-      // Try to parse the response (if script returns JSON)
-      let resultText = "✅ Message sent successfully!";
-      if (response.ok) {
-        try {
-          const json = await response.json();
-          if (json.result === "success") {
-            resultText = "✅ Message sent successfully!";
-          }
-        } catch (e) {
-          // ignore JSON parse errors (no-cors mode)
-        }
-      } else {
-        throw new Error("Network response not ok");
-      }
-
+      // Since no-cors prevents reading JSON, just show success
+      showSuccess("✅ Message sent successfully!");
       form.reset();
-      showMessage(resultText, "success");
     } catch (error) {
-      console.error("Error:", error);
-      showMessage("❌ Error sending message. Please try again later.", "error");
+      console.error("❌ Network Error:", error);
+      showError("⚠️ Network or server error. Please try again later.");
+    } finally {
+      resetButton();
     }
-
-    resetButton();
   });
 
-  // Helper: Show message
-  function showMessage(msg, type) {
+  // ✅ Show success
+  function showSuccess(msg) {
     formMessage.textContent = msg;
-    formMessage.style.opacity = 0;
-    formMessage.className = `form-message ${type}`;
-    setTimeout(() => {
-      formMessage.style.opacity = 1;
-    }, 100);
-    setTimeout(() => {
-      formMessage.style.opacity = 0;
-    }, 5000);
+    formMessage.className = "form-message success";
+    formMessage.style.opacity = 1;
+    fadeOutMessage();
   }
 
-  // Helper: Reset button
+  // ❌ Show error
+  function showError(msg) {
+    formMessage.textContent = msg;
+    formMessage.className = "form-message error";
+    formMessage.style.opacity = 1;
+    fadeOutMessage();
+    resetButton();
+  }
+
+  // ♻️ Reset button
   function resetButton() {
     submitBtn.disabled = false;
     submitBtn.innerHTML = "Send Message";
+  }
+
+  // ⏳ Auto fade after 5s
+  function fadeOutMessage() {
+    setTimeout(() => {
+      formMessage.style.opacity = 0;
+    }, 5000);
   }
 });
 
