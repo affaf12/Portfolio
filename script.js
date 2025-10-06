@@ -294,80 +294,97 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
-/* ==================== CONTACT FORM SCRIPT (UPGRADED VERSION) ==================== */
+// ================= CONTACT FORM SCRIPT (UPGRADED) =================
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const formMessage = document.querySelector(".form-message");
   const submitBtn = form.querySelector('button[type="submit"]');
 
-  // ✅ Your deployed Google Apps Script Web App URL
-  const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec";
-
-  // 🌈 Smooth message handler
-  function showMessage(text, color = "lime") {
-    formMessage.textContent = text;
-    formMessage.style.color = color;
-    formMessage.style.opacity = "1";
-    formMessage.style.transition = "opacity 0.4s ease";
-    setTimeout(() => (formMessage.style.opacity = "0"), 6000);
-  }
-
-  // 📧 Email validator
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  // 🚀 Handle form submission
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const subject = document.getElementById("subject").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    // 🔎 Client-side validation
-    if (!name || !email || !subject || !message) {
-      showMessage("⚠️ Please fill in all fields!", "orange");
-      return;
-    }
-    if (!isValidEmail(email)) {
-      showMessage("📧 Please enter a valid email address!", "orange");
-      return;
-    }
-
-    // 🔄 Disable button + show loading animation
+    // Disable button while sending
     submitBtn.disabled = true;
-    submitBtn.innerHTML = `<span class="loader"></span> Sending...`;
+    submitBtn.innerHTML = "📨 Sending...";
     formMessage.textContent = "";
+    formMessage.className = "form-message";
+
+    // Collect form data
+    const data = {
+      name: form.querySelector("#name").value.trim(),
+      email: form.querySelector("#email").value.trim(),
+      subject: form.querySelector("#subject").value.trim(),
+      message: form.querySelector("#message").value.trim(),
+    };
+
+    // Basic Validation
+    if (!data.name || !data.email || !data.message) {
+      showMessage("⚠️ Please fill out all required fields!", "error");
+      resetButton();
+      return;
+    }
+
+    // Email format check
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      showMessage("⚠️ Please enter a valid email address!", "error");
+      resetButton();
+      return;
+    }
 
     try {
-      // 📨 Send POST request
-      const response = await fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, subject, message }),
-      });
+      // Send data to Google Apps Script
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
-      // ✅ Parse backend response
-      const result = await response.json();
-
-      if (result.status === "success") {
-        showMessage("✅ Your message has been sent successfully!");
-        form.reset();
+      // Try to parse the response (if script returns JSON)
+      let resultText = "✅ Message sent successfully!";
+      if (response.ok) {
+        try {
+          const json = await response.json();
+          if (json.result === "success") {
+            resultText = "✅ Message sent successfully!";
+          }
+        } catch (e) {
+          // ignore JSON parse errors (no-cors mode)
+        }
       } else {
-        showMessage(`❌ ${result.message || "Something went wrong."}`, "red");
+        throw new Error("Network response not ok");
       }
+
+      form.reset();
+      showMessage(resultText, "success");
     } catch (error) {
-      console.error("Fetch Error:", error);
-      showMessage("🚫 Failed to send message. Please try again later.", "red");
+      console.error("Error:", error);
+      showMessage("❌ Error sending message. Please try again later.", "error");
     }
 
-    // ♻️ Re-enable button
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Send Message";
+    resetButton();
   });
+
+  // Helper: Show message
+  function showMessage(msg, type) {
+    formMessage.textContent = msg;
+    formMessage.style.opacity = 0;
+    formMessage.className = `form-message ${type}`;
+    setTimeout(() => {
+      formMessage.style.opacity = 1;
+    }, 100);
+    setTimeout(() => {
+      formMessage.style.opacity = 0;
+    }, 5000);
+  }
+
+  // Helper: Reset button
+  function resetButton() {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = "Send Message";
+  }
 });
 
 
