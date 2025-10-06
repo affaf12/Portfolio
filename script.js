@@ -295,7 +295,6 @@ slider.addEventListener("touchend", (e) => {
 showSlide(0);
 
 <!-- ============ CONTACT FORM SCRIPT ============ -->
-<script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const formMessage = document.querySelector(".form-message");
@@ -349,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => (formMessage.textContent = ""), 4000);
   });
 });
-</script>
+
 
 
 
