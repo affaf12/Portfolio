@@ -294,58 +294,79 @@ slider.addEventListener("touchend", (e) => {
 // Init
 showSlide(0);
 
-<!-- ============ CONTACT FORM SCRIPT ============ -->
+/* ==================== CONTACT FORM SCRIPT (UPGRADED VERSION) ==================== */
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const formMessage = document.querySelector(".form-message");
   const submitBtn = form.querySelector('button[type="submit"]');
 
+  // ✅ Your deployed Google Apps Script Web App URL
+  const SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbxrW_UXhf8yqY-t-FWfrIYn7YXAL9dI5pBy-74TZv9kTAGKbXNHJ3AK-v3pjot0TdY/exec";
+
+  // 🌈 Smooth message handler
+  function showMessage(text, color = "lime") {
+    formMessage.textContent = text;
+    formMessage.style.color = color;
+    formMessage.style.opacity = "1";
+    formMessage.style.transition = "opacity 0.4s ease";
+    setTimeout(() => (formMessage.style.opacity = "0"), 6000);
+  }
+
+  // 📧 Email validator
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  // 🚀 Handle form submission
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Disable button during sending
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
-    formMessage.textContent = "";
-    formMessage.style.color = "";
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const subject = document.getElementById("subject").value.trim();
+    const message = document.getElementById("message").value.trim();
 
-    // Prepare JSON data
-    const data = {
-      name: document.getElementById("name").value.trim(),
-      email: document.getElementById("email").value.trim(),
-      subject: document.getElementById("subject").value.trim(),
-      message: document.getElementById("message").value.trim(),
-    };
-
-    try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbyVNgSgJF3jexrbCYvh5ry9-oxRqIgdxqNhEOGT8fV0zp8D78yynlVnWdZKlkWH6GUH/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (result.result === "success") {
-        formMessage.textContent = "✅ Message sent successfully!";
-        formMessage.style.color = "lime";
-        form.reset();
-      } else {
-        formMessage.textContent = "❌ " + (result.message || "Error sending message!");
-        formMessage.style.color = "red";
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      formMessage.textContent = "❌ Network or server error!";
-      formMessage.style.color = "red";
+    // 🔎 Client-side validation
+    if (!name || !email || !subject || !message) {
+      showMessage("⚠️ Please fill in all fields!", "orange");
+      return;
+    }
+    if (!isValidEmail(email)) {
+      showMessage("📧 Please enter a valid email address!", "orange");
+      return;
     }
 
-    // Reset button
+    // 🔄 Disable button + show loading animation
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<span class="loader"></span> Sending...`;
+    formMessage.textContent = "";
+
+    try {
+      // 📨 Send POST request
+      const response = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      // ✅ Parse backend response
+      const result = await response.json();
+
+      if (result.status === "success") {
+        showMessage("✅ Your message has been sent successfully!");
+        form.reset();
+      } else {
+        showMessage(`❌ ${result.message || "Something went wrong."}`, "red");
+      }
+    } catch (error) {
+      console.error("Fetch Error:", error);
+      showMessage("🚫 Failed to send message. Please try again later.", "red");
+    }
+
+    // ♻️ Re-enable button
     submitBtn.disabled = false;
     submitBtn.textContent = "Send Message";
-
-    // Hide message after 4 seconds
-    setTimeout(() => (formMessage.textContent = ""), 4000);
   });
 });
 
