@@ -615,19 +615,46 @@ function playChatSound() {
     }, 1200); // duration of "thinking"
   }
 
-  /* ---------------- CHARACTER-BY-CHARACTER TYPING ---------------- */
-  function typeText(botMsg, text) {
-    let i = 0;
-    const typingInterval = setInterval(() => {
-      botMsg.textContent += text.charAt(i);
-      i++;
-      scrollToBottom();
-      if(i >= text.length) {
-        clearInterval(typingInterval);
-        addBotExtras(botMsg, text);
+  /* ---------------- CHARACTER-BY-CHARACTER TYPING (HTML-SAFE) ---------------- */
+function typeText(botMsg, text) {
+  botMsg.innerHTML = ""; // Clear before typing
+  let tempDiv = document.createElement("div");
+  tempDiv.innerHTML = text.trim(); // Convert HTML (for <br>, <a>, etc.)
+  const htmlParts = Array.from(tempDiv.childNodes);
+
+  let i = 0;
+
+  function typeNextPart() {
+    if (i < htmlParts.length) {
+      const node = htmlParts[i];
+      if (node.nodeType === Node.TEXT_NODE) {
+        // Type text content character by character
+        let j = 0;
+        const chars = node.textContent;
+        const interval = setInterval(() => {
+          botMsg.innerHTML += chars[j];
+          j++;
+          scrollToBottom();
+          if (j >= chars.length) {
+            clearInterval(interval);
+            i++;
+            typeNextPart();
+          }
+        }, 25);
+      } else {
+        // For HTML elements (like <br> or <a>), append immediately
+        botMsg.appendChild(node.cloneNode(true));
+        scrollToBottom();
+        i++;
+        setTimeout(typeNextPart, 100);
       }
-    }, 35);
+    } else {
+      addBotExtras(botMsg, text);
+    }
   }
+
+  typeNextPart();
+}
 
   /* ---------------- EMOJIS & QUICK REPLIES ---------------- */
   function addBotExtras(botMsg, response){
