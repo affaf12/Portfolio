@@ -474,16 +474,15 @@ const chatbotQA = [
   { question: ["pricing", "cost"], answer: "💰 For pricing details, please contact me directly via email." },
   { question: ["demo", "show me demo"], answer: "🎯 I can show you live demos of my Power BI dashboards!" },
   {
-  question: ["hr report", "human resources report", "employee report", "hr dashboard"],
-  answer: `✅ Yes! I create HR reports. 
-  <br>Here is a demo you can check out: 
-  <a href="https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing" 
-     target="_blank" 
-     rel="noopener noreferrer">
-     View HR Report Demo
-  </a>`
-}
-,
+    question: ["hr report", "human resources report", "employee report", "hr dashboard"],
+    answer: `✅ Yes! I create HR reports. 
+    <br>Here is a demo you can check out: 
+    <a href="https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing" 
+       target="_blank" 
+       rel="noopener noreferrer">
+       View HR Report Demo
+    </a>`
+  },
   { question: ["financial report", "finance dashboard", "financial analysis"], 
     answer: "✅ Absolutely! I create Financial reports in Power BI. Here is a demo: [Insert Financial Demo Link]" 
   },
@@ -501,8 +500,6 @@ const chatbotQA = [
   }
 ];
 
-
-
 /* ================= GET BOT RESPONSE FUNCTION ================= */
 function getBotResponse(message) {
   const msg = message.toLowerCase().trim();
@@ -514,7 +511,7 @@ function getBotResponse(message) {
   return "🤖 I'm here to assist you!";
 }
 
-/* ================= UPGRADED CHATBOT JS WITH TYPING DOTS ================= */
+/* ================= UPGRADED CHATBOT JS ================= */
 document.addEventListener("DOMContentLoaded", () => {
   const chatbotWindow = document.getElementById('chatbot-window');
   const toggleBtn = document.getElementById('chatbot-toggle');
@@ -527,21 +524,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const notificationEl = document.getElementById('chatbot-notification');
   const headerEl = document.getElementById('chatbot-header');
 
-/* ================= CHAT SOUND ================= */
-let inactivityTimer;
+  /* ================= CHAT SOUND ================= */
+  let inactivityTimer;
+  const chatSound = new Audio('https://raw.githubusercontent.com/affaf12/Portfolio/162e9272addefb04d11992d0017d4da47afcc9e2/live-chat-353605.mp3');
 
-// Load chat sound from your GitHub repo
-const chatSound = new Audio('https://raw.githubusercontent.com/affaf12/Portfolio/162e9272addefb04d11992d0017d4da47afcc9e2/live-chat-353605.mp3');
-
-// Function to play sound without overlapping
-function playChatSound() {
+  function playChatSound() {
     if (!chatSound.paused) {
-        chatSound.pause();       // Stop if already playing
-        chatSound.currentTime = 0; // Reset to start
+      chatSound.pause();
+      chatSound.currentTime = 0;
     }
-    chatSound.play();            // Play the sound
-}
-
+    chatSound.play();
+  }
 
   /* ---------------- TOGGLE CHATBOT ---------------- */
   function toggleChat() {
@@ -569,7 +562,6 @@ function playChatSound() {
     const message = msg || inputEl.value.trim();
     if(!message) return;
 
-    // User message
     const userMsg = document.createElement('div');
     userMsg.className = 'chatbot-message user-msg';
     userMsg.textContent = message;
@@ -585,10 +577,10 @@ function playChatSound() {
       typingEl.style.display='none';
       const response = getBotResponse(message);
       displayBotTypingWithDots(response);
-    }, 400); // small delay before bot starts typing
+    }, 400);
   }
 
-  /* ---------------- BOT TYPING WITH DOTS ---------------- */
+  /* ---------------- BOT TYPING WITH DOTS (HTML-SAFE) ---------------- */
   function displayBotTypingWithDots(text) {
     const botMsg = document.createElement('div');
     botMsg.className = 'chatbot-message bot-msg';
@@ -596,7 +588,7 @@ function playChatSound() {
 
     scrollToBottom();
 
-    // Add "typing dots" animation first
+    // Add typing dots animation
     const dots = document.createElement('span');
     dots.className = 'typing-dots';
     dots.textContent = '...';
@@ -605,58 +597,18 @@ function playChatSound() {
     let dotInterval = setInterval(() => {
       dots.textContent = dots.textContent.length < 3 ? dots.textContent + '.' : '.';
       scrollToBottom();
-    }, 500);
+    }, 400);
 
-    // After short delay, start typing the actual text
+    // After short delay, replace with HTML message
     setTimeout(() => {
       clearInterval(dotInterval);
-      botMsg.removeChild(dots);
-      typeText(botMsg, text);
-    }, 1200); // duration of "thinking"
-  }
-
-  /* ---------------- CHARACTER-BY-CHARACTER TYPING (HTML-SAFE) ---------------- */
-function typeText(botMsg, text) {
-  botMsg.innerHTML = ""; // Clear before typing
-  let tempDiv = document.createElement("div");
-  tempDiv.innerHTML = text.trim(); // Convert HTML (for <br>, <a>, etc.)
-  const htmlParts = Array.from(tempDiv.childNodes);
-
-  let i = 0;
-
-  function typeNextPart() {
-    if (i < htmlParts.length) {
-      const node = htmlParts[i];
-      if (node.nodeType === Node.TEXT_NODE) {
-        // Type text content character by character
-        let j = 0;
-        const chars = node.textContent;
-        const interval = setInterval(() => {
-          botMsg.innerHTML += chars[j];
-          j++;
-          scrollToBottom();
-          if (j >= chars.length) {
-            clearInterval(interval);
-            i++;
-            typeNextPart();
-          }
-        }, 25);
-      } else {
-        // For HTML elements (like <br> or <a>), append immediately
-        botMsg.appendChild(node.cloneNode(true));
-        scrollToBottom();
-        i++;
-        setTimeout(typeNextPart, 100);
-      }
-    } else {
+      botMsg.innerHTML = text; // ✅ Renders HTML
+      scrollToBottom();
       addBotExtras(botMsg, text);
-    }
+    }, 1200);
   }
 
-  typeNextPart();
-}
-
-  /* ---------------- EMOJIS & QUICK REPLIES ---------------- */
+  /* ---------------- EXTRAS: EMOJIS & QUICK REPLIES ---------------- */
   function addBotExtras(botMsg, response){
     const reactions = document.createElement('div');
     reactions.className = 'emoji-reactions';
@@ -669,9 +621,10 @@ function typeText(botMsg, text) {
     botMsg.appendChild(reactions);
 
     addQuickRepliesFromAnswer(response);
+    playChatSound();
 
-    chatSound.play();
-    if(!chatbotWindow.classList.contains('open')) notificationEl.style.display='inline-block';
+    if(!chatbotWindow.classList.contains('open'))
+      notificationEl.style.display='inline-block';
   }
 
   function addQuickRepliesFromAnswer(response){
