@@ -480,21 +480,30 @@ const chatbotQA = [
   },
 
   { question: ["financial report", "finance dashboard", "financial analysis"], 
-    answer: "✅ Absolutely! I create Financial reports in Power BI. Here is a demo: [Insert Financial Demo Link]" 
+    answer: `✅ Yes! I create Financial Reports.\nHere is a demo you can check out:\n[View Financial Reports Demo](https://docs.google.com/spreadsheets/d/1fk0qtcJL0y7kwCffg15sxfU8r54TVQRjTMCBUmxfKAs/edit?usp=sharing)`
   },
   { question: ["healthcare report", "medical dashboard", "hospital report"], 
-    answer: "✅ I build Healthcare reports using Power BI. Here is a demo: [Insert Healthcare Demo Link]" 
+    answer: `✅ Yes! I create Healthcare Report.\nHere is a demo you can check out:\n[View Healthcare Report Demo](https://docs.google.com/spreadsheets/d/1XDlhtOG2W0MDDav1k7zNzexls8UZHxZJRax52k7mrjs/edit?usp=sharing)`
   },
   { question: ["sales report", "sales dashboard", "revenue report"], 
-    answer: "✅ Yes! I make Sales reports in Power BI. Demo: [Insert Sales Demo Link]" 
+    answer: `✅ Yes! I create Sales reports.\nHere is a demo you can check out:\n[View Sales Report Demo](https://docs.google.com/spreadsheets/d/1ujKebcqgvmkDIesR5SPr-6MyskX0x8zfmZ_j36r2uIA/edit?usp=sharing)`
   },
-  { question: ["marketing report", "marketing dashboard", "campaign report"], 
-    answer: "✅ I can create Marketing reports. Demo: [Insert Marketing Demo Link]" 
+  { question: ["marketing report", "marketing dashboard", "campaign report"],
+   answer: `✅ Yes! I create Marketing reports.\nHere is a demo you can check out:\n[View Marketing Report Demo](https://docs.google.com/spreadsheets/d/1VLzDL_6mL7YgnSr_pycnCjF_K0R4GL9IoxJyksVxGmg/edit?usp=sharing)` 
   },
   { question: ["insurance report", "insurance dashboard", "policy report"], 
-    answer: "✅ Sure! I make Insurance reports in Power BI. Demo: [Insert Insurance Demo Link]" 
-  }
+     answer: `✅ Yes! I create insurance reports.\nHere is a demo you can check out:\n[View insurance Report Demo](https://docs.google.com/spreadsheets/d/1A7XHQKQpI8jqpJg8sYmTR3XgZpAog8HtrxOV-0e9nwg/edit?usp=sharing)` 
+  },
+  { question: ["real estate report", "property dashboard", "housing report", "real estate analysis"],
+    answer: `✅ Yes! I create Real Estate reports.\nHere is a demo you can check out:\n[View Real Estate Report Demo](https://docs.google.com/spreadsheets/d/1ZvE4UOfhsbjqa3ITObon1soxBrJPLMUgvCzSHdCYQ6c/edit?usp=sharing)`
+ },
+  {
+  question: ["logistics report", "supply chain dashboard", "shipment report"],
+  answer: `✅ Yes! I create Logistics & Supply Chain reports.\nHere is a demo you can check out:\n[View Logistics Report Demo](https://docs.google.com/spreadsheets/d/1pFr8wy-9KO1yCyWW5AKpGgKS2b87lF7Exf80skzPaCU/edit?usp=sharing)`
+},
 ];
+
+
 
 /* ================= GET BOT RESPONSE FUNCTION ================= */
 function getBotResponse(message) {
