@@ -473,16 +473,12 @@ const chatbotQA = [
   { question: ["services", "what do you do"], answer: "I provide Data Analytics, Power BI, SQL, and Excel consulting services." },
   { question: ["pricing", "cost"], answer: "💰 For pricing details, please contact me directly via email." },
   { question: ["demo", "show me demo"], answer: "🎯 I can show you live demos of my Power BI dashboards!" },
+
   {
     question: ["hr report", "human resources report", "employee report", "hr dashboard"],
-    answer: `✅ Yes! I create HR reports. 
-    <br>Here is a demo you can check out: 
-    <a href="https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing" 
-       target="_blank" 
-       rel="noopener noreferrer">
-       View HR Report Demo
-    </a>`
+    answer: `✅ Yes! I create HR reports.\nHere is a demo you can check out:\n[View HR Report Demo](https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing)`
   },
+
   { question: ["financial report", "finance dashboard", "financial analysis"], 
     answer: "✅ Absolutely! I create Financial reports in Power BI. Here is a demo: [Insert Financial Demo Link]" 
   },
@@ -580,15 +576,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 400);
   }
 
-  /* ---------------- BOT TYPING WITH DOTS (HTML-SAFE) ---------------- */
+  /* ---------------- BOT TYPING WITH LINK STYLING ---------------- */
   function displayBotTypingWithDots(text) {
     const botMsg = document.createElement('div');
     botMsg.className = 'chatbot-message bot-msg';
     bodyEl.appendChild(botMsg);
-
     scrollToBottom();
 
-    // Add typing dots animation
     const dots = document.createElement('span');
     dots.className = 'typing-dots';
     dots.textContent = '...';
@@ -599,10 +593,29 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollToBottom();
     }, 400);
 
-    // After short delay, replace with HTML message
     setTimeout(() => {
       clearInterval(dotInterval);
-      botMsg.innerHTML = text; // ✅ Renders HTML
+      botMsg.textContent = ''; 
+
+      const parts = text.split('\n');
+      parts.forEach((line, index) => {
+        const linkMatch = line.match(/\[(.*?)\]\((.*?)\)/);
+        if (linkMatch) {
+          const linkEl = document.createElement('a');
+          linkEl.href = linkMatch[2];
+          linkEl.target = "_blank";
+          linkEl.rel = "noopener noreferrer";
+          linkEl.textContent = linkMatch[1];
+          linkEl.className = "chatbot-link"; // ✅ style class
+          botMsg.appendChild(linkEl);
+        } else {
+          const p = document.createElement('p');
+          p.textContent = line;
+          botMsg.appendChild(p);
+        }
+        if (index < parts.length - 1) botMsg.appendChild(document.createElement('br'));
+      });
+
       scrollToBottom();
       addBotExtras(botMsg, text);
     }, 1200);
@@ -692,3 +705,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function scrollToBottom(){ bodyEl.scrollTop = bodyEl.scrollHeight; }
 });
+
+/* ================= CHATBOT LINK STYLES ================= */
+const style = document.createElement('style');
+style.textContent = `
+  .chatbot-link {
+    color: #0078ff;
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .chatbot-link:hover {
+    color: #0056cc;
+    text-decoration: none;
+  }
+`;
+document.head.appendChild(style);
