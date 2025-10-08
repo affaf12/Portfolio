@@ -475,26 +475,26 @@ const chatbotQA = [
   { question: ["demo", "show me demo"], answer: "🎯 I can show you live demos of my Power BI dashboards!" },
 
   {
-    question: ["hr report", "human resources report", "employee report", "hr dashboard"],
+    question: ["hr report", "human resources report", "employee report", "hr dashboard", "hr"],
     answer: `✅ Yes! I create HR reports.\nHere is a demo you can check out:\n[View HR Report Demo](https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing)`
   },
 
-  { question: ["financial report", "finance dashboard", "financial analysis"], 
+  { question: ["financial report", "finance dashboard", "financial analysis", "finance"], 
     answer: `✅ Yes! I create Financial Reports.\nHere is a demo you can check out:\n[View Financial Reports Demo](https://docs.google.com/spreadsheets/d/1fk0qtcJL0y7kwCffg15sxfU8r54TVQRjTMCBUmxfKAs/edit?usp=sharing)`
   },
-  { question: ["healthcare report", "medical dashboard", "hospital report"], 
+  { question: ["healthcare report", "medical dashboard", "hospital report", "healthcare"], 
     answer: `✅ Yes! I create Healthcare Report.\nHere is a demo you can check out:\n[View Healthcare Report Demo](https://docs.google.com/spreadsheets/d/1XDlhtOG2W0MDDav1k7zNzexls8UZHxZJRax52k7mrjs/edit?usp=sharing)`
   },
-  { question: ["sales report", "sales dashboard", "revenue report"], 
+  { question: ["sales report", "sales dashboard", "revenue report", "sales"], 
     answer: `✅ Yes! I create Sales reports.\nHere is a demo you can check out:\n[View Sales Report Demo](https://docs.google.com/spreadsheets/d/1ujKebcqgvmkDIesR5SPr-6MyskX0x8zfmZ_j36r2uIA/edit?usp=sharing)`
   },
-  { question: ["marketing report", "marketing dashboard", "campaign report"],
+  { question: ["marketing report", "marketing dashboard", "campaign report", "marketing"],
    answer: `✅ Yes! I create Marketing reports.\nHere is a demo you can check out:\n[View Marketing Report Demo](https://docs.google.com/spreadsheets/d/1VLzDL_6mL7YgnSr_pycnCjF_K0R4GL9IoxJyksVxGmg/edit?usp=sharing)` 
   },
-  { question: ["insurance report", "insurance dashboard", "policy report"], 
+  { question: ["insurance report", "insurance dashboard", "policy report", "insurance"], 
      answer: `✅ Yes! I create insurance reports.\nHere is a demo you can check out:\n[View insurance Report Demo](https://docs.google.com/spreadsheets/d/1A7XHQKQpI8jqpJg8sYmTR3XgZpAog8HtrxOV-0e9nwg/edit?usp=sharing)` 
   },
-  { question: ["real estate report", "property dashboard", "housing report", "real estate analysis"],
+  { question: ["real estate report", "property dashboard", "housing report", "real estate analysis", "real estate"],
     answer: `✅ Yes! I create Real Estate reports.\nHere is a demo you can check out:\n[View Real Estate Report Demo](https://docs.google.com/spreadsheets/d/1ZvE4UOfhsbjqa3ITObon1soxBrJPLMUgvCzSHdCYQ6c/edit?usp=sharing)`
  },
   {
@@ -502,7 +502,6 @@ const chatbotQA = [
   answer: `✅ Yes! I create Logistics & Supply Chain reports.\nHere is a demo you can check out:\n[View Logistics Report Demo](https://docs.google.com/spreadsheets/d/1pFr8wy-9KO1yCyWW5AKpGgKS2b87lF7Exf80skzPaCU/edit?usp=sharing)`
 },
 ];
-
 
 
 /* ================= GET BOT RESPONSE FUNCTION ================= */
