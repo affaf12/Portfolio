@@ -473,9 +473,17 @@ const chatbotQA = [
   { question: ["services", "what do you do"], answer: "I provide Data Analytics, Power BI, SQL, and Excel consulting services." },
   { question: ["pricing", "cost"], answer: "💰 For pricing details, please contact me directly via email." },
   { question: ["demo", "show me demo"], answer: "🎯 I can show you live demos of my Power BI dashboards!" },
-  { question: ["hr report", "human resources report", "employee report", "hr dashboard"], 
-    answer: "✅ Yes! I create HR reports. Here is a demo you can check out: https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing" 
-  },
+  {
+  question: ["hr report", "human resources report", "employee report", "hr dashboard"],
+  answer: `✅ Yes! I create HR reports. 
+  <br>Here is a demo you can check out: 
+  <a href="https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing" 
+     target="_blank" 
+     rel="noopener noreferrer">
+     View HR Report Demo
+  </a>`
+}
+,
   { question: ["financial report", "finance dashboard", "financial analysis"], 
     answer: "✅ Absolutely! I create Financial reports in Power BI. Here is a demo: [Insert Financial Demo Link]" 
   },
