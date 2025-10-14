@@ -12,33 +12,9 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- Services -->
+  <!-- Experience -->
   <url>
-    <loc>https://affaf12.github.io/Portfolio/services</loc>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Gallery -->
-  <url>
-    <loc>https://affaf12.github.io/Portfolio/gallery</loc>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- Internship -->
-  <url>
-    <loc>https://affaf12.github.io/Portfolio/internship</loc>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- Portfolio -->
-  <url>
-    <loc>https://affaf12.github.io/Portfolio/portfolio</loc>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Achievements -->
-  <url>
-    <loc>https://affaf12.github.io/Portfolio/achievements</loc>
+    <loc>https://affaf12.github.io/Portfolio/experience</loc>
     <priority>0.80</priority>
   </url>
 
@@ -48,15 +24,28 @@
     <priority>0.80</priority>
   </url>
 
-  <!-- Experience -->
+ <!-- Achievements -->
   <url>
-    <loc>https://affaf12.github.io/Portfolio/experience</loc>
+    <loc>https://affaf12.github.io/Portfolio/achievements</loc>
     <priority>0.80</priority>
   </url>
+  
+  <!-- Portfolio -->
+  <url>
+    <loc>https://affaf12.github.io/Portfolio/portfolio</loc>
+    <priority>0.85</priority>
+  </url>
+  
 
   <!-- Contact -->
   <url>
     <loc>https://affaf12.github.io/Portfolio/contact</loc>
     <priority>0.85</priority>
+  </url>
+
+    <!-- Social Media -->
+  <url>
+    <loc>https://affaf12.github.io/Portfolio/social-media</loc>
+    <priority>0.80</priority>
   </url>
 </urlset>
