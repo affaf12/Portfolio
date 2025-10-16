@@ -1,9 +1,41 @@
-// ================= MENU TOGGLE =================
+/* ================= MENU TOGGLE ================= */
 document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.getElementById('menu-toggle');
   const navMenu = document.getElementById('nav-menu');
-  menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
+
+  /* ================= HEADER SCROLL ================= */
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+
+    /* ================= HERO ANIMATION ================= */
+  const heroText = document.querySelectorAll('.hero-text span');
+  let index = 0;
+
+  function showNextHeroWord() {
+    heroText.forEach((el, i) => {
+      el.style.opacity = i === index ? '1' : '0';
+    });
+    index = (index + 1) % heroText.length;
+  }
+
+  if (heroText.length > 0) {
+    showNextHeroWord();
+    setInterval(showNextHeroWord, 3000);
+  }
+
+  
+  
   // ================= THEME TOGGLE =================
   const themeBtn = document.getElementById('theme-toggle-btn');
   const htmlTag = document.documentElement;
@@ -17,31 +49,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ================= SKILLS ANIMATION =================
-  const skillCircles = document.querySelectorAll('.skill-circle');
-  skillCircles.forEach(circle => {
-    const percent = circle.getAttribute('data-percent');
-    const progress = circle.querySelector('.progress');
-    const percentText = circle.querySelector('.percent');
-    let count = 0;
+  /* ================= SKILLS ANIMATION ================= */
+  const skills = [
+    { name: 'Power BI', percent: 90 },
+    { name: 'SQL', percent: 85 },
+    { name: 'Python', percent: 80 },
+    { name: 'Excel', percent: 95 }
+  ];
 
-    const radius = progress.r.baseVal.value;
-    const circumference = 2 * Math.PI * radius;
-    progress.style.strokeDasharray = circumference;
-    progress.style.strokeDashoffset = circumference;
+  const skillsContainer = document.querySelector('.skills-grid');
 
-    const animate = () => {
-      if (count <= percent) {
-        percentText.textContent = count + '%';
-        const offset = circumference - (count / 100) * circumference;
-        progress.style.strokeDashoffset = offset;
-        count++;
-        requestAnimationFrame(animate); // CSP-safe replacement for string-based setTimeout
-      }
-    };
-    animate();
-  });
-
+  if (skillsContainer) {
+    skillsContainer.innerHTML = '';
+    skills.forEach(skill => {
+      const skillEl = document.createElement('div');
+      skillEl.className = 'skill';
+      skillEl.innerHTML = `
+        <div class="skill-circle">
+          <svg viewBox="0 0 36 36">
+            <path class="circle-bg" d="M18 2.0845
+              a 15.9155 15.9155 0 0 1 0 31.831
+              a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path class="circle"
+              stroke-dasharray="${skill.percent}, 100"
+              d="M18 2.0845
+              a 15.9155 15.9155 0 0 1 0 31.831
+              a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          </svg>
+          <div class="skill-text">${skill.name} <span>${skill.percent}%</span></div>
+        </div>
+      `;
+      skillsContainer.appendChild(skillEl);
+    });
+  }
+});
   // ================= SLIDERS =================
   function initSlider(wrapperSelector, leftBtnSelector, rightBtnSelector) {
     const wrapper = document.querySelector(wrapperSelector);
