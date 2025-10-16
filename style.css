@@ -349,7 +349,7 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   .hero-right h3 { font-size: 1.3rem; }
 }
 
-/* ================= ABOUT SECTION - NEON GLASS ================= */
+/* ================= ABOUT SECTION - NEON GLASS (Optimized) ================= */
 .about-section {
   padding: 80px 20px;
   background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
@@ -358,6 +358,7 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   position: relative;
 }
 
+/* Section Title */
 .about-section .section-title {
   font-size: 2.5rem;
   margin-bottom: 50px;
@@ -367,21 +368,27 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   letter-spacing: 2px;
   transform: translateY(50px);
   opacity: 0;
-  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+              opacity 0.6s ease;
+  will-change: transform, opacity;
 }
 
+/* About Text */
 .about-text {
   max-width: 800px;
   margin: 0 auto;
   transform: translateY(50px);
   opacity: 0;
-  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+              opacity 0.6s ease;
+  will-change: transform, opacity;
 }
 
 .about-text p {
   font-size: 1.05rem;
   line-height: 1.8;
   margin-bottom: 20px;
+  color: #eee; /* Better contrast */
 }
 
 .about-text ul {
@@ -393,7 +400,7 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
 .about-text ul li {
   margin-bottom: 10px;
   font-size: 1rem;
-  color: #ccc;
+  color: #ddd;
   position: relative;
   padding-left: 20px;
 }
@@ -418,7 +425,8 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
   transform: translateY(50px) scale(1);
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  will-change: transform, opacity;
 }
 
 /* Glow + bounce pulse animation */
@@ -432,31 +440,43 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   transform: scale(1.05);
 }
 
-/* Neon pulse keyframes */
+/* ================= KEYFRAMES ================= */
 @keyframes neonPulse {
   0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
   50% { box-shadow: 0 0 28px rgba(0, 255, 255, 0.6); }
   100% { box-shadow: 0 0 35px rgba(0, 255, 255, 0.8); }
 }
 
-/* Bounce keyframes */
 @keyframes neonBounce {
   0% { transform: translateY(50px) scale(1); opacity: 0; }
   50% { transform: translateY(-8px) scale(1.02); opacity: 1; }
   100% { transform: translateY(0px) scale(1.01); opacity: 1; }
 }
 
-/* Visible animation for other items */
+/* Reveal Animation Trigger */
 [data-animate].visible {
   transform: translateY(0) scale(1);
   opacity: 1;
 }
 
-/* Responsive */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
-  .about-section .section-title { font-size: 2rem; }
-  .about-text { padding: 0 10px; }
-  .btn-contact { padding: 10px 22px; font-size: 0.95rem; }
+  .about-section .section-title {
+    font-size: 2rem;
+  }
+  .about-text {
+    padding: 0 10px;
+  }
+  .btn-contact {
+    padding: 10px 22px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 60px 15px;
+  }
 }
 
 
