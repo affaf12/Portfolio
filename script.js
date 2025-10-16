@@ -1,54 +1,57 @@
-/* ================= MENU TOGGLE ================= */
+// ================= MENU TOGGLE =================
 document.addEventListener("DOMContentLoaded", () => {
-  const menuToggle = document.getElementById('menu-toggle');
-  const navMenu = document.getElementById('nav-menu');
+  const menuToggle = document.getElementById("menu-toggle");
+  const navMenu = document.getElementById("nav-menu");
 
-  menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
   });
 
-  /* ================= HEADER SCROLL ================= */
-  const header = document.getElementById('header');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
+
+    // ================= THEME TOGGLE =================
+  const themeToggleBtn = document.getElementById("theme-toggle-btn");
+  const html = document.documentElement;
+  themeToggleBtn.addEventListener("click", () => {
+    if (html.dataset.theme === "dark") {
+      html.dataset.theme = "light";
+      themeToggleBtn.textContent = "🌞";
     } else {
-      header.classList.remove('scrolled');
+      html.dataset.theme = "dark";
+      themeToggleBtn.textContent = "🌙";
     }
   });
 
 
-    /* ================= HERO ANIMATION ================= */
-  const heroText = document.querySelectorAll('.hero-text span');
-  let index = 0;
-
-  function showNextHeroWord() {
-    heroText.forEach((el, i) => {
-      el.style.opacity = i === index ? '1' : '0';
-    });
-    index = (index + 1) % heroText.length;
-  }
-
-  if (heroText.length > 0) {
-    showNextHeroWord();
-    setInterval(showNextHeroWord, 3000);
-  }
-
-  
-  
-  // ================= THEME TOGGLE =================
-  const themeBtn = document.getElementById('theme-toggle-btn');
-  const htmlTag = document.documentElement;
-  themeBtn.addEventListener('click', () => {
-    if (htmlTag.getAttribute('data-theme') === 'dark') {
-      htmlTag.setAttribute('data-theme', 'light');
-      themeBtn.textContent = '🌙';
+  // ================= SCROLL TO TOP =================
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollTopBtn.style.display = "block";
     } else {
-      htmlTag.setAttribute('data-theme', 'dark');
-      themeBtn.textContent = '☀️';
+      scrollTopBtn.style.display = "none";
     }
   });
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
+
+  
+ // ================= HERO & SECTION ANIMATION =================
+  const animateElements = document.querySelectorAll("[data-animate]");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  animateElements.forEach((el) => observer.observe(el));
+
+  
   /* ================= SKILLS ANIMATION ================= */
   const skills = [
     { name: 'Power BI', percent: 90 },
