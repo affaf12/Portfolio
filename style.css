@@ -1260,21 +1260,18 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
     }
 }
 
-
-
-/* ================= SCROLL TO TOP BUTTON ================= */
 /* ================= SCROLL TO TOP BUTTON ================= */
 #scrollTopBtn {
   position: fixed;
   bottom: 30px;
-  left: 30px;
+  right: 30px; /* use right instead of left for standard UX */
   z-index: 9999;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   border: none;
-  background: rgba(0, 0, 0, 0.25);          /* black/glass orb */
-  backdrop-filter: blur(12px);              /* glass effect */
+  background: rgba(0, 0, 0, 0.25);          
+  backdrop-filter: blur(12px);              
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1321,30 +1318,17 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   color: #00ffe0;
 }
 
-/* Floating animation */
+/* ================= FLOATING/BOUNCING ANIMATION ================= */
 @keyframes floatButton {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
-
-/* Pulse glow animation */
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px #fff, 0 0 25px #00ffe0, 0 8px 30px rgba(0, 255, 224, 0.6); }
-  50% { box-shadow: 0 0 25px #fff, 0 0 35px #00ffe0, 0 12px 40px rgba(0, 255, 224, 0.8); }
-}
-
 
 /* ================= PULSATING NEON GLOW ================= */
 @keyframes pulseGlow {
   0%   { box-shadow: 0 0 15px #fff, 0 0 25px #00ffe0, 0 10px 40px rgba(0, 255, 224, 0.6); }
   50%  { box-shadow: 0 0 25px #fff, 0 0 40px #00ffe0, 0 15px 50px rgba(0, 255, 224, 0.8); }
   100% { box-shadow: 0 0 15px #fff, 0 0 25px #00ffe0, 0 10px 40px rgba(0, 255, 224, 0.6); }
-}
-
-/* ================= FLOATING/BOUNCING ANIMATION ================= */
-@keyframes floatButton {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
 }
 
 /* ================= STICKY HEADER ================= */
@@ -1373,7 +1357,7 @@ header.sticky {
 
 @keyframes slideDown {
   from { transform: translateY(-120px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 
 /* ================= RESPONSIVE ================= */
@@ -1382,7 +1366,7 @@ header.sticky {
     width: 50px;
     height: 50px;
     bottom: 20px;
-    left: 20px;
+    right: 20px; /* match right position */
   }
 
   #scrollTopBtn .arrow-emoji {
