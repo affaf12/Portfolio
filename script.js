@@ -193,73 +193,105 @@ function getBotResponse(message) {
   return "🤖 I'm here to assist you!";
 }
 
-/* ================= UPGRADED CHATBOT JS ================= */
+/* ================= VISUAL UPGRADE: NEON CHATBOT WITH NOTIFICATION BUBBLE (CSP-SAFE) ================= */
 document.addEventListener("DOMContentLoaded", () => {
-  const chatbotWindow = document.getElementById('chatbot-window');
-  const toggleBtn = document.getElementById('chatbot-toggle');
-  const closeBtn = document.getElementById('chatbot-close');
-  const sendBtn = document.getElementById('chatbot-send');
-  const inputEl = document.getElementById('chatbot-input');
-  const bodyEl = document.getElementById('chatbot-body');
-  const typingEl = document.getElementById('typing-indicator');
-  const notificationEl = document.getElementById('chatbot-notification');
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const toggleBtn = document.getElementById('chatbot-toggle');
+    const closeBtn = document.getElementById('chatbot-close');
+    const sendBtn = document.getElementById('chatbot-send');
+    const inputEl = document.getElementById('chatbot-input');
+    const bodyEl = document.getElementById('chatbot-body');
+    const typingEl = document.getElementById('typing-indicator');
+    const notificationEl = document.getElementById('chatbot-notification');
 
-  // Toggle chatbot open/close
-  function toggleChat() {
-    const isOpen = chatbotWindow.classList.toggle('open');
-    toggleBtn.classList.toggle('open', isOpen);
-    toggleBtn.textContent = isOpen ? "❌" : "💬";
-    if(isOpen) notificationEl.style.display = 'none';
-  }
+    // Toggle chatbot open/close
+    function toggleChat() {
+        const isOpen = chatbotWindow.classList.toggle('open');
+        toggleBtn.classList.toggle('open', isOpen);
+        toggleBtn.textContent = isOpen ? "❌" : "💬";
+        if (isOpen) hideNotification();
+    }
 
-  toggleBtn.addEventListener('click', toggleChat);
-  closeBtn.addEventListener('click', toggleChat);
+    toggleBtn.addEventListener('click', toggleChat);
+    closeBtn.addEventListener('click', toggleChat);
 
-  // Send message
-  function sendMessage() {
-    const message = inputEl.value.trim();
-    if (!message) return;
+    // Append message with fade-in and neon effect
+    function appendMessage(text, className) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('chatbot-message', className, 'fade-in');
+        msgDiv.textContent = text;
+        bodyEl.appendChild(msgDiv);
+        scrollToBottom();
+        requestAnimationFrame(() => {
+            msgDiv.style.opacity = 1;
+            msgDiv.style.transform = 'translateY(0)';
+        });
+    }
 
-    appendMessage(message, 'user-msg');
-    inputEl.value = '';
-    scrollToBottom();
+    // Scroll chat to bottom
+    function scrollToBottom() {
+        bodyEl.scrollTop = bodyEl.scrollHeight;
+    }
 
-    // Show typing
-    typingEl.style.display = 'block';
+    // Animated typing dots
+    function showTypingIndicator() {
+        typingEl.innerHTML = '';
+        typingEl.style.display = 'block';
+        const dots = ['.', '..', '...'];
+        let i = 0;
+        const interval = setInterval(() => {
+            typingEl.textContent = 'Typing' + dots[i % dots.length];
+            i++;
+        }, 400);
+        return interval;
+    }
 
-    setTimeout(() => {
-      typingEl.style.display = 'none';
-      const botResponse = getBotResponse(message);
-      appendMessage(botResponse, 'bot-msg');
-
-      // Show notification if window is closed
-      if(!chatbotWindow.classList.contains('open')) {
+    // Show notification bubble with animation
+    function showNotification() {
         notificationEl.style.display = 'block';
-      }
-    }, 800);
-  }
+        notificationEl.classList.add('pulse');
+    }
 
-  sendBtn.addEventListener('click', sendMessage);
-  inputEl.addEventListener('keypress', e => { if(e.key === 'Enter') sendMessage(); });
+    function hideNotification() {
+        notificationEl.style.display = 'none';
+        notificationEl.classList.remove('pulse');
+    }
 
-  function appendMessage(text, className) {
-    const msgDiv = document.createElement('div');
-    msgDiv.classList.add('chatbot-message', className);
-    msgDiv.textContent = text;
-    bodyEl.appendChild(msgDiv);
-    scrollToBottom();
-  }
+    // Handle sending message
+    function sendMessage() {
+        const message = inputEl.value.trim();
+        if (!message) return;
 
-  function scrollToBottom() {
-    bodyEl.scrollTop = bodyEl.scrollHeight;
-  }
+        appendMessage(message, 'user-msg');
+        inputEl.value = '';
 
-  function getBotResponse(msg) {
-    msg = msg.toLowerCase();
-    if(msg.includes('hello') || msg.includes('hi')) return 'Hello there! How can I help you today?';
-    if(msg.includes('how are you')) return "I am a bot, so I don't have feelings, but I'm working well!";
-    if(msg.includes('name')) return 'I am a neon-style chatbot created with HTML, CSS & JS.';
-    if(msg.includes('bye')) return 'Goodbye! Have a great day!';
-    return "I am sorry, I don't understand that. Can you rephrase?";
-  }
+        const typingInterval = showTypingIndicator();
+
+        setTimeout(() => {
+            clearInterval(typingInterval);
+            typingEl.style.display = 'none';
+
+            const botResponse = getBotResponse(message);
+            appendMessage(botResponse, 'bot-msg');
+
+            // Show notification if window is closed
+            if (!chatbotWindow.classList.contains('open')) {
+                showNotification();
+            }
+        }, 1200);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    inputEl.addEventListener('keypress', e => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    // Close chatbot when clicking outside
+    document.addEventListener('click', e => {
+        if (!chatbotWindow.contains(e.target) && !toggleBtn.contains(e.target)) {
+            chatbotWindow.classList.remove('open');
+            toggleBtn.textContent = '💬';
+        }
+    });
 });
+
