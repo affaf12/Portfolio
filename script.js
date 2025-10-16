@@ -168,12 +168,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let animated = false;
 
   function animateSkills() {
-    if (animated) return; // prevent multiple triggers
+    if (animated) return;
     const skillsSection = document.querySelector("#skills");
     const rect = skillsSection.getBoundingClientRect();
 
     if (rect.top < window.innerHeight && rect.bottom >= 0) {
       animated = true;
+
       circles.forEach(circle => {
         const percent = parseInt(circle.getAttribute("data-percent"));
         const progress = circle.querySelector(".progress");
@@ -202,6 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Run once on load, then on scroll
+  animateSkills();
   window.addEventListener("scroll", animateSkills);
 });
 
