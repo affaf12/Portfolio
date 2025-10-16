@@ -137,9 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const expCards = document.querySelectorAll(".experience-card");
 
-  const observerOptions = {
-    threshold: 0.2, // trigger when 20% of the card is visible
-  };
+  const observerOptions = { threshold: 0.2 };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -147,18 +145,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (entry.isIntersecting) {
         // Add staggered delay
-        entry.target.style.transition = `transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
-                                         opacity 0.6s ease, 
-                                         box-shadow 0.3s ease`;
         entry.target.style.transitionDelay = `${index * 0.2}s`;
-
-        // Add visible + scale
         entry.target.classList.add("visible");
       } else {
         // Reset for repeat animation
         entry.target.style.transitionDelay = "0s";
         entry.target.classList.remove("visible");
         entry.target.style.transform = "translateY(50px) scale(1)";
+        entry.target.style.opacity = "0";
       }
     });
   }, observerOptions);
