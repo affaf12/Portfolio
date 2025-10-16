@@ -277,43 +277,45 @@
 
 
 
-<!-- ================= CHATBOT ================= -->
-<div class="chatbot-window" id="chatbot-window">
-  <!-- Header -->
-  <div class="chatbot-header" id="chatbot-header">
-    <div class="chatbot-title">
-      <img 
-        src="https://raw.githubusercontent.com/affaf12/Portfolio/ef6f81295c17cc6015a627117dd7bf3a466f7626/images/profile-pic.jpeg" 
-        alt="Bot Avatar" 
-        class="bot-avatar" 
-        id="chatbot-avatar">
-      <span>Chat Bot</span>
-    </div>
-    <button id="chatbot-close" class="chatbot-close">
-      <i class='bx bx-x'></i>
+    <!-- Floating Chatbot Toggle Button -->
+    <button class="chatbot-toggle" id="chatbot-toggle">
+      💬
+      <span id="chatbot-notification" class="chatbot-notification">!</span>
     </button>
-  </div>
 
-  <!-- Body -->
-  <div class="chatbot-body" id="chatbot-body">
-    <div class="typing-indicator" id="typing-indicator">Typing...</div>
-  </div>
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbot-window">
+        <!-- Header -->
+        <div class="chatbot-header" id="chatbot-header">
+            <div class="chatbot-title">
+                <img 
+                  src="https://raw.githubusercontent.com/affaf12/Portfolio/ef6f81295c17cc6015a627117dd7bf3a466f7626/images/profile-pic.jpeg" 
+                  alt="Bot Avatar" 
+                  class="bot-avatar" 
+                  id="chatbot-avatar">
+                <span>Chat Bot</span>
+            </div>
+            <button id="chatbot-close" class="chatbot-close">
+              <i class='bx bx-x'></i>
+            </button>
+        </div>
 
-  <!-- Quick Replies -->
-  <div class="chatbot-quick-replies" id="chatbot-quick-replies"></div>
+        <!-- Body -->
+        <div class="chatbot-body" id="chatbot-body">
+            <div class="typing-indicator" id="typing-indicator">Typing...</div>
+        </div>
 
-  <!-- Footer -->
-  <div class="chatbot-footer">
-    <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message..." />
-    <button id="chatbot-send" class="chatbot-send"><i class='bx bx-send'></i></button>
-  </div>
-</div>
+        <!-- Quick Replies -->
+        <div class="chatbot-quick-replies" id="chatbot-quick-replies"></div>
 
-<!-- Floating Chatbot Toggle Button -->
-<button class="chatbot-toggle" id="chatbot-toggle">
-  💬
-  <span id="chatbot-notification" class="chatbot-notification">!</span>
-</button>
+        <!-- Footer -->
+        <div class="chatbot-footer">
+            <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message..." />
+            <button id="chatbot-send" class="chatbot-send"><i class='bx bx-send'></i></button>
+        </div>
+    </div>
+
+
 
 
   <!-- JS -->
