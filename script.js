@@ -62,27 +62,31 @@ document.addEventListener("DOMContentLoaded", () => {
   initSlider('.achievements-wrapper', '.ach-left-btn', '.ach-right-btn');
   initSlider('.projects-wrapper', '.left-btn', '.right-btn');
 
+  
+  
   // ================= SCROLL TO TOP =================
-  const scrollTopBtn = document.getElementById('scrollTopBtn');
+ const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-  // Show/hide button based on scroll position
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) { // Show after 200px scroll
-      scrollTopBtn.classList.add('show');
-      scrollTopBtn.classList.remove('hide');
-    } else {
-      scrollTopBtn.classList.remove('show');
-      scrollTopBtn.classList.add('hide');
-    }
-  });
+// Show/hide button based on scroll position
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 200) { // Show after 200px scroll
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
 
-  // Scroll smoothly to top when button is clicked
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+// Scroll smoothly to top when button is clicked
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
   });
+});
+
+
+
+  
   // ================= CONTACT BUTTON SCROLL =================
   const contactBtn = document.getElementById('contactBtn');
   contactBtn?.addEventListener('click', () => {
