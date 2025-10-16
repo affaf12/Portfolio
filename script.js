@@ -122,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }, observerOptions);
 
   animItems.forEach(item => observer.observe(item));
-});
 
   // ================= SCROLL TO CONTACT =================
   contactBtn.addEventListener("click", () => {
