@@ -107,13 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
         entry.target.classList.add("visible");
 
         // Button: add glow + bounce animation
-        if(entry.target.classList.contains("btn-contact")){
+        if (entry.target.classList.contains("btn-contact")) {
           setTimeout(() => entry.target.classList.add("glow"), index * 200);
         }
       } else {
         entry.target.style.transitionDelay = "0s";
         entry.target.classList.remove("visible");
-        if(entry.target.classList.contains("btn-contact")){
+
+        if (entry.target.classList.contains("btn-contact")) {
           entry.target.classList.remove("glow");
         }
       }
@@ -121,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, observerOptions);
 
   animItems.forEach(item => observer.observe(item));
+});
 
   // ================= SCROLL TO CONTACT =================
   contactBtn.addEventListener("click", () => {
