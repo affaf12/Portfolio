@@ -63,13 +63,26 @@ document.addEventListener("DOMContentLoaded", () => {
   initSlider('.projects-wrapper', '.left-btn', '.right-btn');
 
   // ================= SCROLL TO TOP =================
-  const scrollBtn = document.getElementById('scrollTopBtn');
-  scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+  // Show/hide button based on scroll position
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) scrollBtn.style.display = 'block';
-    else scrollBtn.style.display = 'none';
+    if (window.scrollY > 200) { // Show after 200px scroll
+      scrollTopBtn.classList.add('show');
+      scrollTopBtn.classList.remove('hide');
+    } else {
+      scrollTopBtn.classList.remove('show');
+      scrollTopBtn.classList.add('hide');
+    }
   });
 
+  // Scroll smoothly to top when button is clicked
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
   // ================= CONTACT BUTTON SCROLL =================
   const contactBtn = document.getElementById('contactBtn');
   contactBtn?.addEventListener('click', () => {
