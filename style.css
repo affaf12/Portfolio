@@ -147,13 +147,13 @@ header .logo span {
   --accent: #4b5fff;
 }
 
-/* ================= HERO SECTION ================= */
+/* ================= HERO ================= */
 .hero {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  padding: 12rem 2rem 4rem;
+  padding: 8rem 2rem 4rem;
   background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-alt));
   color: var(--text-light);
   overflow: hidden;
@@ -297,14 +297,9 @@ header .logo span {
   display: inline-block;
   text-decoration: none;
   border: none;
-  opacity: 0;
-  transform: translateY(20px) scale(0.95);
-  transition: all 0.5s ease;
-}
-
-.hero-buttons .btn.visible {
   opacity: 1;
   transform: translateY(0) scale(1);
+  transition: all 0.3s ease;
 }
 
 .btn-primary {
@@ -344,6 +339,8 @@ header .logo span {
   .hero-subtitle { font-size: 1.2rem; }
   .hero-buttons .btn { padding: 0.7rem 1.5rem; font-size: 0.95rem; }
 }
+
+
 
 
 /* ================= ABOUT CARDS UPGRADE WITH NEON PARTICLES ================= */
