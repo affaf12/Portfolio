@@ -138,6 +138,47 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
+  // ===== Experince section  =====
+document.querySelectorAll('.experience-card').forEach(card => {
+  const particleCount = 15; // particles per card
+  const container = card.querySelector('.card-particles');
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    container.appendChild(particle);
+
+    // Random initial position
+    particle.style.top = Math.random() * 100 + '%';
+    particle.style.left = Math.random() * 100 + '%';
+
+    // Animate particle randomly
+    const animateParticle = () => {
+      const newTop = Math.random() * 100;
+      const newLeft = Math.random() * 100;
+      const duration = 4000 + Math.random() * 4000; // 4–8s
+
+      particle.animate([
+        { top: particle.style.top, left: particle.style.left },
+        { top: newTop + '%', left: newLeft + '%' }
+      ], {
+        duration: duration,
+        iterations: 1,
+        easing: 'ease-in-out'
+      }).onfinish = () => {
+        particle.style.top = newTop + '%';
+        particle.style.left = newLeft + '%';
+        animateParticle();
+      };
+    };
+
+    animateParticle();
+  }
+});
+
+
+
+
   // ===== SCROLL REVEAL =====
   const animateItems = document.querySelectorAll("[data-animate]");
   function revealOnScroll() {
