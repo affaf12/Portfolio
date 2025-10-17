@@ -4,23 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- ================= GOOGLE SITE VERIFICATION ================= -->
-  <meta name="google-site-verification" content="xRRZoMYfA7bgmuK36lkZ1aAyAXbXSsGamfZ5yKWHZBc">
+  <!-- Google site verification -->
+  <meta name="google-site-verification" content="xRRZoMYfA7bgmuK36lkZ1aAyAXbXSsGamfZ5yKWHZBc" />
 
-  <!-- ================= MAIN SEO ================= -->
   <title>Data Analytics Expert | Muhammad Affaf – Power BI Developer</title>
-  <meta name="description" content="Muhammad Affaf – Expert Data Analyst & Power BI Developer specializing in Data Analytics, SQL, Excel, Python, Power BI, Tableau, and BI dashboards. Boost business intelligence with actionable insights.">
-  <meta name="keywords" content="Data Analytics, Power BI, SQL, Excel, Python, Tableau, BI Dashboards, Business Intelligence, Analytics, Data Visualization, Predictive Analytics, Reporting">
+  <meta name="description" content="Muhammad Affaf – Expert Data Analyst & Power BI Developer specializing in Data Analytics, SQL, Excel, Python, Power BI, Tableau, and BI dashboards.">
+  <meta name="keywords" content="Data Analytics, Power BI, SQL, Excel, Python, Tableau, BI Dashboards, Business Intelligence">
   <link rel="canonical" href="https://affaf12.github.io/Portfolio/" />
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="index,follow" />
 
-  <!-- ================= TWITTER CARDS ================= -->
+  <!-- Social cards -->
+  <meta property="og:title" content="Muhammad Affaf — Data Analytics Expert" />
+  <meta property="og:description" content="Power BI Developer | SQL | Python | Excel" />
+  <meta property="og:image" content="https://affaf12.github.io/Portfolio/images/profile-pic.jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Data Analytics Expert | Muhammad Affaf – Power BI Developer" />
-  <meta name="twitter:description" content="Muhammad Affaf – Expert Data Analyst & Power BI Developer specializing in Data Analytics, SQL, Excel, Python, Power BI, Tableau, and BI dashboards." />
-  <meta name="twitter:image" content="https://affaf12.github.io/Portfolio/images/profile-pic.jpeg" />
 
-  <!-- ================= STRUCTURED DATA (JSON-LD) ================= -->
+  <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,41 +34,45 @@
     "jobTitle": "Data Analyst & Power BI Developer",
     "worksFor": { "@type": "Organization", "name": "Self-Employed / Freelance" },
     "image": "https://affaf12.github.io/Portfolio/images/profile-pic.jpeg",
-    "description": "Muhammad Affaf is an expert Data Analyst & Power BI Developer specializing in Data Analytics, SQL, Excel, Python, Power BI, Tableau, and business intelligence dashboards."
+    "description": "Muhammad Affaf is an expert Data Analyst & Power BI Developer specializing in SQL, Excel, Python, Power BI and BI dashboards."
   }
   </script>
 
-  <!-- ================= STYLE & FONTS ================= -->
+  <!-- Styles & fonts -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- All JavaScript lives in script.js (deferred) -->
+  <!-- Small compatibility helpers so JS (which toggles [hidden]) and CSS agree -->
+  <style>
+    /* keep chatbot hidden when attribute present, show when removed (JS toggles attribute) */
+    .chatbot-window[hidden]{display:none !important}
+    .chatbot-window:not([hidden]){display:flex !important}
+  </style>
+
+  <!-- JS (deferred) -->
   <script src="js/script.js" defer></script>
 </head>
-
 <body>
-  <!-- =============== GTM noscript fallback (required) =============== -->
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NC5BDRF3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
 
-  <!-- ================= HEADER ================= -->
-  <header id="header">
+  <header id="header" role="banner">
     <div class="logo">
       <h1>Muhammad <span>Affaf</span></h1>
     </div>
 
-    <nav>
+    <nav aria-label="Main navigation">
       <ul id="nav-menu">
-        <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#about">About Me</a></li>
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#achievements">Achievements</a></li>
-        <li><a href="#portfolio">Projects</a></li>
+        <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#social-media">Social Media</a></li>
+        <li><a href="#social-media">Social</a></li>
       </ul>
     </nav>
 
@@ -78,188 +81,211 @@
     </div>
   </header>
 
-  <!-- ================= THEME TOGGLE ================= -->
   <div class="theme-toggle-wrapper">
     <button id="theme-toggle-btn" class="theme-toggle-btn" aria-pressed="false">🌙</button>
   </div>
 
-  <!-- ================= HERO ================= -->
-  <section id="home" class="hero">
-    <div class="hero-container">
+  <!-- HERO -->
+  <section id="hero" class="hero" data-animate>
+    <div class="hero-container container">
       <div class="hero-left" data-animate>
-        <img src="images/profile-pic.jpeg" alt="Muhammad Affaf" class="profile-pic">
+        <img src="images/profile-pic.jpeg" alt="Profile picture of Muhammad Affaf, Data Analyst & Power BI Developer" class="profile-pic">
       </div>
       <div class="hero-right" data-animate>
         <h1>Hello 👋 I’m Muhammad Affaf</h1>
         <h3>Data Analyst & Power BI Developer <span>| SQL | Excel | Python</span></h3>
-        <a href="https://docs.google.com/document/d/14KVmLnoh_xIRVsbUnFmLB5dRPEfzprZycsJfIty7EBQ/edit?usp=drive_link"
-           class="btn" target="_blank" rel="noopener noreferrer">
-          Download Resume
-        </a>
+        <a href="https://docs.google.com/document/d/14KVmLnoh_xIRVsbUnFmLB5dRPEfzprZycsJfIty7EBQ/edit?usp=drive_link" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Download Resume</a>
       </div>
     </div>
   </section>
 
-  <!-- ================= ABOUT ================= -->
+  <!-- ABOUT -->
   <section id="about" class="about-section">
-    <h2 class="section-title" data-animate>About Me</h2>
-    <div class="about">
-      <div class="about-text" data-animate>
-        <p>I am a professional Data Analyst and Power BI Developer with expertise in SQL, Excel, and Python. I create insightful dashboards that drive business decisions.</p>
-        <ul>
-          <li>Power BI Dashboard Development</li>
-          <li>Data Analysis & Reporting</li>
-          <li>SQL & Python Programming</li>
-          <li>Business Intelligence Solutions</li>
-        </ul>
-        <button id="contactBtn" class="btn-contact" aria-label="Contact me">Contact Me</button>
+    <div class="container">
+      <h2 class="section-title" data-animate>About Me</h2>
+      <div class="about">
+        <div class="about-text" data-animate>
+          <p>I am a professional Data Analyst and Power BI Developer with practical experience delivering dashboards, analytics and data pipelines. I specialize in Power BI, SQL, Python and Excel — building actionable reports that help stakeholders make better decisions.</p>
+          <ul>
+            <li>Power BI Dashboard Development</li>
+            <li>Data Analysis & Reporting</li>
+            <li>SQL & Python Programming</li>
+            <li>Business Intelligence Solutions</li>
+          </ul>
+          <button id="contactBtn" class="btn-contact" aria-label="Contact me">Contact Me</button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= EXPERIENCE ================= -->
+  <!-- EXPERIENCE -->
   <section id="experience" class="experience-section">
-    <h2 class="section-title">Experience</h2>
-    <div class="experience-grid">
-      <div class="experience-card" data-animate>
-        <h3>Job Simulation on Forage – PwC Switzerland Power BI</h3>
-        <p class="location">Karachi, Pakistan (Remote) | Jan 2024 – Present</p>
-        <ul>
-          <li>Developed predictive and prescriptive models to optimize strategies, boosting operational efficiency by <span>25%</span>.</li>
-          <li>Conducted customer churn forecasting, segmentation, and CLV analysis, increasing customer retention by <span>20%</span>.</li>
-          <li>Applied advanced statistical analysis, A/B testing, and ML techniques to measure feature performance and improve decisions.</li>
-          <li>Delivered insights to stakeholders, communicating complex findings clearly and effectively.</li>
-          <li>Mentored junior analysts and ensured analytical and statistical rigor.</li>
-        </ul>
-      </div>
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+      <div class="experience-grid">
+        <div class="experience-card" data-animate>
+          <h3>Job Simulation on Forage – PwC Switzerland Power BI</h3>
+          <p class="location">Karachi, Pakistan (Remote) | Jan 2024 – Present</p>
+          <ul>
+            <li>Developed predictive and prescriptive models to optimize strategies, boosting operational efficiency by <span>25%</span>.</li>
+            <li>Conducted customer churn forecasting, segmentation, and CLV analysis, increasing customer retention by <span>20%</span>.</li>
+            <li>Applied advanced statistical analysis, A/B testing, and ML techniques to measure feature performance and improve decisions.</li>
+            <li>Delivered insights to stakeholders, communicating complex findings clearly and effectively.</li>
+            <li>Mentored junior analysts and ensured analytical and statistical rigor.</li>
+          </ul>
+        </div>
 
-      <div class="experience-card" data-animate>
-        <h3>Job Simulation on Forage – Accenture North America Data Analytics and Visualization</h3>
-        <p class="location">Karachi, Pakistan (Remote) | Jan 2024 – Present</p>
-        <ul>
-          <li>Designed predictive and prescriptive models to drive revenue optimization and cost reduction.</li>
-          <li>Analyzed network performance, service usage, and sales performance to deliver actionable insights.</li>
-          <li>Mentored junior analysts, ensuring data accuracy and proper analytical methodology.</li>
-          <li>Leveraged ML techniques and statistical analysis to enhance reporting and performance monitoring.</li>
-        </ul>
+        <div class="experience-card" data-animate>
+          <h3>Job Simulation on Forage – Accenture North America Data Analytics and Visualization</h3>
+          <p class="location">Karachi, Pakistan (Remote) | Jan 2024 – Present</p>
+          <ul>
+            <li>Designed predictive and prescriptive models to drive revenue optimization and cost reduction.</li>
+            <li>Analyzed network performance, service usage, and sales performance to deliver actionable insights.</li>
+            <li>Mentored junior analysts, ensuring data accuracy and proper analytical methodology.</li>
+            <li>Leveraged ML techniques and statistical analysis to enhance reporting and performance monitoring.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= SKILLS ================= -->
-  <section id="skills">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills-grid">
-      <div class="skill">
-        <div class="skill-circle" data-skill="Power BI" data-level="90"></div>
-        <p>Power BI</p>
-      </div>
-      <div class="skill">
-        <div class="skill-circle" data-skill="SQL" data-level="85"></div>
-        <p>SQL</p>
-      </div>
-      <div class="skill">
-        <div class="skill-circle" data-skill="Python" data-level="80"></div>
-        <p>Python</p>
-      </div>
-      <div class="skill">
-        <div class="skill-circle" data-skill="Excel" data-level="95"></div>
-        <p>Excel</p>
+  <!-- SKILLS -->
+  <section id="skills" class="skills-section">
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid" aria-hidden="false">
+        <div class="skill" data-animate>
+          <div class="skill-circle" data-skill="Power BI" data-level="90" style="--level:90"></div>
+          <p>Power BI</p>
+        </div>
+        <div class="skill" data-animate>
+          <div class="skill-circle" data-skill="SQL" data-level="85" style="--level:85"></div>
+          <p>SQL</p>
+        </div>
+        <div class="skill" data-animate>
+          <div class="skill-circle" data-skill="Python" data-level="80" style="--level:80"></div>
+          <p>Python</p>
+        </div>
+        <div class="skill" data-animate>
+          <div class="skill-circle" data-skill="Excel" data-level="95" style="--level:95"></div>
+          <p>Excel</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= ACHIEVEMENTS, PORTFOLIO, CONTACT, SOCIAL ================= -->
-  <!-- (kept largely as you provided) -->
+  <!-- ACHIEVEMENTS -->
   <section id="achievements" class="achievements-section">
-    <h2 class="section-title">Achievements</h2>
-    <div class="achievements-container">
-      <div class="achievements-slider"><div class="achievements-wrapper"></div></div>
-      <button class="ach-nav-btn ach-left-btn" aria-label="Previous Achievement">&#10094;</button>
-      <button class="ach-nav-btn ach-right-btn" aria-label="Next Achievement">&#10095;</button>
+    <div class="container">
+      <h2 class="section-title">Achievements</h2>
+      <div class="achievements-container">
+        <div class="achievements-slider"><div class="achievements-wrapper">
+          <div class="achievement-card">Certificate: Power BI Desktop — <em>PwC Simulation</em></div>
+          <div class="achievement-card">Completed: Accenture Visualization Program</div>
+        </div></div>
+        <button class="ach-nav-btn ach-left-btn" aria-label="Previous Achievement">&#10094;</button>
+        <button class="ach-nav-btn ach-right-btn" aria-label="Next Achievement">&#10095;</button>
+      </div>
     </div>
   </section>
 
-  <section id="portfolio" class="portfolio-section">
-    <h2 class="section-title">Projects</h2>
-    <div class="portfolio-container">
-      <div class="portfolio-slider"><div class="projects-wrapper"></div></div>
-      <button class="nav-btn left-btn" aria-label="Previous Project">&#10094;</button>
-      <button class="nav-btn right-btn" aria-label="Next Project">&#10095;</button>
+  <!-- PROJECTS -->
+  <section id="projects" class="portfolio-section">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <div class="portfolio-container">
+        <div class="portfolio-slider"><div class="projects-wrapper">
+          <div class="project-card">
+            <h3>Power BI — Coffee Shop Dashboard</h3>
+            <p>End-to-end dashboard with sales KPIs, date hierarchies, and trend analysis.</p>
+          </div>
+          <div class="project-card">
+            <h3>Backpack Price Prediction (ML)</h3>
+            <p>Price prediction using feature engineering and model tuning.</p>
+          </div>
+        </div></div>
+        <button class="nav-btn left-btn" aria-label="Previous Project">&#10094;</button>
+        <button class="nav-btn right-btn" aria-label="Next Project">&#10095;</button>
+      </div>
     </div>
   </section>
 
+  <!-- CONTACT -->
   <section id="contact" class="contact-section">
-    <div class="contact-glow-ring"></div>
-    <h2 class="section-title">Get in Touch</h2>
-    <div class="contact-container">
-      <div class="contact-info">
-        <h3>Let’s Connect</h3>
-        <p>I’m always open to <strong>collaborations</strong>, <strong>projects</strong>, or <strong>career opportunities</strong>.</p>
-        <ul class="info-list">
-          <li><i class="bx bx-envelope"></i> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
-          <li><i class="bx bxl-linkedin"></i> <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><i class="bx bxl-github"></i> <a href="https://github.com/affaf12" target="_blank" rel="noopener">GitHub</a></li>
-          <li><i class="bx bxl-whatsapp"></i> <a href="https://wa.me/923042365964" target="_blank" rel="noopener">WhatsApp</a></li>
-        </ul>
-      </div>
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Let’s Connect</h3>
+          <p>I’m open to <strong>collaborations</strong>, <strong>projects</strong>, and <strong>career opportunities</strong>. I typically respond within 24–48 hours.</p>
+          <ul class="info-list">
+            <li><i class="bx bx-envelope"></i> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
+            <li><i class="bx bxl-linkedin"></i> <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><i class="bx bxl-github"></i> <a href="https://github.com/affaf12" target="_blank" rel="noopener">GitHub</a></li>
+            <li><i class="bx bxl-whatsapp"></i> <a href="https://wa.me/923042365964" target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
+        </div>
 
-      <div class="contact-form-wrapper">
-        <form id="contactForm" class="contact-form" autocomplete="off" novalidate>
-          <h3>Send Me a Message</h3>
-          <div class="form-group">
-            <input type="text" id="name" name="name" placeholder=" " required />
-            <label for="name">Full Name</label>
-          </div>
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder=" " required />
-            <label for="email">Email Address</label>
-          </div>
-          <div class="form-group">
-            <input type="text" id="subject" name="subject" placeholder=" " />
-            <label for="subject">Subject</label>
-          </div>
-          <div class="form-group">
-            <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
-            <label for="message">Your Message</label>
-          </div>
-          <button type="submit" class="btn"><i class='bx bx-send'></i> Send Message</button>
-          <div class="form-message" aria-live="polite"></div>
-        </form>
+        <div class="contact-form-wrapper">
+          <form id="contactForm" class="contact-form" autocomplete="on" novalidate>
+            <h3>Send Me a Message</h3>
+            <div class="form-group">
+              <input type="text" id="name" name="name" placeholder=" " required autocomplete="name" />
+              <label for="name">Full Name</label>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder=" " required autocomplete="email" />
+              <label for="email">Email Address</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="subject" name="subject" placeholder=" " autocomplete="organization-title" />
+              <label for="subject">Subject</label>
+            </div>
+            <div class="form-group">
+              <textarea id="message" name="message" rows="5" placeholder=" " required autocomplete="off"></textarea>
+              <label for="message">Your Message</label>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class='bx bx-send'></i> Send Message</button>
+            <div class="form-message" aria-live="polite"></div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="social-media">
-    <h2 class="section-title">Social Media</h2>
-    <div class="social-icons">
-      <a href="https://wa.me/+923042365964" target="_blank" rel="noopener"><img src="images/whatsapp.png" alt="WhatsApp"></a>
-      <a href="https://github.com/affaf12" target="_blank" rel="noopener"><img src="images/github.png" alt="GitHub"></a>
-      <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener"><img src="images/linkedin.png" alt="LinkedIn"></a>
+  <!-- SOCIAL -->
+  <section id="social-media" class="social-media">
+    <div class="container">
+      <h2 class="section-title">Social Media</h2>
+      <div class="social-icons">
+        <a class="social-btn" data-tooltip="WhatsApp" href="https://wa.me/+923042365964" target="_blank" rel="noopener"><img class="social-icon" src="images/whatsapp.png" alt="WhatsApp"></a>
+        <a class="social-btn" data-tooltip="GitHub" href="https://github.com/affaf12" target="_blank" rel="noopener"><img class="social-icon" src="images/github.png" alt="GitHub"></a>
+        <a class="social-btn" data-tooltip="LinkedIn" href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener"><img class="social-icon" src="images/linkedin.png" alt="LinkedIn"></a>
+      </div>
     </div>
   </section>
 
   <!-- Scroll to Top Button -->
   <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top"><span class="arrow-emoji">⇧</span></button>
 
-  <!-- Floating Chatbot Toggle Button -->
-  <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat">💬<span id="chatbot-notification" class="chatbot-notification" hidden>!</span></button>
+  <!-- Chatbot Toggle -->
+  <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chat">💬<span id="chatbot-notification" class="chatbot-notification" hidden>!</span></button>
 
-  <!-- Chatbot Window -->
-  <div class="chatbot-window" id="chatbot-window" hidden>
-    <div class="chatbot-header" id="chatbot-header">
+  <!-- Chatbot Window (JS toggles [hidden] attribute) -->
+  <div id="chatbot-window" class="chatbot-window" hidden>
+    <div id="chatbot-header" class="chatbot-header">
       <div class="chatbot-title">
-        <img src="images/profile-pic.jpeg" alt="Bot Avatar" class="bot-avatar" id="chatbot-avatar">
+        <img id="chatbot-avatar" class="bot-avatar" src="images/profile-pic.jpeg" alt="Bot Avatar">
         <span>Chat Bot</span>
       </div>
       <button id="chatbot-close" class="chatbot-close" aria-label="Close chat"><i class='bx bx-x'></i></button>
     </div>
 
-    <div class="chatbot-body" id="chatbot-body" role="log" aria-live="polite">
+    <div id="chatbot-body" class="chatbot-body" role="log" aria-live="polite">
       <div class="chatbot-system">Hi! I’m Affaf’s helper bot. Try: “Show projects”, “Contact info”, or say hello 👋</div>
     </div>
 
-    <div class="chatbot-quick-replies" id="chatbot-quick-replies">
+    <div id="chatbot-quick-replies" class="chatbot-quick-replies">
       <button class="quick-reply">Show projects</button>
       <button class="quick-reply">Contact info</button>
       <button class="quick-reply">Hi</button>
