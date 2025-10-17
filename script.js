@@ -2,43 +2,47 @@
 (() => {
   "use strict";
 
-  // ===== HEADER & NAV =====
-  const header = document.getElementById("header");
-  const menuToggle = document.getElementById("menu-toggle");
-  const navMenu = document.getElementById("nav-menu");
+  // ================= HEADER & NAV =================
+const header = document.getElementById("header");
+const menuToggle = document.getElementById("menu-toggle");
+const navMenu = document.getElementById("nav-menu");
 
-  menuToggle?.addEventListener("click", () => navMenu.classList.toggle("active"));
+// Mobile menu toggle
+menuToggle?.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
+});
 
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
+// Scroll events: sticky header & active link
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
 
-    // Sticky header
-    header?.classList.toggle("sticky", scrollY > 50);
+  // Sticky header
+  header?.classList.toggle("sticky", scrollY > 50);
 
-    // Active nav links
-    document.querySelectorAll("section[id]").forEach(sec => {
-      const top = sec.offsetTop - 70;
-      const bottom = top + sec.offsetHeight;
-      const link = document.querySelector(`#nav-menu a[href="#${sec.id}"]`);
-      link?.classList.toggle("active", scrollY >= top && scrollY < bottom);
-    });
+  // Active nav links
+  document.querySelectorAll("section[id]").forEach(section => {
+    const top = section.offsetTop - header.offsetHeight - 5; // header offset
+    const bottom = top + section.offsetHeight;
+    const link = document.querySelector(`#nav-menu a[href="#${section.id}"]`);
+    if (link) {
+      link.classList.toggle("active", scrollY >= top && scrollY < bottom);
+    }
   });
+});
 
-  // ===== THEME TOGGLE =====
-  const themeBtn = document.getElementById("theme-toggle-btn");
-  const savedTheme = localStorage.getItem("theme") || "dark";
-  document.documentElement.dataset.theme = savedTheme;
-  themeBtn.textContent = savedTheme === "dark" ? "🌙" : "☀️";
+// ================= THEME TOGGLE =================
+const themeBtn = document.getElementById("theme-toggle-btn");
+const savedTheme = localStorage.getItem("theme") || "dark";
+document.documentElement.dataset.theme = savedTheme;
+themeBtn.textContent = savedTheme === "dark" ? "🌙" : "☀️";
 
-  themeBtn?.addEventListener("click", () => {
-    const isDark = document.documentElement.dataset.theme === "dark";
-    document.documentElement.dataset.theme = isDark ? "light" : "dark";
-    themeBtn.textContent = isDark ? "☀️" : "🌙";
-    localStorage.setItem("theme", document.documentElement.dataset.theme);
-  });
+themeBtn?.addEventListener("click", () => {
+  const isDark = document.documentElement.dataset.theme === "dark";
+  document.documentElement.dataset.theme = isDark ? "light" : "dark";
+  themeBtn.textContent = isDark ? "☀️" : "🌙";
+  localStorage.setItem("theme", document.documentElement.dataset.theme);
+});
 
-
- 
 // ================= HERO TYPING EFFECT =================
 document.addEventListener("DOMContentLoaded", () => {
   const typingText = document.getElementById("typing-text");
@@ -48,14 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let isDeleting = false;
   const typingSpeed = 120;
   const deletingSpeed = 50;
-  const delayBetweenWords = 1200; // Pause after typing a word
-  const nextWordDelay = 500; // Pause before next word starts
+  const delayAfterWord = 1200; // Pause after typing
+  const nextWordDelay = 500; // Pause before next word
 
   function typeEffect() {
     if (!typingText) return;
-    const currentWord = words[wordIndex];
 
-    // Fade-in typing element
+    const currentWord = words[wordIndex];
     typingText.classList.add("visible");
 
     // Add or remove character
@@ -67,17 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
       typingText.textContent = currentWord.substring(0, charIndex);
     }
 
-    // Determine timeout
     let timeout = isDeleting ? deletingSpeed : typingSpeed;
 
-    // Word typed completely
     if (!isDeleting && charIndex === currentWord.length) {
-      timeout = delayBetweenWords;
+      timeout = delayAfterWord;
       isDeleting = true;
-    }
-
-    // Word fully deleted
-    else if (isDeleting && charIndex === 0) {
+    } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       wordIndex = (wordIndex + 1) % words.length;
       timeout = nextWordDelay;
@@ -89,12 +87,30 @@ document.addEventListener("DOMContentLoaded", () => {
   typeEffect();
 
   // ================= HERO BUTTONS SLIDE-IN =================
-  const heroButtons = document.querySelector(".hero-buttons");
-  if (heroButtons) {
-    setTimeout(() => {
-      heroButtons.classList.add("visible");
-    }, 500); // Delay after page load
+  const heroButtons = document.querySelectorAll(".hero-buttons .btn");
+  if (heroButtons.length) {
+    heroButtons.forEach((btn, index) => {
+      setTimeout(() => {
+        btn.classList.add("visible");
+      }, 300 + index * 200); // staggered animation
+    });
   }
+});
+
+// ================= SMOOTH SCROLL FOR NAV LINKS =================
+document.querySelectorAll("#nav-menu a").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    const targetId = link.getAttribute("href").slice(1);
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      window.scrollTo({
+        top: targetSection.offsetTop - header.offsetHeight,
+        behavior: "smooth"
+      });
+      navMenu.classList.remove("active"); // close mobile menu on click
+    }
+  });
 });
 
 
