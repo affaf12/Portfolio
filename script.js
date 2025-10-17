@@ -176,17 +176,21 @@ document.querySelectorAll('.experience-card').forEach(card => {
   }
 });
 
-/* ================= SKILLS SECTION JS UPGRADED ================= */
+/* ================= FULL SKILLS UPGRADE ================= */
 document.addEventListener('DOMContentLoaded', () => {
 
-  const skillCircles = document.querySelectorAll('.skill-circle');
+  const skills = [
+    { selector: '.skill-circle[data-percent="90"]', target: 90, hoverColor: '#ff4bff' },
+    { selector: '.skill-circle[data-percent="80"]', target: 80, hoverColor: '#ff6bff' },
+    { selector: '.skill-circle[data-percent="75"]', target: 75, hoverColor: '#ff3fff' },
+    { selector: '.skill-circle[data-percent="85"]', target: 85, hoverColor: '#ff5bff' }
+  ];
 
-  skillCircles.forEach(circle => {
+  skills.forEach(skill => {
+    const circle = document.querySelector(skill.selector);
     const percentSpan = circle.querySelector('.skill-percent');
     const ringProgress = circle.querySelector('.ring-progress');
-    const targetPercent = parseInt(circle.getAttribute('data-percent'));
 
-    // SVG circle calculations
     const radius = ringProgress.r.baseVal.value;
     const circumference = 2 * Math.PI * radius;
     ringProgress.style.strokeDasharray = circumference;
@@ -194,61 +198,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentPercent = 0;
 
-    // Animate ring & number dynamically
     function animateRing() {
-      if (currentPercent < targetPercent) {
+      if (currentPercent < skill.target) {
         currentPercent++;
         percentSpan.textContent = currentPercent + '%';
-        const offset = circumference - (currentPercent / 100) * circumference;
-        ringProgress.style.strokeDashoffset = offset;
+        ringProgress.style.strokeDashoffset = circumference - (currentPercent / 100) * circumference;
         requestAnimationFrame(animateRing);
       } else {
-        percentSpan.textContent = targetPercent + '%';
+        percentSpan.textContent = skill.target + '%';
       }
     }
 
-    // Start animation with a slight delay for stagger effect
     setTimeout(animateRing, Math.random() * 500);
 
-    // ================= CREATE NEON PARTICLES =================
+    // Neon Particles
     const particlesContainer = circle.querySelector('.skill-particles');
-    particlesContainer.innerHTML = ''; // Clear existing
-
-    for (let i = 0; i < 12; i++) {
+    particlesContainer.innerHTML = '';
+    const particleCount = 10 + Math.floor(Math.random() * 6); // 10-15 particles
+    for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
-
-      // Random position
       particle.style.top = Math.random() * 100 + '%';
       particle.style.left = Math.random() * 100 + '%';
-
-      // Random size
-      const size = Math.random() * 3 + 3;
+      const size = Math.random() * 4 + 2;
       particle.style.width = particle.style.height = size + 'px';
-
-      // Random animation duration & delay
-      particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      particle.style.animationDelay = (Math.random() * 5) + 's';
-
-      // Neon color randomization
-      const r = 75 + Math.floor(Math.random() * 180);
-      const g = 95 + Math.floor(Math.random() * 160);
-      particle.style.background = `rgba(${r},${g},255,${Math.random() * 0.4 + 0.3})`;
-
+      particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      particle.style.background = `rgba(${75 + Math.random()*180}, ${95 + Math.random()*160}, 255, ${Math.random()*0.5 + 0.3})`;
       particlesContainer.appendChild(particle);
     }
 
-    // Optional: add glow on hover to ring
+    // Hover Glow
     circle.addEventListener('mouseenter', () => {
-      ringProgress.style.stroke = '#ff4bff';
+      ringProgress.style.stroke = skill.hoverColor;
+      percentSpan.style.textShadow = `0 0 10px ${skill.hoverColor}, 0 0 20px ${skill.hoverColor}`;
     });
     circle.addEventListener('mouseleave', () => {
       ringProgress.style.stroke = '#4b5fff';
+      percentSpan.style.textShadow = '0 0 5px #4b5fff, 0 0 15px #ff4bff';
     });
-
   });
 
 });
+
 
 
 
