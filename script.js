@@ -37,22 +37,106 @@
     localStorage.setItem("theme", document.documentElement.dataset.theme);
   });
 
-  // ===== HERO TYPING EFFECT =====
-  const typingText = document.getElementById("typing-text");
-  const words = ["Data Analyst", "Power BI Developer", "Python Enthusiast"];
-  let ti = 0, tj = 0, isDeleting = false;
+ <style>
 
-  (function typeEffect() {
-    if (!typingText) return;
-    const word = words[ti];
-    typingText.textContent = isDeleting ? word.substring(0, tj--) : word.substring(0, tj++);
-    const delay = isDeleting ? 50 : 120;
+ 
+ 
+ /* ===== TYPING TEXT WITH CURSOR ===== */
+#typing-text::after {
+  content: "|";
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 0.7s infinite;
+}
 
-    if (!isDeleting && tj > word.length) { isDeleting = true; setTimeout(typeEffect, 1200); return; }
-    if (isDeleting && tj < 0) { isDeleting = false; ti = (ti + 1) % words.length; setTimeout(typeEffect, 300); return; }
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
 
-    setTimeout(typeEffect, delay);
-  })();
+/* ===== FADE EFFECT FOR TYPING TEXT ===== */
+#typing-text {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+#typing-text.visible {
+  opacity: 1;
+}
+
+/* ===== HERO BUTTONS ANIMATION ===== */
+.hero-buttons .btn {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.8s ease-out;
+}
+
+.hero-buttons.visible .btn {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger effect for multiple buttons */
+.hero-buttons .btn:nth-child(1) { transition-delay: 0.2s; }
+.hero-buttons .btn:nth-child(2) { transition-delay: 0.4s; }
+
+// ===== HERO TYPING EFFECT WITH PAUSE & CURSOR =====
+const typingText = document.getElementById("typing-text");
+const words = ["Data Analyst", "Power BI Developer", "Python Enthusiast"];
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typingSpeed = 120;
+const deletingSpeed = 50;
+const delayBetweenWords = 1200;
+const fadeOutDelay = 600; // Small pause before deleting
+
+function typeEffect() {
+  if (!typingText) return;
+  const currentWord = words[wordIndex];
+
+  // Show fade-in
+  typingText.classList.add("visible");
+
+  // Add or remove characters
+  if (isDeleting) {
+    typingText.textContent = currentWord.substring(0, charIndex--);
+  } else {
+    typingText.textContent = currentWord.substring(0, charIndex++);
+  }
+
+  // Word completed
+  if (!isDeleting && charIndex > currentWord.length) {
+    setTimeout(() => {
+      isDeleting = true;
+      typeEffect();
+    }, fadeOutDelay + delayBetweenWords);
+    return;
+  }
+
+  // Word deleted
+  if (isDeleting && charIndex < 0) {
+    isDeleting = false;
+    wordIndex = (wordIndex + 1) % words.length;
+    setTimeout(typeEffect, 300);
+    return;
+  }
+
+  setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
+}
+
+// ===== HERO BUTTONS SLIDE-IN =====
+window.addEventListener("DOMContentLoaded", () => {
+  typeEffect(); // Start typing effect
+
+  const heroButtons = document.querySelector(".hero-buttons");
+  if (heroButtons) {
+    setTimeout(() => {
+      heroButtons.classList.add("visible");
+    }, 500); // Delay after page load
+  }
+});
+
 
   // ===== SCROLL REVEAL =====
   const animateItems = document.querySelectorAll("[data-animate]");
