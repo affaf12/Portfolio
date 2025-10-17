@@ -13,7 +13,7 @@
     const scrollY = window.scrollY;
     header?.classList.toggle("sticky", scrollY > 50);
 
-    document.querySelectorAll("section[id]").forEach((sec) => {
+    document.querySelectorAll("section[id]").forEach(sec => {
       const top = sec.offsetTop - 70;
       const bottom = top + sec.offsetHeight;
       const link = document.querySelector(`#nav-menu a[href="#${sec.id}"]`);
@@ -62,7 +62,7 @@
   })();
 
   // ===== ABOUT STATS COUNTER =====
-  document.querySelectorAll(".about-stats h3").forEach((stat) => {
+  document.querySelectorAll(".about-stats h3").forEach(stat => {
     const target = parseInt(stat.textContent, 10) || 0;
     let count = 0;
     const step = Math.max(1, Math.floor(target / 80));
@@ -93,19 +93,16 @@
       const size = 120, stroke = 10, radius = size / 2 - stroke, circumference = 2 * Math.PI * radius;
       const svgNS = "http://www.w3.org/2000/svg";
 
-      // Create SVG
       const svg = document.createElementNS(svgNS, "svg");
       svg.setAttribute("width", size);
       svg.setAttribute("height", size);
 
-      // Background circle
       const bg = document.createElementNS(svgNS, "circle");
       Object.assign(bg, { cx: size/2, cy: size/2, r: radius });
       bg.setAttribute("fill", "none");
       bg.setAttribute("stroke", "rgba(255,255,255,0.06)");
       bg.setAttribute("stroke-width", stroke);
 
-      // Foreground circle
       const fg = document.createElementNS(svgNS, "circle");
       Object.assign(fg, { cx: size/2, cy: size/2, r: radius });
       fg.setAttribute("fill", "none");
@@ -121,24 +118,30 @@
       svg.append(bg, fg);
       circle.appendChild(svg);
 
-      // Skill percentage label
       const label = document.createElement("div");
       label.className = "skill-percent";
       label.textContent = "0%";
       circle.style.position = "relative";
       circle.appendChild(label);
 
-      setTimeout(() => fg.style.strokeDashoffset = circumference * (1 - level / 100), 100);
-
-      // Animate number
-      let count = 0;
-      const stepVal = Math.max(1, Math.floor(level / 70));
-      const interval = setInterval(() => {
-        count += stepVal;
-        if (count >= level) count = level;
-        label.textContent = count + "%";
-        if (count >= level) clearInterval(interval);
-      }, 18);
+      // Animate circle & number on scroll
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            fg.style.strokeDashoffset = circumference * (1 - level / 100);
+            let count = 0;
+            const stepVal = Math.max(1, Math.floor(level / 70));
+            const interval = setInterval(() => {
+              count += stepVal;
+              if (count >= level) count = level;
+              label.textContent = count + "%";
+              if (count >= level) clearInterval(interval);
+            }, 18);
+            observer.unobserve(circle);
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(circle);
     });
   }
   initSkillCircles();
