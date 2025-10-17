@@ -40,95 +40,56 @@
  <style>
 
  
- 
- /* ===== TYPING TEXT WITH CURSOR ===== */
-#typing-text::after {
-  content: "|";
-  display: inline-block;
-  margin-left: 2px;
-  animation: blink 0.7s infinite;
-}
+// ================= HERO TYPING EFFECT =================
+document.addEventListener("DOMContentLoaded", () => {
+  const typingText = document.getElementById("typing-text");
+  const words = ["Data Analyst", "Power BI Developer", "Python Enthusiast"];
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const typingSpeed = 120;
+  const deletingSpeed = 50;
+  const delayBetweenWords = 1200; // Pause after typing a word
+  const nextWordDelay = 500; // Pause before next word starts
 
-@keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
-}
+  function typeEffect() {
+    if (!typingText) return;
+    const currentWord = words[wordIndex];
 
-/* ===== FADE EFFECT FOR TYPING TEXT ===== */
-#typing-text {
-  display: inline-block;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-#typing-text.visible {
-  opacity: 1;
-}
+    // Fade-in typing element
+    typingText.classList.add("visible");
 
-/* ===== HERO BUTTONS ANIMATION ===== */
-.hero-buttons .btn {
-  opacity: 0;
-  transform: translateX(50px);
-  transition: all 0.8s ease-out;
-}
+    // Add or remove character
+    if (isDeleting) {
+      charIndex--;
+      typingText.textContent = currentWord.substring(0, charIndex);
+    } else {
+      charIndex++;
+      typingText.textContent = currentWord.substring(0, charIndex);
+    }
 
-.hero-buttons.visible .btn {
-  opacity: 1;
-  transform: translateX(0);
-}
+    // Determine timeout
+    let timeout = isDeleting ? deletingSpeed : typingSpeed;
 
-/* Stagger effect for multiple buttons */
-.hero-buttons .btn:nth-child(1) { transition-delay: 0.2s; }
-.hero-buttons .btn:nth-child(2) { transition-delay: 0.4s; }
-
-// ===== HERO TYPING EFFECT WITH PAUSE & CURSOR =====
-const typingText = document.getElementById("typing-text");
-const words = ["Data Analyst", "Power BI Developer", "Python Enthusiast"];
-let wordIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typingSpeed = 120;
-const deletingSpeed = 50;
-const delayBetweenWords = 1200;
-const fadeOutDelay = 600; // Small pause before deleting
-
-function typeEffect() {
-  if (!typingText) return;
-  const currentWord = words[wordIndex];
-
-  // Show fade-in
-  typingText.classList.add("visible");
-
-  // Add or remove characters
-  if (isDeleting) {
-    typingText.textContent = currentWord.substring(0, charIndex--);
-  } else {
-    typingText.textContent = currentWord.substring(0, charIndex++);
-  }
-
-  // Word completed
-  if (!isDeleting && charIndex > currentWord.length) {
-    setTimeout(() => {
+    // Word typed completely
+    if (!isDeleting && charIndex === currentWord.length) {
+      timeout = delayBetweenWords;
       isDeleting = true;
-      typeEffect();
-    }, fadeOutDelay + delayBetweenWords);
-    return;
+    }
+
+    // Word fully deleted
+    else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      timeout = nextWordDelay;
+    }
+
+    setTimeout(typeEffect, timeout);
   }
 
-  // Word deleted
-  if (isDeleting && charIndex < 0) {
-    isDeleting = false;
-    wordIndex = (wordIndex + 1) % words.length;
-    setTimeout(typeEffect, 300);
-    return;
-  }
+  typeEffect();
 
-  setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
-}
-
-// ===== HERO BUTTONS SLIDE-IN =====
-window.addEventListener("DOMContentLoaded", () => {
-  typeEffect(); // Start typing effect
-
+  // ================= HERO BUTTONS SLIDE-IN =================
   const heroButtons = document.querySelector(".hero-buttons");
   if (heroButtons) {
     setTimeout(() => {
