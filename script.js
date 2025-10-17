@@ -167,4 +167,28 @@ onReady(() => {
 
   function appendMsg(txt, cls='bot-message'){ const d=document.createElement('div'); d.className=cls+' chatbot-message'; d.textContent=txt; chatbotBody?.appendChild(d); chatbotBody.scrollTop=chatbotBody.scrollHeight; }
 
-  function botReply
+  function botReply(q){
+    q = (q||'').toLowerCase();
+    if(q.includes('project')) return 'See Projects section or https://github.com/affaf12';
+    if(q.includes('contact')||q.includes('email')) return 'Email: muhammadaffaf746@gmail.com';
+    if(q.includes('resume')) return 'Download from the Resume button in Hero section.';
+    if(q.includes('hello')||q.includes('hi')) return 'Hello 👋 — try "Show projects" or "Contact info".';
+    return 'Try: "Show projects", "Contact info" or "Hi".';
+  }
+
+  function replyFlow(txt){
+    appendMsg(botReply(txt));
+  }
+
+  if(chatbotToggle && chatbotWindow){
+    chatbotToggle.addEventListener('click', ()=>{ chatbotWindow.hasAttribute('hidden') ? chatbotWindow.removeAttribute('hidden') : chatbotWindow.setAttribute('hidden',''); chatbotInput?.focus(); });
+    chatbotClose?.addEventListener('click', ()=>chatbotWindow.setAttribute('hidden',''));
+    chatbotSend?.addEventListener('click', ()=>{ const txt=chatbotInput.value.trim(); if(!txt) return; appendMsg(txt,'user-message'); chatbotInput.value=''; replyFlow(txt); });
+    chatbotInput?.addEventListener('keydown', e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); chatbotSend.click(); }});
+    quickReplies.forEach(btn=>btn.addEventListener('click',e=>{ const txt=e.target.textContent.trim(); appendMsg(txt,'user-message'); replyFlow(txt); }));
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') chatbotWindow?.setAttribute('hidden',''); });
+  }
+
+  log('script.js initialized');
+
+});
