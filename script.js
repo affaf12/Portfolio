@@ -176,35 +176,50 @@ document.querySelectorAll('.experience-card').forEach(card => {
   }
 });
 
-// Animate skill circles from 0% to target %
-document.querySelectorAll('.skill-circle').forEach(circle => {
-  const percentSpan = circle.querySelector('.skill-percent');
-  const targetPercent = parseInt(circle.getAttribute('data-percent'));
-  let currentPercent = 0;
+/* ================= SKILLS SECTION JS ================= */
+document.addEventListener('DOMContentLoaded', () => {
 
-  const animate = setInterval(() => {
-    if(currentPercent >= targetPercent){
-      clearInterval(animate);
-    } else {
-      currentPercent++;
-      percentSpan.textContent = currentPercent + '%';
-      circle.style.background = `conic-gradient(#4b5fff ${currentPercent*3.6}deg, #1a1a1a 0deg)`;
+  document.querySelectorAll('.skill-circle').forEach(circle => {
+    const percentSpan = circle.querySelector('.skill-percent');
+    const ringProgress = circle.querySelector('.ring-progress');
+    const targetPercent = parseInt(circle.getAttribute('data-percent'));
+    let currentPercent = 0;
+
+    // Total circumference of the circle (2 * PI * r)
+    const radius = ringProgress.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+    ringProgress.style.strokeDasharray = circumference;
+    ringProgress.style.strokeDashoffset = circumference;
+
+    // Animate ring & number
+    const animate = setInterval(() => {
+      if (currentPercent >= targetPercent) {
+        clearInterval(animate);
+      } else {
+        currentPercent++;
+        percentSpan.textContent = currentPercent + '%';
+        const offset = circumference - (currentPercent / 100) * circumference;
+        ringProgress.style.strokeDashoffset = offset;
+      }
+    }, 20);
+
+    // Generate random floating neon particles
+    const particlesContainer = circle.querySelector('.skill-particles');
+    for (let i = 0; i < 12; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.left = Math.random() * 100 + '%';
+      const size = Math.random() * 3 + 3;
+      particle.style.width = particle.style.height = size + 'px';
+      particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      particle.style.background = `rgba(${75 + Math.floor(Math.random()*180)},${95 + Math.floor(Math.random()*160)},255,${Math.random()*0.4 + 0.3})`;
+      particlesContainer.appendChild(particle);
     }
-  }, 20);
 
-  // Generate random floating particles
-  const particlesContainer = circle.querySelector('.skill-particles');
-  for(let i=0; i<12; i++){
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    particle.style.top = Math.random()*100 + '%';
-    particle.style.left = Math.random()*100 + '%';
-    particle.style.width = particle.style.height = Math.random()*3 + 3 + 'px';
-    particle.style.animationDuration = (Math.random()*5 + 5) + 's';
-    particle.style.background = `rgba(${75+Math.floor(Math.random()*180)},${95+Math.floor(Math.random()*160)},${255},${Math.random()*0.4 + 0.3})`;
-    particlesContainer.appendChild(particle);
-  }
-});
+  });
+
+
 
 
 
