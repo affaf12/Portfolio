@@ -23,7 +23,7 @@
 
   // ===== THEME TOGGLE =====
   const themeBtn = document.getElementById("theme-toggle-btn");
-  const savedTheme = localStorage.getItem("theme") || "light";
+  const savedTheme = localStorage.getItem("theme") || "dark";
   document.documentElement.dataset.theme = savedTheme;
   themeBtn.textContent = savedTheme === "dark" ? "🌙" : "☀️";
 
@@ -61,25 +61,13 @@
     setTimeout(typeEffect, delay);
   })();
 
-  // ===== ABOUT STATS COUNTER =====
-  document.querySelectorAll(".about-stats h3").forEach(stat => {
-    const target = parseInt(stat.textContent, 10) || 0;
-    let count = 0;
-    const step = Math.max(1, Math.floor(target / 80));
-    const interval = setInterval(() => {
-      count += step;
-      stat.textContent = count >= target ? target + "+" : count + "+";
-      if (count >= target) clearInterval(interval);
-    }, 18);
-  });
-
   // ===== SCROLL REVEAL =====
-  const animateItems = document.querySelectorAll("[data-animate]");
+  const animateItems = document.querySelectorAll("section");
   function revealOnScroll() {
     const screenPos = window.innerHeight * 0.85;
     animateItems.forEach(el => {
       if (el.getBoundingClientRect().top < screenPos) {
-        el.classList.add("visible", "fade-in");
+        el.classList.add("visible");
       }
     });
   }
@@ -87,108 +75,24 @@
   revealOnScroll();
 
   // ===== SKILL CIRCLES =====
-  function initSkillCircles() {
-    document.querySelectorAll(".skill-circle").forEach(circle => {
-      const level = parseInt(circle.dataset.level, 10) || 0;
-      const size = 120, stroke = 10, radius = size / 2 - stroke, circumference = 2 * Math.PI * radius;
-      const svgNS = "http://www.w3.org/2000/svg";
+  document.querySelectorAll(".skill").forEach(skill => {
+    const level = parseInt(skill.dataset.level, 10) || 0;
+    skill.style.position = "relative";
+    const label = document.createElement("div");
+    label.style.position = "absolute";
+    label.style.bottom = "-25px";
+    label.style.left = "50%";
+    label.style.transform = "translateX(-50%)";
+    label.style.fontSize = "14px";
+    label.textContent = "0%";
+    skill.appendChild(label);
 
-      const svg = document.createElementNS(svgNS, "svg");
-      svg.setAttribute("width", size);
-      svg.setAttribute("height", size);
-
-      const bg = document.createElementNS(svgNS, "circle");
-      Object.assign(bg, { cx: size/2, cy: size/2, r: radius });
-      bg.setAttribute("fill", "none");
-      bg.setAttribute("stroke", "rgba(255,255,255,0.06)");
-      bg.setAttribute("stroke-width", stroke);
-
-      const fg = document.createElementNS(svgNS, "circle");
-      Object.assign(fg, { cx: size/2, cy: size/2, r: radius });
-      fg.setAttribute("fill", "none");
-      fg.setAttribute("stroke", "var(--accent)");
-      fg.setAttribute("stroke-width", stroke);
-      fg.setAttribute("stroke-linecap", "round");
-      fg.setAttribute("stroke-dasharray", circumference);
-      fg.setAttribute("stroke-dashoffset", circumference);
-      fg.style.transform = "rotate(-90deg)";
-      fg.style.transformOrigin = "50% 50%";
-      fg.style.transition = "stroke-dashoffset 1.5s ease-out";
-
-      svg.append(bg, fg);
-      circle.appendChild(svg);
-
-      const label = document.createElement("div");
-      label.className = "skill-percent";
-      label.textContent = "0%";
-      circle.style.position = "relative";
-      circle.appendChild(label);
-
-      // Animate circle & number on scroll
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            fg.style.strokeDashoffset = circumference * (1 - level / 100);
-            let count = 0;
-            const stepVal = Math.max(1, Math.floor(level / 70));
-            const interval = setInterval(() => {
-              count += stepVal;
-              if (count >= level) count = level;
-              label.textContent = count + "%";
-              if (count >= level) clearInterval(interval);
-            }, 18);
-            observer.unobserve(circle);
-          }
-        });
-      }, { threshold: 0.5 });
-      observer.observe(circle);
-    });
-  }
-  initSkillCircles();
-
-  // ===== HORIZONTAL SLIDERS =====
-  function initSlider(wrapperSel, leftBtnSel, rightBtnSel) {
-    const wrapper = document.querySelector(wrapperSel);
-    const left = document.querySelector(leftBtnSel);
-    const right = document.querySelector(rightBtnSel);
-    if (!wrapper || !left || !right) return;
-
-    left.addEventListener("click", () => wrapper.scrollBy({ left: -320, behavior: "smooth" }));
-    right.addEventListener("click", () => wrapper.scrollBy({ left: 320, behavior: "smooth" }));
-
-    wrapper.querySelectorAll(":scope > *").forEach(item => {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("slide-in", "fade-in");
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateX(0)";
-          }
-        });
-      }, { threshold: 0.1 });
-      observer.observe(item);
-    });
-  }
-  initSlider(".achievements-wrapper", ".ach-left-btn", ".ach-right-btn");
-  initSlider(".projects-wrapper", ".left-btn", ".right-btn");
-
-  // ===== CONTACT FORM =====
-  const contactForm = document.getElementById("contactForm");
-  contactForm?.addEventListener("submit", e => {
-    e.preventDefault();
-    const messageEl = contactForm.querySelector(".form-message");
-    const name = contactForm.name.value.trim();
-    const email = contactForm.email.value.trim();
-    const message = contactForm.message.value.trim();
-
-    if (!name || !email || !message) {
-      messageEl.textContent = "Please fill all required fields.";
-      messageEl.className = "form-message error";
-    } else {
-      messageEl.textContent = "Message sent successfully!";
-      messageEl.className = "form-message success";
-      contactForm.reset();
-    }
+    let count = 0;
+    const interval = setInterval(() => {
+      count += 1;
+      label.textContent = `${count}%`;
+      if (count >= level) clearInterval(interval);
+    }, 20);
   });
 
   // ===== SCROLL TO TOP =====
@@ -201,42 +105,43 @@
   const chatbotWindow = document.getElementById("chatbot-window");
   const chatbotClose = document.getElementById("chatbot-close");
   const chatbotBody = document.getElementById("chatbot-body");
+  const chatbotInput = document.getElementById("chatbot-input");
+  const chatbotSend = document.getElementById("chatbot-send");
 
   chatbotToggle?.addEventListener("click", () => chatbotWindow.classList.toggle("open"));
   chatbotClose?.addEventListener("click", () => chatbotWindow.classList.remove("open"));
 
-  document.querySelectorAll(".quick-reply").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const userMsg = document.createElement("div");
-      userMsg.className = "chatbot-message user";
-      userMsg.textContent = btn.textContent;
+  chatbotSend?.addEventListener("click", sendChatMessage);
+  chatbotInput?.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChatMessage(); });
 
-      const botMsg = document.createElement("div");
-      botMsg.className = "chatbot-message bot";
-      const msg = btn.textContent.toLowerCase();
-      botMsg.textContent = msg.includes("project") ?
-        "Here are my projects: Coffee Shop Dashboard, Backpack Price Prediction, Insurance Claims Analysis, Logistics Network Optimization." :
-        msg.includes("contact") ?
-        "You can reach me at muhammadaffaf746@gmail.com or via LinkedIn/GitHub/WhatsApp." :
-        "Hello 👋! How can I help you today?";
+  function sendChatMessage() {
+    const msg = chatbotInput.value.trim();
+    if (!msg) return;
 
-      chatbotBody?.append(userMsg, botMsg);
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
-    });
-  });
+    appendChatMessage(msg, "user-msg");
+    chatbotInput.value = "";
 
-  // ===== LAZY LOAD IMAGES =====
-  document.querySelectorAll("img[data-src]").forEach(img => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          img.src = img.dataset.src;
-          img.removeAttribute("data-src");
-          observer.unobserve(img);
-        }
-      });
-    }, { rootMargin: "100px" });
-    observer.observe(img);
-  });
+    setTimeout(() => {
+      const botResponse = getBotResponse(msg);
+      appendChatMessage(botResponse, "bot-msg");
+    }, 500);
+  }
+
+  function appendChatMessage(text, cls) {
+    const div = document.createElement("div");
+    div.className = `chatbot-message ${cls}`;
+    div.textContent = text;
+    chatbotBody.appendChild(div);
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+  }
+
+  function getBotResponse(msg) {
+    const m = msg.toLowerCase();
+    if (m.includes("project")) return "Here are my projects: Coffee Shop Dashboard, Backpack Price Prediction, Insurance Claims Analysis, Logistics Network Optimization.";
+    if (m.includes("contact")) return "You can reach me at muhammadaffaf746@gmail.com or via LinkedIn/GitHub/WhatsApp.";
+    if (m.includes("hello") || m.includes("hi")) return "Hello! How can I help you today?";
+    if (m.includes("bye")) return "Goodbye! Have a great day!";
+    return "I am sorry, I do not understand that. Please ask about projects, skills, or contact info.";
+  }
 
 })();
