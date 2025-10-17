@@ -10,19 +10,6 @@
   f.parentNode.insertBefore(j, f);
 })(window, document, 'script', 'dataLayer', 'GTM-NC5BDRF3');
 
-// ================== GOOGLE ANALYTICS ==================
-(function() {
-  const gtagScript = document.createElement('script');
-  gtagScript.async = true;
-  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX'; // replace with your GA ID
-  document.head.appendChild(gtagScript);
-
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXX'); // replace with your GA ID
-})();
-
 
 
 // ================= MENU TOGGLE =================
