@@ -46,7 +46,7 @@ themeBtn?.addEventListener("click", () => {
 // ================= HERO TYPING EFFECT =================
 document.addEventListener("DOMContentLoaded", () => {
   const typingText = document.getElementById("typing-text");
-  const words = ["Data Analyst", "Power BI Developer", "Python Enthusiast"];
+  const words = ["Data Analyst", "Businesess Analyst" "Power BI Developer", "Python Enthusiast"];
   let wordIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
