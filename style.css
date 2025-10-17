@@ -112,17 +112,27 @@ header .logo span { color: var(--accent); }
 /* ================= HERO ================= */
 .hero {
   display: flex;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding-top: 5rem;
-  overflow: hidden;
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #0d0d0d, #111111);
 }
+
 .hero-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 3rem;
+  max-width: 1200px;
+  width: 100%;
+  align-items: center;
 }
-.hero-left, .hero-right { flex: 1 1 400px; }
+
+/* Left: Profile Image */
+.hero-left {
+  flex: 1 1 300px;
+  text-align: center;
+}
 
 .profile-pic-wrapper {
   position: relative;
@@ -131,17 +141,21 @@ header .logo span { color: var(--accent); }
   margin: 0 auto;
   transition: transform 0.5s ease;
 }
+
 .profile-pic {
   width: 100%;
+  height: 100%;
   border-radius: 50%;
   border: 5px solid var(--accent);
-  display: block;
+  object-fit: cover;
   transition: transform 0.5s ease, box-shadow 0.3s ease;
 }
+
 .profile-pic-wrapper:hover .profile-pic {
   transform: scale(1.05) rotate(5deg);
-  box-shadow: 0 0 30px var(--accent);
+  box-shadow: 0 0 40px var(--accent);
 }
+
 .glow-ring {
   position: absolute;
   top: -10px;
@@ -149,50 +163,99 @@ header .logo span { color: var(--accent); }
   width: 270px;
   height: 270px;
   border-radius: 50%;
+  border: 2px solid var(--accent);
   box-shadow: 0 0 25px var(--accent), 0 0 50px var(--accent);
   animation: pulse 2s infinite alternate;
 }
+
 @keyframes pulse {
   0% { box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent); }
   100% { box-shadow: 0 0 40px var(--accent), 0 0 60px var(--accent); }
 }
-.hero-title { font-size: 2.8rem; font-weight: 600; }
+
+/* Right: Text & Buttons */
+.hero-right {
+  flex: 1 1 400px;
+  text-align: left;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
 .hero-title .highlight {
-  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+  background: linear-gradient(90deg, var(--accent), #4b5fff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.hero-subtitle { font-size: 1.3rem; margin: 1rem 0; color: var(--fg-secondary); }
 
-/* ================= BUTTONS ================= */
+.hero-subtitle {
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+  color: #ccc;
+  min-height: 1.5em;
+}
+
+/* Buttons */
+.hero-buttons .btn {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
 .btn {
   display: inline-block;
-  padding: 0.6rem 1.2rem;
-  border-radius: var(--radius);
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
   border: none;
   cursor: pointer;
   font-weight: 600;
-  transition: var(--transition), box-shadow 0.3s ease;
+  font-size: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
 }
+
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  background: linear-gradient(135deg, var(--accent), #4b5fff);
   color: #fff;
-  box-shadow: var(--shadow);
+  box-shadow: 0 5px 15px rgba(0, 0, 255, 0.5);
 }
+
 .btn-primary:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 10px 25px rgba(79,70,229,0.7);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.7);
 }
+
 .btn-glow {
-  background: none;
+  background: transparent;
   color: var(--accent);
   border: 2px solid var(--accent);
   box-shadow: 0 0 8px var(--accent);
 }
+
 .btn-glow:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-right {
+    text-align: center;
+  }
+  .profile-pic-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+  .glow-ring {
+    width: 220px;
+    height: 220px;
+  }
 }
 
 /* ================= ABOUT ================= */
