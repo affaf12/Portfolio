@@ -547,6 +547,7 @@ header .logo span { color: var(--accent); }
   position: relative;
 }
 
+/* Section heading with animated gradient */
 #skills h2 {
   font-size: 3rem;
   margin-bottom: 3rem;
@@ -563,6 +564,7 @@ header .logo span { color: var(--accent); }
   100% { background-position: 0% 50%; }
 }
 
+/* Grid layout */
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -584,8 +586,17 @@ header .logo span { color: var(--accent); }
   border-radius: 50%;
   overflow: hidden;
   z-index: 0;
-  cursor: default;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Neon pulse glow effect */
+  box-shadow: 0 0 15px #4b5fff, inset 0 0 15px #ff4bff;
+  animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px #4b5fff, inset 0 0 10px #ff4bff; }
+  50% { box-shadow: 0 0 25px #4b5fff, inset 0 0 25px #ff4bff; }
+  100% { box-shadow: 0 0 15px #4b5fff, inset 0 0 15px #ff4bff; }
 }
 
 /* ================= SVG RINGS ================= */
@@ -612,12 +623,12 @@ header .logo span { color: var(--accent); }
   stroke: #1a1a1a;
 }
 
-/* Progress circle */
+/* Progress circle with neon effect */
 .ring-progress {
   stroke: #4b5fff;
   stroke-linecap: round;
-  stroke-dasharray: 377; /* 2*PI*60 */
-  stroke-dashoffset: 377; /* start hidden */
+  stroke-dasharray: 377;
+  stroke-dashoffset: 377;
   transition: stroke-dashoffset 1.5s ease, stroke 0.3s ease;
 }
 
@@ -641,9 +652,10 @@ header .logo span { color: var(--accent); }
   text-shadow: 0 0 5px #4b5fff, 0 0 10px #ff4bff;
 }
 
-/* Hover glow effect */
+/* ================= HOVER EFFECTS ================= */
 .skill-circle:hover {
-  box-shadow: 0 0 20px #4b5fff, 0 0 40px #ff4bff inset;
+  transform: scale(1.1);
+  box-shadow: 0 0 40px #4b5fff, inset 0 0 40px #ff4bff;
 }
 
 /* ================= NEON PARTICLES ================= */
@@ -664,6 +676,7 @@ header .logo span { color: var(--accent); }
   border-radius: 50%;
   background: rgba(75,95,255,0.3);
   animation: particleFloat 10s linear infinite;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 @keyframes particleFloat {
@@ -682,6 +695,7 @@ header .logo span { color: var(--accent); }
     align-items: center;
   }
 }
+
 
 
 
