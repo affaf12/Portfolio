@@ -80,45 +80,66 @@ function revealOnScroll() {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
 
-// ================== SKILL CIRCLES ==================
+// ================== SKILL CIRCLES (UPGRADED: % INSIDE CIRCLE) ==================
 document.querySelectorAll('.skill-circle').forEach(circle => {
   const level = parseInt(circle.dataset.level, 10) || 0;
+  const size = 120; // SVG size
+  const strokeWidth = 10;
+  const radius = (size / 2) - strokeWidth;
+  const circumference = 2 * Math.PI * radius;
+
   const svgNS = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('width', size);
+  svg.setAttribute('height', size);
+
+  // Background
   const bg = document.createElementNS(svgNS, 'circle');
-  const fg = document.createElementNS(svgNS, 'circle');
-
-  [bg, fg].forEach(c => {
-    c.setAttribute('cx', 60);
-    c.setAttribute('cy', 60);
-    c.setAttribute('r', 54);
-    c.setAttribute('fill', 'none');
-  });
-
+  bg.setAttribute('cx', size/2);
+  bg.setAttribute('cy', size/2);
+  bg.setAttribute('r', radius);
+  bg.setAttribute('fill', 'none');
   bg.setAttribute('stroke', 'rgba(255,255,255,0.06)');
-  bg.setAttribute('stroke-width', 10);
+  bg.setAttribute('stroke-width', strokeWidth);
 
+  // Foreground
+  const fg = document.createElementNS(svgNS, 'circle');
+  fg.setAttribute('cx', size/2);
+  fg.setAttribute('cy', size/2);
+  fg.setAttribute('r', radius);
+  fg.setAttribute('fill', 'none');
   fg.setAttribute('stroke', 'var(--accent)');
-  fg.setAttribute('stroke-width', 10);
+  fg.setAttribute('stroke-width', strokeWidth);
   fg.setAttribute('stroke-linecap', 'round');
-  fg.setAttribute('stroke-dasharray', 339.292);
-  fg.setAttribute('stroke-dashoffset', 339.292);
+  fg.setAttribute('stroke-dasharray', circumference);
+  fg.setAttribute('stroke-dashoffset', circumference);
+  fg.style.transform = 'rotate(-90deg)';
+  fg.style.transformOrigin = '50% 50%';
+  fg.style.transition = 'stroke-dashoffset 1.5s ease-out';
 
   svg.append(bg, fg);
   circle.appendChild(svg);
 
+  // Percentage label in the middle
   const label = document.createElement('div');
   label.className = 'skill-percent';
+  label.style.position = 'absolute';
+  label.style.top = '50%';
+  label.style.left = '50%';
+  label.style.transform = 'translate(-50%, -50%)';
+  label.style.fontWeight = '600';
+  label.style.fontSize = '1rem';
   label.textContent = '0%';
+  circle.style.position = 'relative';
   circle.appendChild(label);
 
-  setTimeout(() => fg.style.transition = 'stroke-dashoffset 1.5s ease-out', 50);
-  setTimeout(() => fg.style.strokeDashoffset = 339.292 * (1 - level / 100), 100);
+  // Animate circle & number
+  setTimeout(() => fg.style.strokeDashoffset = circumference * (1 - level / 100), 100);
 
   let count = 0;
-  const numStep = Math.max(1, Math.floor(level / 70));
+  const step = Math.max(1, Math.floor(level / 70));
   const interval = setInterval(() => {
-    count += numStep;
+    count += step;
     if (count >= level) count = level;
     label.textContent = count + '%';
     if (count >= level) clearInterval(interval);
@@ -135,18 +156,18 @@ function initSlider(wrapperSel, leftBtnSel, rightBtnSel) {
   left.addEventListener('click', () => wrapper.scrollBy({ left: -320, behavior: 'smooth' }));
   right.addEventListener('click', () => wrapper.scrollBy({ left: 320, behavior: 'smooth' }));
 
-  const items = wrapper.children;
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('slide-in', 'fade-in');
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateX(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  Array.from(items).forEach(item => observer.observe(item));
+  Array.from(wrapper.children).forEach(item => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('slide-in', 'fade-in');
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateX(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(item);
+  });
 }
 initSlider('.achievements-wrapper', '.ach-left-btn', '.ach-right-btn');
 initSlider('.projects-wrapper', '.left-btn', '.right-btn');
