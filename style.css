@@ -537,56 +537,85 @@ header .logo span { color: var(--accent); }
   }
 }
 
+/* ================= SKILLS SECTION ================= */
+#skills {
+  padding: 5rem 2rem;
+  background: #0d0d0d;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+#skills h2 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(90deg, #4b5fff, #6c5fff, #ff4bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  animation: headingGradient 5s ease infinite;
+}
 
-/* ================= SKILLS ================= */
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
   justify-content: center;
-  margin: 2rem 0;
+  gap: 2rem;
 }
-.skill {
-  text-align: center;
-  position: relative;
-}
+
 .skill-circle {
-  width: 140px;
-  height: 140px;
+  position: relative;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
-  background: conic-gradient(var(--accent) 0deg, var(--accent) 0deg, rgba(255,255,255,0.1) 0deg, rgba(255,255,255,0.1) 360deg);
+  background: conic-gradient(#4b5fff 0%, #1a1a1a 0%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.7rem;
-  box-shadow: 0 6px 20px rgba(79,70,229,0.5);
-  transition: transform 0.5s ease, box-shadow 0.5s ease, background 1s ease;
-  cursor: pointer;
+  flex-direction: column;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
-/* ================= DYNAMIC SKILL ANIMATION ================= */
-.skill-circle[data-percent] {
-  background: conic-gradient(
-    var(--accent) 0deg,
-    var(--accent) calc(var(--percent) * 1deg),
-    rgba(255,255,255,0.1) 0deg
-  );
-}
-.skill-circle:hover {
-  transform: scale(1.15) rotate(5deg);
-  box-shadow: 0 8px 25px rgba(79,70,229,0.8);
-}
-.skill-percent {
+
+.skill-circle .skill-percent {
+  font-size: 1.4rem;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: 700;
-  font-size: 1.2rem;
-  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
+
+.skill-circle .skill-name {
+  position: absolute;
+  bottom: 10px;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+/* Hover glow effect */
+.skill-circle:hover {
+  box-shadow: 0 0 20px #4b5fff, 0 0 40px #ff4bff inset;
+  cursor: default;
+}
+
+/* Heading gradient animation */
+@keyframes headingGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .skills-grid {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+}
+
+
+
 
 /* ================= ACHIEVEMENTS & PROJECTS ================= */
 .achievements-wrapper, .projects-wrapper {
