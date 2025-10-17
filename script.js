@@ -52,16 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let isDeleting = false;
   const typingSpeed = 120;
   const deletingSpeed = 50;
-  const delayAfterWord = 1200; // Pause after typing
-  const nextWordDelay = 500; // Pause before next word
+  const delayAfterWord = 1200;
+  const nextWordDelay = 500;
 
   function typeEffect() {
     if (!typingText) return;
 
     const currentWord = words[wordIndex];
-    typingText.classList.add("visible");
 
-    // Add or remove character
     if (isDeleting) {
       charIndex--;
       typingText.textContent = currentWord.substring(0, charIndex);
@@ -90,26 +88,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroButtons = document.querySelectorAll(".hero-buttons .btn");
   if (heroButtons.length) {
     heroButtons.forEach((btn, index) => {
-      setTimeout(() => {
-        btn.classList.add("visible");
-      }, 300 + index * 200); // staggered animation
+      // Add slide-in class for animation
+      btn.classList.add("slide-in");
     });
   }
-});
 
-// ================= SMOOTH SCROLL FOR NAV LINKS =================
-document.querySelectorAll("#nav-menu a").forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
-    const targetId = link.getAttribute("href").slice(1);
-    const targetSection = document.getElementById(targetId);
-    if (targetSection) {
-      window.scrollTo({
-        top: targetSection.offsetTop - header.offsetHeight,
-        behavior: "smooth"
-      });
-      navMenu.classList.remove("active"); // close mobile menu on click
-    }
+  // ================= SMOOTH SCROLL FOR NAV LINKS =================
+  const header = document.getElementById("header");
+  const navMenu = document.getElementById("nav-menu");
+
+  document.querySelectorAll("#nav-menu a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const targetId = link.getAttribute("href").slice(1);
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        window.scrollTo({
+          top: targetSection.offsetTop - (header ? header.offsetHeight : 0),
+          behavior: "smooth"
+        });
+        if (navMenu) navMenu.classList.remove("active");
+      }
+    });
   });
 });
 
