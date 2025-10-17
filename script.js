@@ -11,8 +11,11 @@
 
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
+
+    // Sticky header
     header?.classList.toggle("sticky", scrollY > 50);
 
+    // Active nav links on scroll
     document.querySelectorAll("section[id]").forEach(sec => {
       const top = sec.offsetTop - 70;
       const bottom = top + sec.offsetHeight;
@@ -118,12 +121,12 @@
     const msg = chatbotInput.value.trim();
     if (!msg) return;
 
-    appendChatMessage(msg, "user-msg");
+    appendChatMessage(msg, "user");
     chatbotInput.value = "";
 
     setTimeout(() => {
       const botResponse = getBotResponse(msg);
-      appendChatMessage(botResponse, "bot-msg");
+      appendChatMessage(botResponse, "bot");
     }, 500);
   }
 
