@@ -1,110 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muhammad Affaf — Data Analytics Expert | Power BI Developer</title>
 <meta name="description" content="Muhammad Affaf – Expert Data Analyst & Power BI Developer specializing in Data Analytics, SQL, Excel, Python, Power BI, Tableau, and BI dashboards.">
 <meta name="keywords" content="Data Analytics, Power BI, SQL, Excel, Python, Tableau, BI Dashboards, Business Intelligence">
-<link rel="canonical" href="https://affaf12.github.io/Portfolio/" />
-<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://affaf12.github.io/Portfolio/">
+<meta name="robots" content="index,follow">
 
-<!-- Social -->
-<meta property="og:title" content="Muhammad Affaf — Data Analytics Expert" />
-<meta property="og:description" content="Power BI Developer | SQL | Python | Excel" />
-<meta property="og:image" content="https://affaf12.github.io/Portfolio/images/profile-pic.jpeg" />
-<meta name="twitter:card" content="summary_large_image" />
+<!-- Social / Open Graph -->
+<meta property="og:title" content="Muhammad Affaf — Data Analytics Expert">
+<meta property="og:description" content="Power BI Developer | SQL | Python | Excel">
+<meta property="og:image" content="https://affaf12.github.io/Portfolio/images/profile-pic.jpeg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 
 <!-- Fonts & Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
-<link rel="stylesheet" href="style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 
-<style>
-:root {--accent:#00f;--bg-dark:#111;--text-light:#fff;--text-dark:#111;}
-body{margin:0;font-family:'Poppins','Roboto',sans-serif;background:var(--bg-dark);color:var(--text-light);scroll-behavior:smooth;}
-a{color:inherit;text-decoration:none;}
-h1,h2,h3,h4,h5,h6{margin:0;}
-button{cursor:pointer;font-family:inherit;}
-section{opacity:0;transform:translateY(40px);transition:all 0.8s ease;}
-section.visible{opacity:1;transform:translateY(0);}
-.header-active{position:sticky;top:0;z-index:1000;background:var(--bg-dark);box-shadow:0 2px 10px rgba(0,0,0,0.5);}
-
-/* Chatbot Styles */
-#chatbot-toggle {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--accent);
-  color:#fff;
-  border:none;
-  border-radius:50%;
-  width:60px;
-  height:60px;
-  font-size:24px;
-  z-index:1001;
-  box-shadow:0 4px 12px rgba(0,0,0,0.4);
-}
-
-#chatbot-window {
-  position:fixed;
-  bottom:90px;
-  right:20px;
-  width:350px;
-  max-width:90%;
-  background:var(--bg-dark);
-  border:2px solid var(--accent);
-  border-radius:10px;
-  display:none;
-  flex-direction:column;
-  z-index:1000;
-  overflow:hidden;
-}
-
-#chatbot-header {
-  background:var(--accent);
-  color:#fff;
-  padding:10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-#chatbot-body {
-  padding:10px;
-  height:300px;
-  overflow-y:auto;
-  background:#1a1a1a;
-}
-
-.chatbot-message {margin:5px 0;padding:8px 10px;border-radius:8px;max-width:80%;word-wrap:break-word;}
-.user-msg{background:#00f;color:#fff;align-self:flex-end;}
-.bot-msg{background:#333;color:#fff;align-self:flex-start;}
-
-#chatbot-input {
-  padding:10px;
-  border:none;
-  outline:none;
-  width:calc(100% - 60px);
-  background:#222;
-  color:#fff;
-}
-
-#chatbot-send {
-  width:50px;
-  border:none;
-  background:var(--accent);
-  color:#fff;
-  cursor:pointer;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
-<header id="header" class="header-active" role="banner">
+<!-- HEADER -->
+<header id="header">
   <div class="logo"><h1>Muhammad <span>Affaf</span></h1></div>
-  <nav aria-label="Main navigation">
+  <nav>
     <ul id="nav-menu">
       <li><a href="#hero" class="active">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -115,141 +38,113 @@ section.visible{opacity:1;transform:translateY(0);}
       <li><a href="#contact">Contact</a></li>
       <li><a href="#social-media">Social</a></li>
     </ul>
+    <button id="menu-toggle">☰</button>
   </nav>
-  <div class="header-controls">
-    <select id="font-select" aria-label="Choose site font">
-      <option value="'Poppins', 'Roboto', sans-serif">Poppins + Roboto</option>
-    </select>
-    <button id="menu-toggle" aria-label="Open menu"><i class='bx bx-menu'></i></button>
-  </div>
 </header>
 
-<!-- Theme Toggle -->
+<!-- THEME TOGGLE -->
 <div class="theme-toggle-wrapper">
-  <button id="theme-toggle-btn" class="theme-toggle-btn" aria-pressed="false">🌙</button>
+  <button id="theme-toggle-btn" aria-label="Toggle Dark/Light Theme">🌙</button>
 </div>
 
-<!-- ================= HERO ================= -->
-<section id="hero" class="hero visible">
-  <div class="hero-container container">
-    <div class="hero-left">
-      <div class="profile-pic-wrapper">
-        <img src="images/profile-pic.jpeg" alt="Muhammad Affaf - Data Analyst & Power BI Developer" class="profile-pic" />
-        <div class="glow-ring"></div>
-      </div>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="profile-pic-wrapper">
+      <img src="images/profile-pic.jpeg" alt="Muhammad Affaf">
+      <div class="glow-ring"></div>
     </div>
-    <div class="hero-right">
-      <h1 class="hero-title">Hello 👋 I’m <span class="highlight">Muhammad Affaf</span></h1>
-      <h3 class="hero-subtitle"><span id="typing-text"></span></h3>
-      <div class="hero-buttons">
-        <a href="resume.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">📄 Resume</a>
-        <a href="#contact" class="btn btn-glow">💬 Contact Me</a>
-      </div>
+  </div>
+  <div class="hero-right">
+    <h1>Hello 👋 I’m <span>Muhammad Affaf</span></h1>
+    <h2>I'm a <span id="typing-text">Data Analyst & Power BI Developer</span></h2>
+    <a href="#contact" class="btn">Hire Me</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>About Me</h2>
+  <div class="about-grid">
+    <div class="about-photo">
+      <img src="images/profile-pic.jpeg" alt="Muhammad Affaf">
+    </div>
+    <div class="about-content">
+      <p>I’m <strong>Muhammad Affaf</strong>, a dedicated <strong>Data Analyst & Power BI Developer</strong> specializing in <strong>Power BI, SQL, Python, and Excel</strong>.</p>
+      <ul>
+        <li>📊 Power BI Dashboard Development</li>
+        <li>📈 Data Analysis & Visualization</li>
+        <li>💻 SQL & Python Programming</li>
+        <li>🧠 Business Intelligence Solutions</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- ================= ABOUT ================= -->
-<section id="about" class="about-section">
-  <div class="container">
-    <h2 class="section-title">About Me</h2>
-    <div class="about-grid">
-      <div class="about-photo">
-        <img src="images/profile-pic.jpeg" alt="Muhammad Affaf" class="about-pic" />
-      </div>
-      <div class="about-content">
-        <p>I’m <span class="highlight">Muhammad Affaf</span>, a dedicated <b>Data Analyst & Power BI Developer</b> specializing in <b>Power BI, SQL, Python, and Excel</b>.</p>
-        <ul>
-          <li>📊 Power BI Dashboard Development</li>
-          <li>📈 Data Analysis & Visualization</li>
-          <li>💻 SQL & Python Programming</li>
-          <li>🧠 Business Intelligence Solutions</li>
-        </ul>
-      </div>
-    </div>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <h2>Experience</h2>
+  <div class="experience-grid">
+    <div class="experience-card">💼 PwC Switzerland – Power BI Job Simulation</div>
+    <div class="experience-card">📊 Accenture North America – Data Analytics & Visualization</div>
+    <div class="experience-card">⚙️ Freelance Power BI & Data Analytics Projects</div>
   </div>
 </section>
 
-<!-- ================= EXPERIENCE ================= -->
-<section id="experience" class="experience-section">
-  <div class="container">
-    <h2 class="section-title">Experience</h2>
-    <div class="experience-grid">
-      <article class="experience-card">💼 PwC Switzerland – Power BI Job Simulation</article>
-      <article class="experience-card">📊 Accenture North America – Data Analytics & Visualization</article>
-      <article class="experience-card">⚙️ Freelance Power BI & Data Analytics Projects</article>
-    </div>
+<!-- SKILLS -->
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-circle">Power BI</div>
+    <div class="skill-circle">SQL</div>
+    <div class="skill-circle">Python</div>
+    <div class="skill-circle">Excel</div>
   </div>
 </section>
 
-<!-- ================= SKILLS ================= -->
-<section id="skills" class="skills-section">
-  <div class="container">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills-grid">
-      <div class="skill" data-level="90">Power BI</div>
-      <div class="skill" data-level="85">SQL</div>
-      <div class="skill" data-level="80">Python</div>
-      <div class="skill" data-level="95">Excel</div>
-    </div>
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <h2>Achievements</h2>
+  <div class="achievements-wrapper">
+    <div class="achievement-card">Power BI Desktop — PwC Simulation</div>
+    <div class="achievement-card">Accenture Visualization Program</div>
+    <div class="achievement-card">Data Analytics Bootcamp — XYZ Academy</div>
+    <div class="achievement-card">Personal Power BI Portfolio Project</div>
   </div>
 </section>
 
-<!-- ================= ACHIEVEMENTS ================= -->
-<section id="achievements" class="achievements-section">
-  <div class="container">
-    <h2 class="section-title">Achievements</h2>
-    <div class="achievements-wrapper">
-      <div class="achievement-card">Power BI Desktop — PwC Simulation</div>
-      <div class="achievement-card">Accenture Visualization Program</div>
-      <div class="achievement-card">Data Analytics Bootcamp — XYZ Academy</div>
-      <div class="achievement-card">Power BI Portfolio Completed — Personal Project</div>
-    </div>
+<!-- PROJECTS -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects-wrapper">
+    <div class="project-card">Coffee Shop Dashboard (Power BI)</div>
+    <div class="project-card">Backpack Price Prediction (ML)</div>
+    <div class="project-card">Insurance Claims Analysis</div>
+    <div class="project-card">Logistics Network Optimization</div>
   </div>
 </section>
 
-<!-- ================= PROJECTS ================= -->
-<section id="projects" class="portfolio-section">
-  <div class="container">
-    <h2 class="section-title">Projects</h2>
-    <div class="projects-wrapper">
-      <div class="project-card">Power BI — Coffee Shop Dashboard</div>
-      <div class="project-card">Backpack Price Prediction (ML)</div>
-      <div class="project-card">Insurance Claims Analysis</div>
-      <div class="project-card">Logistics Network Optimization</div>
-    </div>
-  </div>
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Reach me at <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a> or via LinkedIn/GitHub/WhatsApp.</p>
 </section>
 
-<!-- ================= CONTACT ================= -->
-<section id="contact" class="contact-section">
-  <div class="container">
-    <h2 class="section-title">Get in Touch</h2>
-    <div class="contact-container">
-      <div class="contact-info">
-        <p>Open to <b>collaborations</b>, <b>projects</b>, and <b>career opportunities</b>.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= SOCIAL MEDIA ================= -->
+<!-- SOCIAL MEDIA -->
 <section id="social-media">
-  <div class="container">
-    <h2 class="section-title">Social Media</h2>
-    <div class="social-icons">
-      <a href="https://wa.me/+923042365964" target="_blank">WhatsApp</a>
-      <a href="https://github.com/affaf12" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank">LinkedIn</a>
-    </div>
+  <h2>Social Media</h2>
+  <div class="social-icons">
+    <a href="https://github.com/affaf12" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank">LinkedIn</a>
+    <a href="https://wa.me/+923042365964" target="_blank">WhatsApp</a>
   </div>
 </section>
 
-<!-- Scroll to Top -->
+<!-- SCROLL TO TOP -->
 <button id="scrollTopBtn">⇧</button>
 
-<!-- ================= CHATBOT ================= -->
-<button id="chatbot-toggle" aria-label="Open chat">💬</button>
+<!-- CHATBOT -->
+<button id="chatbot-toggle">💬</button>
 <div id="chatbot-window">
   <div id="chatbot-header">
     <span>Chat Bot</span>
@@ -259,8 +154,8 @@ section.visible{opacity:1;transform:translateY(0);}
     <div class="bot-msg">Hi! I’m Affaf’s helper bot. Ask me about projects, skills, or contact info.</div>
   </div>
   <div id="chatbot-input-container">
-    <input type="text" id="chatbot-input" placeholder="Type your message..." />
-    <button id="chatbot-send">Send</button>
+    <input type="text" placeholder="Type your message..."/>
+    <button>Send</button>
   </div>
 </div>
 
