@@ -1,18 +1,20 @@
-/* js/script.js
-   CSP-safe site script:
-   - Injects GTM (no inline scripts)
-   - Handles menu, theme toggle, reveal animations
-   - Skill circle rendering
-   - Contact form (client-side feedback)
-   - Chatbot (simple local quick replies)
+/* js/script.js (CSP-safe)
+   - No eval, no string-based timers
+   - Injects GTM (GTM-NC5BDRF3)
+   - Menu, theme toggle, reveal animations
+   - Skill circles (SVG)
+   - Contact form (mailto fallback)
    - Scroll-to-top button
+   - Chatbot: keeps current UI and has optional "fancy" mode
+   - Plays chat sound via Audio object (no inline audio tags)
 */
 
-/* ========== Configuration ========== */
-const GTM_ID = 'GTM-NC5BDRF3'; // <-- keep your GTM id
-const SKILL_CIRCLES_SELECTOR = '.skill-circle';
+/* ================= CONFIG ================= */
+const GTM_ID = 'GTM-NC5BDRF3';          // your GTM id
+const CHAT_SOUND_URL = 'live-chat-353605.mp3'; // update path if needed
+const ENABLE_FANCY_CHAT = true;         // set to false to keep only simple behavior
 
-/* ========== GTM (inject script) ========== */
+/* ================= GTM INJECTION (CSP-safe) ================= */
 (function injectGTM(id) {
   if (!id) return;
   (function(w, d, s, l, i) {
@@ -27,120 +29,109 @@ const SKILL_CIRCLES_SELECTOR = '.skill-circle';
   })(window, document, 'script', 'dataLayer', id);
 })(GTM_ID);
 
-/* ========== Utility ========== */
-function $(sel, root = document) { return root.querySelector(sel); }
-function $all(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
-function onReady(fn) {
+/* ================= HELPERS ================= */
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const onReady = (fn) => {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
   else fn();
-}
+};
+const safeTimeout = (fn, ms) => setTimeout(fn, ms); // safe non-string wrapper
 
-/* ========== DOM Ready Work ========== */
+/* ================= MAIN ================= */
 onReady(() => {
-  /* ---------- Menu Toggle ---------- */
+  /* --------- Menu toggle --------- */
   const menuToggle = $('#menu-toggle');
   const navMenu = $('#nav-menu');
-  if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
-  }
+  if (menuToggle && navMenu) menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
-  /* ---------- Theme toggle & prefers-color-scheme ---------- */
+  /* --------- Theme toggle (prefers + manual) --------- */
   const themeBtn = $('#theme-toggle-btn');
   const root = document.documentElement;
-  const stored = localStorage.getItem('site-theme');
+  const storedTheme = localStorage.getItem('site-theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = storedTheme || (prefersDark ? 'dark' : 'dark'); // default to dark as requested
 
   function applyTheme(t) {
     root.setAttribute('data-theme', t);
-    themeBtn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
-    themeBtn.textContent = (t === 'dark') ? '🌙' : '☀️';
+    if (themeBtn) {
+      themeBtn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
+      themeBtn.textContent = t === 'dark' ? '🌙' : '☀️';
+    }
   }
+  applyTheme(initialTheme);
+  if (themeBtn) themeBtn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('site-theme', next);
+    applyTheme(next);
+  });
 
-  // initial: stored -> prefers -> default dark
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(stored || (prefersDark ? 'dark' : 'light'));
-
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const newTheme = (root.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
-      localStorage.setItem('site-theme', newTheme);
-      applyTheme(newTheme);
-    });
-  }
-
-  /* ---------- Reveal animations using IntersectionObserver ---------- */
-  const animated = $all('[data-animate]');
-  if ('IntersectionObserver' in window && animated.length) {
-    const obs = new IntersectionObserver((entries, o) => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          en.target.classList.add('visible');
-          o.unobserve(en.target);
+  /* --------- Reveal animations (IntersectionObserver) --------- */
+  const animNodes = $$('[data-animate]');
+  if ('IntersectionObserver' in window && animNodes.length) {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
         }
       });
-    }, { root: null, threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-
-    animated.forEach(el => obs.observe(el));
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    animNodes.forEach(n => io.observe(n));
   } else {
-    animated.forEach(el => el.classList.add('visible'));
+    animNodes.forEach(n => n.classList.add('visible'));
   }
 
-  /* ---------- Skill circles (SVG donut) ---------- */
-  function createSkillSVG(level) {
-    const size = 88;
-    const stroke = 8;
-    const radius = (size - stroke) / 2;
-    const circumference = 2 * Math.PI * radius;
+  /* --------- Skill circles (SVG donut) --------- */
+  const skillEls = $$('.skill-circle');
+  function createDonut(level) {
+    const size = 88, stroke = 8;
+    const r = (size - stroke) / 2;
+    const c = 2 * Math.PI * r;
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
     svg.setAttribute('width', size);
     svg.setAttribute('height', size);
 
-    // background circle
     const bg = document.createElementNS(svg.namespaceURI, 'circle');
-    bg.setAttribute('cx', size / 2);
-    bg.setAttribute('cy', size / 2);
-    bg.setAttribute('r', radius);
-    bg.setAttribute('stroke-width', stroke);
-    bg.setAttribute('fill', 'none');
-    bg.setAttribute('class', 'skill-bg');
+    bg.setAttribute('cx', size/2); bg.setAttribute('cy', size/2); bg.setAttribute('r', r);
+    bg.setAttribute('stroke-width', stroke); bg.setAttribute('class', 'skill-bg'); bg.setAttribute('fill', 'none');
 
-    // progress circle
     const fg = document.createElementNS(svg.namespaceURI, 'circle');
-    fg.setAttribute('cx', size / 2);
-    fg.setAttribute('cy', size / 2);
-    fg.setAttribute('r', radius);
-    fg.setAttribute('stroke-width', stroke);
-    fg.setAttribute('fill', 'none');
-    fg.setAttribute('stroke-dasharray', circumference);
-    fg.setAttribute('stroke-dashoffset', circumference);
-    fg.setAttribute('class', 'skill-fg');
+    fg.setAttribute('cx', size/2); fg.setAttribute('cy', size/2); fg.setAttribute('r', r);
+    fg.setAttribute('stroke-width', stroke); fg.setAttribute('class', 'skill-fg'); fg.setAttribute('fill', 'none');
+    fg.setAttribute('stroke-dasharray', c); fg.setAttribute('stroke-dashoffset', c);
 
-    svg.appendChild(bg);
-    svg.appendChild(fg);
+    svg.appendChild(bg); svg.appendChild(fg);
 
-    // animate stroke offset
+    // animate in next frame
     requestAnimationFrame(() => {
-      const offset = circumference * (1 - Math.max(0, Math.min(100, level)) / 100);
+      const offset = c * (1 - Math.min(100, Math.max(0, level)) / 100);
       fg.style.transition = 'stroke-dashoffset 1100ms cubic-bezier(.2,.9,.3,1)';
       fg.style.strokeDashoffset = offset;
     });
-
     return svg;
   }
-
-  $all(SKILL_CIRCLES_SELECTOR).forEach(el => {
+  skillEls.forEach(el => {
     const level = parseInt(el.getAttribute('data-level')) || 0;
-    const skill = el.getAttribute('data-skill') || '';
-    // Clear container then append svg + percent
     el.innerHTML = '';
-    el.appendChild(createSkillSVG(level));
-    const lab = document.createElement('div');
-    lab.className = 'skill-percent';
-    lab.textContent = `${level}%`;
-    el.appendChild(lab);
+    el.appendChild(createDonut(level));
+    const p = document.createElement('div'); p.className = 'skill-percent'; p.textContent = `${level}%`;
+    el.appendChild(p);
   });
 
-  /* ---------- Contact button smooth scroll ---------- */
+  /* --------- Smooth internal anchors --------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        ev.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  /* --------- Contact button smooth scroll ---------- */
   const contactBtn = $('#contactBtn');
   if (contactBtn) {
     contactBtn.addEventListener('click', (e) => {
@@ -151,149 +142,185 @@ onReady(() => {
     });
   }
 
-  /* ---------- Scroll to top button ---------- */
-  const scrollTopBtn = $('#scrollTopBtn');
-  if (scrollTopBtn) {
+  /* --------- Scroll to top button ---------- */
+  const scrollBtn = $('#scrollTopBtn');
+  if (scrollBtn) {
+    // show/hide on scroll
     window.addEventListener('scroll', () => {
-      scrollTopBtn.style.display = (window.scrollY > 220) ? 'block' : 'none';
+      scrollBtn.style.display = window.scrollY > 220 ? 'block' : 'none';
     });
-    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
-  /* ---------- Contact form (client-side UX) ---------- */
+  /* --------- Contact form (client-side fallback) ---------- */
   const contactForm = $('#contactForm');
   if (contactForm) {
-    const formMessage = contactForm.querySelector('.form-message');
+    const msgNode = contactForm.querySelector('.form-message');
     contactForm.addEventListener('submit', (ev) => {
       ev.preventDefault();
-      // Basic client side validation
-      const name = contactForm.name.value.trim();
-      const email = contactForm.email.value.trim();
-      const message = contactForm.message.value.trim();
+      const name = (contactForm.name.value || '').trim();
+      const email = (contactForm.email.value || '').trim();
+      const message = (contactForm.message.value || '').trim();
       if (!name || !email || !message) {
-        formMessage.textContent = 'Please complete name, email and message.';
-        formMessage.classList.add('error');
+        if (msgNode) { msgNode.textContent = 'Please fill name, email and message.'; msgNode.classList.add('error'); }
         return;
       }
-      // Feedback to user (since no backend configured)
-      formMessage.textContent = 'Thanks — message prepared. Opening mail client...';
-      formMessage.classList.remove('error');
-      // fallback: open mailto so you receive message via email
+      if (msgNode) { msgNode.textContent = 'Preparing email…'; msgNode.classList.remove('error'); }
       const subject = encodeURIComponent(contactForm.subject.value.trim() || 'Website contact');
       const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      // mailto fallback
       window.location.href = `mailto:muhammadaffaf746@gmail.com?subject=${subject}&body=${body}`;
     });
   }
 
-  /* ---------- Simple achievements / portfolio slider placeholders ---------- */
-  // (If you later provide arrays of items, plug them into the wrapper. For now, minimal nav support.)
-  const leftBtn = $('.left-btn');
-  const rightBtn = $('.right-btn');
-  let projectIndex = 0;
-  if (leftBtn && rightBtn) {
-    leftBtn.addEventListener('click', () => { projectIndex = Math.max(0, projectIndex - 1); });
-    rightBtn.addEventListener('click', () => { projectIndex += 1; });
-  }
-
-  /* ========== Chatbot (local, light) ========== */
+  /* ================= CHATBOT ================= */
+  // Elements
   const chatbotToggle = $('#chatbot-toggle');
   const chatbotWindow = $('#chatbot-window');
   const chatbotClose = $('#chatbot-close');
   const chatbotBody = $('#chatbot-body');
   const chatbotInput = $('#chatbot-input');
   const chatbotSend = $('#chatbot-send');
-  const quickReplies = $all('.quick-reply');
+  const quickReplies = $$('.quick-reply');
+  // Load sound if present
+  let chatAudio = null;
+  (function loadChatSound(url) {
+    try {
+      chatAudio = new Audio(url);
+      // small attempt to preload without playing
+      chatAudio.preload = 'auto';
+    } catch (err) {
+      chatAudio = null;
+      console.warn('Chat sound not available', err);
+    }
+  })(CHAT_SOUND_URL);
 
-  function appendBotMessage(text) {
-    const msg = document.createElement('div');
-    msg.className = 'bot-message';
-    msg.textContent = text;
-    chatbotBody.appendChild(msg);
+  // Simple append helpers
+  function createMsgNode(text, cls = 'bot-message') {
+    const d = document.createElement('div');
+    d.className = cls;
+    d.textContent = text;
+    return d;
+  }
+  function addUserMsg(text) {
+    chatbotBody.appendChild(createMsgNode(text, 'user-message'));
     chatbotBody.scrollTop = chatbotBody.scrollHeight;
   }
-
-  function appendUserMessage(text) {
-    const msg = document.createElement('div');
-    msg.className = 'user-message';
-    msg.textContent = text;
-    chatbotBody.appendChild(msg);
+  function addBotMsg(text) {
+    chatbotBody.appendChild(createMsgNode(text, 'bot-message'));
     chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    if (chatAudio) { try { chatAudio.currentTime = 0; chatAudio.play().catch(()=>{}); } catch(_){} }
   }
 
+  // Lightweight bot "AI" (local rules)
   function botReplyTo(input) {
-    const lc = input.toLowerCase();
-    if (lc.includes('project')) {
-      return 'You can view my projects in the Projects section or on my GitHub: https://github.com/affaf12';
-    }
-    if (lc.includes('contact') || lc.includes('email')) {
-      return 'Email me at muhammadaffaf746@gmail.com or use the contact form on the site.';
-    }
-    if (lc.includes('hi') || lc.includes('hello') || lc.includes('hey')) {
-      return 'Hello 👋 — how can I help? Try "Show projects" or "Contact info".';
-    }
-    // default fallback
-    return "Sorry, I don't have a backend — this is a lightweight helper. Try: 'Show projects', 'Contact info', or 'Hi'.";
+    const q = (input || '').toLowerCase();
+    if (q.includes('project')) return 'See Projects section or https://github.com/affaf12';
+    if (q.includes('contact') || q.includes('email')) return 'Email: muhammadaffaf746@gmail.com';
+    if (q.includes('resume')) return 'You can download my resume from the Resume button in the Hero section.';
+    if (q.includes('hello') || q.includes('hi')) return 'Hello 👋 — how can I help? Try "Show projects" or "Contact info".';
+    return "I’m a lightweight helper bot. Try: 'Show projects', 'Contact info' or 'Hi'.";
   }
 
+  // Fancy chat mode: animated typing + bubble reveal
+  function fancyReplyFlow(userText) {
+    // create typing bubble
+    const typing = document.createElement('div');
+    typing.className = 'bot-typing';
+    typing.textContent = '';
+    typing.setAttribute('aria-hidden', 'true');
+    chatbotBody.appendChild(typing);
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+    // animate "typing" dots using requestAnimationFrame
+    let start = performance.now();
+    let dots = 0;
+    let rafId = null;
+    function animate(now) {
+      const elapsed = now - start;
+      if (elapsed > 600) { start = now; dots = (dots + 1) % 4; }
+      typing.textContent = 'Typing' + '.'.repeat(dots);
+      rafId = requestAnimationFrame(animate);
+    }
+    rafId = requestAnimationFrame(animate);
+
+    // after a short delay compute reply and show
+    safeTimeout(() => {
+      if (rafId) cancelAnimationFrame(rafId);
+      typing.remove();
+      const reply = botReplyTo(userText);
+      // build animated bubble
+      const bubble = document.createElement('div'); bubble.className = 'bot-message fancy';
+      bubble.textContent = '';
+      chatbotBody.appendChild(bubble);
+      // type text into bubble character-by-character
+      let idx = 0;
+      function typeChunk() {
+        if (idx < reply.length) {
+          bubble.textContent += reply[idx++];
+          chatbotBody.scrollTop = chatbotBody.scrollHeight;
+          safeTimeout(typeChunk, 18); // non-string safe timer
+        } else {
+          // play sound on complete
+          if (chatAudio) { try { chatAudio.currentTime = 0; chatAudio.play().catch(()=>{}); } catch(_){} }
+        }
+      }
+      typeChunk();
+    }, 700);
+  }
+
+  // Non-fancy reply
+  function simpleReplyFlow(userText) {
+    safeTimeout(() => addBotMsg(botReplyTo(userText)), 420);
+  }
+
+  // Toggle chatbot
   if (chatbotToggle && chatbotWindow) {
     chatbotToggle.addEventListener('click', () => {
-      const open = chatbotWindow.hasAttribute('hidden');
-      if (open) chatbotWindow.removeAttribute('hidden'); else chatbotWindow.setAttribute('hidden', '');
+      if (chatbotWindow.hasAttribute('hidden')) {
+        chatbotWindow.removeAttribute('hidden');
+        // announce or focus
+        const input = $('#chatbot-input'); if (input) input.focus();
+      } else chatbotWindow.setAttribute('hidden', '');
     });
   }
+  if (chatbotClose) chatbotClose.addEventListener('click', () => chatbotWindow.setAttribute('hidden', ''));
 
-  if (chatbotClose) {
-    chatbotClose.addEventListener('click', () => chatbotWindow.setAttribute('hidden', ''));
-  }
-
+  // Send handler
   if (chatbotSend && chatbotInput) {
     chatbotSend.addEventListener('click', () => {
-      const text = chatbotInput.value.trim();
-      if (!text) return;
-      appendUserMessage(text);
+      const txt = (chatbotInput.value || '').trim();
+      if (!txt) return;
+      addUserMsg(txt);
       chatbotInput.value = '';
-      // Typing indicator
-      const typing = document.createElement('div');
-      typing.className = 'typing';
-      typing.textContent = 'Typing...';
-      chatbotBody.appendChild(typing);
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
-      setTimeout(() => {
-        typing.remove();
-        appendBotMessage(botReplyTo(text));
-      }, 800);
+      // choose fancy or simple accordingly
+      if (ENABLE_FANCY_CHAT) fancyReplyFlow(txt);
+      else simpleReplyFlow(txt);
     });
-
-    chatbotInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        chatbotSend.click();
-      }
+    chatbotInput.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); chatbotSend.click(); }
     });
   }
 
+  // quick replies
   quickReplies.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const text = e.target.textContent.trim();
-      appendUserMessage(text);
-      setTimeout(() => appendBotMessage(botReplyTo(text)), 600);
+      const txt = e.target.textContent.trim();
+      addUserMsg(txt);
+      if (ENABLE_FANCY_CHAT) fancyReplyFlow(txt); else simpleReplyFlow(txt);
     });
   });
 
-  /* Accessibility: smooth internal link behavior */
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
+  // accessibility: close chatbot on Escape
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') chatbotWindow?.setAttribute('hidden', ''); });
 
-  /* Basic keyboard close for chatbot */
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') chatbotWindow?.setAttribute('hidden', '');
-  });
-
+  /* ========= end onReady ========= */
 }); // onReady end
+
+/* ================= NOTES =================
+ - This file avoids eval/new Function and string timers.
+ - If you previously had 'unload' listeners or deprecated features, they are removed.
+ - To disable fancy animations, set ENABLE_FANCY_CHAT = false above.
+ - If chat audio fails to play due to autoplay policies, it will play after user gestures (common browser behavior).
+ - If you need me to tone down animations or change timings, tell me which part to tweak.
+======================================== */
