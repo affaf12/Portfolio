@@ -350,9 +350,17 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
 }
 
 /* ================= ABOUT SECTION - NEON GLASS (Optimized) ================= */
+:root{
+  --bg-start: #0a0a0f;
+  --bg-end: #1a1a2e;
+  --neon: #00e6e6;
+  --text: #eee;
+  --muted: #ddd;
+}
+
 .about-section {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+  background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
   color: #fff;
   text-align: center;
   position: relative;
@@ -362,8 +370,8 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
 .about-section .section-title {
   font-size: 2.5rem;
   margin-bottom: 50px;
-  color: #0ff;
-  text-shadow: 0 0 10px #0ff, 0 0 20px #00e6e6;
+  color: var(--neon);
+  text-shadow: 0 0 10px var(--neon), 0 0 20px rgba(0,230,230,0.5);
   font-weight: 700;
   letter-spacing: 2px;
   transform: translateY(50px);
@@ -388,63 +396,70 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   font-size: 1.05rem;
   line-height: 1.8;
   margin-bottom: 20px;
-  color: #eee; /* Better contrast */
+  color: var(--text);
 }
 
+/* List */
 .about-text ul {
   list-style: none;
   padding-left: 0;
   margin-bottom: 30px;
+  display: inline-block;
+  text-align: left;
 }
-
 .about-text ul li {
   margin-bottom: 10px;
   font-size: 1rem;
-  color: #ddd;
+  color: var(--muted);
   position: relative;
-  padding-left: 20px;
+  padding-left: 22px;
 }
-
 .about-text ul li::before {
   content: "✔";
   position: absolute;
   left: 0;
-  color: #0ff;
+  color: var(--neon);
+  font-size: 0.9rem;
 }
 
 /* ================= CONTACT BUTTON ================= */
+/* Improved contrast: neon outline, dark text on light chip */
 .btn-contact {
-  background: rgba(0, 255, 255, 0.3);
-  color: #000;
+  background: linear-gradient(180deg, rgba(0,230,230,0.20), rgba(0,230,230,0.12));
+  color: #041018; /* dark for readability */
   font-weight: 700;
   padding: 12px 28px;
-  border: none;
+  border: 1px solid rgba(0,230,230,0.35);
   border-radius: 25px;
   cursor: pointer;
   font-size: 1rem;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 18px rgba(0,230,230,0.18);
   transform: translateY(50px) scale(1);
   opacity: 0;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   will-change: transform, opacity;
 }
 
-/* Glow + bounce pulse animation */
+/* Glow + bounce pulse animation class applied by JS */
 .btn-contact.glow {
   animation: neonPulse 1.8s infinite alternate, neonBounce 0.6s ease forwards;
+  outline: none;
 }
 
-.btn-contact:hover {
-  background: #00e6e6;
-  box-shadow: 0 0 35px rgba(0, 255, 255, 0.6);
+/* Hover state kept subtle and accessible */
+.btn-contact:hover,
+.btn-contact:focus {
+  background: rgba(0,230,230,0.30);
+  box-shadow: 0 0 35px rgba(0,230,230,0.35);
   transform: scale(1.05);
+  outline: none;
 }
 
 /* ================= KEYFRAMES ================= */
 @keyframes neonPulse {
-  0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
-  50% { box-shadow: 0 0 28px rgba(0, 255, 255, 0.6); }
-  100% { box-shadow: 0 0 35px rgba(0, 255, 255, 0.8); }
+  0% { box-shadow: 0 0 12px rgba(0,230,230,0.18); }
+  50% { box-shadow: 0 0 26px rgba(0,230,230,0.42); }
+  100% { box-shadow: 0 0 40px rgba(0,230,230,0.6); }
 }
 
 @keyframes neonBounce {
@@ -459,26 +474,21 @@ body.dark-theme h1,h2,h3 { color:#0ff; text-shadow:0 0 8px #0ff,0 0 15px #00e6e6
   opacity: 1;
 }
 
+/* Slight delay stagger using nth-child (makes reveal feel nicer) */
+.about .about-text[data-animate] { transition-delay: 0.12s; }
+.about-section .section-title[data-animate].visible { transition-delay: 0s; }
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
-  .about-section .section-title {
-    font-size: 2rem;
-  }
-  .about-text {
-    padding: 0 10px;
-  }
-  .btn-contact {
-    padding: 10px 22px;
-    font-size: 0.95rem;
-  }
+  .about-section .section-title { font-size: 2rem; }
+  .about-text { padding: 0 10px; }
+  .btn-contact { padding: 10px 22px; font-size: 0.95rem; }
+  .about-text ul { font-size: 0.95rem; }
 }
-
 @media (max-width: 480px) {
-  .about-section {
-    padding: 60px 15px;
-  }
+  .about-section { padding: 60px 15px; }
+  .about-text ul { display: block; text-align: left; }
 }
-
 
 
 /* ================= EXPERIENCE SECTION - NEON GLASS STYLE ================= */
