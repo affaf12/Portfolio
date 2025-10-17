@@ -557,6 +557,12 @@ header .logo span { color: var(--accent); }
   animation: headingGradient 5s ease infinite;
 }
 
+@keyframes headingGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -581,11 +587,13 @@ header .logo span { color: var(--accent); }
   cursor: default;
 }
 
-/* SVG Ring */
+/* ================= SVG RINGS ================= */
 .skill-ring {
   position: absolute;
   top: 0;
   left: 0;
+  width: 140px;
+  height: 140px;
   transform: rotate(-90deg);
   z-index: 1;
 }
@@ -607,12 +615,12 @@ header .logo span { color: var(--accent); }
 .skill-ring .ring-progress {
   stroke: #4b5fff;
   stroke-linecap: round;
-  stroke-dasharray: 377; /* 2 * PI * r (approx for r=60) */
+  stroke-dasharray: 377; /* 2*PI*r approx */
   stroke-dashoffset: 377; /* start hidden */
-  transition: stroke-dashoffset 1.5s ease;
+  transition: stroke-dashoffset 1.5s ease, stroke 0.3s ease;
 }
 
-/* Skill percentage */
+/* ================= PERCENTAGE & NAME ================= */
 .skill-circle .skill-percent {
   font-size: 1.4rem;
   position: absolute;
@@ -622,7 +630,6 @@ header .logo span { color: var(--accent); }
   text-shadow: 0 0 5px #4b5fff, 0 0 15px #ff4bff;
 }
 
-/* Skill name */
 .skill-circle .skill-name {
   position: absolute;
   bottom: 15px;
@@ -632,9 +639,10 @@ header .logo span { color: var(--accent); }
   z-index: 2;
 }
 
-/* Hover glow */
+/* Hover glow effect */
 .skill-circle:hover {
   box-shadow: 0 0 20px #4b5fff, 0 0 40px #ff4bff inset;
+  transition: all 0.3s ease;
 }
 
 /* ================= NEON PARTICLES ================= */
@@ -666,14 +674,7 @@ header .logo span { color: var(--accent); }
   100% { transform: translate(0,0); opacity: 0.5; }
 }
 
-/* Heading gradient animation */
-@keyframes headingGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Responsive */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
   .skills-grid {
     flex-direction: column;
