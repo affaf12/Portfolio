@@ -38,9 +38,11 @@
   }
   </script>
 
-  <!-- Styles & fonts -->
+  <!-- Fonts: Poppins, Montserrat, Roboto, Lato, Orbitron, Exo 2 -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600&family=Roboto:wght@400;700&family=Lato:wght@400;700&family=Orbitron:wght@400;700&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Styles & icons -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
   <!-- Small compatibility helpers so JS (which toggles [hidden]) and CSS agree -->
@@ -52,6 +54,7 @@
 
   <!-- JS (deferred) -->
   <script src="js/script.js" defer></script>
+  <script src="js/font-switcher.js" defer></script>
 </head>
 <body>
   <noscript>
@@ -76,8 +79,18 @@
       </ul>
     </nav>
 
-    <div class="header-icons">
-      <button id="menu-toggle" aria-label="Open menu"><i class='bx bx-menu'></i></button>
+    <div class="header-controls">
+      <!-- Font switcher: applies site-wide font (Poppins, Roboto, Orbitron) -->
+      <label for="font-select" class="sr-only">Choose font</label>
+      <select id="font-select" aria-label="Choose site font" title="Choose font">
+        <option value="'Poppins', 'Montserrat', sans-serif">Poppins + Montserrat</option>
+        <option value="'Roboto', 'Lato', sans-serif">Roboto + Lato</option>
+        <option value="'Orbitron', 'Exo 2', sans-serif">Orbitron + Exo 2</option>
+      </select>
+
+      <div class="header-icons">
+        <button id="menu-toggle" aria-label="Open menu"><i class='bx bx-menu'></i></button>
+      </div>
     </div>
   </header>
 
@@ -94,7 +107,7 @@
       <div class="hero-right" data-animate>
         <h1>Hello 👋 I’m Muhammad Affaf</h1>
         <h3>Data Analyst & Power BI Developer <span>| SQL | Excel | Python</span></h3>
-        <a href="https://docs.google.com/document/d/14KVmLnoh_xIRVsbUnFmLB5dRPEfzprZycsJfIty7EBQ/edit?usp=drive_link" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Download Resume</a>
+        <a id="resumeBtn" href="resume.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Download Resume</a>
       </div>
     </div>
   </section>
@@ -103,7 +116,10 @@
   <section id="about" class="about-section">
     <div class="container">
       <h2 class="section-title" data-animate>About Me</h2>
-      <div class="about">
+      <div class="about about-grid">
+        <div class="about-photo" data-animate>
+          <img src="images/profile-pic.jpeg" alt="Muhammad Affaf" class="profile-pic about-pic">
+        </div>
         <div class="about-text" data-animate>
           <p>I am a professional Data Analyst and Power BI Developer with practical experience delivering dashboards, analytics and data pipelines. I specialize in Power BI, SQL, Python and Excel — building actionable reports that help stakeholders make better decisions.</p>
           <ul>
