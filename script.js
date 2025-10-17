@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Animate ring & number dynamically
     function animateRing() {
-      if(currentPercent < targetPercent){
+      if (currentPercent < targetPercent) {
         currentPercent++;
         percentSpan.textContent = currentPercent + '%';
         const offset = circumference - (currentPercent / 100) * circumference;
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const particlesContainer = circle.querySelector('.skill-particles');
     particlesContainer.innerHTML = ''; // Clear existing
 
-    for(let i = 0; i < 12; i++){
+    for (let i = 0; i < 12; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
 
@@ -233,12 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // Neon color randomization
       const r = 75 + Math.floor(Math.random() * 180);
       const g = 95 + Math.floor(Math.random() * 160);
-      particle.style.background = `rgba(${r},${g},255,${Math.random()*0.4 + 0.3})`;
+      particle.style.background = `rgba(${r},${g},255,${Math.random() * 0.4 + 0.3})`;
 
       particlesContainer.appendChild(particle);
     }
 
-    // Optional: add glow on hover to particles
+    // Optional: add glow on hover to ring
     circle.addEventListener('mouseenter', () => {
       ringProgress.style.stroke = '#ff4bff';
     });
@@ -249,10 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
-
-
-
-
 
 
 
