@@ -37,7 +37,6 @@
     localStorage.setItem("theme", document.documentElement.dataset.theme);
   });
 
- <style>
 
  
 // ================= HERO TYPING EFFECT =================
