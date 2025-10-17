@@ -1,11 +1,11 @@
-// ================= PRELOADER =================
+// ================== PRELOADER ==================
 window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   if (preloader) preloader.classList.add('fade-out');
   setTimeout(() => preloader && preloader.remove(), 800);
 });
 
-// ================= HEADER & NAVIGATION =================
+// ================== HEADER & NAV ==================
 const header = document.getElementById('header');
 const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.getElementById('nav-menu');
@@ -23,7 +23,7 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// ================= THEME TOGGLE =================
+// ================== THEME TOGGLE ==================
 const themeBtn = document.getElementById('theme-toggle-btn');
 themeBtn.addEventListener('click', () => {
   const isDark = document.documentElement.dataset.theme === 'dark';
@@ -36,7 +36,7 @@ if (localStorage.getItem('theme')) {
   themeBtn.textContent = document.documentElement.dataset.theme === 'dark' ? '🌙' : '☀️';
 }
 
-// ================= HERO TYPING =================
+// ================== HERO TYPING ==================
 const typingText = document.getElementById('typing-text');
 const words = ["Data Analyst", "Power BI Developer", "Python Enthusiast"];
 let ti = 0, tj = 0, isDeleting = false;
@@ -58,7 +58,7 @@ function typeEffect() {
 }
 typeEffect();
 
-// ================= ABOUT STATS ANIMATION =================
+// ================== ABOUT STATS ==================
 document.querySelectorAll('.about-stats h3').forEach(stat => {
   const target = parseInt(stat.textContent, 10) || 0;
   let count = 0;
@@ -70,7 +70,7 @@ document.querySelectorAll('.about-stats h3').forEach(stat => {
   }, 18);
 });
 
-// ================= SCROLL REVEAL & FADE-IN =================
+// ================== SCROLL REVEAL ==================
 const animateItems = document.querySelectorAll('[data-animate]');
 function revealOnScroll() {
   const screenPos = window.innerHeight * 0.85;
@@ -82,7 +82,7 @@ function revealOnScroll() {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
 
-// ================= SKILL CIRCLES WITH EASING =================
+// ================== SKILL CIRCLES ==================
 document.querySelectorAll('.skill-circle').forEach(circle => {
   const level = parseInt(circle.dataset.level, 10) || 0;
   const svgNS = "http://www.w3.org/2000/svg";
@@ -127,7 +127,7 @@ document.querySelectorAll('.skill-circle').forEach(circle => {
   }, 18);
 });
 
-// ================= HORIZONTAL SLIDERS WITH SCROLL ANIMATION =================
+// ================== HORIZONTAL SLIDERS ==================
 function initAnimatedSlider(wrapperSel, leftBtnSel, rightBtnSel) {
   const wrapper = document.querySelector(wrapperSel);
   const left = document.querySelector(leftBtnSel);
@@ -156,7 +156,7 @@ function initAnimatedSlider(wrapperSel, leftBtnSel, rightBtnSel) {
 initAnimatedSlider('.achievements-wrapper', '.ach-left-btn', '.ach-right-btn');
 initAnimatedSlider('.projects-wrapper', '.left-btn', '.right-btn');
 
-// ================= CONTACT FORM =================
+// ================== CONTACT FORM ==================
 const contactForm = document.getElementById('contactForm');
 contactForm.addEventListener('submit', e => {
   e.preventDefault();
@@ -171,28 +171,28 @@ contactForm.addEventListener('submit', e => {
   }
 });
 
-// ================= SCROLL TO TOP =================
+// ================== SCROLL TO TOP ==================
 const scrollBtn = document.getElementById('scrollTopBtn');
 window.addEventListener('scroll', () => scrollBtn.classList.toggle('show', window.scrollY > 400));
 scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// ================= CHATBOT =================
+// ================== CHATBOT ==================
 const chatbotToggle = document.getElementById('chatbot-toggle');
 const chatbotWindow = document.getElementById('chatbot-window');
 const chatbotClose = document.getElementById('chatbot-close');
 const chatbotBody = document.getElementById('chatbot-body');
 
-chatbotToggle.addEventListener('click', () => chatbotWindow.toggleAttribute('hidden'));
-chatbotClose.addEventListener('click', () => chatbotWindow.setAttribute('hidden',''));
+chatbotToggle.addEventListener('click', () => chatbotWindow.classList.toggle('open'));
+chatbotClose.addEventListener('click', () => chatbotWindow.classList.remove('open'));
 
 document.querySelectorAll('.quick-reply').forEach(btn => {
   btn.addEventListener('click', () => {
     const userMsg = document.createElement('div');
-    userMsg.className = 'user-message';
+    userMsg.className = 'chatbot-message user';
     userMsg.textContent = btn.textContent;
 
     const botMsg = document.createElement('div');
-    botMsg.className = 'bot-message';
+    botMsg.className = 'chatbot-message bot';
     botMsg.textContent = `You clicked: ${btn.textContent}`;
 
     chatbotBody.append(userMsg, botMsg);
@@ -200,7 +200,7 @@ document.querySelectorAll('.quick-reply').forEach(btn => {
   });
 });
 
-// ================= LAZY LOAD IMAGES =================
+// ================== LAZY LOAD IMAGES ==================
 document.addEventListener('DOMContentLoaded', () => {
   const lazyImages = document.querySelectorAll('img[data-src]');
   const observer = new IntersectionObserver((entries, obs) => {
