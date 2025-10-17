@@ -38,29 +38,30 @@
   }
   </script>
 
-  <!-- Fonts: Poppins, Montserrat, Roboto, Lato, Orbitron, Exo 2 -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600&family=Roboto:wght@400;700&family=Lato:wght@400;700&family=Orbitron:wght@400;700&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Fonts (only fonts used in content) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Styles & icons -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Small compatibility helpers so JS (which toggles [hidden]) and CSS agree -->
-  <style>
-    /* keep chatbot hidden when attribute present, show when removed (JS toggles attribute) */
-    .chatbot-window[hidden]{display:none !important}
-    .chatbot-window:not([hidden]){display:flex !important}
-  </style>
-
   <!-- JS (deferred) -->
   <script src="js/script.js" defer></script>
   <script src="js/font-switcher.js" defer></script>
+
+  <!-- CSP-safe inline style for chatbot visibility -->
+  <style>
+    .chatbot-window[hidden]{display:none !important;}
+    .chatbot-window:not([hidden]){display:flex !important;}
+  </style>
 </head>
+
 <body>
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NC5BDRF3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
 
+  <!-- ================= HEADER ================= -->
   <header id="header" role="banner">
     <div class="logo">
       <h1>Muhammad <span>Affaf</span></h1>
@@ -80,12 +81,9 @@
     </nav>
 
     <div class="header-controls">
-      <!-- Font switcher: applies site-wide font (Poppins, Roboto, Orbitron) -->
       <label for="font-select" class="sr-only">Choose font</label>
       <select id="font-select" aria-label="Choose site font" title="Choose font">
-        <option value="'Poppins', 'Montserrat', sans-serif">Poppins + Montserrat</option>
-        <option value="'Roboto', 'Lato', sans-serif">Roboto + Lato</option>
-        <option value="'Orbitron', 'Exo 2', sans-serif">Orbitron + Exo 2</option>
+        <option value="'Poppins', 'Roboto', sans-serif">Poppins + Roboto</option>
       </select>
 
       <div class="header-icons">
@@ -99,322 +97,270 @@
   </div>
 
   <!-- ================= HERO SECTION ================= -->
-<section id="hero" class="hero" data-animate>
-  <div class="hero-container container">
-    <div class="hero-left" data-animate>
-      <div class="profile-pic-wrapper">
-        <img src="images/profile-pic.jpeg" alt="Muhammad Affaf - Data Analyst & Power BI Developer" class="profile-pic" />
-        <div class="glow-ring"></div>
-      </div>
-    </div>
-
-    <div class="hero-right" data-animate>
-      <h1 class="hero-title">
-        Hello 👋 I’m <span class="highlight">Muhammad Affaf</span>
-      </h1>
-      <h3 class="hero-subtitle">
-        <span id="typing-text"></span>
-      </h3>
-      <div class="hero-buttons">
-        <a href="resume.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">📄 Download Resume</a>
-        <a href="#contact" class="btn btn-glow">💬 Contact Me</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ================= ABOUT SECTION ================= -->
-<section id="about" class="about-section" data-animate>
-  <div class="container">
-    <h2 class="section-title" data-animate>About Me</h2>
-
-    <div class="about-grid">
-      <!-- Left: Photo -->
-      <div class="about-photo" data-animate>
-        <div class="about-photo-wrapper">
-          <img src="images/profile-pic.jpeg" alt="Muhammad Affaf - Data Analyst & Power BI Developer" class="about-pic" />
-          <div class="photo-glow"></div>
+  <section id="hero" class="hero" data-animate>
+    <div class="hero-container container">
+      <div class="hero-left" data-animate>
+        <div class="profile-pic-wrapper">
+          <img src="images/profile-pic.jpeg" alt="Muhammad Affaf - Data Analyst & Power BI Developer" class="profile-pic" />
+          <div class="glow-ring"></div>
         </div>
       </div>
 
-      <!-- Right: Content -->
-      <div class="about-content" data-animate>
-        <p class="about-intro">
-          I’m <span class="highlight">Muhammad Affaf</span>, a dedicated <b>Data Analyst & Power BI Developer</b> who transforms complex data into clear business insights.  
-          My expertise spans <b>Power BI, SQL, Python, and Excel</b>, empowering businesses to make data-driven decisions confidently.
-        </p>
+      <div class="hero-right" data-animate>
+        <h1 class="hero-title">
+          Hello 👋 I’m <span class="highlight">Muhammad Affaf</span>
+        </h1>
+        <h3 class="hero-subtitle">
+          <span id="typing-text" aria-live="polite"></span>
+        </h3>
+        <div class="hero-buttons">
+          <a href="resume.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">📄 Download Resume</a>
+          <a href="#contact" class="btn btn-glow">💬 Contact Me</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <ul class="about-list">
-          <li><span>📊</span> Power BI Dashboard Development</li>
-          <li><span>📈</span> Data Analysis & Visualization</li>
-          <li><span>💻</span> SQL & Python Programming</li>
-          <li><span>🧠</span> Business Intelligence Solutions</li>
-        </ul>
-
-        <div class="about-stats">
-          <div class="stat-card">
-            <h3>3+</h3>
-            <p>Years of Experience</p>
-          </div>
-          <div class="stat-card">
-            <h3>25+</h3>
-            <p>Dashboards Delivered</p>
-          </div>
-          <div class="stat-card">
-            <h3>10+</h3>
-            <p>Certifications Earned</p>
+  <!-- ================= ABOUT SECTION ================= -->
+  <section id="about" class="about-section" data-animate>
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-photo" data-animate>
+          <div class="about-photo-wrapper">
+            <img src="images/profile-pic.jpeg" alt="Muhammad Affaf - Data Analyst & Power BI Developer" class="about-pic" />
+            <div class="photo-glow"></div>
           </div>
         </div>
+        <div class="about-content" data-animate>
+          <p class="about-intro">
+            I’m <span class="highlight">Muhammad Affaf</span>, a dedicated <b>Data Analyst & Power BI Developer</b> transforming complex data into business insights.  
+            Expertise in <b>Power BI, SQL, Python, and Excel</b>.
+          </p>
 
-        <div class="about-buttons">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
-          <a href="#contact" class="btn btn-glow">Contact Me</a>
+          <ul class="about-list">
+            <li><span>📊</span> Power BI Dashboard Development</li>
+            <li><span>📈</span> Data Analysis & Visualization</li>
+            <li><span>💻</span> SQL & Python Programming</li>
+            <li><span>🧠</span> Business Intelligence Solutions</li>
+          </ul>
+
+          <div class="about-stats">
+            <div class="stat-card">
+              <h3>3+</h3>
+              <p>Years of Experience</p>
+            </div>
+            <div class="stat-card">
+              <h3>25+</h3>
+              <p>Dashboards Delivered</p>
+            </div>
+            <div class="stat-card">
+              <h3>10+</h3>
+              <p>Certifications Earned</p>
+            </div>
+          </div>
+
+          <div class="about-buttons">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-glow">Contact Me</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- ================= EXPERIENCE SECTION ================= -->
+  <section id="experience" class="experience-section" data-animate>
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+      <div class="experience-grid">
+        <article class="experience-card" data-animate>
+          <div class="exp-header">
+            <div class="exp-icon">💼</div>
+            <h3>PwC Switzerland – Power BI Job Simulation</h3>
+          </div>
+          <p class="exp-location">Remote (Karachi, Pakistan) | Jan 2024 – Present</p>
+          <ul class="exp-details">
+            <li>Developed <b>predictive and prescriptive models</b> improving efficiency by <span class="highlight">25%</span>.</li>
+            <li>Performed <b>customer churn forecasting</b> & segmentation, increasing retention <span class="highlight">20%</span>.</li>
+            <li>Delivered visual insights to stakeholders.</li>
+          </ul>
+        </article>
 
-<!-- ================= EXPERIENCE SECTION ================= -->
-<section id="experience" class="experience-section" data-animate>
-  <div class="container">
-    <h2 class="section-title">Experience</h2>
+        <article class="experience-card" data-animate>
+          <div class="exp-header">
+            <div class="exp-icon">📊</div>
+            <h3>Accenture North America – Data Analytics & Visualization</h3>
+          </div>
+          <p class="exp-location">Remote | Jan 2024 – Present</p>
+          <ul class="exp-details">
+            <li>Built <b>predictive models</b> for revenue optimization.</li>
+            <li>Created interactive dashboards & automated reporting pipelines.</li>
+          </ul>
+        </article>
 
-    <div class="experience-grid">
-      <!-- Card 1 -->
-      <div class="experience-card" data-animate>
-        <div class="exp-header">
-          <div class="exp-icon">💼</div>
-          <h3>PwC Switzerland – Power BI Job Simulation</h3>
-        </div>
-        <p class="exp-location">Remote (Karachi, Pakistan) | Jan 2024 – Present</p>
-        <ul class="exp-details">
-          <li>Developed <b>predictive and prescriptive models</b> that improved operational efficiency by <span class="highlight">25%</span>.</li>
-          <li>Performed <b>customer churn forecasting</b> and segmentation to increase retention by <span class="highlight">20%</span>.</li>
-          <li>Applied <b>statistical analysis, A/B testing,</b> and ML to refine business strategy.</li>
-          <li>Delivered clear visual insights to non-technical stakeholders.</li>
-          <li>Mentored analysts to ensure analytical and statistical rigor.</li>
-        </ul>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="experience-card" data-animate>
-        <div class="exp-header">
-          <div class="exp-icon">📊</div>
-          <h3>Accenture North America – Data Analytics & Visualization</h3>
-        </div>
-        <p class="exp-location">Remote (Karachi, Pakistan) | Jan 2024 – Present</p>
-        <ul class="exp-details">
-          <li>Built <b>predictive models</b> to optimize revenue and reduce operational costs.</li>
-          <li>Analyzed <b>network performance and sales data</b> to generate strategic insights.</li>
-          <li>Created interactive dashboards and automated reporting pipelines.</li>
-          <li>Trained junior analysts and ensured end-to-end data integrity.</li>
-          <li>Implemented <b>ML and statistical models</b> to enhance performance monitoring.</li>
-        </ul>
-      </div>
-
-      <!-- Optional Card 3 -->
-      <div class="experience-card" data-animate>
-        <div class="exp-header">
-          <div class="exp-icon">⚙️</div>
-          <h3>Freelance Power BI & Data Analytics Projects</h3>
-        </div>
-        <p class="exp-location">Remote | 2023 – Present</p>
-        <ul class="exp-details">
-          <li>Developed <b>Power BI dashboards</b> for eCommerce, logistics, and healthcare clients.</li>
-          <li>Integrated <b>SQL, Python, and Excel</b> pipelines for automated data refresh.</li>
-          <li>Performed trend forecasting, KPI monitoring, and real-time analytics.</li>
-          <li>Delivered business presentations and insights to C-level stakeholders.</li>
-        </ul>
+        <article class="experience-card" data-animate>
+          <div class="exp-header">
+            <div class="exp-icon">⚙️</div>
+            <h3>Freelance Power BI & Data Analytics Projects</h3>
+          </div>
+          <p class="exp-location">Remote | 2023 – Present</p>
+          <ul class="exp-details">
+            <li>Developed <b>Power BI dashboards</b> for multiple industries.</li>
+            <li>Integrated SQL, Python & Excel pipelines for automation.</li>
+          </ul>
+        </article>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- ================= SKILLS SECTION ================= -->
-<section id="skills" class="skills-section" data-animate>
-  <div class="container">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills-grid" aria-hidden="false">
-      
-      <!-- Power BI -->
-      <div class="skill" data-animate>
-        <div class="skill-circle" data-level="90" data-skill="Power BI"></div>
-        <p>Power BI</p>
-      </div>
-
-      <!-- SQL -->
-      <div class="skill" data-animate>
-        <div class="skill-circle" data-level="85" data-skill="SQL"></div>
-        <p>SQL</p>
-      </div>
-
-      <!-- Python -->
-      <div class="skill" data-animate>
-        <div class="skill-circle" data-level="80" data-skill="Python"></div>
-        <p>Python</p>
-      </div>
-
-      <!-- Excel -->
-      <div class="skill" data-animate>
-        <div class="skill-circle" data-level="95" data-skill="Excel"></div>
-        <p>Excel</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
- <!-- ================= ACHIEVEMENTS ================= -->
-<section id="achievements" class="achievements-section" data-animate>
-  <div class="container">
-    <h2 class="section-title">Achievements</h2>
-
-    <div class="achievements-wrapper-container">
-      <button class="ach-nav-btn ach-left-btn" aria-label="Previous Achievement">&#10094;</button>
-
-      <div class="achievements-slider">
-        <div class="achievements-wrapper">
-          <div class="achievement-card" data-animate>
-            Certificate: Power BI Desktop — <em>PwC Simulation</em>
-          </div>
-          <div class="achievement-card" data-animate>
-            Completed: Accenture Visualization Program
-          </div>
-          <div class="achievement-card" data-animate>
-            Data Analytics Bootcamp — <em>XYZ Academy</em>
-          </div>
-          <div class="achievement-card" data-animate>
-            Power BI Portfolio Completed — <em>Personal Project</em>
-          </div>
+  <section id="skills" class="skills-section" data-animate>
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill" data-animate>
+          <div class="skill-circle" role="img" aria-label="Power BI proficiency 90%" data-level="90" data-skill="Power BI"></div>
+          <p>Power BI</p>
+        </div>
+        <div class="skill" data-animate>
+          <div class="skill-circle" role="img" aria-label="SQL proficiency 85%" data-level="85" data-skill="SQL"></div>
+          <p>SQL</p>
+        </div>
+        <div class="skill" data-animate>
+          <div class="skill-circle" role="img" aria-label="Python proficiency 80%" data-level="80" data-skill="Python"></div>
+          <p>Python</p>
+        </div>
+        <div class="skill" data-animate>
+          <div class="skill-circle" role="img" aria-label="Excel proficiency 95%" data-level="95" data-skill="Excel"></div>
+          <p>Excel</p>
         </div>
       </div>
-
-      <button class="ach-nav-btn ach-right-btn" aria-label="Next Achievement">&#10095;</button>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ================= PROJECTS ================= -->
-<section id="projects" class="portfolio-section" data-animate>
-  <div class="container">
-    <h2 class="section-title">Projects</h2>
-
-    <div class="projects-wrapper-container">
-      <button class="nav-btn left-btn" aria-label="Previous Project">&#10094;</button>
-
-      <div class="portfolio-slider">
-        <div class="projects-wrapper">
-          <div class="project-card" data-animate>
-            <h3>Power BI — Coffee Shop Dashboard</h3>
-            <p>End-to-end dashboard with sales KPIs, date hierarchies, and trend analysis.</p>
-          </div>
-          <div class="project-card" data-animate>
-            <h3>Backpack Price Prediction (ML)</h3>
-            <p>Price prediction using feature engineering and model tuning.</p>
-          </div>
-          <div class="project-card" data-animate>
-            <h3>Insurance Claims Analysis</h3>
-            <p>Interactive Power BI dashboard for claims insights and trends.</p>
-          </div>
-          <div class="project-card" data-animate>
-            <h3>Logistics Network Optimization</h3>
-            <p>End-to-end project with warehouse and route analysis in Power BI.</p>
+  <!-- ================= ACHIEVEMENTS SECTION ================= -->
+  <section id="achievements" class="achievements-section" data-animate>
+    <div class="container">
+      <h2 class="section-title">Achievements</h2>
+      <div class="achievements-wrapper-container">
+        <button class="ach-nav-btn ach-left-btn" aria-label="Previous Achievement">&#10094;</button>
+        <div class="achievements-slider" aria-live="polite">
+          <div class="achievements-wrapper">
+            <div class="achievement-card">Certificate: Power BI Desktop — <em>PwC Simulation</em></div>
+            <div class="achievement-card">Completed: Accenture Visualization Program</div>
+            <div class="achievement-card">Data Analytics Bootcamp — <em>XYZ Academy</em></div>
+            <div class="achievement-card">Power BI Portfolio Completed — <em>Personal Project</em></div>
           </div>
         </div>
-      </div>
-
-      <button class="nav-btn right-btn" aria-label="Next Project">&#10095;</button>
-    </div>
-  </div>
-</section>
-
-  <!-- ================= CONTACT ================= -->
-<section id="contact" class="contact-section" data-animate>
-  <div class="container">
-    <h2 class="section-title">Get in Touch</h2>
-
-    <div class="contact-container">
-      <!-- Left Info Panel -->
-      <div class="contact-info" data-animate>
-        <h3>Let’s Connect</h3>
-        <p>I’m open to <strong>collaborations</strong>, <strong>projects</strong>, and <strong>career opportunities</strong>. I typically respond within 24–48 hours.</p>
-        <ul class="info-list">
-          <li><i class="bx bx-envelope"></i> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
-          <li><i class="bx bxl-linkedin"></i> <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><i class="bx bxl-github"></i> <a href="https://github.com/affaf12" target="_blank" rel="noopener">GitHub</a></li>
-          <li><i class="bx bxl-whatsapp"></i> <a href="https://wa.me/923042365964" target="_blank" rel="noopener">WhatsApp</a></li>
-        </ul>
-      </div>
-
-      <!-- Right Form Panel -->
-      <div class="contact-form-wrapper" data-animate>
-        <form id="contactForm" class="contact-form" autocomplete="on" novalidate>
-          <h3>Send Me a Message</h3>
-
-          <div class="form-group">
-            <input type="text" id="name" name="name" placeholder=" " required autocomplete="name" />
-            <label for="name">Full Name</label>
-          </div>
-
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder=" " required autocomplete="email" />
-            <label for="email">Email Address</label>
-          </div>
-
-          <div class="form-group">
-            <input type="text" id="subject" name="subject" placeholder=" " autocomplete="organization-title" />
-            <label for="subject">Subject</label>
-          </div>
-
-          <div class="form-group">
-            <textarea id="message" name="message" rows="5" placeholder=" " required autocomplete="off"></textarea>
-            <label for="message">Your Message</label>
-          </div>
-
-          <button type="submit" class="btn btn-primary contact-btn">
-            <i class='bx bx-send'></i> Send Message
-          </button>
-
-          <div class="form-message" aria-live="polite"></div>
-        </form>
+        <button class="ach-nav-btn ach-right-btn" aria-label="Next Achievement">&#10095;</button>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- ================= PROJECTS SECTION ================= -->
+  <section id="projects" class="portfolio-section" data-animate>
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-wrapper-container">
+        <button class="nav-btn left-btn" aria-label="Previous Project">&#10094;</button>
+        <div class="portfolio-slider" aria-live="polite">
+          <div class="projects-wrapper">
+            <div class="project-card">
+              <h3>Power BI — Coffee Shop Dashboard</h3>
+              <p>End-to-end dashboard with sales KPIs, date hierarchies, and trend analysis.</p>
+            </div>
+            <div class="project-card">
+              <h3>Backpack Price Prediction (ML)</h3>
+              <p>Price prediction using feature engineering and model tuning.</p>
+            </div>
+            <div class="project-card">
+              <h3>Insurance Claims Analysis</h3>
+              <p>Interactive Power BI dashboard for claims insights and trends.</p>
+            </div>
+            <div class="project-card">
+              <h3>Logistics Network Optimization</h3>
+              <p>End-to-end project with warehouse and route analysis in Power BI.</p>
+            </div>
+          </div>
+        </div>
+        <button class="nav-btn right-btn" aria-label="Next Project">&#10095;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT SECTION ================= -->
+  <section id="contact" class="contact-section" data-animate>
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="contact-container">
+        <div class="contact-info" data-animate>
+          <h3>Let’s Connect</h3>
+          <p>I’m open to <strong>collaborations</strong>, <strong>projects</strong>, and <strong>career opportunities</strong>. Usually respond within 24–48 hours.</p>
+          <ul class="info-list">
+            <li><i class="bx bx-envelope"></i> <a href="mailto:muhammadaffaf746@gmail.com">muhammadaffaf746@gmail.com</a></li>
+            <li><i class="bx bxl-linkedin"></i> <a href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><i class="bx bxl-github"></i> <a href="https://github.com/affaf12" target="_blank" rel="noopener">GitHub</a></li>
+            <li><i class="bx bxl-whatsapp"></i> <a href="https://wa.me/923042365964" target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
+        </div>
+
+        <div class="contact-form-wrapper" data-animate>
+          <form id="contactForm" class="contact-form" autocomplete="on" novalidate>
+            <h3>Send Me a Message</h3>
+            <div class="form-group">
+              <input type="text" id="name" name="name" placeholder=" " required autocomplete="name" />
+              <label for="name">Full Name</label>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder=" " required autocomplete="email" />
+              <label for="email">Email Address</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="subject" name="subject" placeholder=" " autocomplete="organization-title" />
+              <label for="subject">Subject</label>
+            </div>
+            <div class="form-group">
+              <textarea id="message" name="message" rows="5" placeholder=" " required autocomplete="message"></textarea>
+              <label for="message">Your Message</label>
+            </div>
+            <button type="submit" class="btn btn-primary contact-btn">
+              <i class='bx bx-send'></i> Send Message
+            </button>
+            <div class="form-message" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ================= SOCIAL MEDIA ================= -->
-<section id="social-media" class="social-media" data-animate>
-  <div class="container">
-    <h2 class="section-title">Social Media</h2>
-    <div class="social-icons">
-      <a class="social-btn" data-tooltip="WhatsApp" href="https://wa.me/+923042365964" target="_blank" rel="noopener">
-        <img class="social-icon" src="images/whatsapp.png" alt="WhatsApp">
-      </a>
-      <a class="social-btn" data-tooltip="GitHub" href="https://github.com/affaf12" target="_blank" rel="noopener">
-        <img class="social-icon" src="images/github.png" alt="GitHub">
-      </a>
-      <a class="social-btn" data-tooltip="LinkedIn" href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener">
-        <img class="social-icon" src="images/linkedin.png" alt="LinkedIn">
-      </a>
+  <section id="social-media" class="social-media" data-animate>
+    <div class="container">
+      <h2 class="section-title">Social Media</h2>
+      <div class="social-icons">
+        <a class="social-btn" href="https://wa.me/+923042365964" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <img class="social-icon" src="images/whatsapp.png" alt="WhatsApp">
+        </a>
+        <a class="social-btn" href="https://github.com/affaf12" target="_blank" rel="noopener" aria-label="GitHub">
+          <img class="social-icon" src="images/github.png" alt="GitHub">
+        </a>
+        <a class="social-btn" href="https://www.linkedin.com/in/muhammadaffaf/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img class="social-icon" src="images/linkedin.png" alt="LinkedIn">
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
- <!-- Scroll to Top Button -->
-<button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top">
-  <span class="arrow-emoji">⇧</span>
-</button>
+  <!-- Scroll to Top Button -->
+  <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top">
+    <span class="arrow-emoji">⇧</span>
+  </button>
 
   <!-- Chatbot Toggle -->
   <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chat">💬<span id="chatbot-notification" class="chatbot-notification" hidden>!</span></button>
 
-  <!-- Chatbot Window (JS toggles [hidden] attribute) -->
+  <!-- Chatbot Window -->
   <div id="chatbot-window" class="chatbot-window" hidden>
     <div id="chatbot-header" class="chatbot-header">
       <div class="chatbot-title">
@@ -439,6 +385,5 @@
       <button id="chatbot-send" class="chatbot-send" aria-label="Send message"><i class='bx bx-send'></i></button>
     </div>
   </div>
-
 </body>
 </html>
