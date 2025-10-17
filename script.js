@@ -176,7 +176,7 @@ document.querySelectorAll('.experience-card').forEach(card => {
   }
 });
 
-/* ================= SKILLS SECTION JS ================= */
+/* ================= SKILLS SECTION JS UPGRADED ================= */
 document.addEventListener('DOMContentLoaded', () => {
 
   const skillCircles = document.querySelectorAll('.skill-circle');
@@ -194,38 +194,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentPercent = 0;
 
-    // Animate ring & number
-    function animate() {
+    // Animate ring & number dynamically
+    function animateRing() {
       if(currentPercent < targetPercent){
         currentPercent++;
         percentSpan.textContent = currentPercent + '%';
         const offset = circumference - (currentPercent / 100) * circumference;
         ringProgress.style.strokeDashoffset = offset;
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animateRing);
       } else {
         percentSpan.textContent = targetPercent + '%';
       }
     }
-    animate();
 
-    // Create floating neon particles dynamically
+    // Start animation with a slight delay for stagger effect
+    setTimeout(animateRing, Math.random() * 500);
+
+    // ================= CREATE NEON PARTICLES =================
     const particlesContainer = circle.querySelector('.skill-particles');
-    particlesContainer.innerHTML = '';
-    for(let i=0; i<12; i++){
+    particlesContainer.innerHTML = ''; // Clear existing
+
+    for(let i = 0; i < 12; i++){
       const particle = document.createElement('div');
       particle.classList.add('particle');
-      particle.style.top = Math.random()*100 + '%';
-      particle.style.left = Math.random()*100 + '%';
+
+      // Random position
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.left = Math.random() * 100 + '%';
+
+      // Random size
       const size = Math.random() * 3 + 3;
       particle.style.width = particle.style.height = size + 'px';
-      particle.style.animationDuration = (Math.random()*5 + 5) + 's';
-      particle.style.background = `rgba(${75 + Math.floor(Math.random()*180)},${95 + Math.floor(Math.random()*160)},255,${Math.random()*0.4 + 0.3})`;
+
+      // Random animation duration & delay
+      particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      particle.style.animationDelay = (Math.random() * 5) + 's';
+
+      // Neon color randomization
+      const r = 75 + Math.floor(Math.random() * 180);
+      const g = 95 + Math.floor(Math.random() * 160);
+      particle.style.background = `rgba(${r},${g},255,${Math.random()*0.4 + 0.3})`;
+
       particlesContainer.appendChild(particle);
     }
+
+    // Optional: add glow on hover to particles
+    circle.addEventListener('mouseenter', () => {
+      ringProgress.style.stroke = '#ff4bff';
+    });
+    circle.addEventListener('mouseleave', () => {
+      ringProgress.style.stroke = '#4b5fff';
+    });
 
   });
 
 });
+
 
 
 
