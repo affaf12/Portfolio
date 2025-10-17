@@ -132,7 +132,7 @@ header .logo span {
 
 
 
-/* ================= HERO SECTION ================= */
+
 /* ================= HERO SECTION ================= */
 .hero {
   display: flex;
@@ -155,7 +155,7 @@ header .logo span {
   align-items: flex-start;
 }
 
-/* HERO LEFT: PROFILE IMAGE */
+/* ================= HERO LEFT: PROFILE IMAGE ================= */
 .hero-left {
   flex: 1 1 300px;
   text-align: center;
@@ -163,30 +163,28 @@ header .logo span {
   position: relative;
 }
 
+/* PROFILE IMAGE WRAPPER */
 .profile-pic-wrapper {
   position: relative;
   width: 250px;
   height: 250px;
   margin: 0 auto;
-  overflow: hidden; /* ensure image stays inside circle */
   border-radius: 50%;
-  transition: transform 0.5s ease;
+  overflow: hidden;
+  transition: transform 0.6s ease;
 }
 
+/* PROFILE IMAGE */
 .profile-pic {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* ensures the image fits properly */
+  object-fit: cover;
   border-radius: 50%;
   border: 5px solid var(--accent);
-  transition: transform 0.5s ease, box-shadow 0.3s ease;
+  transition: transform 0.6s ease, box-shadow 0.4s ease;
 }
 
-.profile-pic-wrapper:hover .profile-pic {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 0 50px var(--accent);
-}
-
+/* GLOW RING */
 .glow-ring {
   position: absolute;
   top: -10px;
@@ -195,16 +193,33 @@ header .logo span {
   height: 270px;
   border-radius: 50%;
   border: 2px solid var(--accent);
-  box-shadow: 0 0 25px var(--accent), 0 0 50px var(--accent);
-  animation: pulse 2s infinite alternate ease-in-out;
+  box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
+  animation: pulseGlow 2.5s infinite alternate ease-in-out;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent); }
-  100% { box-shadow: 0 0 45px var(--accent), 0 0 70px var(--accent); }
+/* HOVER EFFECT */
+.profile-pic-wrapper:hover .profile-pic {
+  transform: scale(1.15) rotate(3deg);
+  box-shadow: 0 0 60px var(--accent), 0 0 100px rgba(79, 70, 229, 0.6);
 }
 
-/* HERO RIGHT: TEXT + BUTTONS */
+.profile-pic-wrapper:hover .glow-ring {
+  box-shadow: 0 0 40px var(--accent), 0 0 80px rgba(79, 70, 229, 0.7);
+  animation: pulseGlowHover 1.5s infinite alternate ease-in-out;
+}
+
+/* PULSE ANIMATION */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(79, 70, 229, 0.5); }
+  100% { box-shadow: 0 0 45px var(--accent), 0 0 70px rgba(79, 70, 229, 0.7); }
+}
+
+@keyframes pulseGlowHover {
+  0% { box-shadow: 0 0 40px var(--accent), 0 0 80px rgba(79, 70, 229, 0.6); }
+  100% { box-shadow: 0 0 60px var(--accent), 0 0 120px rgba(79, 70, 229, 0.8); }
+}
+
+/* ================= HERO RIGHT: TEXT + BUTTONS ================= */
 .hero-right {
   flex: 1 1 400px;
   margin-top: 3rem;
@@ -229,11 +244,6 @@ header .logo span {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientShift 3s ease-in-out infinite alternate;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0%; }
-  100% { background-position: 100%; }
 }
 
 .hero-subtitle {
@@ -285,7 +295,7 @@ header .logo span {
   display: inline-block;
   text-decoration: none;
   border: none;
-  opacity: 1; /* buttons always visible */
+  opacity: 1; 
   transform: translateY(0) scale(1);
   transition: all 0.3s ease;
 }
@@ -325,10 +335,12 @@ header .logo span {
 @media (max-width: 480px) {
   .hero-title { font-size: 2.2rem; }
   .hero-subtitle { font-size: 1.2rem; }
+  .profile-pic-wrapper { width: 150px; height: 150px; }
+  .glow-ring { width: 170px; height: 170px; }
   .hero-buttons .btn { padding: 0.7rem 1.5rem; font-size: 0.95rem; }
 }
 
-/* Gradient animation for dynamic highlight */
+/* GRADIENT HIGHLIGHT ANIMATION */
 .highlight-gradient {
   background: linear-gradient(90deg, #4b5fff, #00ffe0, #ff4b5f);
   background-size: 300% 100%;
@@ -336,6 +348,12 @@ header .logo span {
   -webkit-text-fill-color: transparent;
   animation: gradientShift 3s ease-in-out infinite;
 }
+
+@keyframes gradientShift {
+  0% { background-position: 0%; }
+  100% { background-position: 100%; }
+}
+
 
 
 /* ================= ABOUT CARDS UPGRADE WITH NEON PARTICLES ================= */
