@@ -1,4 +1,4 @@
-// ================== PORTFOLIO MAIN JS (UPGRADED) ==================
+// ================== PORTFOLIO MAIN JS (FULLY UPGRADED) ==================
 (() => {
   "use strict";
 
@@ -15,7 +15,7 @@
     // Sticky header
     header?.classList.toggle("sticky", scrollY > 50);
 
-    // Active nav links on scroll
+    // Active nav links
     document.querySelectorAll("section[id]").forEach(sec => {
       const top = sec.offsetTop - 70;
       const bottom = top + sec.offsetHeight;
@@ -46,56 +46,46 @@
     if (!typingText) return;
     const word = words[ti];
     typingText.textContent = isDeleting ? word.substring(0, tj--) : word.substring(0, tj++);
-
     const delay = isDeleting ? 50 : 120;
 
-    if (!isDeleting && tj > word.length) { 
-      isDeleting = true; 
-      setTimeout(typeEffect, 1200); 
-      return; 
-    }
-    if (isDeleting && tj < 0) { 
-      isDeleting = false; 
-      ti = (ti + 1) % words.length; 
-      setTimeout(typeEffect, 300); 
-      return; 
-    }
+    if (!isDeleting && tj > word.length) { isDeleting = true; setTimeout(typeEffect, 1200); return; }
+    if (isDeleting && tj < 0) { isDeleting = false; ti = (ti + 1) % words.length; setTimeout(typeEffect, 300); return; }
 
     setTimeout(typeEffect, delay);
   })();
 
   // ===== SCROLL REVEAL =====
-  const animateItems = document.querySelectorAll("section");
+  const animateItems = document.querySelectorAll("[data-animate]");
   function revealOnScroll() {
     const screenPos = window.innerHeight * 0.85;
     animateItems.forEach(el => {
-      if (el.getBoundingClientRect().top < screenPos) {
-        el.classList.add("visible");
-      }
+      if (el.getBoundingClientRect().top < screenPos) el.classList.add("visible");
     });
   }
   window.addEventListener("scroll", revealOnScroll);
   revealOnScroll();
 
-  // ===== SKILL CIRCLES =====
+  // ===== SKILL CIRCLES DYNAMIC ANIMATION =====
+  const skillAnimationDuration = 1500; // in ms
   document.querySelectorAll(".skill").forEach(skill => {
-    const level = parseInt(skill.dataset.level, 10) || 0;
-    skill.style.position = "relative";
-    const label = document.createElement("div");
-    label.style.position = "absolute";
-    label.style.bottom = "-25px";
-    label.style.left = "50%";
-    label.style.transform = "translateX(-50%)";
-    label.style.fontSize = "14px";
-    label.textContent = "0%";
-    skill.appendChild(label);
+    const percent = parseInt(skill.dataset.level, 10) || 0;
+    const circle = skill.querySelector(".skill-circle");
+    const label = skill.querySelector(".skill-percent");
 
-    let count = 0;
-    const interval = setInterval(() => {
-      count += 1;
-      label.textContent = `${count}%`;
-      if (count >= level) clearInterval(interval);
-    }, 20);
+    let start = null;
+    function animate(timestamp) {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / skillAnimationDuration, 1);
+      const currentPercent = Math.floor(progress * percent);
+
+      if (circle) {
+        circle.style.background = `conic-gradient(var(--accent) 0deg, var(--accent) ${currentPercent * 3.6}deg, rgba(255,255,255,0.1) ${currentPercent * 3.6}deg 360deg)`;
+      }
+      if (label) label.textContent = `${currentPercent}%`;
+
+      if (progress < 1) requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
   });
 
   // ===== SCROLL TO TOP =====
@@ -113,14 +103,12 @@
 
   chatbotToggle?.addEventListener("click", () => chatbotWindow.classList.toggle("open"));
   chatbotClose?.addEventListener("click", () => chatbotWindow.classList.remove("open"));
-
   chatbotSend?.addEventListener("click", sendChatMessage);
-  chatbotInput?.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChatMessage(); });
+  chatbotInput?.addEventListener("keypress", e => { if (e.key === "Enter") sendChatMessage(); });
 
   function sendChatMessage() {
     const msg = chatbotInput.value.trim();
     if (!msg) return;
-
     appendChatMessage(msg, "user");
     chatbotInput.value = "";
 
