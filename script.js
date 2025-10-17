@@ -1,194 +1,175 @@
-/* js/script.js — CSP-safe, updated for current HTML */
+// ================= HEADER & NAVIGATION =================
+const header = document.getElementById('header');
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
 
-const $ = (sel, root = document) => root?.querySelector(sel) ?? null;
-const $$ = (sel, root = document) => Array.from((root ?? document).querySelectorAll(sel));
-const onReady = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
-const safeTimeout = (fn, ms) => setTimeout(fn, ms);
-const log = (...args) => { if (window.DEBUG) console.debug(...args); };
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('active');
+});
 
-/* ================= GTM (CSP-safe) ================= */
-(function injectGTM(id) {
-  if (!id) return;
-  try {
-    const f = document.getElementsByTagName('script')[0];
-    const j = document.createElement('script');
-    j.async = true;
-    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + id;
-    f.parentNode.insertBefore(j, f);
-  } catch (e) { log('GTM failed', e); }
-})('GTM-NC5BDRF3');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('sticky', window.scrollY > 50);
 
-/* ================= MAIN ================= */
-onReady(() => {
+  // Highlight nav links
+  const sections = document.querySelectorAll('section');
+  sections.forEach(section => {
+    const top = section.offsetTop - 60;
+    const bottom = top + section.offsetHeight;
+    const id = section.getAttribute('id');
+    const link = document.querySelector(`#nav-menu a[href="#${id}"]`);
+    if (window.scrollY >= top && window.scrollY < bottom) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+});
 
-  const menuToggle = $('#menu-toggle');
-  const navMenu = $('#nav-menu');
-  const themeBtn = $('#theme-toggle-btn');
-  const fontSelect = $('#font-select');
-  const header = $('#header');
-  const scrollBtn = $('#scrollTopBtn');
-  const contactForm = $('#contactForm');
+// ================= THEME TOGGLE =================
+const themeBtn = document.getElementById('theme-toggle-btn');
+themeBtn.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  themeBtn.textContent = isDark ? '🌙' : '☀️';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+});
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
 
-  /* ---------- MENU TOGGLE ---------- */
-  if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-      const expanded = navMenu.classList.toggle('active');
-      menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-      if (expanded) navMenu.querySelector('a')?.focus();
-    });
+// ================= HERO TYPING =================
+const typingText = document.getElementById('typing-text');
+const words = ["Data Analyst", "Power BI Developer", "Python Enthusiast"];
+let i = 0, j = 0, currentWord = '', isDeleting = false;
+
+function type() {
+  currentWord = words[i];
+  typingText.textContent = isDeleting ? currentWord.substring(0, j--) : currentWord.substring(0, j++);
+  if (!isDeleting && j === currentWord.length + 1) {
+    isDeleting = true;
+    setTimeout(type, 1000);
+  } else if (isDeleting && j < 0) {
+    isDeleting = false;
+    i = (i + 1) % words.length;
+    setTimeout(type, 200);
+  } else {
+    setTimeout(type, isDeleting ? 50 : 100);
   }
+}
+type();
 
-  /* ---------- THEME TOGGLE ---------- */
-  if (themeBtn) {
-    const root = document.documentElement;
-    const stored = localStorage.getItem('site-theme');
-    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-    const initial = stored || (prefersDark ? 'dark' : 'dark');
-    const apply = (t) => {
-      root.setAttribute('data-theme', t);
-      themeBtn.setAttribute('aria-pressed', t === 'dark');
-      themeBtn.textContent = t === 'dark' ? '🌙' : '☀️';
-    };
-    apply(initial);
-    themeBtn.addEventListener('click', () => {
-      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('site-theme', next);
-      apply(next);
-    });
-  }
+// ================= ABOUT SECTION STATS =================
+const stats = document.querySelectorAll('.about-stats h3');
+stats.forEach(stat => {
+  const target = +stat.textContent.replace(/\D/g,'');
+  let count = 0;
+  const step = Math.ceil(target / 100);
+  const interval = setInterval(() => {
+    count += step;
+    stat.textContent = count > target ? target : count + '+';
+    if(count >= target) clearInterval(interval);
+  }, 20);
+});
 
-  /* ---------- FONT SWITCHER ---------- */
-  if (fontSelect) {
-    const storedFont = localStorage.getItem('site-font');
-    if (storedFont) document.documentElement.style.fontFamily = storedFont;
-    fontSelect.addEventListener('change', (e) => {
-      const v = e.target.value;
-      document.documentElement.style.fontFamily = v;
-      localStorage.setItem('site-font', v);
-    });
-  }
+// ================= SCROLL REVEAL =================
+const animateItems = document.querySelectorAll('[data-animate]');
+function revealOnScroll() {
+  animateItems.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    const screen = window.innerHeight * 0.85;
+    if (top < screen) el.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
 
-  /* ---------- STICKY HEADER + SCROLL TO TOP ---------- */
-  const showThreshold = 220;
-  const onScroll = () => {
-    const y = window.scrollY || window.pageYOffset;
-    header?.classList.toggle('sticky', y > 60);
-    scrollBtn?.classList.toggle('show', y > showThreshold);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-  scrollBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+// ================= SKILLS CIRCULAR PROGRESS =================
+const skillCircles = document.querySelectorAll('.skill-circle');
+skillCircles.forEach(circle => {
+  const level = circle.dataset.level;
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const bg = document.createElementNS(svg.namespaceURI, 'circle');
+  const fg = document.createElementNS(svg.namespaceURI, 'circle');
 
-  /* ---------- REVEAL ON SCROLL ---------- */
-  const revealEls = $$('[data-animate]');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-    revealEls.forEach(e => io.observe(e));
-  } else { revealEls.forEach(e => e.classList.add('visible')); }
-
-  /* ---------- SKILL DONUTS ---------- */
-  $$('.skill-circle').forEach(el => {
-    const level = parseInt(el.dataset.level) || 0;
-    const size = 88, stroke = 8, r = (size - stroke)/2, c = 2*Math.PI*r;
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
-    svg.setAttribute('width', size);
-    svg.setAttribute('height', size);
-
-    const bg = document.createElementNS(svgNS, 'circle');
-    bg.setAttribute('cx', size/2); bg.setAttribute('cy', size/2); bg.setAttribute('r', r);
-    bg.setAttribute('stroke-width', stroke); bg.setAttribute('class', 'skill-bg'); bg.setAttribute('fill', 'none');
-
-    const fg = document.createElementNS(svgNS, 'circle');
-    fg.setAttribute('cx', size/2); fg.setAttribute('cy', size/2); fg.setAttribute('r', r);
-    fg.setAttribute('stroke-width', stroke); fg.setAttribute('class', 'skill-fg'); fg.setAttribute('fill', 'none');
-    fg.setAttribute('stroke-dasharray', c); fg.setAttribute('stroke-dashoffset', c);
-
-    svg.appendChild(bg); svg.appendChild(fg);
-    el.innerHTML = ''; el.appendChild(svg);
-
-    const offset = c * (1 - Math.min(100, Math.max(0, level))/100);
-    requestAnimationFrame(() => { fg.style.transition = 'stroke-dashoffset 1100ms cubic-bezier(.2,.9,.3,1)'; fg.style.strokeDashoffset = offset; });
-
-    const p = document.createElement('div'); p.className = 'skill-percent'; p.textContent = level + '%'; el.appendChild(p);
+  [bg, fg].forEach(c => {
+    c.setAttribute('cx', 60);
+    c.setAttribute('cy', 60);
+    c.setAttribute('r', 54);
+    c.setAttribute('fill', 'none');
   });
 
-  /* ---------- SMOOTH ANCHORS ---------- */
-  $$('a[href^="#"]').forEach(a => a.addEventListener('click', ev => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) { ev.preventDefault(); target.scrollIntoView({ behavior:'smooth', block:'start' }); }
-  }));
+  bg.setAttribute('stroke', 'rgba(255,255,255,0.06)');
+  bg.setAttribute('stroke-width', 10);
 
-  /* ---------- CONTACT FORM ---------- */
-  if (contactForm) {
-    const msgNode = contactForm.querySelector('.form-message');
-    contactForm.addEventListener('submit', (ev) => {
-      ev.preventDefault();
-      const name = contactForm.name?.value.trim();
-      const email = contactForm.email?.value.trim();
-      const message = contactForm.message?.value.trim();
-      if (!name || !email || !message) {
-        if (msgNode) { msgNode.textContent = 'Please fill all required fields.'; msgNode.className = 'form-message error'; }
-        return;
-      }
-      const subject = encodeURIComponent(contactForm.subject?.value || 'Website Contact');
-      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-      window.location.href = `mailto:muhammadaffaf746@gmail.com?subject=${subject}&body=${body}`;
-      if (msgNode) { msgNode.textContent = 'Preparing email…'; }
-    });
+  fg.setAttribute('stroke', 'var(--accent)');
+  fg.setAttribute('stroke-width', 10);
+  fg.setAttribute('stroke-linecap', 'round');
+  fg.setAttribute('stroke-dasharray', 339.292);
+  fg.setAttribute('stroke-dashoffset', 339.292);
+
+  svg.appendChild(bg);
+  svg.appendChild(fg);
+  circle.appendChild(svg);
+
+  setTimeout(() => {
+    fg.style.transition = 'stroke-dashoffset 1.2s ease';
+    fg.style.strokeDashoffset = 339.292 * (1 - level / 100);
+  }, 300);
+
+  const percentLabel = document.createElement('div');
+  percentLabel.classList.add('skill-percent');
+  percentLabel.textContent = level + '%';
+  circle.appendChild(percentLabel);
+});
+
+// ================= HORIZONTAL SLIDERS =================
+function initSlider(wrapperSelector, leftBtn, rightBtn) {
+  const wrapper = document.querySelector(wrapperSelector);
+  const left = document.querySelector(leftBtn);
+  const right = document.querySelector(rightBtn);
+
+  left.addEventListener('click', () => { wrapper.scrollBy({ left: -300, behavior: 'smooth' }); });
+  right.addEventListener('click', () => { wrapper.scrollBy({ left: 300, behavior: 'smooth' }); });
+}
+initSlider('.achievements-wrapper', '.ach-left-btn', '.ach-right-btn');
+initSlider('.projects-wrapper', '.left-btn', '.right-btn');
+
+// ================= CONTACT FORM =================
+const contactForm = document.getElementById('contactForm');
+contactForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const messageEl = contactForm.querySelector('.form-message');
+  if (!contactForm.name.value || !contactForm.email.value || !contactForm.message.value) {
+    messageEl.textContent = 'Please fill all required fields.';
+    messageEl.className = 'form-message error';
+  } else {
+    messageEl.textContent = 'Message sent successfully!';
+    messageEl.className = 'form-message success';
+    contactForm.reset();
   }
+});
 
-  /* ---------- SLIDERS ---------- */
-  function slider(wrapperSel, leftBtnSel, rightBtnSel) {
-    const wrap = $(wrapperSel); if (!wrap) return;
-    const items = Array.from(wrap.children);
-    let idx = 0;
-    const show = i => { idx = (i + items.length) % items.length; wrap.style.transform = `translateX(${-idx*100}%)`; };
-    $(leftBtnSel)?.addEventListener('click', () => show(idx-1));
-    $(rightBtnSel)?.addEventListener('click', () => show(idx+1));
-    wrap.tabIndex = 0;
-    wrap.addEventListener('keydown', e => { if (e.key==='ArrowLeft') show(idx-1); if (e.key==='ArrowRight') show(idx+1); });
-    show(0);
-  }
-  slider('.achievements-wrapper', '.ach-left-btn', '.ach-right-btn');
-  slider('.projects-wrapper', '.left-btn', '.right-btn');
+// ================= SCROLL TO TOP =================
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+  scrollBtn.classList.toggle('show', window.scrollY > 400);
+});
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
-  /* ---------- CHATBOT ---------- */
-  const chatbotToggle = $('#chatbot-toggle');
-  const chatbotWindow = $('#chatbot-window');
-  const chatbotClose = $('#chatbot-close');
-  const chatbotBody = $('#chatbot-body');
-  const chatbotInput = $('#chatbot-input');
-  const chatbotSend = $('#chatbot-send');
-  const quickReplies = $$('.quick-reply');
+// ================= CHATBOT =================
+const chatbotToggle = document.getElementById('chatbot-toggle');
+const chatbotWindow = document.getElementById('chatbot-window');
+const chatbotClose = document.getElementById('chatbot-close');
 
-  function appendMsg(txt, cls='bot-message'){ const d=document.createElement('div'); d.className=cls+' chatbot-message'; d.textContent=txt; chatbotBody?.appendChild(d); chatbotBody.scrollTop=chatbotBody.scrollHeight; }
+chatbotToggle.addEventListener('click', () => chatbotWindow.toggleAttribute('hidden'));
+chatbotClose.addEventListener('click', () => chatbotWindow.setAttribute('hidden',''));
 
-  function botReply(q){
-    q = (q||'').toLowerCase();
-    if(q.includes('project')) return 'See Projects section or https://github.com/affaf12';
-    if(q.includes('contact')||q.includes('email')) return 'Email: muhammadaffaf746@gmail.com';
-    if(q.includes('resume')) return 'Download from the Resume button in Hero section.';
-    if(q.includes('hello')||q.includes('hi')) return 'Hello 👋 — try "Show projects" or "Contact info".';
-    return 'Try: "Show projects", "Contact info" or "Hi".';
-  }
-
-  function replyFlow(txt){
-    appendMsg(botReply(txt));
-  }
-
-  if(chatbotToggle && chatbotWindow){
-    chatbotToggle.addEventListener('click', ()=>{ chatbotWindow.hasAttribute('hidden') ? chatbotWindow.removeAttribute('hidden') : chatbotWindow.setAttribute('hidden',''); chatbotInput?.focus(); });
-    chatbotClose?.addEventListener('click', ()=>chatbotWindow.setAttribute('hidden',''));
-    chatbotSend?.addEventListener('click', ()=>{ const txt=chatbotInput.value.trim(); if(!txt) return; appendMsg(txt,'user-message'); chatbotInput.value=''; replyFlow(txt); });
-    chatbotInput?.addEventListener('keydown', e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); chatbotSend.click(); }});
-    quickReplies.forEach(btn=>btn.addEventListener('click',e=>{ const txt=e.target.textContent.trim(); appendMsg(txt,'user-message'); replyFlow(txt); }));
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape') chatbotWindow?.setAttribute('hidden',''); });
-  }
-
-  log('script.js initialized');
-
+document.querySelectorAll('.quick-reply').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const body = document.getElementById('chatbot-body');
+    body.innerHTML += `<div class="user-message">${btn.textContent}</div>`;
+    body.innerHTML += `<div class="bot-message">You clicked: ${btn.textContent}</div>`;
+    body.scrollTop = body.scrollHeight;
+  });
 });
