@@ -71,36 +71,60 @@
 
 
 
-<!-- ABOUT -->
-<section id="about">
-  <h2 style="font-size:2.8rem; text-align:center; margin-bottom:2rem; background:linear-gradient(90deg,#4b5fff,#6c5fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
-    About Me
+<!-- EXPERIENCE -->
+<section id="experience" style="position:relative; overflow:hidden; padding:5rem 2rem; background:#0d0d0d; color:#fff; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+  <h2 style="font-size:2.8rem; text-align:center; margin-bottom:3rem; background:linear-gradient(90deg,#4b5fff,#6c5fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:1px;">
+    Experience
   </h2>
 
-  <div class="about-cards" style="display:flex; gap:2rem; flex-wrap:wrap; justify-content:center;">
-    
-    <div class="about-card" style="background:#111111; padding:2rem; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.6); transition: all 0.3s ease; flex:1 1 250px; max-width:300px;">
-      <h3 style="font-size:1.5rem; margin-bottom:1rem;">👤 Profile</h3>
-      <p style="color:#ccc; line-height:1.6;">
-        Hello! I’m <strong>Muhammad Affaf</strong>, a <strong>Results-driven BI Developer</strong> with 3+ years of experience turning data into actionable insights. I excel at solving complex problems and optimizing business processes.
+  <div class="experience-cards" style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; position:relative; z-index:1;">
+
+    <!-- PwC Switzerland -->
+    <div class="experience-card" style="background:linear-gradient(145deg,#111111,#1a1a1a); padding:2rem; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.6); flex:1 1 280px; max-width:350px; position:relative; overflow:hidden; transition:all 0.4s ease;">
+      <h3 style="font-size:1.6rem; margin-bottom:1rem;" data-icon="💼">PwC Switzerland</h3>
+      <p style="color:#ccc; line-height:1.7; font-size:1.1rem;">
+        <strong>Power BI Job Simulation | Pakistan (Remote) | Jan 2024 - Present</strong><br>
+        ● Led end-to-end product development, improving efficiency by 25%.<br>
+        ● Conducted market research, boosting customer satisfaction by 20%.<br>
+        ● Developed and optimized CRM systems, enhancing sales operations by 20% and reducing processing time by 15%.<br>
+        ● Collaborated with UX/UI designers to enhance user experience.
       </p>
     </div>
 
-    <div class="about-card" style="background:#111111; padding:2rem; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.6); transition: all 0.3s ease; flex:1 1 250px; max-width:300px;">
-      <h3 style="font-size:1.5rem; margin-bottom:1rem;">💡 Skills</h3>
-      <p style="color:#ccc; line-height:1.6;">
-        Expert in <strong>Power BI, SQL, ETL, and Data Warehousing</strong>, creating interactive dashboards and data models that drive smart, data-informed decisions.
+    <!-- Accenture North America -->
+    <div class="experience-card" style="background:linear-gradient(145deg,#111111,#1a1a1a); padding:2rem; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.6); flex:1 1 280px; max-width:350px; position:relative; overflow:hidden; transition:all 0.4s ease;">
+      <h3 style="font-size:1.6rem; margin-bottom:1rem;" data-icon="📊">Accenture North America</h3>
+      <p style="color:#ccc; line-height:1.7; font-size:1.1rem;">
+        <strong>Data Analytics & Visualization | Pakistan (Remote) | Jan 2024 - Present</strong><br>
+        ● Designed and implemented product strategies, boosting revenue by 15%.<br>
+        ● Conducted feature prioritization and system enhancements, reducing operational inefficiencies by 10%.<br>
+        ● Led cross-functional teams to develop customer-centric data models, improving engagement by 25%.<br>
+        ● Utilized Power BI, SQL, and Excel to optimize reporting systems.
       </p>
     </div>
 
-    <div class="about-card" style="background:#111111; padding:2rem; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.6); transition: all 0.3s ease; flex:1 1 250px; max-width:300px;">
-      <h3 style="font-size:1.5rem; margin-bottom:1rem;">📜 Certifications</h3>
-      <p style="color:#ccc; line-height:1.6;">
-        Certified in <strong>Microsoft Power BI</strong> and <strong>Google Data Analytics</strong>, with a strong foundation in business intelligence and analytics best practices.
+    <!-- Freelance Projects -->
+    <div class="experience-card" style="background:linear-gradient(145deg,#111111,#1a1a1a); padding:2rem; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.6); flex:1 1 280px; max-width:350px; position:relative; overflow:hidden; transition:all 0.4s ease;">
+      <h3 style="font-size:1.6rem; margin-bottom:1rem;" data-icon="⚙️">Freelance Projects</h3>
+      <p style="color:#ccc; line-height:1.7; font-size:1.1rem;">
+        <strong>Power BI & Data Analytics Projects</strong><br>
+        ● Delivered dashboards and reporting solutions for multiple clients.<br>
+        ● Developed interactive visualizations to support strategic decisions.<br>
+        ● Implemented ETL pipelines and data modeling for business insights.
       </p>
     </div>
 
   </div>
+
+  <!-- Floating particles for all experience cards -->
+  <div class="experience-particles" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;">
+    <div class="particle" style="position:absolute; width:5px; height:5px; background:rgba(75,95,255,0.2); border-radius:50%; top:10%; left:15%;"></div>
+    <div class="particle" style="position:absolute; width:6px; height:6px; background:rgba(75,95,255,0.15); border-radius:50%; top:40%; left:70%;"></div>
+    <div class="particle" style="position:absolute; width:4px; height:4px; background:rgba(75,95,255,0.1); border-radius:50%; top:75%; left:30%;"></div>
+    <!-- Add more particles as desired -->
+  </div>
+
 </section>
 
 
