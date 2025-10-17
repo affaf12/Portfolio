@@ -130,20 +130,19 @@ header .logo span {
   transform: scale(1.05);
 }
 
-/* ================= HERO ================= */
+/* ================= HERO CONTAINER ================= */
 .hero {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  padding: 12rem 2rem 4rem; /* push below header */
+  padding: 12rem 2rem 4rem;
   background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-alt));
   color: var(--text-light);
   overflow: hidden;
   position: relative;
 }
 
-/* Hero container */
 .hero-container {
   display: flex;
   flex-wrap: wrap;
@@ -153,7 +152,7 @@ header .logo span {
   align-items: flex-start;
 }
 
-/* Hero Left: Profile Image */
+/* ================= HERO LEFT (PROFILE IMAGE) ================= */
 .hero-left {
   flex: 1 1 300px;
   text-align: center;
@@ -200,7 +199,7 @@ header .logo span {
   100% { box-shadow: 0 0 45px var(--accent), 0 0 70px var(--accent); }
 }
 
-/* Hero Right: Text & Buttons */
+/* ================= HERO RIGHT (TEXT & BUTTONS) ================= */
 .hero-right {
   flex: 1 1 400px;
   text-align: left;
@@ -242,12 +241,8 @@ header .logo span {
 
 #typing-text {
   display: inline-block;
-  opacity: 0;
   font-weight: 500;
-  font-size: 1.4rem;
-  color: var(--text-muted);
-  min-height: 1.5em;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  color: var(--accent);
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid var(--accent);
@@ -268,42 +263,37 @@ header .logo span {
 }
 
 @keyframes blinkCursor {
-  0%, 50%, 100% { border-color: var(--accent); }
-  25%, 75% { border-color: transparent; }
+  0%, 50%, 100% { background-color: var(--accent); }
+  25%, 75% { background-color: transparent; }
 }
 
-/* Hero Buttons */
+/* ================= HERO BUTTONS ================= */
 .hero-buttons {
   margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .hero-buttons .btn {
-  margin-right: 1rem;
-  margin-bottom: 1rem;
   opacity: 0;
   transform: translateX(50px) scale(0.95);
   transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.hero-buttons.visible .btn {
+.hero-buttons .btn.visible {
   opacity: 1;
   transform: translateX(0) scale(1);
 }
-
-.hero-buttons .btn:nth-child(1) { transition-delay: 0.2s; }
-.hero-buttons .btn:nth-child(2) { transition-delay: 0.4s; }
-.hero-buttons .btn:nth-child(3) { transition-delay: 0.6s; }
 
 .btn {
   display: inline-block;
   padding: 0.85rem 2rem;
   border-radius: 50px;
-  border: none;
-  cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .btn-primary {
