@@ -14,7 +14,6 @@ menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
 window.addEventListener('scroll', () => {
   header.classList.toggle('sticky', window.scrollY > 50);
-
   document.querySelectorAll('section[id]').forEach(section => {
     const top = section.offsetTop - 60;
     const bottom = top + section.offsetHeight;
@@ -44,7 +43,6 @@ let ti = 0, tj = 0, isDeleting = false;
 function typeEffect() {
   const currentWord = words[ti];
   typingText.textContent = isDeleting ? currentWord.substring(0, tj--) : currentWord.substring(0, tj++);
-  
   if (!isDeleting && tj > currentWord.length) {
     isDeleting = true;
     setTimeout(typeEffect, 1200);
@@ -128,7 +126,7 @@ document.querySelectorAll('.skill-circle').forEach(circle => {
 });
 
 // ================== HORIZONTAL SLIDERS ==================
-function initAnimatedSlider(wrapperSel, leftBtnSel, rightBtnSel) {
+function initSlider(wrapperSel, leftBtnSel, rightBtnSel) {
   const wrapper = document.querySelector(wrapperSel);
   const left = document.querySelector(leftBtnSel);
   const right = document.querySelector(rightBtnSel);
@@ -137,24 +135,21 @@ function initAnimatedSlider(wrapperSel, leftBtnSel, rightBtnSel) {
   left.addEventListener('click', () => wrapper.scrollBy({ left: -320, behavior: 'smooth' }));
   right.addEventListener('click', () => wrapper.scrollBy({ left: 320, behavior: 'smooth' }));
 
-  const items = wrapper.querySelectorAll('.slider-item');
-  function animateSliderItems() {
-    const screenPos = window.innerHeight * 0.85;
-    items.forEach(item => {
-      const rect = item.getBoundingClientRect();
-      if (rect.top < screenPos) {
-        item.classList.add('slide-in', 'fade-in');
-        item.style.opacity = '1';
-        item.style.transform = 'translateX(0)';
+  const items = wrapper.children;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('slide-in', 'fade-in');
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateX(0)';
       }
     });
-  }
-  window.addEventListener('scroll', animateSliderItems);
-  animateSliderItems();
-}
+  }, { threshold: 0.1 });
 
-initAnimatedSlider('.achievements-wrapper', '.ach-left-btn', '.ach-right-btn');
-initAnimatedSlider('.projects-wrapper', '.left-btn', '.right-btn');
+  Array.from(items).forEach(item => observer.observe(item));
+}
+initSlider('.achievements-wrapper', '.ach-left-btn', '.ach-right-btn');
+initSlider('.projects-wrapper', '.left-btn', '.right-btn');
 
 // ================== CONTACT FORM ==================
 const contactForm = document.getElementById('contactForm');
@@ -193,7 +188,13 @@ document.querySelectorAll('.quick-reply').forEach(btn => {
 
     const botMsg = document.createElement('div');
     botMsg.className = 'chatbot-message bot';
-    botMsg.textContent = `You clicked: ${btn.textContent}`;
+    if (btn.textContent.toLowerCase().includes("project")) {
+      botMsg.textContent = "Here are my projects: Coffee Shop Dashboard, Backpack Price Prediction, Insurance Claims Analysis, Logistics Network Optimization.";
+    } else if (btn.textContent.toLowerCase().includes("contact")) {
+      botMsg.textContent = "You can reach me at muhammadaffaf746@gmail.com or via LinkedIn/GitHub/WhatsApp.";
+    } else {
+      botMsg.textContent = "Hello 👋! How can I help you today?";
+    }
 
     chatbotBody.append(userMsg, botMsg);
     chatbotBody.scrollTop = chatbotBody.scrollHeight;
