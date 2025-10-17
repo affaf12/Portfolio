@@ -130,24 +130,9 @@ header .logo span {
   transform: scale(1.05);
 }
 
-:root {
-  --bg-dark: #0d0d0d;
-  --bg-dark-alt: #1a1a1a;
-  --text-light: #f5f5f5;
-  --text-muted: #bbbbbb;
-  --accent: #4b5fff;
-}
+
 
 /* ================= HERO SECTION ================= */
-:root {
-  --bg-dark: #0d0d0d;
-  --bg-dark-alt: #1a1a1a;
-  --text-light: #f5f5f5;
-  --text-muted: #bbbbbb;
-  --accent: #4b5fff;
-}
-
-/* ================= HERO ================= */
 .hero {
   display: flex;
   justify-content: center;
@@ -169,7 +154,7 @@ header .logo span {
   align-items: flex-start;
 }
 
-/* HERO LEFT */
+/* HERO LEFT: PROFILE IMAGE */
 .hero-left {
   flex: 1 1 300px;
   text-align: center;
@@ -216,7 +201,7 @@ header .logo span {
   100% { box-shadow: 0 0 45px var(--accent), 0 0 70px var(--accent); }
 }
 
-/* HERO RIGHT */
+/* HERO RIGHT: TEXT + BUTTONS */
 .hero-right {
   flex: 1 1 400px;
   margin-top: 3rem;
@@ -297,8 +282,8 @@ header .logo span {
   display: inline-block;
   text-decoration: none;
   border: none;
-  opacity: 1;
-  transform: translateY(0) scale(1);
+  opacity: 1; /* always visible */
+  transform: translateY(0) scale(1); /* default position */
   transition: all 0.3s ease;
 }
 
@@ -340,6 +325,14 @@ header .logo span {
   .hero-buttons .btn { padding: 0.7rem 1.5rem; font-size: 0.95rem; }
 }
 
+/* Gradient animation for highlight role */
+.highlight-gradient {
+  background: linear-gradient(90deg, #4b5fff, #00ffe0, #ff4b5f);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease-in-out infinite;
+}
 
 
 
