@@ -176,7 +176,7 @@ document.querySelectorAll('.experience-card').forEach(card => {
   }
 });
 
-/* ================= FULL SKILLS NEON UPGRADE v2 ================= */
+/* ================= FULL SKILLS NEON UPGRADE ================= */
 document.addEventListener('DOMContentLoaded', () => {
 
   const skills = [
@@ -196,27 +196,28 @@ document.addEventListener('DOMContentLoaded', () => {
     ringProgress.style.strokeDasharray = circumference;
     ringProgress.style.strokeDashoffset = circumference;
 
-    // ================= RING ANIMATION WITH EASING =================
     let currentPercent = 0;
+
+    // Animate the ring from 0 to target %
     function animateRing() {
       if (currentPercent < skill.target) {
-        currentPercent += 0.5; // smoother increment
-        const eased = currentPercent < skill.target ? currentPercent : skill.target;
-        percentSpan.textContent = Math.round(eased) + '%';
-        ringProgress.style.strokeDashoffset = circumference - (eased / 100) * circumference;
+        currentPercent++;
+        percentSpan.textContent = currentPercent + '%';
+        const offset = circumference - (currentPercent / 100) * circumference;
+        ringProgress.style.strokeDashoffset = offset;
         requestAnimationFrame(animateRing);
       } else {
         percentSpan.textContent = skill.target + '%';
       }
     }
+
+    // Start animation with slight random delay for staggered effect
     setTimeout(animateRing, Math.random() * 500);
 
-    // ================= PARTICLE SYSTEM =================
+    // ================= NEON PARTICLES =================
     const particlesContainer = circle.querySelector('.skill-particles');
     particlesContainer.innerHTML = '';
-    const particleCount = 18;
-    const particles = [];
-
+    const particleCount = 12;
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
@@ -228,61 +229,43 @@ document.addEventListener('DOMContentLoaded', () => {
       particle.style.animationDelay = Math.random() * 5 + 's';
       particle.style.background = `rgba(${75 + Math.random()*180}, ${95 + Math.random()*160}, 255, ${Math.random()*0.5 + 0.3})`;
       particlesContainer.appendChild(particle);
-      particles.push(particle);
     }
 
-    // Continuous subtle particle drift
-    function animateParticles() {
-      particles.forEach(p => {
-        const dx = (Math.random() - 0.5) * 0.5;
-        const dy = (Math.random() - 0.5) * 0.5;
-        const currentTransform = p.style.transform.match(/translate\(([-\d.]+)px, ([-\d.]+)px\)/);
-        let x = 0, y = 0;
-        if (currentTransform) { x = parseFloat(currentTransform[1]); y = parseFloat(currentTransform[2]); }
-        p.style.transform = `translate(${x + dx}px, ${y + dy}px)`;
-      });
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-
-    // ================= GRADIENT COLOR CYCLING & GLOW =================
+    // ================= COLOR GRADIENT & GLOW PULSE =================
     let hue = Math.random() * 360;
-    function animateGradient() {
-      hue = (hue + 0.5) % 360;
-      const color = `hsl(${hue}, 100%, 60%)`;
-      ringProgress.style.stroke = color;
+    let pulse = 0;
 
-      const glow = 15 + Math.sin(hue * Math.PI / 180) * 15;
-      circle.style.boxShadow = `0 0 ${glow}px ${color}, inset 0 0 ${glow/2}px ${color}`;
-
-      requestAnimationFrame(animateGradient);
+    function animateGlow() {
+      hue = (hue + 1) % 360;
+      ringProgress.style.stroke = `hsl(${hue}, 100%, 60%)`;
+      pulse += 0.05;
+      const glow = 15 + Math.sin(pulse) * 10;
+      circle.style.boxShadow = `0 0 ${glow}px hsl(${hue}, 100%, 60%), inset 0 0 ${glow/2}px hsl(${hue}, 100%, 60%)`;
+      requestAnimationFrame(animateGlow);
     }
-    animateGradient();
+    animateGlow();
 
     // ================= HOVER PARTICLE EXPLOSION =================
     circle.addEventListener('mouseenter', () => {
-      particles.forEach(p => {
+      for (let i = 0; i < particleCount; i++) {
+        const particle = particlesContainer.children[i];
         const angle = Math.random() * 2 * Math.PI;
-        const distance = Math.random() * 60 + 30;
-        const speed = Math.random() * 0.5 + 0.5;
-        p.style.transition = `transform ${speed}s ease-out, opacity ${speed}s ease-out`;
-        p.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-        p.style.opacity = 0;
-      });
+        const distance = Math.random() * 50 + 20;
+        particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+        particle.style.opacity = 0;
+      }
     });
-
     circle.addEventListener('mouseleave', () => {
-      particles.forEach(p => {
-        p.style.transition = `transform 1s ease, opacity 1s ease`;
-        p.style.transform = `translate(0px, 0px)`;
-        p.style.opacity = 1;
-      });
+      for (let i = 0; i < particleCount; i++) {
+        const particle = particlesContainer.children[i];
+        particle.style.transform = `translate(0px, 0px)`;
+        particle.style.opacity = 1;
+      }
     });
 
   });
 
 });
-
 
 
 
