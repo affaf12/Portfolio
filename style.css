@@ -130,6 +130,14 @@ header .logo span {
   transform: scale(1.05);
 }
 
+:root {
+  --bg-dark: #0d0d0d;
+  --bg-dark-alt: #1a1a1a;
+  --text-light: #f5f5f5;
+  --text-muted: #bbbbbb;
+  --accent: #4b5fff;
+}
+
 /* ================= HERO SECTION ================= */
 .hero {
   display: flex;
@@ -139,16 +147,16 @@ header .logo span {
   padding: 12rem 2rem 4rem;
   background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-alt));
   color: var(--text-light);
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 
 .hero-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 3rem;
   max-width: 1200px;
   width: 100%;
-  gap: 3rem;
   align-items: flex-start;
 }
 
@@ -281,23 +289,14 @@ header .logo span {
   text-decoration: none;
   border: none;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(20px) scale(0.95);
   transition: all 0.5s ease;
 }
 
-/* Slide-in animation */
-.hero-buttons .btn.slide-in {
+/* Slide-in animation when visible */
+.hero-buttons .btn.visible {
   opacity: 1;
-  transform: translateY(0);
-  animation: slideIn 0.6s forwards;
-}
-
-.hero-buttons .btn.slide-in:nth-child(1) { animation-delay: 0.2s; }
-.hero-buttons .btn.slide-in:nth-child(2) { animation-delay: 0.4s; }
-
-@keyframes slideIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  transform: translateY(0) scale(1);
 }
 
 /* Primary Button */
