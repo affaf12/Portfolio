@@ -51,6 +51,93 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   animateElements.forEach((el) => observer.observe(el));
 
+
+/*------------- js/about.js ------*/
+/* CSP-safe external script.
+   Responsibilities:
+   - reveal elements with data-animate using IntersectionObserver
+   - add 'glow' class to contact button when revealed
+   - smooth-scroll to #contact when button clicked
+*/
+
+(function () {
+  'use strict';
+
+  // Helper: safe query
+  function $q(selector, root) {
+    return (root || document).querySelector(selector);
+  }
+
+  function onDOMReady(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else {
+      fn();
+    }
+  }
+
+  onDOMReady(function () {
+    var animated = document.querySelectorAll('[data-animate]');
+    var contactBtn = $q('#contactBtn');
+
+    // IntersectionObserver options
+    var obsOptions = {
+      root: null,
+      rootMargin: '0px 0px -8% 0px', // reveal a bit before element fully in view
+      threshold: 0.12
+    };
+
+    if ('IntersectionObserver' in window && animated.length) {
+      var obs = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // When section fully visible, add glow to button (only once)
+            if (contactBtn && entry.target.closest('.about-section')) {
+              // small timeout to let reveal settle
+              setTimeout(function () {
+                contactBtn.classList.add('glow');
+              }, 160);
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, obsOptions);
+
+      animated.forEach(function (el) {
+        obs.observe(el);
+      });
+    } else {
+      // Fallback: if IntersectionObserver is not supported
+      animated.forEach(function (el) {
+        el.classList.add('visible');
+      });
+      if (contactBtn) contactBtn.classList.add('glow');
+    }
+
+    // Smooth scroll to #contact (if present)
+    if (contactBtn) {
+      contactBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var contactSection = document.getElementById('contact');
+        if (contactSection) {
+          // use native smooth scroll if available
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // set focus for accessibility
+          contactSection.setAttribute('tabindex', '-1');
+          contactSection.focus({ preventScroll: true });
+        } else {
+          // fallback: tries to open mailto if no contact section
+          window.location.href = 'mailto:your-email@example.com';
+        }
+      });
+    }
+
+  });
+})();
+
+
+
   
   /* ================= SKILLS ANIMATION ================= */
   const skills = [
