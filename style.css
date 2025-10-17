@@ -139,6 +139,15 @@ header .logo span {
 }
 
 /* ================= HERO SECTION ================= */
+:root {
+  --bg-dark: #0d0d0d;
+  --bg-dark-alt: #1a1a1a;
+  --text-light: #f5f5f5;
+  --text-muted: #bbbbbb;
+  --accent: #4b5fff;
+}
+
+/* ================= HERO SECTION ================= */
 .hero {
   display: flex;
   justify-content: center;
@@ -160,7 +169,7 @@ header .logo span {
   align-items: flex-start;
 }
 
-/* ================= HERO LEFT (PROFILE IMAGE) ================= */
+/* HERO LEFT */
 .hero-left {
   flex: 1 1 300px;
   text-align: center;
@@ -207,7 +216,7 @@ header .logo span {
   100% { box-shadow: 0 0 45px var(--accent), 0 0 70px var(--accent); }
 }
 
-/* ================= HERO RIGHT (TEXT + BUTTONS) ================= */
+/* HERO RIGHT */
 .hero-right {
   flex: 1 1 400px;
   margin-top: 3rem;
@@ -270,7 +279,7 @@ header .logo span {
   25%, 75% { background-color: transparent; }
 }
 
-/* ================= HERO BUTTONS ================= */
+/* HERO BUTTONS */
 .hero-buttons {
   display: flex;
   gap: 1rem;
@@ -293,13 +302,11 @@ header .logo span {
   transition: all 0.5s ease;
 }
 
-/* Slide-in animation when visible */
 .hero-buttons .btn.visible {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-/* Primary Button */
 .btn-primary {
   background: linear-gradient(135deg, var(--accent), #4b5fff);
   color: var(--text-light);
@@ -311,7 +318,6 @@ header .logo span {
   box-shadow: 0 10px 30px rgba(79, 70, 229, 0.7);
 }
 
-/* Glow Button */
 .btn-glow {
   background: transparent;
   color: var(--accent);
@@ -324,11 +330,7 @@ header .logo span {
   box-shadow: 0 0 25px var(--accent);
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 1024px) {
-  .hero-container { gap: 2rem; }
-}
-
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .hero-container { flex-direction: column; text-align: center; }
   .hero-right { text-align: center; margin-top: 2rem; }
@@ -342,6 +344,7 @@ header .logo span {
   .hero-subtitle { font-size: 1.2rem; }
   .hero-buttons .btn { padding: 0.7rem 1.5rem; font-size: 0.95rem; }
 }
+
 
 /* ================= ABOUT CARDS UPGRADE WITH NEON PARTICLES ================= */
 #about {
