@@ -134,6 +134,7 @@ header .logo span {
 
 
 /* ================= HERO SECTION ================= */
+/* ================= HERO SECTION ================= */
 .hero {
   display: flex;
   justify-content: center;
@@ -171,7 +172,10 @@ header .logo span {
   margin: 0 auto;
   border-radius: 50%;
   overflow: hidden;
-  transition: transform 0.6s ease;
+  transition: transform 0.2s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  cursor: pointer;
 }
 
 /* PROFILE IMAGE */
@@ -181,7 +185,7 @@ header .logo span {
   object-fit: cover;
   border-radius: 50%;
   border: 5px solid var(--accent);
-  transition: transform 0.6s ease, box-shadow 0.4s ease;
+  transition: transform 0.2s ease, box-shadow 0.4s ease;
 }
 
 /* GLOW RING */
@@ -197,9 +201,9 @@ header .logo span {
   animation: pulseGlow 2.5s infinite alternate ease-in-out;
 }
 
-/* HOVER EFFECT */
+/* HOVER + GLOW + ROTATION */
 .profile-pic-wrapper:hover .profile-pic {
-  transform: scale(1.15) rotate(3deg);
+  transform: scale(1.15);
   box-shadow: 0 0 60px var(--accent), 0 0 100px rgba(79, 70, 229, 0.6);
 }
 
@@ -208,15 +212,15 @@ header .logo span {
   animation: pulseGlowHover 1.5s infinite alternate ease-in-out;
 }
 
-/* PULSE ANIMATION */
+/* PULSE ANIMATIONS */
 @keyframes pulseGlow {
-  0% { box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(79, 70, 229, 0.5); }
-  100% { box-shadow: 0 0 45px var(--accent), 0 0 70px rgba(79, 70, 229, 0.7); }
+  0% { box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(79,70,229,0.5); }
+  100% { box-shadow: 0 0 45px var(--accent), 0 0 70px rgba(79,70,229,0.7); }
 }
 
 @keyframes pulseGlowHover {
-  0% { box-shadow: 0 0 40px var(--accent), 0 0 80px rgba(79, 70, 229, 0.6); }
-  100% { box-shadow: 0 0 60px var(--accent), 0 0 120px rgba(79, 70, 229, 0.8); }
+  0% { box-shadow: 0 0 40px var(--accent), 0 0 80px rgba(79,70,229,0.6); }
+  100% { box-shadow: 0 0 60px var(--accent), 0 0 120px rgba(79,70,229,0.8); }
 }
 
 /* ================= HERO RIGHT: TEXT + BUTTONS ================= */
@@ -353,6 +357,7 @@ header .logo span {
   0% { background-position: 0%; }
   100% { background-position: 100%; }
 }
+
 
 
 
