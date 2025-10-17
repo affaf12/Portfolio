@@ -176,7 +176,22 @@ document.querySelectorAll('.experience-card').forEach(card => {
   }
 });
 
+  // ===== Skill section  =====
+document.querySelectorAll('.skill-circle').forEach(circle => {
+  const percentSpan = circle.querySelector('.skill-percent');
+  const targetPercent = parseInt(circle.getAttribute('data-percent'));
+  let currentPercent = 0;
 
+  const animate = setInterval(() => {
+    if(currentPercent >= targetPercent){
+      clearInterval(animate);
+    } else {
+      currentPercent++;
+      percentSpan.textContent = currentPercent + '%';
+      circle.style.background = `conic-gradient(#4b5fff ${currentPercent * 3.6}deg, #1a1a1a 0deg)`;
+    }
+  }, 20); // speed of animation
+});
 
 
   // ===== SCROLL REVEAL =====
