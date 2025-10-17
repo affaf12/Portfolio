@@ -157,12 +157,26 @@
 <section id="skills">
   <h2>Skills</h2>
   <div class="skills-grid">
+
     <!-- Power BI -->
     <div class="skill-circle" data-percent="90">
       <span class="skill-percent">90%</span>
       <svg class="skill-ring" width="140" height="140">
+        <defs>
+          <linearGradient id="gradientPowerBI" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4b5fff">
+              <animate attributeName="stop-color" values="#4b5fff;#6c5fff;#ff4bff;#4b5fff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="50%" stop-color="#6c5fff">
+              <animate attributeName="stop-color" values="#6c5fff;#ff4bff;#4b5fff;#6c5fff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" stop-color="#ff4bff">
+              <animate attributeName="stop-color" values="#ff4bff;#4b5fff;#6c5fff;#ff4bff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+          </linearGradient>
+        </defs>
         <circle class="ring-bg" cx="70" cy="70" r="60" stroke-width="10" fill="none"/>
-        <circle class="ring-progress" cx="70" cy="70" r="60" stroke-width="10" fill="none"/>
+        <circle class="ring-progress" cx="70" cy="70" r="60" stroke-width="10" fill="none" stroke="url(#gradientPowerBI)"/>
       </svg>
       <div class="skill-name">Power BI</div>
       <div class="skill-particles"></div>
@@ -172,8 +186,21 @@
     <div class="skill-circle" data-percent="80">
       <span class="skill-percent">80%</span>
       <svg class="skill-ring" width="140" height="140">
+        <defs>
+          <linearGradient id="gradientSQL" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ff4bff">
+              <animate attributeName="stop-color" values="#ff4bff;#4b5fff;#6c5fff;#ff4bff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="50%" stop-color="#6c5fff">
+              <animate attributeName="stop-color" values="#6c5fff;#ff4bff;#4b5fff;#6c5fff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" stop-color="#4b5fff">
+              <animate attributeName="stop-color" values="#4b5fff;#6c5fff;#ff4bff;#4b5fff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+          </linearGradient>
+        </defs>
         <circle class="ring-bg" cx="70" cy="70" r="60" stroke-width="10" fill="none"/>
-        <circle class="ring-progress" cx="70" cy="70" r="60" stroke-width="10" fill="none"/>
+        <circle class="ring-progress" cx="70" cy="70" r="60" stroke-width="10" fill="none" stroke="url(#gradientSQL)"/>
       </svg>
       <div class="skill-name">SQL</div>
       <div class="skill-particles"></div>
@@ -183,8 +210,21 @@
     <div class="skill-circle" data-percent="75">
       <span class="skill-percent">75%</span>
       <svg class="skill-ring" width="140" height="140">
+        <defs>
+          <linearGradient id="gradientPython" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#6c5fff">
+              <animate attributeName="stop-color" values="#6c5fff;#ff4bff;#4b5fff;#6c5fff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="50%" stop-color="#ff4bff">
+              <animate attributeName="stop-color" values="#ff4bff;#4b5fff;#6c5fff;#ff4bff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" stop-color="#4b5fff">
+              <animate attributeName="stop-color" values="#4b5fff;#6c5fff;#ff4bff;#4b5fff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+          </linearGradient>
+        </defs>
         <circle class="ring-bg" cx="70" cy="70" r="60" stroke-width="10" fill="none"/>
-        <circle class="ring-progress" cx="70" cy="70" r="60" stroke-width="10" fill="none"/>
+        <circle class="ring-progress" cx="70" cy="70" r="60" stroke-width="10" fill="none" stroke="url(#gradientPython)"/>
       </svg>
       <div class="skill-name">Python</div>
       <div class="skill-particles"></div>
@@ -194,15 +234,28 @@
     <div class="skill-circle" data-percent="85">
       <span class="skill-percent">85%</span>
       <svg class="skill-ring" width="140" height="140">
+        <defs>
+          <linearGradient id="gradientExcel" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ff4bff">
+              <animate attributeName="stop-color" values="#ff4bff;#6c5fff;#4b5fff;#ff4bff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="50%" stop-color="#4b5fff">
+              <animate attributeName="stop-color" values="#4b5fff;#6c5fff;#ff4bff;#4b5fff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" stop-color="#6c5fff">
+              <animate attributeName="stop-color" values="#6c5fff;#ff4bff;#4b5fff;#6c5fff" dur="4s" repeatCount="indefinite"/>
+            </stop>
+          </linearGradient>
+        </defs>
         <circle class="ring-bg" cx="70" cy="70" r="60" stroke-width="10" fill="none"/>
-        <circle class="ring-progress" cx="70" cy="70" r="60" stroke-width="10" fill="none"/>
+        <circle class="ring-progress" cx="70" cy="70" r="60" stroke-width="10" fill="none" stroke="url(#gradientExcel)"/>
       </svg>
       <div class="skill-name">Excel</div>
       <div class="skill-particles"></div>
     </div>
+
   </div>
 </section>
-
 
 
   
