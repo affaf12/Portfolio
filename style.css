@@ -133,6 +133,7 @@ header .logo span {
 
 
 /* ================= HERO SECTION ================= */
+/* ================= HERO SECTION ================= */
 .hero {
   display: flex;
   justify-content: center;
@@ -167,15 +168,17 @@ header .logo span {
   width: 250px;
   height: 250px;
   margin: 0 auto;
+  overflow: hidden; /* ensure image stays inside circle */
+  border-radius: 50%;
   transition: transform 0.5s ease;
 }
 
 .profile-pic {
   width: 100%;
   height: 100%;
+  object-fit: cover; /* ensures the image fits properly */
   border-radius: 50%;
   border: 5px solid var(--accent);
-  object-fit: cover;
   transition: transform 0.5s ease, box-shadow 0.3s ease;
 }
 
@@ -282,8 +285,8 @@ header .logo span {
   display: inline-block;
   text-decoration: none;
   border: none;
-  opacity: 1; /* always visible */
-  transform: translateY(0) scale(1); /* default position */
+  opacity: 1; /* buttons always visible */
+  transform: translateY(0) scale(1);
   transition: all 0.3s ease;
 }
 
@@ -325,7 +328,7 @@ header .logo span {
   .hero-buttons .btn { padding: 0.7rem 1.5rem; font-size: 0.95rem; }
 }
 
-/* Gradient animation for highlight role */
+/* Gradient animation for dynamic highlight */
 .highlight-gradient {
   background: linear-gradient(90deg, #4b5fff, #00ffe0, #ff4b5f);
   background-size: 300% 100%;
@@ -333,7 +336,6 @@ header .logo span {
   -webkit-text-fill-color: transparent;
   animation: gradientShift 3s ease-in-out infinite;
 }
-
 
 
 /* ================= ABOUT CARDS UPGRADE WITH NEON PARTICLES ================= */
