@@ -176,7 +176,7 @@ document.querySelectorAll('.experience-card').forEach(card => {
   }
 });
 
-  // ===== Skill section  =====
+// Animate skill circles from 0% to target %
 document.querySelectorAll('.skill-circle').forEach(circle => {
   const percentSpan = circle.querySelector('.skill-percent');
   const targetPercent = parseInt(circle.getAttribute('data-percent'));
@@ -188,47 +188,29 @@ document.querySelectorAll('.skill-circle').forEach(circle => {
     } else {
       currentPercent++;
       percentSpan.textContent = currentPercent + '%';
-      circle.style.background = `conic-gradient(#4b5fff ${currentPercent * 3.6}deg, #1a1a1a 0deg)`;
+      circle.style.background = `conic-gradient(#4b5fff ${currentPercent*3.6}deg, #1a1a1a 0deg)`;
     }
-  }, 20); // speed of animation
+  }, 20);
+
+  // Generate random floating particles
+  const particlesContainer = circle.querySelector('.skill-particles');
+  for(let i=0; i<12; i++){
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    particle.style.top = Math.random()*100 + '%';
+    particle.style.left = Math.random()*100 + '%';
+    particle.style.width = particle.style.height = Math.random()*3 + 3 + 'px';
+    particle.style.animationDuration = (Math.random()*5 + 5) + 's';
+    particle.style.background = `rgba(${75+Math.floor(Math.random()*180)},${95+Math.floor(Math.random()*160)},${255},${Math.random()*0.4 + 0.3})`;
+    particlesContainer.appendChild(particle);
+  }
 });
 
 
-  // ===== SCROLL REVEAL =====
-  const animateItems = document.querySelectorAll("[data-animate]");
-  function revealOnScroll() {
-    const screenPos = window.innerHeight * 0.85;
-    animateItems.forEach(el => {
-      if (el.getBoundingClientRect().top < screenPos) el.classList.add("visible");
-    });
-  }
-  window.addEventListener("scroll", revealOnScroll);
-  revealOnScroll();
 
-  // ===== SKILL CIRCLES DYNAMIC ANIMATION =====
-  const skillAnimationDuration = 1500; // in ms
-  document.querySelectorAll(".skill").forEach(skill => {
-    const percent = parseInt(skill.dataset.level, 10) || 0;
-    const circle = skill.querySelector(".skill-circle");
-    const label = skill.querySelector(".skill-percent");
 
-    let start = null;
-    function animate(timestamp) {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / skillAnimationDuration, 1);
-      const currentPercent = Math.floor(progress * percent);
 
-      if (circle) {
-        circle.style.background = `conic-gradient(var(--accent) 0deg, var(--accent) ${currentPercent * 3.6}deg, rgba(255,255,255,0.1) ${currentPercent * 3.6}deg 360deg)`;
-      }
-      if (label) label.textContent = `${currentPercent}%`;
-
-      if (progress < 1) requestAnimationFrame(animate);
-    }
-    requestAnimationFrame(animate);
-  });
-
-  // ===== SCROLL TO TOP =====
+// ===== SCROLL TO TOP =====
   const scrollBtn = document.getElementById("scrollTopBtn");
   window.addEventListener("scroll", () => scrollBtn?.classList.toggle("show", window.scrollY > 400));
   scrollBtn?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
