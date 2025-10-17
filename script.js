@@ -44,44 +44,37 @@ themeBtn?.addEventListener("click", () => {
 });
 
   
-  // ================= HERO TYPING EFFECT =================
-  document.addEventListener("DOMContentLoaded", () => {
+  // ================= HERO SCRIPT =================
+document.addEventListener("DOMContentLoaded", () => {
+  /* ---------- TYPING EFFECT ---------- */
   const typingText = document.getElementById("typing-text");
   const highlightText = document.querySelector(".hero-title .highlight");
   const roles = ["Data Analyst", "Business Analyst", "Power BI Developer", "Python Enthusiast"];
-  const heroButtons = document.querySelectorAll(".hero-buttons .btn");
-
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-
   const typingSpeed = 120;
   const deletingSpeed = 50;
   const delayAfterWord = 1200;
   const nextWordDelay = 500;
 
-  // Make buttons visible immediately
-  heroButtons.forEach(btn => btn.classList.add("visible"));
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
 
   function typeEffect() {
     if (!typingText || !highlightText) return;
 
     const currentWord = roles[wordIndex];
-    if (isDeleting) charIndex--;
-    else charIndex++;
+    charIndex += isDeleting ? -1 : 1;
 
     const displayedText = currentWord.substring(0, charIndex);
     typingText.textContent = displayedText;
     highlightText.textContent = displayedText;
-
-    // Add gradient animation class to highlight
-    highlightText.classList.add("highlight-gradient");
+    highlightText.classList.add("highlight-gradient"); // gradient animation
 
     let timeout = isDeleting ? deletingSpeed : typingSpeed;
 
     if (!isDeleting && charIndex === currentWord.length) {
-      timeout = delayAfterWord;
       isDeleting = true;
+      timeout = delayAfterWord;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       wordIndex = (wordIndex + 1) % roles.length;
@@ -93,15 +86,20 @@ themeBtn?.addEventListener("click", () => {
 
   typeEffect();
 
-  // ================= SMOOTH SCROLL =================
+  /* ---------- HERO BUTTONS VISIBILITY ---------- */
+  const heroButtons = document.querySelectorAll(".hero-buttons .btn");
+  heroButtons.forEach(btn => btn.classList.add("visible"));
+
+  /* ---------- SMOOTH SCROLL ---------- */
   const header = document.getElementById("header");
   const navMenu = document.getElementById("nav-menu");
 
   document.querySelectorAll("#nav-menu a").forEach(link => {
     link.addEventListener("click", e => {
       e.preventDefault();
-      const targetId = link.getAttribute("href").slice(1);
-      const targetSection = document.getElementById(targetId);
+      const targetId = link.getAttribute("href")?.slice(1);
+      const targetSection = targetId ? document.getElementById(targetId) : null;
+
       if (targetSection) {
         const offset = header ? header.offsetHeight : 0;
         window.scrollTo({
@@ -112,7 +110,25 @@ themeBtn?.addEventListener("click", () => {
       }
     });
   });
+
+  /* ---------- PROFILE PIC 3D PARALLAX ---------- */
+  const wrapper = document.querySelector('.profile-pic-wrapper');
+  if (wrapper) {
+    wrapper.addEventListener('mousemove', (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rotateY = ((x / rect.width) - 0.5) * 15; // max tilt 15deg
+      const rotateX = ((y / rect.height) - 0.5) * -15;
+      wrapper.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      wrapper.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
+  }
 });
+
 
   // ===== Experince section  =====
 document.querySelectorAll('.experience-card').forEach(card => {
