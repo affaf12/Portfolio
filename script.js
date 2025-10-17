@@ -43,23 +43,30 @@ themeBtn?.addEventListener("click", () => {
   localStorage.setItem("theme", document.documentElement.dataset.theme);
 });
 
-// ================= HERO TYPING EFFECT =================
-document.addEventListener("DOMContentLoaded", () => {
+  
+  
+  
+  document.addEventListener("DOMContentLoaded", () => {
+  // ================= HERO TYPING EFFECT =================
   const typingText = document.getElementById("typing-text");
-  const words = ["Data Analyst", "Businesess Analyst" "Power BI Developer", "Python Enthusiast"];
+  const words = ["Data Analyst", "Business Analyst", "Power BI Developer", "Python Enthusiast"];
   let wordIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
   const typingSpeed = 120;
   const deletingSpeed = 50;
-  const delayAfterWord = 1200;
+  const delayAfterWord = 1200; // pause at end of word
   const nextWordDelay = 500;
+
+  // Get hero buttons
+  const heroButtons = document.querySelectorAll(".hero-buttons .btn.slide-in");
 
   function typeEffect() {
     if (!typingText) return;
 
     const currentWord = words[wordIndex];
 
+    // Add or remove characters
     if (isDeleting) {
       charIndex--;
       typingText.textContent = currentWord.substring(0, charIndex);
@@ -70,12 +77,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let timeout = isDeleting ? deletingSpeed : typingSpeed;
 
+    // Check if word finished typing
     if (!isDeleting && charIndex === currentWord.length) {
       timeout = delayAfterWord;
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
+      wordIndex++;
+
+      // When one full cycle is completed
+      if (wordIndex >= words.length) {
+        wordIndex = 0;
+
+        // Show hero buttons with staggered animation
+        heroButtons.forEach((btn, index) => {
+          setTimeout(() => btn.classList.add("visible"), index * 200);
+        });
+      }
       timeout = nextWordDelay;
     }
 
@@ -84,14 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   typeEffect();
 
-  // ================= HERO BUTTONS SLIDE-IN =================
-  const heroButtons = document.querySelectorAll(".hero-buttons .btn");
-  if (heroButtons.length) {
-    heroButtons.forEach((btn, index) => {
-      // Add slide-in class for animation
-      btn.classList.add("slide-in");
-    });
-  }
+  // ================= HERO BUTTONS INITIALIZATION =================
+  heroButtons.forEach((btn) => {
+    // Initially hidden and ready to slide in
+    btn.classList.remove("visible");
+  });
 
   // ================= SMOOTH SCROLL FOR NAV LINKS =================
   const header = document.getElementById("header");
