@@ -44,56 +44,47 @@ themeBtn?.addEventListener("click", () => {
 });
 
   
-  
-  
-  document.addEventListener("DOMContentLoaded", () => {
   // ================= HERO TYPING EFFECT =================
+  document.addEventListener("DOMContentLoaded", () => {
   const typingText = document.getElementById("typing-text");
-  const words = ["Data Analyst", "Business Analyst", "Power BI Developer", "Python Enthusiast"];
+  const highlightText = document.querySelector(".hero-title .highlight");
+  const roles = ["Data Analyst", "Business Analyst", "Power BI Developer", "Python Enthusiast"];
+  const heroButtons = document.querySelectorAll(".hero-buttons .btn");
+
   let wordIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
+
   const typingSpeed = 120;
   const deletingSpeed = 50;
-  const delayAfterWord = 1200; // pause at end of word
+  const delayAfterWord = 1200;
   const nextWordDelay = 500;
 
-  // Get hero buttons
-  const heroButtons = document.querySelectorAll(".hero-buttons .btn.slide-in");
+  // Make buttons visible immediately
+  heroButtons.forEach(btn => btn.classList.add("visible"));
 
   function typeEffect() {
-    if (!typingText) return;
+    if (!typingText || !highlightText) return;
 
-    const currentWord = words[wordIndex];
+    const currentWord = roles[wordIndex];
+    if (isDeleting) charIndex--;
+    else charIndex++;
 
-    // Add or remove characters
-    if (isDeleting) {
-      charIndex--;
-      typingText.textContent = currentWord.substring(0, charIndex);
-    } else {
-      charIndex++;
-      typingText.textContent = currentWord.substring(0, charIndex);
-    }
+    const displayedText = currentWord.substring(0, charIndex);
+    typingText.textContent = displayedText;
+    highlightText.textContent = displayedText;
+
+    // Add gradient animation class to highlight
+    highlightText.classList.add("highlight-gradient");
 
     let timeout = isDeleting ? deletingSpeed : typingSpeed;
 
-    // Check if word finished typing
     if (!isDeleting && charIndex === currentWord.length) {
       timeout = delayAfterWord;
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
-      wordIndex++;
-
-      // When one full cycle is completed
-      if (wordIndex >= words.length) {
-        wordIndex = 0;
-
-        // Show hero buttons with staggered animation
-        heroButtons.forEach((btn, index) => {
-          setTimeout(() => btn.classList.add("visible"), index * 200);
-        });
-      }
+      wordIndex = (wordIndex + 1) % roles.length;
       timeout = nextWordDelay;
     }
 
@@ -102,13 +93,7 @@ themeBtn?.addEventListener("click", () => {
 
   typeEffect();
 
-  // ================= HERO BUTTONS INITIALIZATION =================
-  heroButtons.forEach((btn) => {
-    // Initially hidden and ready to slide in
-    btn.classList.remove("visible");
-  });
-
-  // ================= SMOOTH SCROLL FOR NAV LINKS =================
+  // ================= SMOOTH SCROLL =================
   const header = document.getElementById("header");
   const navMenu = document.getElementById("nav-menu");
 
@@ -118,8 +103,9 @@ themeBtn?.addEventListener("click", () => {
       const targetId = link.getAttribute("href").slice(1);
       const targetSection = document.getElementById(targetId);
       if (targetSection) {
+        const offset = header ? header.offsetHeight : 0;
         window.scrollTo({
-          top: targetSection.offsetTop - (header ? header.offsetHeight : 0),
+          top: targetSection.offsetTop - offset,
           behavior: "smooth"
         });
         if (navMenu) navMenu.classList.remove("active");
@@ -127,7 +113,6 @@ themeBtn?.addEventListener("click", () => {
     });
   });
 });
-
 
   // ===== Experince section  =====
 document.querySelectorAll('.experience-card').forEach(card => {
