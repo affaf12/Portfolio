@@ -176,7 +176,7 @@ document.querySelectorAll('.experience-card').forEach(card => {
   }
 });
 
-/* ================= SKILLS SECTION JS UPGRADED ================= */
+/* ================= SKILLS SECTION JS ================= */
 document.addEventListener('DOMContentLoaded', () => {
 
   const skillCircles = document.querySelectorAll('.skill-circle');
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentPercent = 0;
 
-    // Animate ring & number smoothly using requestAnimationFrame
+    // Animate ring & number
     function animate() {
       if(currentPercent < targetPercent){
         currentPercent++;
@@ -208,9 +208,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     animate();
 
-    // Generate random floating neon particles dynamically
+    // Create floating neon particles dynamically
     const particlesContainer = circle.querySelector('.skill-particles');
-    particlesContainer.innerHTML = ''; // Clear existing particles
+    particlesContainer.innerHTML = '';
     for(let i=0; i<12; i++){
       const particle = document.createElement('div');
       particle.classList.add('particle');
@@ -222,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
       particle.style.background = `rgba(${75 + Math.floor(Math.random()*180)},${95 + Math.floor(Math.random()*160)},255,${Math.random()*0.4 + 0.3})`;
       particlesContainer.appendChild(particle);
     }
+
   });
 
 });
