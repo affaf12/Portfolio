@@ -176,14 +176,14 @@ document.querySelectorAll('.experience-card').forEach(card => {
   }
 });
 
-/* ================= FULL SKILLS UPGRADE ================= */
+/* ================= FULL SKILLS NEON UPGRADE ================= */
 document.addEventListener('DOMContentLoaded', () => {
 
   const skills = [
-    { selector: '.skill-circle[data-percent="90"]', target: 90, hoverColor: '#ff4bff' },
-    { selector: '.skill-circle[data-percent="80"]', target: 80, hoverColor: '#ff6bff' },
-    { selector: '.skill-circle[data-percent="75"]', target: 75, hoverColor: '#ff3fff' },
-    { selector: '.skill-circle[data-percent="85"]', target: 85, hoverColor: '#ff5bff' }
+    { selector: '.skill-circle[data-percent="90"]', target: 90 },
+    { selector: '.skill-circle[data-percent="80"]', target: 80 },
+    { selector: '.skill-circle[data-percent="75"]', target: 75 },
+    { selector: '.skill-circle[data-percent="85"]', target: 85 }
   ];
 
   skills.forEach(skill => {
@@ -211,10 +211,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(animateRing, Math.random() * 500);
 
-    // Neon Particles
+    // Create Neon Particles
     const particlesContainer = circle.querySelector('.skill-particles');
     particlesContainer.innerHTML = '';
-    const particleCount = 10 + Math.floor(Math.random() * 6); // 10-15 particles
+    const particleCount = 12;
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
@@ -228,19 +228,46 @@ document.addEventListener('DOMContentLoaded', () => {
       particlesContainer.appendChild(particle);
     }
 
-    // Hover Glow
+    // Color-changing gradient ring
+    let hue = Math.random() * 360;
+    function animateGradient() {
+      hue = (hue + 1) % 360;
+      ringProgress.style.stroke = `hsl(${hue}, 100%, 60%)`;
+      requestAnimationFrame(animateGradient);
+    }
+    animateGradient();
+
+    // Glowing pulse
+    let pulse = 0;
+    function animatePulse() {
+      pulse += 0.05;
+      const glow = 15 + Math.sin(pulse) * 10;
+      circle.style.boxShadow = `0 0 ${glow}px hsl(${hue}, 100%, 60%), inset 0 0 ${glow/2}px hsl(${hue}, 100%, 60%)`;
+      requestAnimationFrame(animatePulse);
+    }
+    animatePulse();
+
+    // Hover particle explosion
     circle.addEventListener('mouseenter', () => {
-      ringProgress.style.stroke = skill.hoverColor;
-      percentSpan.style.textShadow = `0 0 10px ${skill.hoverColor}, 0 0 20px ${skill.hoverColor}`;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = particlesContainer.children[i];
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = Math.random() * 50 + 20;
+        particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+        particle.style.opacity = 0;
+      }
     });
     circle.addEventListener('mouseleave', () => {
-      ringProgress.style.stroke = '#4b5fff';
-      percentSpan.style.textShadow = '0 0 5px #4b5fff, 0 0 15px #ff4bff';
+      for (let i = 0; i < particleCount; i++) {
+        const particle = particlesContainer.children[i];
+        particle.style.transform = `translate(0px, 0px)`;
+        particle.style.opacity = 1;
+      }
     });
+
   });
 
 });
-
 
 
 
