@@ -585,10 +585,9 @@ header .logo span { color: var(--accent); }
   font-weight: bold;
   border-radius: 50%;
   overflow: hidden;
-  z-index: 0;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  /* Neon pulse glow effect */
+  /* Neon pulse glow */
   box-shadow: 0 0 15px #4b5fff, inset 0 0 15px #ff4bff;
   animation: pulseGlow 2s infinite alternate;
 }
@@ -616,6 +615,7 @@ header .logo span { color: var(--accent); }
   r: 60;
   cx: 70;
   cy: 70;
+  transition: stroke-dashoffset 1.5s ease, stroke 0.3s ease;
 }
 
 /* Background circle */
@@ -623,13 +623,12 @@ header .logo span { color: var(--accent); }
   stroke: #1a1a1a;
 }
 
-/* Progress circle with neon effect */
+/* Progress circle */
 .ring-progress {
   stroke: #4b5fff;
   stroke-linecap: round;
-  stroke-dasharray: 377;
-  stroke-dashoffset: 377;
-  transition: stroke-dashoffset 1.5s ease, stroke 0.3s ease;
+  stroke-dasharray: 377; /* 2*PI*60 */
+  stroke-dashoffset: 377; /* start at 0% */
 }
 
 /* ================= PERCENTAGE & NAME ================= */
