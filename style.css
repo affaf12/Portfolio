@@ -1844,7 +1844,6 @@ a.btn-glow:hover {
   box-shadow: 0 6px 20px rgba(79,70,229,0.5);
 }
 
-/* ================= SCROLL TO TOP ================= */
 /* ================= SCROLL TO TOP NEON BUTTON ================= */
 #scrollTopBtn {
   position: fixed;
@@ -1866,7 +1865,7 @@ a.btn-glow:hover {
   transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
 }
 
-/* Rotating neon gradient border like social icons */
+/* Rotating neon gradient border */
 #scrollTopBtn::before {
   content: '';
   position: absolute;
@@ -1920,7 +1919,7 @@ a.btn-glow:hover {
   100% { transform: rotate(360deg); }
 }
 
-/* Electric pulse/glow around the button (optional, advanced) */
+/* Electric pulse/glow animation */
 #scrollTopBtn.pulse::after {
   animation: pulseGlow 2s infinite alternate;
 }
@@ -1941,6 +1940,7 @@ a.btn-glow:hover {
     bottom: 30px;
   }
 }
+
 
 
 /* ================= ANIMATIONS ================= */
