@@ -1844,9 +1844,9 @@ a.btn-glow:hover {
   box-shadow: 0 6px 20px rgba(79,70,229,0.5);
 }
 
-<style>
-/* ================= SCROLL TO TOP NEON BUTTON ================= */
-/* ================= SCROLL TO TOP CIRCLE BUTTON ================= */
+
+
+/* ================= SCROLL TO TOP CIRCLE BUTTON WITH NEON GLOW ================= */
 #scrollTopBtn {
   position: fixed;
   left: 20px; /* left-hand side */
@@ -1862,39 +1862,31 @@ a.btn-glow:hover {
   color: #fff;
   font-size: 1.8rem;
   font-weight: bold;
-  display: none; /* hidden initially */
-  transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  line-height: 60px; /* vertical centering */
+  display: none; /* initially hidden */
+  box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff, 0 0 30px rgba(255,255,255,0.1);
+  transition: transform 0.3s, filter 0.3s, box-shadow 0.3s;
 }
 
-#scrollTopBtn span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
+/* Hover effect - subtle neon glow increase */
 #scrollTopBtn:hover {
-  transform: translateY(-6px) scale(1.1);
-  filter: brightness(1.2);
-  box-shadow: 0 0 20px rgba(255,255,255,0.3); /* subtle hover glow */
+  transform: translateY(-5px) scale(1.1);
+  filter: brightness(1.3);
+  box-shadow: 0 0 20px #ff00ff, 0 0 35px #00ffff, 0 0 50px rgba(255,255,255,0.2);
 }
 
-/* ================= RESPONSIVE ================= */
+/* Responsive for mobile */
 @media (max-width: 600px) {
   #scrollTopBtn {
     width: 50px;
     height: 50px;
     font-size: 1.5rem;
+    line-height: 50px;
     left: 15px;
     bottom: 30px;
   }
 }
-
 
 
 
