@@ -439,27 +439,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
 
-// ===== SCROLL TO TOP =====
+// ===== SCROLL TO TOP BUTTON =====
 document.addEventListener("DOMContentLoaded", function() {
   const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-  // Show button when user scrolls down 100px
+  if (!scrollTopBtn) return; // Safety check
+
+  // Show/hide button on scroll
   window.addEventListener("scroll", function() {
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    if (window.scrollY > 100) {  // More reliable than body.scrollTop
       scrollTopBtn.style.display = "block";
-      scrollTopBtn.classList.add("pulse");
+      scrollTopBtn.classList.add("pulse"); // Add neon pulse
     } else {
       scrollTopBtn.style.display = "none";
-      scrollTopBtn.classList.remove("pulse");
+      scrollTopBtn.classList.remove("pulse"); // Remove neon pulse
     }
   });
 
   // Smooth scroll to top
-  scrollTopBtn.addEventListener("click", () => {
+  scrollTopBtn.addEventListener("click", function() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
-
 
 
   // ===== CHATBOT =====
