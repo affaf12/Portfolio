@@ -267,20 +267,15 @@ const rightBtn = document.querySelector(".right-btn");
 let isDragging = false;
 let startX, scrollLeft;
 
-// Drag to scroll
-carousel.addEventListener('mousedown', e => {
-  isDragging = true;
-  carousel.classList.add('dragging');
-  startX = e.pageX - carousel.offsetLeft;
-  scrollLeft = carousel.scrollLeft;
-});
-carousel.addEventListener('mouseleave', () => { isDragging = false; carousel.classList.remove('dragging'); });
-carousel.addEventListener('mouseup', () => { isDragging = false; carousel.classList.remove('dragging'); });
+// Drag/Swipe functionality
+carousel.addEventListener('mousedown', e => { isDragging = true; startX = e.pageX - carousel.offsetLeft; scrollLeft = carousel.scrollLeft; });
+carousel.addEventListener('mouseleave', () => isDragging = false);
+carousel.addEventListener('mouseup', () => isDragging = false);
 carousel.addEventListener('mousemove', e => {
   if(!isDragging) return;
   e.preventDefault();
   const x = e.pageX - carousel.offsetLeft;
-  const walk = (x - startX) * 2; //scroll-fast
+  const walk = (x - startX) * 2;
   carousel.scrollLeft = scrollLeft - walk;
 });
 
@@ -290,12 +285,12 @@ leftBtn.addEventListener("click", () => { carousel.scrollBy({ left: -scrollAmoun
 rightBtn.addEventListener("click", () => { carousel.scrollBy({ left: scrollAmount, behavior: "smooth" }); });
 
 // Auto-scroll
-let autoScroll = setInterval(() => { carousel.scrollBy({ left: 1, behavior: "smooth" }); }, 20);
+let autoScroll = setInterval(() => { carousel.scrollBy({ left: 1, behavior: "smooth" }); }, 15);
 
 // Pause on hover
 carousel.addEventListener('mouseenter', () => clearInterval(autoScroll));
 carousel.addEventListener('mouseleave', () => {
-  autoScroll = setInterval(() => { carousel.scrollBy({ left: 1, behavior: "smooth" }); }, 20);
+  autoScroll = setInterval(() => { carousel.scrollBy({ left: 1, behavior: "smooth" }); }, 15);
 });
 
 
