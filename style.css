@@ -800,6 +800,9 @@ header .logo span {
 
 
 
+
+/* ================= Certerification Section  ================= */
+
 /* ===================== CERTIFICATIONS SECTION ===================== */
 #certifications {
   padding: 100px 20px;
@@ -812,14 +815,15 @@ header .logo span {
 
 /* ===== HEADING ===== */
 .certifications-heading {
-  font-size: 2.6rem;
-  font-weight: 700;
+  font-size: 2.8rem;
+  font-weight: 800;
   margin-bottom: 70px;
-  color: #4b5fff;
+  color: #5f77ff;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 0 15px rgba(75, 95, 255, 0.7);
+  letter-spacing: 3px;
+  text-shadow: 0 0 25px rgba(95, 119, 255, 0.9);
   position: relative;
+  animation: fadeInDown 1s ease-out;
 }
 
 .certifications-heading::after {
@@ -828,59 +832,67 @@ header .logo span {
   left: 50%;
   bottom: -20px;
   transform: translateX(-50%);
-  width: 140px;
+  width: 160px;
   height: 4px;
   background: linear-gradient(90deg, #2c3ed9, #4b5fff, #6a82fb);
   border-radius: 4px;
-  box-shadow: 0 0 20px rgba(75, 95, 255, 0.7);
+  box-shadow: 0 0 20px rgba(75, 95, 255, 0.9);
 }
 
 /* ===== CAROUSEL CONTAINER ===== */
 .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 750px;
+  max-width: 850px;
   margin: 0 auto;
   overflow: hidden;
   padding: 0 80px;
 }
 
-/* ===== CAROUSEL TRACK ===== */
 .certifications-carousel {
   display: flex;
-  transition: transform 0.6s cubic-bezier(.22, .9, .35, 1);
+  transition: transform 0.7s cubic-bezier(.22, .9, .35, 1);
   will-change: transform;
 }
 
 /* ===== CERTIFICATION CARD ===== */
 .certification-card {
   flex: 0 0 100%;
-  background: rgba(15, 20, 60, 0.9);
-  border: 1px solid rgba(75, 95, 255, 0.4);
-  border-radius: 20px;
-  padding: 40px 25px;
+  background: rgba(20, 25, 60, 0.8);
+  border: 1px solid rgba(75, 95, 255, 0.3);
+  border-radius: 22px;
+  padding: 45px 30px;
   text-align: center;
-  box-shadow: 0 0 25px rgba(75, 95, 255, 0.15);
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.1);
   transform: scale(0.9);
-  opacity: 0.7;
-  transition: all 0.6s ease;
-  backdrop-filter: blur(10px);
+  opacity: 0.6;
+  transition: all 0.7s ease;
+  backdrop-filter: blur(15px) saturate(150%);
+  margin: 0 10px;
+  position: relative;
 }
 
+/* Peeking next card look */
+.certifications-carousel::after {
+  content: '';
+  flex: 0 0 10%;
+}
+
+/* ===== ACTIVE CARD ===== */
 .certification-card.active {
-  transform: scale(1.03);
+  transform: scale(1.05);
   opacity: 1;
   border-color: #4b5fff;
   box-shadow: 0 0 35px rgba(75, 95, 255, 0.5),
-              0 10px 25px rgba(0, 0, 0, 0.5);
-  animation: pulseBlue 2.5s infinite ease-in-out;
+              0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: pulseBlue 3s infinite ease-in-out;
 }
 
-/* ===== BLUE GLOW ANIMATION ===== */
+/* ===== BLUE PULSE EFFECT ===== */
 @keyframes pulseBlue {
-  0% { box-shadow: 0 0 10px rgba(75, 95, 255, 0.5); }
-  50% { box-shadow: 0 0 25px rgba(75, 95, 255, 0.9); }
-  100% { box-shadow: 0 0 10px rgba(75, 95, 255, 0.5); }
+  0% { box-shadow: 0 0 12px rgba(75, 95, 255, 0.4); }
+  50% { box-shadow: 0 0 28px rgba(75, 95, 255, 0.9); }
+  100% { box-shadow: 0 0 12px rgba(75, 95, 255, 0.4); }
 }
 
 /* ===== CERTIFICATION IMAGE ===== */
@@ -891,27 +903,33 @@ header .logo span {
   border-radius: 14px;
   border: 2px solid #4b5fff;
   padding: 10px;
-  margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 20px rgba(75, 95, 255, 0.35) inset;
+  margin-bottom: 25px;
+  background: radial-gradient(circle at top, rgba(75,95,255,0.15), rgba(15,20,60,0.8));
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.3) inset;
   transition: all 0.4s ease;
 }
 
 .certification-card.active .cert-img,
 .certification-card:hover .cert-img {
   transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(75, 95, 255, 0.6) inset;
+  border-color: #6a82fb;
+  box-shadow: 0 0 40px rgba(75, 95, 255, 0.7);
 }
 
 /* ===== TITLE ===== */
 .cert-title {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: #4b5fff;
-  margin-bottom: 16px;
+  color: #a9b8ff;
+  margin-bottom: 10px;
   text-transform: capitalize;
-  letter-spacing: 0.6px;
-  text-shadow: 0 0 10px rgba(75, 95, 255, 0.3);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(75, 95, 255, 0.25);
+  transition: color 0.3s ease;
+}
+
+.certification-card.active .cert-title {
+  color: #ffffff;
 }
 
 /* ===== ARROW BUTTONS ===== */
@@ -920,8 +938,8 @@ header .logo span {
   border: none;
   color: #fff;
   border-radius: 50%;
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   font-size: 1.6rem;
   cursor: pointer;
   position: absolute;
@@ -933,27 +951,22 @@ header .logo span {
 }
 
 .carousel-btn:hover {
-  background: linear-gradient(135deg, #5d6fff, #3e51ff);
+  background: linear-gradient(135deg, #6a82fb, #4b5fff);
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 0 40px rgba(75, 95, 255, 0.8);
 }
 
-.carousel-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+.left-btn { left: 10px; }
+.right-btn { right: 10px; }
 
-.left-btn { left: 15px; }
-.right-btn { right: 15px; }
-
-/* ===== EDGE FADE ===== */
+/* ===== EDGE GRADIENT FADE ===== */
 .carousel-container::before,
 .carousel-container::after {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 80px;
+  width: 90px;
   z-index: 5;
   pointer-events: none;
 }
@@ -968,15 +981,20 @@ header .logo span {
   background: linear-gradient(to left, #06091b 40%, transparent);
 }
 
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .carousel-container { padding: 0 50px; }
   .cert-img { width: 100px; height: 100px; }
   .certification-card { padding: 30px; }
   .carousel-btn { width: 45px; height: 45px; font-size: 1.3rem; }
+  .certifications-heading { font-size: 2.2rem; margin-bottom: 50px; }
 }
-
-
 
 
 
