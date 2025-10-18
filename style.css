@@ -1856,7 +1856,7 @@ a.btn-glow:hover {
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: #111;   /* Matches dark theme */
+  background-color: #111;   /* Dark theme background */
   color: #fff;
   font-size: 1.8rem;
   font-weight: bold;
@@ -1881,7 +1881,7 @@ a.btn-glow:hover {
   animation: neonRotate 5s linear infinite;
 }
 
-/* Inner subtle glow */
+/* Inner glow + pulse halo merged in one */
 #scrollTopBtn::after {
   content: '';
   position: absolute;
@@ -1890,9 +1890,12 @@ a.btn-glow:hover {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
   pointer-events: none;
   z-index: 1;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ff00ff;
+  /* Halo pulse */
+  animation: haloPulse 3s infinite alternate;
 }
 
 /* Center arrow icon */
@@ -1913,33 +1916,22 @@ a.btn-glow:hover {
   box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff, 0 0 75px #ff00ff inset;
 }
 
-/* Rotating neon animation */
+/* Neon rotation keyframes */
 @keyframes neonRotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* Pulse glow effect when visible */
-#scrollTopBtn.pulse::after {
-  animation: pulseGlow 2s infinite alternate;
-}
-
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
-  50% { box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff; }
-  100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
-}
-
-/* Optional: animated neon halo behind the button */
-#scrollTopBtn::after {
-  box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ff00ff;
-  animation: haloPulse 3s infinite alternate;
-}
-
+/* Halo pulse animation */
 @keyframes haloPulse {
   0% { transform: scale(0.9); opacity: 0.5; }
   50% { transform: scale(1.1); opacity: 0.8; }
   100% { transform: scale(0.9); opacity: 0.5; }
+}
+
+/* Pulse glow effect when button is visible */
+#scrollTopBtn.pulse::after {
+  animation: haloPulse 1.5s infinite alternate;
 }
 
 /* Responsive for mobile */
