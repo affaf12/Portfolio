@@ -459,7 +459,7 @@ function scrollToTop() {
 
 
   // ===== CHATBOT =====
-  // Get elements
+// Get elements
 const chatbotToggle = document.getElementById("chatbot-toggle");
 const chatbotWindow = document.getElementById("chatbot-window");
 const chatbotClose = document.getElementById("chatbot-close");
@@ -470,11 +470,13 @@ const chatbotBody = document.getElementById("chatbot-body");
 // Toggle chatbot window
 chatbotToggle.addEventListener("click", () => {
   chatbotWindow.classList.toggle("chatbot-visible");
+  chatbotToggle.classList.toggle("pulse"); // add soft neon pulse
 });
 
 // Close chatbot window
 chatbotClose.addEventListener("click", () => {
   chatbotWindow.classList.remove("chatbot-visible");
+  chatbotToggle.classList.remove("pulse");
 });
 
 // Send message
@@ -494,7 +496,7 @@ chatbotSend.addEventListener("click", () => {
     chatbotBody.scrollTop = chatbotBody.scrollHeight;
     chatbotInput.value = "";
 
-    // Simple bot response
+    // Bot response
     setTimeout(() => {
       const botReply = document.createElement("div");
       botReply.textContent = "I’m here to help! You asked: " + msg;
@@ -506,6 +508,12 @@ chatbotSend.addEventListener("click", () => {
 });
 
 // Send on Enter key
+chatbotInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    chatbotSend.click();
+  }
+});
+
 chatbotInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     chatbotSend.click();
