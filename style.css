@@ -1004,69 +1004,110 @@ header .logo span {
 
 
 /* ================= PROJECTS SECTION ================= */
-/* ================= PROJECTS SECTION ================= */
 #projects {
-  padding: 90px 20px;
-  background: radial-gradient(circle at top left, #0b0d18 0%, #090a14 100%);
+  padding: 80px 20px;
+  background: radial-gradient(circle at top left, #0c0f1a 0%, #0a0c16 100%);
   color: #fff;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
+/* ========== FLOATING NEON PARTICLES ========== */
+#projects::before,
+#projects::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(75,95,255,0.4) 2px, transparent 3px),
+              radial-gradient(circle, rgba(168,85,247,0.3) 2px, transparent 3px),
+              radial-gradient(circle, rgba(236,72,153,0.25) 2px, transparent 3px);
+  background-size: 120px 120px, 180px 180px, 240px 240px;
+  animation: floatParticles 60s linear infinite;
+  opacity: 0.35;
+  filter: blur(0.5px);
+  z-index: 0;
+}
+
+#projects::after {
+  animation-direction: reverse;
+  animation-duration: 90s;
+  opacity: 0.25;
+}
+
+/* Floating particle animation */
+@keyframes floatParticles {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-50px, -30px) rotate(180deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}
+
 /* ========== SECTION TITLE ========== */
 #projects .section-title {
-  font-size: 2.8rem;
-  margin-bottom: 60px;
+  font-size: 2.6rem;
+  margin-bottom: 55px;
   color: #4b5fff;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 800;
-  text-shadow: 0 0 20px rgba(75, 95, 255, 0.7);
   position: relative;
   display: inline-block;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(75, 95, 255, 0.6);
+  z-index: 2;
 }
 
 #projects .section-title::after {
   content: "";
   position: absolute;
-  bottom: -10px;
+  bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 4px;
-  background: linear-gradient(90deg, #4b5fff, #a855f7, #ec4899, #4b5fff);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #4b5fff, #a855f7, #ec4899);
   border-radius: 5px;
-  animation: glowLine 3s linear infinite;
-  box-shadow: 0 0 20px rgba(75, 95, 255, 0.8);
+  box-shadow: 0 0 15px rgba(75, 95, 255, 0.6);
 }
 
 /* ========== PROJECTS GRID ========== */
 .projects-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 35px;
   justify-content: center;
   align-items: stretch;
   max-width: 1150px;
   margin: 0 auto;
+  z-index: 2;
+  position: relative;
 }
 
 /* ========== PROJECT CARD ========== */
 .project-card {
-  background: radial-gradient(circle at 30% 30%, #171a35 0%, #0e1122 100%);
-  border: 2px solid rgba(75, 95, 255, 0.25);
+  background: radial-gradient(circle at 30% 30%, #161a35 0%, #0f1224 100%);
+  border: 2px solid rgba(75, 95, 255, 0.2);
   border-radius: 20px;
-  padding: 40px 30px;
+  padding: 35px;
   text-align: left;
   box-shadow: 0 0 30px rgba(75, 95, 255, 0.08);
   position: relative;
   overflow: hidden;
-  transition: all 0.6s ease;
+  transition: all 0.5s ease;
   animation: projectFadeIn 0.8s ease forwards;
+  z-index: 3;
 }
 
-/* Animated gradient border */
+/* ========== GLOW BORDER PULSE ========== */
 .project-card::before {
   content: "";
   position: absolute;
@@ -1080,43 +1121,21 @@ header .logo span {
   mask-composite: exclude;
   padding: 2px;
   opacity: 0.6;
-  animation: borderPulse 5s linear infinite;
-}
-
-/* ========== ICON SECTION ========== */
-.project-icons {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.project-icons img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 6px rgba(75, 95, 255, 0.7));
-  transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-.project-icons img:hover {
-  transform: scale(1.2);
-  filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.8))
-          drop-shadow(0 0 25px rgba(236, 72, 153, 0.6));
+  animation: borderPulse 4s linear infinite;
 }
 
 /* ========== HOVER EFFECTS ========== */
 .project-card:hover {
-  transform: translateY(-12px) scale(1.05);
+  transform: translateY(-10px) scale(1.05);
   border-color: rgba(75, 95, 255, 0.6);
-  box-shadow:
-    0 0 50px rgba(75, 95, 255, 0.5),
-    0 0 25px rgba(168, 85, 247, 0.4),
-    inset 0 0 20px rgba(236, 72, 153, 0.2);
+  box-shadow: 0 0 45px rgba(75, 95, 255, 0.4),
+              0 0 20px rgba(168, 85, 247, 0.3),
+              inset 0 0 20px rgba(236, 72, 153, 0.2);
 }
 
 .project-card:hover::before {
   opacity: 1;
-  animation: borderPulseFast 2.8s linear infinite;
+  animation: borderPulseFast 2.5s linear infinite;
 }
 
 /* ========== TEXT STYLES ========== */
@@ -1125,7 +1144,7 @@ header .logo span {
   color: #ffffff;
   margin-bottom: 10px;
   font-weight: 600;
-  text-shadow: 0 0 12px rgba(75, 95, 255, 0.6);
+  text-shadow: 0 0 10px rgba(75, 95, 255, 0.6);
 }
 
 .project-location {
@@ -1171,7 +1190,7 @@ header .logo span {
   }
   50% {
     background-position: 100% 50%;
-    opacity: 0.9;
+    opacity: 0.8;
   }
   100% {
     background-position: 0% 50%;
@@ -1194,30 +1213,17 @@ header .logo span {
   }
 }
 
-@keyframes glowLine {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 /* ========== RESPONSIVE FIX ========== */
 @media (max-width: 768px) {
   .project-card {
     padding: 25px;
   }
+
   #projects .section-title {
     font-size: 2rem;
   }
-  .project-icons img {
-    width: 28px;
-  }
 }
+
 
 
 
