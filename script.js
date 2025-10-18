@@ -261,8 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
- 
-  // ===== Certification Section ===== 
+// ===== Certitfication Section  =====
+ // ===== Certification Carousel =====
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".carousel-container");
   const track = document.querySelector(".certifications-carousel");
@@ -275,133 +275,65 @@ document.addEventListener("DOMContentLoaded", () => {
   let index = 0;
   let width = container.clientWidth;
   let isAnimating = false;
-  let autoSlide;
-  let startX = 0, currentX = 0, isDragging = false;
 
-  // ===== Set initial layout =====
+  // ===== Initialize layout =====
   track.style.display = "flex";
-  track.style.transition = "transform 0.6s cubic-bezier(.22,.9,.35,1)";
+  track.style.transition = "transform 0.6s ease";
   track.style.willChange = "transform";
 
-  // ===== Resize handler =====
-  const updateSize = () => {
-    width = container.clientWidth;
-    cards.forEach(card => {
-      card.style.flex = "0 0 100%";
-      card.style.maxWidth = "100%";
-    });
-    goTo(index, false);
-  };
+  cards.forEach((card) => {
+    card.style.flex = "0 0 100%";
+    card.style.maxWidth = "100%";
+  });
 
-  // ===== Move to specific card =====
+  // ===== Move to card =====
   const goTo = (i, animate = true) => {
     if (i < 0) i = cards.length - 1;
     if (i >= cards.length) i = 0;
     index = i;
 
-    track.style.transition = animate ? "transform 0.6s cubic-bezier(.22,.9,.35,1)" : "none";
+    track.style.transition = animate ? "transform 0.6s ease" : "none";
     track.style.transform = `translateX(${-index * width}px)`;
     updateActiveCard();
   };
 
-  // ===== Highlight active card =====
+  // ===== Active card glowing effect =====
   const updateActiveCard = () => {
     cards.forEach((card, i) => {
-      card.classList.toggle("active", i === index);
+      if (i === index) {
+        card.classList.add("active");
+      } else {
+        card.classList.remove("active");
+      }
     });
   };
 
-  // ===== Arrow button actions =====
+  // ===== Arrow button events =====
   prevBtn.addEventListener("click", () => {
     if (isAnimating) return;
     goTo(index - 1);
-    resetAutoSlide();
   });
 
   nextBtn.addEventListener("click", () => {
     if (isAnimating) return;
     goTo(index + 1);
-    resetAutoSlide();
   });
 
-  // ===== Keyboard navigation =====
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") nextBtn.click();
-    if (e.key === "ArrowLeft") prevBtn.click();
-  });
-
-  // ===== Touch swipe (mobile) =====
-  track.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-    track.style.transition = "none";
-  }, { passive: true });
-
-  track.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX;
-    const dx = currentX - startX;
-    track.style.transform = `translateX(${-index * width + dx}px)`;
-  }, { passive: true });
-
-  track.addEventListener("touchend", () => {
-    if (!isDragging) return;
-    isDragging = false;
-    const dx = currentX - startX;
-    if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
-    else goTo(index);
-    resetAutoSlide();
-  });
-
-  // ===== Mouse drag (desktop) =====
-  track.addEventListener("mousedown", (e) => {
-    startX = e.clientX;
-    isDragging = true;
-    track.style.cursor = "grabbing";
-    track.style.transition = "none";
-  });
-
-  window.addEventListener("mouseup", (e) => {
-    if (!isDragging) return;
-    const dx = e.clientX - startX;
-    isDragging = false;
-    track.style.cursor = "grab";
-    if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
-    else goTo(index);
-  });
-
-  window.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    const dx = e.clientX - startX;
-    track.style.transform = `translateX(${-index * width + dx}px)`;
-  });
-
-  // ===== Animation guards =====
+  // ===== Transition lock =====
   track.addEventListener("transitionstart", () => (isAnimating = true));
   track.addEventListener("transitionend", () => (isAnimating = false));
 
-  // ===== Auto slide =====
-  const startAutoSlide = () => {
-    autoSlide = setInterval(() => goTo(index + 1), 6000);
-  };
-
-  const resetAutoSlide = () => {
-    clearInterval(autoSlide);
-    startAutoSlide();
-  };
-
   // ===== Resize listener =====
   window.addEventListener("resize", () => {
-    clearTimeout(window._resizeTimeout);
-    window._resizeTimeout = setTimeout(updateSize, 200);
+    width = container.clientWidth;
+    goTo(index, false);
   });
 
-  // ===== Initialize =====
-  updateSize();
+  // ===== Init =====
   goTo(0, false);
-  startAutoSlide();
 });
 
+ 
 
 
 
