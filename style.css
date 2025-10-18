@@ -803,197 +803,148 @@ header .logo span {
 
 /* ================= Certerification Section  ================= */
 
-/* ===================== CERTIFICATIONS SECTION ===================== */
+/* ================= CERTIFICATIONS SECTION ================= */
 #certifications {
-  padding: 100px 20px;
-  background: radial-gradient(circle at top left, #06091b, #0b1136 60%, #0d1440);
-  color: #ffffff;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
-}
-
-/* ===== HEADING ===== */
-.certifications-heading {
-  font-size: 2.8rem;
-  font-weight: 800;
-  margin-bottom: 70px;
-  color: #5f77ff;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  text-shadow: 0 0 25px rgba(95, 119, 255, 0.9);
-  position: relative;
-  animation: fadeInDown 1s ease-out;
-}
-
-.certifications-heading::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -20px;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 4px;
-  background: linear-gradient(90deg, #2c3ed9, #4b5fff, #6a82fb);
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(75, 95, 255, 0.9);
-}
-
-/* ===== CAROUSEL CONTAINER ===== */
-.carousel-container {
-  position: relative;
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 0 80px;
-}
-
-.certifications-carousel {
-  display: flex;
-  transition: transform 0.7s cubic-bezier(.22, .9, .35, 1);
-  will-change: transform;
-}
-
-/* ===== CERTIFICATION CARD ===== */
-.certification-card {
-  flex: 0 0 100%;
-  background: rgba(20, 25, 60, 0.8);
-  border: 1px solid rgba(75, 95, 255, 0.3);
-  border-radius: 22px;
-  padding: 45px 30px;
-  text-align: center;
-  box-shadow: 0 0 25px rgba(75, 95, 255, 0.1);
-  transform: scale(0.9);
-  opacity: 0.6;
-  transition: all 0.7s ease;
-  backdrop-filter: blur(15px) saturate(150%);
-  margin: 0 10px;
-  position: relative;
-}
-
-/* Peeking next card look */
-.certifications-carousel::after {
-  content: '';
-  flex: 0 0 10%;
-}
-
-/* ===== ACTIVE CARD ===== */
-.certification-card.active {
-  transform: scale(1.05);
-  opacity: 1;
-  border-color: #4b5fff;
-  box-shadow: 0 0 35px rgba(75, 95, 255, 0.5),
-              0 10px 30px rgba(0, 0, 0, 0.5);
-  animation: pulseBlue 3s infinite ease-in-out;
-}
-
-/* ===== BLUE PULSE EFFECT ===== */
-@keyframes pulseBlue {
-  0% { box-shadow: 0 0 12px rgba(75, 95, 255, 0.4); }
-  50% { box-shadow: 0 0 28px rgba(75, 95, 255, 0.9); }
-  100% { box-shadow: 0 0 12px rgba(75, 95, 255, 0.4); }
-}
-
-/* ===== CERTIFICATION IMAGE ===== */
-.cert-img {
-  width: 130px;
-  height: 130px;
-  object-fit: contain;
-  border-radius: 14px;
-  border: 2px solid #4b5fff;
-  padding: 10px;
-  margin-bottom: 25px;
-  background: radial-gradient(circle at top, rgba(75,95,255,0.15), rgba(15,20,60,0.8));
-  box-shadow: 0 0 25px rgba(75, 95, 255, 0.3) inset;
-  transition: all 0.4s ease;
-}
-
-.certification-card.active .cert-img,
-.certification-card:hover .cert-img {
-  transform: scale(1.1);
-  border-color: #6a82fb;
-  box-shadow: 0 0 40px rgba(75, 95, 255, 0.7);
-}
-
-/* ===== TITLE ===== */
-.cert-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #a9b8ff;
-  margin-bottom: 10px;
-  text-transform: capitalize;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 10px rgba(75, 95, 255, 0.25);
-  transition: color 0.3s ease;
-}
-
-.certification-card.active .cert-title {
-  color: #ffffff;
-}
-
-/* ===== ARROW BUTTONS ===== */
-.carousel-btn {
-  background: linear-gradient(135deg, #4b5fff, #2c3ed9);
-  border: none;
+  padding: 80px 20px;
+  background: radial-gradient(circle at top left, #090c17, #0b0e19);
   color: #fff;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 1.6rem;
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: all 0.3s ease;
-  z-index: 20;
-  box-shadow: 0 0 25px rgba(75, 95, 255, 0.5);
+  text-align: center;
+  overflow: hidden;
 }
 
-.carousel-btn:hover {
-  background: linear-gradient(135deg, #6a82fb, #4b5fff);
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 0 40px rgba(75, 95, 255, 0.8);
+#certifications .section-title {
+  font-size: 2.4rem;
+  margin-bottom: 50px;
+  color: #4b5fff;
+  text-shadow: 0 0 15px rgba(75, 95, 255, 0.8);
+  font-weight: 700;
+  letter-spacing: 1px;
+  animation: glowTitle 3s infinite alternate;
 }
 
-.left-btn { left: 10px; }
-.right-btn { right: 10px; }
+@keyframes glowTitle {
+  from { text-shadow: 0 0 10px #4b5fff; }
+  to { text-shadow: 0 0 25px #6d7fff, 0 0 40px #4b5fff; }
+}
 
-/* ===== EDGE GRADIENT FADE ===== */
-.carousel-container::before,
-.carousel-container::after {
-  content: '';
+.certification-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  justify-items: center;
+}
+
+/* ================= CARD STYLING ================= */
+.certification-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(75, 95, 255, 0.2);
+  border-radius: 20px;
+  padding: 25px;
+  width: 100%;
+  max-width: 450px;
+  transition: transform 0.5s ease, box-shadow 0.5s ease, border 0.4s ease;
+  position: relative;
+  box-shadow: 0 0 15px rgba(75, 95, 255, 0.15);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.certification-card::before {
+  content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 90px;
-  z-index: 5;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(130deg, #4b5fff, transparent, #3a3eff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-.carousel-container::before {
+.certification-card:hover::before {
+  opacity: 1;
+}
+
+.certification-card:hover {
+  transform: perspective(800px) rotateY(6deg) rotateX(3deg) scale(1.05);
+  box-shadow: 0 0 35px rgba(75, 95, 255, 0.6);
+  border-color: #4b5fff;
+}
+
+.certification-card:hover .cert-img {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.4);
+}
+
+/* ================= IMAGE ================= */
+.cert-img {
+  width: 100%;
+  border-radius: 12px;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* ================= TEXT ================= */
+.certification-card h3 {
+  color: #4b5fff;
+  margin: 15px 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.certification-card ul {
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #d3d4ff;
+}
+
+.certification-card li {
+  list-style: none;
+  margin-bottom: 6px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.certification-card li::before {
+  content: "•";
+  position: absolute;
   left: 0;
-  background: linear-gradient(to right, #06091b 40%, transparent);
+  color: #4b5fff;
+  font-weight: bold;
 }
 
-.carousel-container::after {
-  right: 0;
-  background: linear-gradient(to left, #06091b 40%, transparent);
+/* ================= BUTTON ================= */
+.cert-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #4b5fff, #3a3eff);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.4s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-30px); }
-  to { opacity: 1; transform: translateY(0); }
+.cert-btn:hover {
+  background: linear-gradient(90deg, #3a3eff, #2c2ee6);
+  box-shadow: 0 0 20px rgba(75, 95, 255, 0.8);
+  transform: translateY(-3px);
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .carousel-container { padding: 0 50px; }
-  .cert-img { width: 100px; height: 100px; }
-  .certification-card { padding: 30px; }
-  .carousel-btn { width: 45px; height: 45px; font-size: 1.3rem; }
-  .certifications-heading { font-size: 2.2rem; margin-bottom: 50px; }
+/* ================= FLOATING EFFECT ================= */
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.certification-card {
+  animation: floatCard 6s ease-in-out infinite;
+  animation-delay: calc(var(--i, 1) * 0.4s);
 }
 
 
