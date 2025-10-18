@@ -835,63 +835,51 @@ header .logo span {
   box-shadow: 0 0 20px rgba(75, 95, 255, 0.7);
 }
 
-/* ===== CAROUSEL LAYOUT ===== */
+/* ===== CAROUSEL CONTAINER ===== */
 .carousel-container {
   position: relative;
-  max-width: 720px; /* visible width */
+  width: 100%;
+  max-width: 750px;
   margin: 0 auto;
   overflow: hidden;
-  padding: 0 60px;
+  padding: 0 80px;
 }
 
-/* Track with smooth slide */
+/* ===== CAROUSEL TRACK ===== */
 .certifications-carousel {
   display: flex;
-  gap: 40px;
+  gap: 0;
   will-change: transform;
   transition: transform 0.6s cubic-bezier(.22,.9,.35,1);
-  overflow: hidden;
+  cursor: grab;
   touch-action: pan-y;
 }
 
-/* One card per view */
+/* ===== CERTIFICATION CARD ===== */
 .certification-card {
   flex: 0 0 100%;
   max-width: 100%;
-  scroll-snap-align: center;
-  box-sizing: border-box;
-  background: rgba(10, 15, 45, 0.8);
+  background: rgba(15, 20, 60, 0.9);
   border: 1px solid rgba(75, 95, 255, 0.4);
   border-radius: 20px;
-  padding: 35px 25px;
+  padding: 40px 25px;
   text-align: center;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 30px rgba(75, 95, 255, 0.15);
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.15);
   transform: scale(0.95);
-  opacity: 0.8;
-  transition: all 0.5s ease;
+  opacity: 0.85;
+  transition: all 0.6s ease;
+  backdrop-filter: blur(10px);
 }
 
 .certification-card.active {
   transform: scale(1.03);
   opacity: 1;
   border-color: #4b5fff;
-  box-shadow: 0 0 40px rgba(75, 95, 255, 0.5),
-              0 10px 25px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 35px rgba(75, 95, 255, 0.5),
+              0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-/* ===== TITLE ===== */
-.cert-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #4b5fff;
-  margin-bottom: 16px;
-  text-transform: capitalize;
-  letter-spacing: 0.6px;
-  text-shadow: 0 0 10px rgba(75, 95, 255, 0.3);
-}
-
-/* ===== IMAGE ===== */
+/* ===== CERTIFICATION IMAGE ===== */
 .cert-img {
   width: 130px;
   height: 130px;
@@ -899,6 +887,7 @@ header .logo span {
   border-radius: 14px;
   border: 2px solid #4b5fff;
   padding: 10px;
+  margin-bottom: 20px;
   background-color: rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 20px rgba(75, 95, 255, 0.35) inset;
   transition: all 0.4s ease;
@@ -908,6 +897,24 @@ header .logo span {
 .certification-card:hover .cert-img {
   transform: scale(1.1);
   box-shadow: 0 0 30px rgba(75, 95, 255, 0.6) inset;
+}
+
+/* ===== CERTIFICATION TITLE ===== */
+.cert-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #4b5fff;
+  margin-bottom: 16px;
+  text-transform: capitalize;
+  letter-spacing: 0.6px;
+  text-shadow: 0 0 10px rgba(75, 95, 255, 0.3);
+}
+
+/* ===== CERTIFICATION TEXT ===== */
+.cert-text {
+  font-size: 0.95rem;
+  color: #c7c7d9;
+  line-height: 1.6;
 }
 
 /* ===== ARROW BUTTONS ===== */
@@ -939,10 +946,10 @@ header .logo span {
   cursor: not-allowed;
 }
 
-.left-btn { left: 10px; }
-.right-btn { right: 10px; }
+.left-btn { left: 15px; }
+.right-btn { right: 15px; }
 
-/* ===== EDGE FADE ===== */
+/* ===== EDGE FADE EFFECT ===== */
 .carousel-container::before,
 .carousel-container::after {
   content: '';
@@ -956,31 +963,31 @@ header .logo span {
 
 .carousel-container::before {
   left: 0;
-  background: linear-gradient(to right, #06091b 25%, transparent);
+  background: linear-gradient(to right, #06091b 40%, transparent);
 }
 
 .carousel-container::after {
   right: 0;
-  background: linear-gradient(to left, #06091b 25%, transparent);
+  background: linear-gradient(to left, #06091b 40%, transparent);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
-  .carousel-container { max-width: 600px; padding: 0 40px; }
+  .carousel-container { padding: 0 60px; }
   .cert-img { width: 110px; height: 110px; }
 }
 
 @media (max-width: 768px) {
-  .carousel-container { padding: 0 30px; }
-  .certification-card { padding: 25px; }
+  .carousel-container { padding: 0 45px; }
+  .certification-card { padding: 30px; }
   .cert-title { font-size: 1rem; }
-  .cert-img { width: 90px; height: 90px; }
+  .cert-img { width: 95px; height: 95px; }
   .carousel-btn { width: 45px; height: 45px; font-size: 1.3rem; }
 }
 
 @media (max-width: 480px) {
   .certifications-heading { font-size: 1.8rem; }
-  .carousel-container { padding: 0 25px; }
+  .carousel-container { padding: 0 35px; }
   .cert-title { font-size: 0.9rem; }
   .cert-img { width: 80px; height: 80px; }
 }
