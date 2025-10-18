@@ -1862,9 +1862,9 @@ a.btn-glow:hover {
   color: #fff;
   font-size: 1.8rem;
   font-weight: bold;
-  display: none; /* initially hidden */
+  display: none; /* hidden initially */
   transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* subtle shadow */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   display: flex;
   justify-content: center;
   align-items: center;
