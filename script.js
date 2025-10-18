@@ -470,7 +470,7 @@ const chatbotBody = document.getElementById("chatbot-body");
 // Toggle chatbot window
 chatbotToggle.addEventListener("click", () => {
   chatbotWindow.classList.toggle("chatbot-visible");
-  chatbotToggle.classList.toggle("pulse"); // add soft neon pulse
+  chatbotToggle.classList.toggle("pulse"); // soft neon pulse
 });
 
 // Close chatbot window
@@ -482,40 +482,36 @@ chatbotClose.addEventListener("click", () => {
 // Send message
 chatbotSend.addEventListener("click", () => {
   const msg = chatbotInput.value.trim();
-  if (msg) {
-    const userMsg = document.createElement("div");
-    userMsg.textContent = msg;
-    userMsg.classList.add("user-msg");
-    userMsg.style.backgroundColor = "#00bfff";
-    userMsg.style.color = "#fff";
-    userMsg.style.padding = "8px 10px";
-    userMsg.style.borderRadius = "12px";
-    userMsg.style.marginBottom = "8px";
-    userMsg.style.maxWidth = "85%";
-    chatbotBody.appendChild(userMsg);
-    chatbotBody.scrollTop = chatbotBody.scrollHeight;
-    chatbotInput.value = "";
+  if (!msg) return;
 
-    // Bot response
-    setTimeout(() => {
-      const botReply = document.createElement("div");
-      botReply.textContent = "I’m here to help! You asked: " + msg;
-      botReply.classList.add("bot-msg");
-      chatbotBody.appendChild(botReply);
-      chatbotBody.scrollTop = chatbotBody.scrollHeight;
-    }, 800);
-  }
+  // User message
+  const userMsg = document.createElement("div");
+  userMsg.textContent = msg;
+  userMsg.classList.add("user-msg");
+  chatbotBody.appendChild(userMsg);
+  chatbotBody.scrollTop = chatbotBody.scrollHeight;
+  chatbotInput.value = "";
+
+  // Bot typing animation
+  const botTyping = document.createElement("div");
+  botTyping.textContent = "AI is typing...";
+  botTyping.classList.add("bot-msg");
+  botTyping.style.opacity = 0.6;
+  chatbotBody.appendChild(botTyping);
+  chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
+  setTimeout(() => {
+    chatbotBody.removeChild(botTyping);
+
+    const botReply = document.createElement("div");
+    botReply.textContent = "I’m here to help! You asked: " + msg;
+    botReply.classList.add("bot-msg");
+    chatbotBody.appendChild(botReply);
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+  }, 1000);
 });
 
 // Send on Enter key
 chatbotInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    chatbotSend.click();
-  }
-});
-
-chatbotInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    chatbotSend.click();
-  }
+  if (e.key === "Enter") chatbotSend.click();
 });
