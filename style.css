@@ -1750,7 +1750,7 @@ a.btn-glow:hover {
 /* ================= CHATBOT ================= */
 /* ================= CHATBOT STYLES ================= */
 
-/* Floating chat toggle button */
+/* Neon floating chat toggle button */
 #chatbot-toggle {
   position: fixed;
   bottom: 30px;
@@ -1761,17 +1761,29 @@ a.btn-glow:hover {
   border-radius: 50%;
   border: none;
   outline: none;
-  background-color: #4b5fff;
+  background-color: #111;
   color: #fff;
   font-size: 28px;
   cursor: pointer;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  transition: transform 0.3s, filter 0.3s;
+  box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff, 0 0 30px rgba(255,255,255,0.1);
+  transition: transform 0.3s, filter 0.3s, box-shadow 0.3s;
 }
 
 #chatbot-toggle:hover {
   transform: scale(1.1);
   filter: brightness(1.2);
+  box-shadow: 0 0 20px #ff00ff, 0 0 35px #00ffff, 0 0 50px rgba(255,255,255,0.2);
+}
+
+/* Pulsing neon effect */
+#chatbot-toggle.pulse {
+  animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+  50% { box-shadow: 0 0 20px #ff00ff, 0 0 35px #00ffff; }
+  100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
 }
 
 /* Chat window container */
@@ -1793,7 +1805,6 @@ a.btn-glow:hover {
   z-index: 9999;
 }
 
-/* Show chat window */
 #chatbot-window.chatbot-visible {
   transform: translateY(0);
 }
@@ -1808,6 +1819,7 @@ a.btn-glow:hover {
   align-items: center;
   font-weight: bold;
   font-size: 16px;
+  border-bottom: 1px solid #333;
 }
 
 #chatbot-header button {
