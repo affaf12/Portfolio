@@ -459,45 +459,55 @@ function scrollToTop() {
 
 
   // ===== CHATBOT =====
-  const chatbotToggle = document.getElementById("chatbot-toggle");
-  const chatbotWindow = document.getElementById("chatbot-window");
-  const chatbotClose = document.getElementById("chatbot-close");
-  const chatbotBody = document.getElementById("chatbot-body");
-  const chatbotInput = document.getElementById("chatbot-input");
-  const chatbotSend = document.getElementById("chatbot-send");
+  // Get elements
+const chatbotToggle = document.getElementById("chatbot-toggle");
+const chatbotWindow = document.getElementById("chatbot-window");
+const chatbotClose = document.getElementById("chatbot-close");
+const chatbotSend = document.getElementById("chatbot-send");
+const chatbotInput = document.getElementById("chatbot-input");
+const chatbotBody = document.getElementById("chatbot-body");
 
-  chatbotToggle?.addEventListener("click", () => chatbotWindow.classList.toggle("open"));
-  chatbotClose?.addEventListener("click", () => chatbotWindow.classList.remove("open"));
-  chatbotSend?.addEventListener("click", sendChatMessage);
-  chatbotInput?.addEventListener("keypress", e => { if (e.key === "Enter") sendChatMessage(); });
+// Toggle chatbot window
+chatbotToggle.addEventListener("click", () => {
+  chatbotWindow.classList.toggle("chatbot-visible");
+});
 
-  function sendChatMessage() {
-    const msg = chatbotInput.value.trim();
-    if (!msg) return;
-    appendChatMessage(msg, "user");
+// Close chatbot window
+chatbotClose.addEventListener("click", () => {
+  chatbotWindow.classList.remove("chatbot-visible");
+});
+
+// Send message
+chatbotSend.addEventListener("click", () => {
+  const msg = chatbotInput.value.trim();
+  if (msg) {
+    const userMsg = document.createElement("div");
+    userMsg.textContent = msg;
+    userMsg.classList.add("user-msg");
+    userMsg.style.backgroundColor = "#00bfff";
+    userMsg.style.color = "#fff";
+    userMsg.style.padding = "8px 10px";
+    userMsg.style.borderRadius = "12px";
+    userMsg.style.marginBottom = "8px";
+    userMsg.style.maxWidth = "85%";
+    chatbotBody.appendChild(userMsg);
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
     chatbotInput.value = "";
 
+    // Simple bot response
     setTimeout(() => {
-      const botResponse = getBotResponse(msg);
-      appendChatMessage(botResponse, "bot");
-    }, 500);
+      const botReply = document.createElement("div");
+      botReply.textContent = "I’m here to help! You asked: " + msg;
+      botReply.classList.add("bot-msg");
+      chatbotBody.appendChild(botReply);
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }, 800);
   }
+});
 
-  function appendChatMessage(text, cls) {
-    const div = document.createElement("div");
-    div.className = `chatbot-message ${cls}`;
-    div.textContent = text;
-    chatbotBody.appendChild(div);
-    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+// Send on Enter key
+chatbotInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    chatbotSend.click();
   }
-
-  function getBotResponse(msg) {
-    const m = msg.toLowerCase();
-    if (m.includes("project")) return "Here are my projects: Coffee Shop Dashboard, Backpack Price Prediction, Insurance Claims Analysis, Logistics Network Optimization.";
-    if (m.includes("contact")) return "You can reach me at muhammadaffaf746@gmail.com or via LinkedIn/GitHub/WhatsApp.";
-    if (m.includes("hello") || m.includes("hi")) return "Hello! How can I help you today?";
-    if (m.includes("bye")) return "Goodbye! Have a great day!";
-    return "I am sorry, I do not understand that. Please ask about projects, skills, or contact info.";
-  }
-
-})();
+});
