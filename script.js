@@ -259,7 +259,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-  // ===== Certification =====
+
+
+ 
+  // ===== Certification Section ===== 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".carousel-container");
   const track = document.querySelector(".certifications-carousel");
@@ -269,19 +272,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!container || !track || cards.length === 0) return;
 
-  // ===== SETTINGS =====
   let index = 0;
   let width = container.clientWidth;
   let isAnimating = false;
   let autoSlide;
   let startX = 0, currentX = 0, isDragging = false;
 
-  // ===== INITIAL STYLES =====
+  // ===== Set initial layout =====
   track.style.display = "flex";
   track.style.transition = "transform 0.6s cubic-bezier(.22,.9,.35,1)";
   track.style.willChange = "transform";
 
-  // ===== UPDATE SIZE =====
+  // ===== Resize handler =====
   const updateSize = () => {
     width = container.clientWidth;
     cards.forEach(card => {
@@ -291,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
     goTo(index, false);
   };
 
-  // ===== MOVE TO CARD =====
+  // ===== Move to specific card =====
   const goTo = (i, animate = true) => {
     if (i < 0) i = cards.length - 1;
     if (i >= cards.length) i = 0;
@@ -302,32 +304,33 @@ document.addEventListener("DOMContentLoaded", () => {
     updateActiveCard();
   };
 
-  // ===== ACTIVE CARD HIGHLIGHT =====
+  // ===== Highlight active card =====
   const updateActiveCard = () => {
     cards.forEach((card, i) => {
-      if (i === index) card.classList.add("active");
-      else card.classList.remove("active");
+      card.classList.toggle("active", i === index);
     });
   };
 
-  // ===== BUTTONS =====
+  // ===== Arrow button actions =====
   prevBtn.addEventListener("click", () => {
-    if (!isAnimating) goTo(index - 1);
+    if (isAnimating) return;
+    goTo(index - 1);
     resetAutoSlide();
   });
 
   nextBtn.addEventListener("click", () => {
-    if (!isAnimating) goTo(index + 1);
+    if (isAnimating) return;
+    goTo(index + 1);
     resetAutoSlide();
   });
 
-  // ===== KEYBOARD NAV =====
+  // ===== Keyboard navigation =====
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") nextBtn.click();
     if (e.key === "ArrowLeft") prevBtn.click();
   });
 
-  // ===== TOUCH SWIPE (MOBILE) =====
+  // ===== Touch swipe (mobile) =====
   track.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
     isDragging = true;
@@ -345,12 +348,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isDragging) return;
     isDragging = false;
     const dx = currentX - startX;
-    if (Math.abs(dx) > 50) goTo(index + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
     else goTo(index);
     resetAutoSlide();
   });
 
-  // ===== DRAG (DESKTOP) =====
+  // ===== Mouse drag (desktop) =====
   track.addEventListener("mousedown", (e) => {
     startX = e.clientX;
     isDragging = true;
@@ -363,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dx = e.clientX - startX;
     isDragging = false;
     track.style.cursor = "grab";
-    if (Math.abs(dx) > 50) goTo(index + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
     else goTo(index);
   });
 
@@ -373,11 +376,11 @@ document.addEventListener("DOMContentLoaded", () => {
     track.style.transform = `translateX(${-index * width + dx}px)`;
   });
 
-  // ===== ANIMATION CONTROL =====
+  // ===== Animation guards =====
   track.addEventListener("transitionstart", () => (isAnimating = true));
   track.addEventListener("transitionend", () => (isAnimating = false));
 
-  // ===== AUTO SLIDE =====
+  // ===== Auto slide =====
   const startAutoSlide = () => {
     autoSlide = setInterval(() => goTo(index + 1), 6000);
   };
@@ -387,17 +390,18 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoSlide();
   };
 
-  // ===== RESIZE =====
+  // ===== Resize listener =====
   window.addEventListener("resize", () => {
     clearTimeout(window._resizeTimeout);
     window._resizeTimeout = setTimeout(updateSize, 200);
   });
 
-  // ===== INIT =====
+  // ===== Initialize =====
   updateSize();
   goTo(0, false);
   startAutoSlide();
 });
+
 
 
 
