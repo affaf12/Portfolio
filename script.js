@@ -440,9 +440,19 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
 // ===== SCROLL TO TOP =====
-  const scrollBtn = document.getElementById("scrollTopBtn");
-  window.addEventListener("scroll", () => scrollBtn?.classList.toggle("show", window.scrollY > 400));
-  scrollBtn?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+// Get the button
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+// Show button when user scrolls down 100px
+window.onscroll = function() {
+  scrollTopBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+};
+
+// Scroll to top when clicked
+scrollTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 
   // ===== CHATBOT =====
   const chatbotToggle = document.getElementById("chatbot-toggle");
