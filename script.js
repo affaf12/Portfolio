@@ -259,7 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-/* =======================
+
+  // ===== Certification Section  =====
 (() => {
   const container = document.querySelector(".carousel-container");
   const track = document.querySelector(".certifications-carousel");
@@ -276,19 +277,22 @@ document.addEventListener('DOMContentLoaded', () => {
   let autoSlideInterval;
   let startX = 0, currentX = 0, isDragging = false;
 
-  // ===== STYLE =====
+  // ===== Apply Flex Track =====
   track.style.display = "flex";
   track.style.transition = "transform 0.6s cubic-bezier(.22,.9,.35,1)";
   track.style.willChange = "transform";
 
-  // ===== Update size =====
+  // ===== Update container size =====
   const updateSize = () => {
     width = container.clientWidth;
-    cards.forEach(card => (card.style.flex = "0 0 100%"));
+    cards.forEach(card => {
+      card.style.flex = "0 0 100%";
+      card.style.maxWidth = "100%";
+    });
     goTo(index, false);
   };
 
-  // ===== Move to card =====
+  // ===== Move to specific card =====
   const goTo = (i, animate = true) => {
     if (i < 0) i = cards.length - 1;
     if (i >= cards.length) i = 0;
@@ -304,23 +308,24 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach((c, i) => c.classList.toggle("active", i === index));
   };
 
-  // ===== Arrows =====
+  // ===== Arrows click =====
   prevBtn?.addEventListener("click", () => {
     if (!isAnimating) goTo(index - 1);
     resetAutoSlide();
   });
+
   nextBtn?.addEventListener("click", () => {
     if (!isAnimating) goTo(index + 1);
     resetAutoSlide();
   });
 
-  // ===== Keyboard support =====
+  // ===== Keyboard navigation =====
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") nextBtn?.click();
     if (e.key === "ArrowLeft") prevBtn?.click();
   });
 
-  // ===== Touch swipe =====
+  // ===== Touch Swipe (Mobile) =====
   track.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
     isDragging = true;
@@ -342,13 +347,14 @@ document.addEventListener('DOMContentLoaded', () => {
     resetAutoSlide();
   }, { passive: true });
 
-  // ===== Mouse drag (optional desktop) =====
+  // ===== Mouse drag (Desktop) =====
   track.addEventListener("mousedown", (e) => {
     startX = e.clientX;
     isDragging = true;
     track.style.cursor = "grabbing";
     track.style.transition = "none";
   });
+
   window.addEventListener("mouseup", (e) => {
     if (!isDragging) return;
     const dx = e.clientX - startX;
@@ -357,13 +363,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
     else goTo(index);
   });
+
   window.addEventListener("mousemove", (e) => {
     if (!isDragging) return;
     const dx = e.clientX - startX;
     track.style.transform = `translateX(${-index * width + dx}px)`;
   });
 
-  // ===== Looping transition control =====
+  // ===== Transition flags =====
   track.addEventListener("transitionstart", () => (isAnimating = true));
   track.addEventListener("transitionend", () => (isAnimating = false));
 
@@ -376,13 +383,13 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoSlide();
   };
 
-  // ===== Resize handling =====
+  // ===== Window Resize =====
   window.addEventListener("resize", () => {
     clearTimeout(window._resizeTimeout);
-    window._resizeTimeout = setTimeout(() => updateSize(), 150);
+    window._resizeTimeout = setTimeout(updateSize, 150);
   });
 
-  // ===== Initialize =====
+  // ===== INIT =====
   updateSize();
   goTo(0, false);
   startAutoSlide();
