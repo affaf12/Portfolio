@@ -800,7 +800,7 @@ header .logo span {
 
 
 
-/* ===== CERTIFICATIONS CAROUSEL ===== */
+/* ===== CERTIFICATIONS CAROUSEL UPGRADE ===== */
 #certifications {
   padding: 60px 20px;
   background-color: #0f0f1a;
@@ -817,21 +817,21 @@ header .logo span {
   color: #ffd700;
 }
 
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
 .certifications-carousel {
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding-bottom: 10px;
-}
-
-.certifications-carousel::-webkit-scrollbar {
-  height: 8px;
-}
-
-.certifications-carousel::-webkit-scrollbar-thumb {
-  background-color: #ffd700;
-  border-radius: 4px;
+  padding: 10px 0;
+  flex: 1;
+  scroll-snap-type: x mandatory;
 }
 
 .certification-card {
@@ -842,15 +842,16 @@ header .logo span {
   display: flex;
   align-items: center;
   gap: 15px;
-  min-width: 280px; /* card width for carousel */
-  flex-shrink: 0;   /* prevent shrinking */
+  min-width: 280px;
+  flex-shrink: 0;
   font-weight: 500;
   transition: transform 0.3s, box-shadow 0.3s;
+  scroll-snap-align: center;
 }
 
 .certification-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
 }
 
 .cert-img {
@@ -860,15 +861,72 @@ header .logo span {
   border-radius: 5px;
 }
 
-/* Responsive adjustments */
+/* Carousel buttons */
+.carousel-btn {
+  background-color: #ffd700;
+  border: none;
+  color: #0f0f1a;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  opacity: 0.9;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-50%) scale(1.2);
+  opacity: 1;
+}
+
+.left-btn {
+  left: 0;
+}
+
+.right-btn {
+  right: 0;
+}
+
+/* Edge gradient hint */
+.carousel-container::before,
+.carousel-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.carousel-container::before {
+  left: 0;
+  background: linear-gradient(to right, #0f0f1a 0%, transparent 100%);
+}
+
+.carousel-container::after {
+  right: 0;
+  background: linear-gradient(to left, #0f0f1a 0%, transparent 100%);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
+  .certification-card {
+    min-width: 220px;
+  }
+
   .cert-img {
     width: 40px;
     height: 40px;
   }
 
-  .certification-card {
-    min-width: 220px;
+  .carousel-btn {
+    font-size: 1.5rem;
+    padding: 8px;
   }
 }
 
@@ -877,6 +935,7 @@ header .logo span {
     font-size: 2rem;
   }
 }
+
 
 
 
