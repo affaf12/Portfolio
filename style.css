@@ -800,13 +800,14 @@ header .logo span {
 
 
 
-/* ===== CERTIFICATIONS CAROUSEL UPGRADE ===== */
+/* ===== CERTIFICATIONS SECTION ===== */
 #certifications {
   padding: 60px 20px;
   background: linear-gradient(135deg, #0f0f1a, #14142d);
   color: #ffd700;
 }
 
+/* Heading with neon underline */
 .certifications-heading {
   text-align: center;
   font-size: 2.8rem;
@@ -830,14 +831,16 @@ header .logo span {
   box-shadow: 0 0 15px #ffd700;
 }
 
+/* Carousel container with peek effect */
 .carousel-container {
   position: relative;
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 0 20px;
+  padding: 0 50px; /* space for peek effect */
 }
 
+/* Carousel track */
 .certifications-carousel {
   display: flex;
   gap: 25px;
@@ -845,32 +848,35 @@ header .logo span {
   scroll-behavior: smooth;
   padding: 20px 0;
   scroll-snap-type: x mandatory;
-  cursor: default; /* remove grab cursor */
+  cursor: default;
+  margin-left: -10px; /* small shift to show peek */
 }
 
+/* Individual cards */
 .certification-card {
   background: rgba(30, 30, 47, 0.75);
   backdrop-filter: blur(12px);
   padding: 25px 30px;
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(75, 95, 255, 0.3), 0 10px 25px rgba(0,0,0,0.5);
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.3), 0 10px 25px rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   gap: 20px;
   min-width: 300px;
   flex-shrink: 0;
   font-weight: 500;
-  scroll-snap-align: center;
+  scroll-snap-align: start;
   transition: transform 0.4s, box-shadow 0.4s, background 0.3s;
   color: #ffd700;
 }
 
 .certification-card:hover {
   transform: scale(1.1) rotateY(5deg);
-  box-shadow: 0 0 35px #4b5fff, 0 15px 40px rgba(0,0,0,0.7);
+  box-shadow: 0 0 40px #4b5fff, 0 15px 40px rgba(0,0,0,0.7);
   background: rgba(40, 40, 70, 0.75);
 }
 
+/* Certificate images */
 .cert-img {
   width: 60px;
   height: 60px;
@@ -882,7 +888,7 @@ header .logo span {
   background-color: rgba(15,15,26,0.6);
 }
 
-/* Carousel Buttons */
+/* Carousel buttons */
 .carousel-btn {
   background: linear-gradient(45deg, #4b5fff, #2c3ed9);
   border: none;
@@ -903,7 +909,7 @@ header .logo span {
 .carousel-btn:hover {
   transform: translateY(-50%) scale(1.3);
   opacity: 1;
-  box-shadow: 0 0 30px #4b5fff, 0 10px 25px rgba(0,0,0,0.7);
+  box-shadow: 0 0 35px #4b5fff, 0 10px 25px rgba(0,0,0,0.7);
   background: linear-gradient(45deg, #667aff, #3f53d9);
 }
 
