@@ -802,8 +802,8 @@ header .logo span {
 
 /* ================= CERTIFICATIONS SECTION ================= */
 #certifications {
-  padding: 80px 20px;
-  background: linear-gradient(160deg, #070a1c, #0d1440);
+  padding: 90px 20px;
+  background: radial-gradient(circle at top left, #06091b, #0b1136 60%, #0d1440);
   color: #ffffff;
   text-align: center;
   overflow: hidden;
@@ -812,13 +812,13 @@ header .logo span {
 
 /* ===== HEADING ===== */
 .certifications-heading {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   font-weight: 700;
-  margin-bottom: 60px;
+  margin-bottom: 70px;
   color: #4b5fff;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  text-shadow: 0 0 10px rgba(75, 95, 255, 0.5);
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(75, 95, 255, 0.7);
   position: relative;
 }
 
@@ -826,13 +826,13 @@ header .logo span {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -18px;
+  bottom: -20px;
   transform: translateX(-50%);
-  width: 120px;
+  width: 140px;
   height: 4px;
   background: linear-gradient(90deg, #2c3ed9, #4b5fff, #6a82fb);
   border-radius: 4px;
-  box-shadow: 0 0 15px rgba(75, 95, 255, 0.6);
+  box-shadow: 0 0 20px rgba(75, 95, 255, 0.7);
 }
 
 /* ===== CAROUSEL LAYOUT ===== */
@@ -842,14 +842,14 @@ header .logo span {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  max-width: 1150px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 70px;
+  padding: 0 80px;
 }
 
 .certifications-carousel {
   display: flex;
-  gap: 30px;
+  gap: 35px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
@@ -864,23 +864,25 @@ header .logo span {
 /* ===== CARD DESIGN ===== */
 .certification-card {
   flex-shrink: 0;
-  min-width: 270px;
+  min-width: 280px;
   scroll-snap-align: center;
-  background: rgba(20, 25, 60, 0.7);
+  background: rgba(15, 20, 50, 0.75);
   border: 1px solid rgba(75, 95, 255, 0.3);
   border-radius: 18px;
-  padding: 25px 20px;
+  padding: 30px 20px;
   text-align: center;
   backdrop-filter: blur(10px);
   transition: all 0.45s ease;
   transform-style: preserve-3d;
-  box-shadow: 0 0 25px rgba(75, 95, 255, 0.15), 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 30px rgba(75, 95, 255, 0.2), 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-.certification-card:hover {
-  transform: scale(1.08) rotateY(5deg);
-  box-shadow: 0 0 40px rgba(75, 95, 255, 0.5), 0 20px 40px rgba(0, 0, 0, 0.7);
+.certification-card:hover,
+.certification-card.active {
+  transform: scale(1.08) rotateY(4deg);
   border-color: #4b5fff;
+  box-shadow: 0 0 45px rgba(75, 95, 255, 0.5),
+              0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
 /* ===== TITLE ===== */
@@ -888,9 +890,9 @@ header .logo span {
   font-size: 1rem;
   font-weight: 600;
   color: #4b5fff;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   text-transform: capitalize;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
 }
 
 /* ===== IMAGE ===== */
@@ -899,7 +901,7 @@ header .logo span {
   height: 120px;
   object-fit: contain;
   border-radius: 14px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
   border: 2px solid #4b5fff;
   padding: 10px;
   box-shadow: 0 0 15px rgba(75, 95, 255, 0.4) inset;
@@ -927,13 +929,13 @@ header .logo span {
   transition: all 0.3s ease;
   z-index: 10;
   opacity: 0.9;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.5);
 }
 
 .carousel-btn:hover {
   background: linear-gradient(135deg, #5d6fff, #3e51ff);
-  box-shadow: 0 0 30px rgba(75, 95, 255, 0.8);
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 0 40px rgba(75, 95, 255, 0.8);
 }
 
 .left-btn { left: 10px; }
@@ -953,25 +955,25 @@ header .logo span {
 
 .carousel-container::before {
   left: 0;
-  background: linear-gradient(to right, #070a1c 20%, transparent);
+  background: linear-gradient(to right, #070a1c 25%, transparent);
 }
 
 .carousel-container::after {
   right: 0;
-  background: linear-gradient(to left, #070a1c 20%, transparent);
+  background: linear-gradient(to left, #070a1c 25%, transparent);
 }
 
-/* ===== "NEXT CARD PEEK" EFFECT ===== */
+/* ===== NEXT CARD PEEK ===== */
 .certifications-carousel {
-  padding-right: 100px; /* adds space for peek */
+  padding-right: 120px;
 }
 .certification-card:last-child {
-  margin-right: 100px;
+  margin-right: 120px;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .certification-card { min-width: 240px; padding: 20px; }
+  .certification-card { min-width: 250px; padding: 24px; }
   .carousel-btn { width: 45px; height: 45px; font-size: 1.3rem; }
 }
 @media (max-width: 768px) {
