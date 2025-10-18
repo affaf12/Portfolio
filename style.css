@@ -1747,72 +1747,65 @@ a.btn-glow:hover {
 }
 
 
-/* ================= CHATBOT STYLES ================= */
+/* ===== ULTRA-MODERN CHATBOT - RIGHT SIDE ===== */
 
-/* Floating chat toggle button - Right-hand neon style */
+/* Neon circular floating button - right-hand side */
 #chatbot-toggle {
   position: fixed;
   bottom: 40px;
-  Right: 30px; /* Right side */
-  z-index: 9999;
-  width: 60px;
-  height: 60px;
+  right: 30px; /* changed from left to right */
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   border: none;
   outline: none;
   background-color: #111;
   color: #fff;
-  font-size: 28px;
+  font-size: 30px;
   cursor: pointer;
-  box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff, 0 0 30px rgba(255,255,255,0.1);
-  transition: transform 0.3s, filter 0.3s, box-shadow 0.3s;
+  z-index: 9999;
+  box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff, 0 0 40px rgba(255,255,255,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: neonPulse 2.5s infinite alternate;
 }
 
-/* Hover effect */
 #chatbot-toggle:hover {
-  transform: scale(1.1);
-  filter: brightness(1.2);
-  box-shadow: 0 0 20px #ff00ff, 0 0 35px #00ffff, 0 0 50px rgba(255,255,255,0.2);
+  transform: scale(1.15);
+  box-shadow: 0 0 25px #ff00ff, 0 0 35px #00ffff, 0 0 50px rgba(255,255,255,0.2);
 }
 
-/* Pulse animation */
-#chatbot-toggle.pulse {
-  animation: pulseGlow 2s infinite alternate;
+@keyframes neonPulse {
+  0% { box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff; }
+  50% { box-shadow: 0 0 25px #ff00ff, 0 0 40px #00ffff; }
+  100% { box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff; }
 }
 
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
-  50% { box-shadow: 0 0 20px #ff00ff, 0 0 35px #00ffff; }
-  100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
-}
-
-/* Chat window container */
+/* Chat window container - right-hand side */
 #chatbot-window {
   position: fixed;
   bottom: 110px;
-  left: 30px; /* align with button */
-  width: 340px;
+  right: 30px; /* changed from left to right */
+  width: 350px;
   max-width: 90%;
   height: 450px;
   background-color: #1e1e1e;
-  border-radius: 18px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  border-radius: 20px;
+  box-shadow: 0 0 30px #4b5fff, 0 0 60px #00ffff;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transform: translateY(100%);
+  opacity: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;
   z-index: 9999;
-  opacity: 0;
 }
 
-/* Show chat window */
 #chatbot-window.chatbot-visible {
   transform: translateY(0);
   opacity: 1;
 }
 
-/* Chat header */
+/* Header */
 #chatbot-header {
   background: linear-gradient(135deg, #4b5fff, #6674ff);
   color: #fff;
@@ -1833,43 +1826,42 @@ a.btn-glow:hover {
   cursor: pointer;
 }
 
-/* Chat body */
+/* Body */
 #chatbot-body {
   flex: 1;
   padding: 15px;
   background-color: #2c2c2c;
   overflow-y: auto;
   font-size: 14px;
-  color: #eee;
   display: flex;
   flex-direction: column;
 }
 
-/* Bot messages */
+/* Messages */
+.bot-msg, .user-msg {
+  padding: 10px 14px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: bubbleAppear 0.4s forwards;
+}
+
 .bot-msg {
   background-color: #4b5fff;
   color: #fff;
-  padding: 10px 12px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  max-width: 85%;
-  word-wrap: break-word;
   align-self: flex-start;
 }
 
-/* User messages */
 .user-msg {
   background-color: #00bfff;
   color: #fff;
-  padding: 8px 12px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  max-width: 85%;
-  word-wrap: break-word;
   align-self: flex-end;
 }
 
-/* Chat input */
+/* Input */
 #chatbot-input-container {
   display: flex;
   padding: 10px;
@@ -1880,7 +1872,7 @@ a.btn-glow:hover {
 #chatbot-input-container input {
   flex: 1;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   outline: none;
   background-color: #333;
@@ -1889,8 +1881,8 @@ a.btn-glow:hover {
 
 #chatbot-input-container button {
   margin-left: 8px;
-  padding: 10px 15px;
-  border-radius: 10px;
+  padding: 10px 16px;
+  border-radius: 12px;
   border: none;
   background-color: #4b5fff;
   color: #fff;
@@ -1903,19 +1895,25 @@ a.btn-glow:hover {
   background-color: #6674ff;
 }
 
+/* Message bubble animation */
+@keyframes bubbleAppear {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   #chatbot-window {
     width: 90%;
-    left: 5%;
+    right: 5%; /* adjusted for mobile */
     bottom: 90px;
     height: 380px;
   }
 
   #chatbot-toggle {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
+    width: 55px;
+    height: 55px;
+    font-size: 26px;
   }
 }
 
