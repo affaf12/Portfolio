@@ -445,9 +445,9 @@ document.addEventListener("DOMContentLoaded", function() {
   // Show/hide button on scroll
   window.addEventListener("scroll", function() {
     if (window.scrollY > 100) {  
-      scrollTopBtn.style.display = "flex"; // flex for proper centering
+      scrollTopBtn.style.display = "block"; // show button
     } else {
-      scrollTopBtn.style.display = "none";
+      scrollTopBtn.style.display = "none";  // hide button
     }
   });
 
