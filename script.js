@@ -259,7 +259,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+// ===== Certification =====
+const carousel = document.querySelector(".certifications-carousel");
+const leftBtn = document.querySelector(".left-btn");
+const rightBtn = document.querySelector(".right-btn");
 
+const scrollAmount = 300; // adjust per card width
+
+leftBtn.addEventListener("click", () => {
+  carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+});
+
+rightBtn.addEventListener("click", () => {
+  carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+});
+
+
+
+  
 
 // ===== SCROLL TO TOP =====
   const scrollBtn = document.getElementById("scrollTopBtn");
