@@ -1535,27 +1535,63 @@ a.btn-glow:hover {
 }
 
 /* ================= ROUND NEON ICON BUTTONS ================= */
+/* ================= ROUND NEON ICON BUTTONS WITH CONNECTING TRAILS ================= */
+.social-trail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  position: relative;
+}
+
+/* Glowing animated connecting trails */
+.social-trail-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 4px;
+  background: linear-gradient(90deg, #ff00ff, #00ffff, #ff0000, #00ff00, #ff00ff);
+  filter: blur(12px);
+  opacity: 0.5;
+  z-index: 0;
+  transform: translateY(-50%);
+  animation: trailShift 5s linear infinite;
+}
+
+@keyframes trailShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Base round icon styles */
 .social-icon {
   position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   overflow: hidden;
   text-decoration: none;
   color: #fff;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 15px rgba(255,255,255,0.05);
+  z-index: 1;
 }
+
 .social-icon img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   filter: invert(1);
   z-index: 2;
-  transition: transform 0.3s;
+  transition: transform 0.3s, filter 0.3s;
 }
+
+/* Neon rotating glow */
 .social-icon::before {
   content: '';
   position: absolute;
@@ -1564,45 +1600,68 @@ a.btn-glow:hover {
   width: 200%;
   height: 200%;
   background: conic-gradient(#ff00ff, #00ffff, #ff0000, #00ff00, #ff00ff);
-  filter: blur(10px);
-  opacity: 0.6;
-  animation: neonRotate 4s linear infinite;
+  filter: blur(18px);
+  opacity: 0.75;
+  animation: neonRotate 5s linear infinite;
+  z-index: 0;
 }
+
 .social-icon span {
   position: absolute;
   display: block;
-  width: 120%;
-  height: 120%;
+  width: 140%;
+  height: 140%;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   transform: scale(0);
   transition: transform 0.5s, opacity 0.5s;
   pointer-events: none;
 }
-.social-icon:hover span { transform: scale(1); opacity: 0; }
-.social-icon:hover { transform: translateY(-5px); }
-.social-icon:hover img { transform: scale(1.2); }
-@keyframes neonRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-.github::before { filter: blur(12px) hue-rotate(0deg); }
-.linkedin::before { filter: blur(12px) hue-rotate(120deg); }
-.whatsapp::before { filter: blur(12px) hue-rotate(240deg); }
+
+.social-icon:hover span {
+  transform: scale(1);
+  opacity: 0;
+}
+
+.social-icon:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(255,255,255,0.6), 0 0 40px rgba(255,0,255,0.4), 0 0 60px rgba(0,255,255,0.3);
+}
+
+.social-icon:hover img {
+  transform: scale(1.3);
+  filter: brightness(1.2);
+}
+
+@keyframes neonRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Individual Icon Colors */
+.github::before { filter: blur(18px) hue-rotate(0deg); }
+.linkedin::before { filter: blur(18px) hue-rotate(120deg); }
+.whatsapp::before { filter: blur(18px) hue-rotate(240deg); }
 
 /* ================= TEXT + ICON PILL BUTTONS ================= */
 .social-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
+  gap: 12px;
+  padding: 14px 32px;
   font-size: 1.1rem;
   font-weight: 600;
   text-decoration: none;
   color: #fff;
   border-radius: 50px;
   border: 2px solid transparent;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, box-shadow 0.3s;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
+
 .social-btn::before {
   content: '';
   position: absolute;
@@ -1610,30 +1669,49 @@ a.btn-glow:hover {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 .social-btn:hover::before { opacity: 1; }
-.social-btn:hover { box-shadow: 0 0 15px currentColor, 0 0 30px currentColor, 0 0 45px currentColor; transform: translateY(-4px); }
-.social-btn img { width: 24px; height: 24px; filter: invert(1); }
 
-/* GitHub */
-.social-btn.github { background-color: #333; color: #fff; }
-.social-btn.github:hover { color: #f5f5f5; }
-/* LinkedIn */
+.social-btn:hover {
+  box-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
+  transform: translateY(-5px);
+}
+
+.social-btn img {
+  width: 26px;
+  height: 26px;
+  filter: invert(1);
+  transition: transform 0.3s;
+}
+
+.social-btn:hover img {
+  transform: scale(1.2);
+  filter: brightness(1.3);
+}
+
+/* Individual Button Colors */
+.social-btn.github { background-color: #222; color: #fff; }
+.social-btn.github:hover { color: #ff77ff; }
+
 .social-btn.linkedin { background-color: #0077b5; }
-.social-btn.linkedin:hover { color: #e0f7ff; }
-/* WhatsApp */
-.social-btn.whatsapp { background-color: #25d366; }
-.social-btn.whatsapp:hover { color: #e0ffe0; }
+.social-btn.linkedin:hover { color: #00ffff; }
 
-/* Responsive */
+.social-btn.whatsapp { background-color: #25d366; }
+.social-btn.whatsapp:hover { color: #a0ff90; }
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 600px) {
+  .social-trail-container { gap: 50px; }
   .social-icon { width: 60px; height: 60px; }
   .social-icon img { width: 28px; height: 28px; }
-  .social-btn { padding: 12px 20px; font-size: 1rem; }
+  .social-btn { padding: 12px 24px; font-size: 1rem; gap: 8px; }
+  .social-btn img { width: 22px; height: 22px; }
 }
+
 
 /* ================= CHATBOT ================= */
 .chatbot-window {
