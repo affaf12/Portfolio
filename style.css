@@ -1844,28 +1844,28 @@ a.btn-glow:hover {
   box-shadow: 0 6px 20px rgba(79,70,229,0.5);
 }
 
+<style>
 /* ================= SCROLL TO TOP NEON BUTTON ================= */
 #scrollTopBtn {
   position: fixed;
-  left: 20px;               /* Left-hand side */
-  bottom: 40px;             /* Distance from bottom */
-  z-index: 9999;            /* Above all content */
+  left: 20px;
+  bottom: 40px;
+  z-index: 9999;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: #111;   /* Dark theme background */
+  background-color: #111;
   color: #fff;
   font-size: 1.8rem;
   font-weight: bold;
-  display: none;            /* Hidden by default */
+  display: none;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
 }
 
-/* Rotating neon gradient border */
 #scrollTopBtn::before {
   content: '';
   position: absolute;
@@ -1881,7 +1881,6 @@ a.btn-glow:hover {
   animation: neonRotate 5s linear infinite;
 }
 
-/* Inner glow + pulse halo */
 #scrollTopBtn::after {
   content: '';
   position: absolute;
@@ -1890,14 +1889,11 @@ a.btn-glow:hover {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
   pointer-events: none;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ff00ff;
-  animation: haloPulse 3s infinite alternate;
 }
 
-/* Center arrow icon */
 #scrollTopBtn span {
   position: relative;
   z-index: 2;
@@ -1908,32 +1904,27 @@ a.btn-glow:hover {
   height: 100%;
 }
 
-/* Hover effect: lift + brightness + glow */
 #scrollTopBtn:hover {
   transform: translateY(-6px) scale(1.2);
   filter: brightness(1.3);
   box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff, 0 0 75px #ff00ff inset;
 }
 
-/* Neon rotation keyframes */
 @keyframes neonRotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* Halo pulse animation */
-@keyframes haloPulse {
-  0% { transform: scale(0.9); opacity: 0.5; }
-  50% { transform: scale(1.1); opacity: 0.8; }
-  100% { transform: scale(0.9); opacity: 0.5; }
-}
-
-/* Pulse glow effect when button is visible */
 #scrollTopBtn.pulse::after {
-  animation: haloPulse 1.5s infinite alternate;
+  animation: pulseGlow 2s infinite alternate;
 }
 
-/* Responsive for mobile */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+  50% { box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff; }
+  100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+}
+
 @media (max-width: 600px) {
   #scrollTopBtn {
     width: 50px;
@@ -1943,6 +1934,8 @@ a.btn-glow:hover {
     bottom: 30px;
   }
 }
+</style>
+
 
 
 
