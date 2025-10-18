@@ -259,9 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
-  // ===== Certification Section  =====
-(() => {
+  // ===== Certification =====
+document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".carousel-container");
   const track = document.querySelector(".certifications-carousel");
   const cards = Array.from(track.querySelectorAll(".certification-card"));
@@ -274,15 +273,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let index = 0;
   let width = container.clientWidth;
   let isAnimating = false;
-  let autoSlideInterval;
+  let autoSlide;
   let startX = 0, currentX = 0, isDragging = false;
 
-  // ===== Apply Flex Track =====
+  // ===== INITIAL STYLES =====
   track.style.display = "flex";
   track.style.transition = "transform 0.6s cubic-bezier(.22,.9,.35,1)";
   track.style.willChange = "transform";
 
-  // ===== Update container size =====
+  // ===== UPDATE SIZE =====
   const updateSize = () => {
     width = container.clientWidth;
     cards.forEach(card => {
@@ -292,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     goTo(index, false);
   };
 
-  // ===== Move to specific card =====
+  // ===== MOVE TO CARD =====
   const goTo = (i, animate = true) => {
     if (i < 0) i = cards.length - 1;
     if (i >= cards.length) i = 0;
@@ -303,29 +302,32 @@ document.addEventListener('DOMContentLoaded', () => {
     updateActiveCard();
   };
 
-  // ===== Highlight active card =====
+  // ===== ACTIVE CARD HIGHLIGHT =====
   const updateActiveCard = () => {
-    cards.forEach((c, i) => c.classList.toggle("active", i === index));
+    cards.forEach((card, i) => {
+      if (i === index) card.classList.add("active");
+      else card.classList.remove("active");
+    });
   };
 
-  // ===== Arrows click =====
-  prevBtn?.addEventListener("click", () => {
+  // ===== BUTTONS =====
+  prevBtn.addEventListener("click", () => {
     if (!isAnimating) goTo(index - 1);
     resetAutoSlide();
   });
 
-  nextBtn?.addEventListener("click", () => {
+  nextBtn.addEventListener("click", () => {
     if (!isAnimating) goTo(index + 1);
     resetAutoSlide();
   });
 
-  // ===== Keyboard navigation =====
+  // ===== KEYBOARD NAV =====
   window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") nextBtn?.click();
-    if (e.key === "ArrowLeft") prevBtn?.click();
+    if (e.key === "ArrowRight") nextBtn.click();
+    if (e.key === "ArrowLeft") prevBtn.click();
   });
 
-  // ===== Touch Swipe (Mobile) =====
+  // ===== TOUCH SWIPE (MOBILE) =====
   track.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
     isDragging = true;
@@ -340,14 +342,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   track.addEventListener("touchend", () => {
+    if (!isDragging) return;
     isDragging = false;
     const dx = currentX - startX;
-    if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50) goTo(index + (dx < 0 ? 1 : -1));
     else goTo(index);
     resetAutoSlide();
-  }, { passive: true });
+  });
 
-  // ===== Mouse drag (Desktop) =====
+  // ===== DRAG (DESKTOP) =====
   track.addEventListener("mousedown", (e) => {
     startX = e.clientX;
     isDragging = true;
@@ -360,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dx = e.clientX - startX;
     isDragging = false;
     track.style.cursor = "grab";
-    if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50) goTo(index + (dx < 0 ? 1 : -1));
     else goTo(index);
   });
 
@@ -370,30 +373,32 @@ document.addEventListener('DOMContentLoaded', () => {
     track.style.transform = `translateX(${-index * width + dx}px)`;
   });
 
-  // ===== Transition flags =====
+  // ===== ANIMATION CONTROL =====
   track.addEventListener("transitionstart", () => (isAnimating = true));
   track.addEventListener("transitionend", () => (isAnimating = false));
 
-  // ===== Auto Slide =====
+  // ===== AUTO SLIDE =====
   const startAutoSlide = () => {
-    autoSlideInterval = setInterval(() => goTo(index + 1), 5000);
+    autoSlide = setInterval(() => goTo(index + 1), 6000);
   };
+
   const resetAutoSlide = () => {
-    clearInterval(autoSlideInterval);
+    clearInterval(autoSlide);
     startAutoSlide();
   };
 
-  // ===== Window Resize =====
+  // ===== RESIZE =====
   window.addEventListener("resize", () => {
     clearTimeout(window._resizeTimeout);
-    window._resizeTimeout = setTimeout(updateSize, 150);
+    window._resizeTimeout = setTimeout(updateSize, 200);
   });
 
   // ===== INIT =====
   updateSize();
   goTo(0, false);
   startAutoSlide();
-})();
+});
+
 
 
 
