@@ -264,15 +264,40 @@ const carousel = document.querySelector(".certifications-carousel");
 const leftBtn = document.querySelector(".left-btn");
 const rightBtn = document.querySelector(".right-btn");
 
-const scrollAmount = 300; // adjust per card width
+let isDragging = false;
+let startX, scrollLeft;
 
-leftBtn.addEventListener("click", () => {
-  carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+// Drag to scroll
+carousel.addEventListener('mousedown', e => {
+  isDragging = true;
+  carousel.classList.add('dragging');
+  startX = e.pageX - carousel.offsetLeft;
+  scrollLeft = carousel.scrollLeft;
+});
+carousel.addEventListener('mouseleave', () => { isDragging = false; carousel.classList.remove('dragging'); });
+carousel.addEventListener('mouseup', () => { isDragging = false; carousel.classList.remove('dragging'); });
+carousel.addEventListener('mousemove', e => {
+  if(!isDragging) return;
+  e.preventDefault();
+  const x = e.pageX - carousel.offsetLeft;
+  const walk = (x - startX) * 2; //scroll-fast
+  carousel.scrollLeft = scrollLeft - walk;
 });
 
-rightBtn.addEventListener("click", () => {
-  carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+// Arrow buttons
+const scrollAmount = 300;
+leftBtn.addEventListener("click", () => { carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" }); });
+rightBtn.addEventListener("click", () => { carousel.scrollBy({ left: scrollAmount, behavior: "smooth" }); });
+
+// Auto-scroll
+let autoScroll = setInterval(() => { carousel.scrollBy({ left: 1, behavior: "smooth" }); }, 20);
+
+// Pause on hover
+carousel.addEventListener('mouseenter', () => clearInterval(autoScroll));
+carousel.addEventListener('mouseleave', () => {
+  autoScroll = setInterval(() => { carousel.scrollBy({ left: 1, behavior: "smooth" }); }, 20);
 });
+
 
 
 
