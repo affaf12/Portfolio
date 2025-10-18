@@ -440,23 +440,26 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
 // ===== SCROLL TO TOP =====
-const scrollTopBtn = document.getElementById("scrollTopBtn");
+document.addEventListener("DOMContentLoaded", function() {
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-// Show button when user scrolls down 100px
-window.onscroll = function() {
-  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-    scrollTopBtn.style.display = "block";
-    scrollTopBtn.classList.add("pulse");  // optional glow pulse
-  } else {
-    scrollTopBtn.style.display = "none";
-    scrollTopBtn.classList.remove("pulse");
-  }
-};
+  // Show button when user scrolls down 100px
+  window.addEventListener("scroll", function() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      scrollTopBtn.style.display = "block";
+      scrollTopBtn.classList.add("pulse");
+    } else {
+      scrollTopBtn.style.display = "none";
+      scrollTopBtn.classList.remove("pulse");
+    }
+  });
 
-// Smooth scroll to top
-scrollTopBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  // Smooth scroll to top
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
+
 
 
   // ===== CHATBOT =====
