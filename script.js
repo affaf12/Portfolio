@@ -335,7 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
  
 
-<!-- ================= CONTACT FORM SCRIPT ================= -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
 (function() {
   // Initialize EmailJS with your public key
   emailjs.init("xPog1F9WTz3rvgvXbxzsL"); // ✅ Replace with your EmailJS public key
@@ -344,50 +345,64 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   const statusMsg = document.getElementById("statusMsg");
+  const contactSection = document.getElementById("contact");
 
+  // ===== FLOATING NEON PARTICLES =====
+  const particleCount = 40;
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement("div");
+    particle.classList.add("neon-particle");
+    particle.style.left = Math.random() * 100 + "%";
+    particle.style.top = Math.random() * 100 + "%";
+    particle.style.animationDuration = 5 + Math.random() * 5 + "s";
+    particle.style.width = 2 + Math.random() * 5 + "px";
+    particle.style.height = particle.style.width;
+    contactSection.appendChild(particle);
+  }
+
+  // ===== FORM SUBMISSION =====
   contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Display sending message
-    statusMsg.textContent = "📨 Sending...";
-    statusMsg.style.color = "#4b5fff";
-    statusMsg.style.opacity = "1";
-
-    // Gather form values
     const fromName = contactForm.from_name.value.trim();
     const fromEmail = contactForm.from_email.value.trim();
     const message = contactForm.message.value.trim();
 
-    // Basic validation
+    // Validation
     if (!fromName || !fromEmail || !message) {
       statusMsg.textContent = "⚠️ Please fill in all fields.";
       statusMsg.style.color = "#ff4b4b";
+      statusMsg.style.opacity = "1";
+      statusMsg.classList.add("status-error");
       return;
     }
 
+    // Sending feedback
+    statusMsg.textContent = "📨 Sending...";
+    statusMsg.style.color = "#4b5fff";
+    statusMsg.style.opacity = "1";
+    statusMsg.classList.remove("status-error", "status-success");
+
     try {
-      // Step 1️⃣: Send message to YOU
+      // 1️⃣ Send message to you
       await emailjs.sendForm("service_q9049ro", "template_7seawpc", contactForm);
 
-      // Step 2️⃣: Send AUTO-REPLY to the sender
+      // 2️⃣ Auto-reply to sender
       await emailjs.send("service_q9049ro", "template_wehotjb", {
         from_name: fromName,
         from_email: fromEmail,
         message: message
       });
 
-      // Step 3️⃣: Success feedback
-      statusMsg.textContent = "✅ Message sent successfully! Auto-reply delivered.";
+      // 3️⃣ Success feedback
+      statusMsg.textContent = "✅ Message sent! Auto-reply delivered.";
       statusMsg.style.color = "#00ff99";
       statusMsg.classList.add("status-success");
 
-      // Reset form
       contactForm.reset();
 
-      // Fade out status after 4s
-      setTimeout(() => {
-        statusMsg.style.opacity = "0";
-      }, 4000);
+      // Fade out after 4s
+      setTimeout(() => { statusMsg.style.opacity = "0"; }, 4000);
 
     } catch (error) {
       console.error("EmailJS Error:", error);
@@ -397,6 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+</script>
 
 
 
