@@ -535,3 +535,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+
+//================= HIDDEN KEYWORDS SECTION ================= 
+  const keywords = Array.from(document.querySelectorAll('.hidden-keyword')).map(el => el.textContent);
+console.log(keywords); // ["Data Analytics", "Power BI", "Business Intelligence", "SQL"]
+
+ 
