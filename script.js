@@ -336,19 +336,18 @@ document.addEventListener("DOMContentLoaded", () => {
  
 
 (function() {
-  // Initialize EmailJS
+  // Initialize EmailJS with your public key
   emailjs.init("xPog1F9WTz3rvgvXbxzsL");
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   const statusMsg = document.getElementById("statusMsg");
-  const contactSection = document.getElementById("contact");
   const contactBg = document.querySelector(".contact-bg");
   const submitBtn = contactForm.querySelector(".btn-glow");
 
   // ===== VIP FLOATING NEON PARTICLES =====
-  const particleCount = 50; // more particles for VIP effect
+  const particleCount = 50;
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement("div");
     particle.classList.add("neon-particle");
@@ -387,9 +386,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===== VIP EFFECTS DURING SENDING =====
-    submitBtn.classList.add("sending"); // button pulse
+    submitBtn.classList.add("sending"); // button neon pulse
     contactForm.style.boxShadow = "0 0 40px rgba(75,95,255,0.6), 0 0 60px rgba(168,85,247,0.4)"; // form glow
-
     statusMsg.textContent = "📨 Sending...";
     statusMsg.className = "status-message";
     statusMsg.style.color = "#4b5fff";
