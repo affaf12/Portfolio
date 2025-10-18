@@ -1535,37 +1535,126 @@ a.btn-glow:hover {
 }
 
 /* ================= ROUND NEON ICON BUTTONS ================= */
-/* ================= ROUND NEON ICON BUTTONS WITH CONNECTING TRAILS ================= */
-.social-trail-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 80px;
+/* ================= SOCIAL MEDIA SECTION ================= */
+#social-media {
+  background-color: #111;
+  padding: 80px 20px;
+  text-align: center;
   position: relative;
+  overflow: hidden;
 }
 
-/* Glowing animated connecting trails */
-.social-trail-container::before {
+/* Neon Glowing Animated Heading */
+#social-media h2 {
+  font-size: 2.8rem;
+  margin-bottom: 50px;
+  color: #fff;
+  letter-spacing: 2px;
+  font-weight: 800;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ffff, 0 0 20px #ff00ff, 0 0 30px #00ffff;
+  animation: flicker 2s infinite alternate;
+  z-index: 2;
+}
+
+/* Gradient shimmer overlay */
+#social-media h2::after {
+  content: '';
+  position: absolute;
+  left: -50%;
+  top: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff00ff, #00ffff, #ff0000, #00ff00, #ff00ff);
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+  animation: shimmer 3s infinite linear;
+  z-index: 3;
+}
+
+/* Subtle halo behind heading */
+#social-media h2::before {
   content: '';
   position: absolute;
   top: 50%;
-  left: 10%;
-  right: 10%;
-  height: 4px;
+  left: 50%;
+  width: 300%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255,0,255,0.15), rgba(0,255,255,0.1), transparent 70%);
+  transform: translate(-50%, -50%);
+  filter: blur(40px);
+  z-index: 1;
+  animation: haloPulse 3s infinite ease-in-out;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ffff, 0 0 20px #ff00ff, 0 0 30px #00ffff;
+  }
+  20%, 22%, 24%, 55% {
+    text-shadow: 0 0 2px #ff00ff, 0 0 4px #00ffff, 0 0 10px #ff00ff, 0 0 15px #00ffff;
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(50%); }
+}
+
+@keyframes haloPulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* ===== ICON-ONLY NEON BUTTONS ===== */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Glowing animated connecting trail with electric pulse */
+.social-icons::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 6px;
   background: linear-gradient(90deg, #ff00ff, #00ffff, #ff0000, #00ff00, #ff00ff);
-  filter: blur(12px);
-  opacity: 0.5;
+  filter: blur(18px);
+  opacity: 0.6;
   z-index: 0;
   transform: translateY(-50%);
-  animation: trailShift 5s linear infinite;
+  animation: pulseTrail 2s infinite linear;
+  background-size: 200% 100%;
 }
 
-@keyframes trailShift {
-  0% { background-position: 0 0; }
-  100% { background-position: 200% 0; }
+@keyframes pulseTrail {
+  0% {
+    background-position: 0 0;
+    opacity: 0.3;
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+  }
+  50% {
+    background-position: 100% 0;
+    opacity: 0.8;
+    box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff, 0 0 60px #ff00ff;
+  }
+  100% {
+    background-position: 0 0;
+    opacity: 0.3;
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+  }
 }
 
-/* Base round icon styles */
+/* Base round icon */
 .social-icon {
   position: relative;
   display: inline-flex;
@@ -1583,6 +1672,7 @@ a.btn-glow:hover {
   z-index: 1;
 }
 
+/* Icon image */
 .social-icon img {
   width: 36px;
   height: 36px;
@@ -1606,6 +1696,7 @@ a.btn-glow:hover {
   z-index: 0;
 }
 
+/* Hover ripple */
 .social-icon span {
   position: absolute;
   display: block;
@@ -1623,9 +1714,12 @@ a.btn-glow:hover {
   opacity: 0;
 }
 
+/* Hover effects */
 .social-icon:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 25px rgba(255,255,255,0.6), 0 0 40px rgba(255,0,255,0.4), 0 0 60px rgba(0,255,255,0.3);
+  box-shadow: 0 0 25px rgba(255,255,255,0.6),
+              0 0 40px rgba(255,0,255,0.4),
+              0 0 60px rgba(0,255,255,0.3);
 }
 
 .social-icon:hover img {
@@ -1633,83 +1727,23 @@ a.btn-glow:hover {
   filter: brightness(1.2);
 }
 
+/* Neon rotation */
 @keyframes neonRotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* Individual Icon Colors */
+/* Individual colors for each icon */
 .github::before { filter: blur(18px) hue-rotate(0deg); }
 .linkedin::before { filter: blur(18px) hue-rotate(120deg); }
 .whatsapp::before { filter: blur(18px) hue-rotate(240deg); }
 
-/* ================= TEXT + ICON PILL BUTTONS ================= */
-.social-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 32px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: #fff;
-  border-radius: 50px;
-  border: 2px solid transparent;
-  transition: all 0.3s ease, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  box-shadow: 0 0 10px rgba(255,255,255,0.1);
-}
-
-.social-btn::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.social-btn:hover::before { opacity: 1; }
-
-.social-btn:hover {
-  box-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
-  transform: translateY(-5px);
-}
-
-.social-btn img {
-  width: 26px;
-  height: 26px;
-  filter: invert(1);
-  transition: transform 0.3s;
-}
-
-.social-btn:hover img {
-  transform: scale(1.2);
-  filter: brightness(1.3);
-}
-
-/* Individual Button Colors */
-.social-btn.github { background-color: #222; color: #fff; }
-.social-btn.github:hover { color: #ff77ff; }
-
-.social-btn.linkedin { background-color: #0077b5; }
-.social-btn.linkedin:hover { color: #00ffff; }
-
-.social-btn.whatsapp { background-color: #25d366; }
-.social-btn.whatsapp:hover { color: #a0ff90; }
-
-/* ================= RESPONSIVE ================= */
+/* Responsive */
 @media (max-width: 600px) {
-  .social-trail-container { gap: 50px; }
+  #social-media h2 { font-size: 2rem; }
+  .social-icons { gap: 30px; }
   .social-icon { width: 60px; height: 60px; }
   .social-icon img { width: 28px; height: 28px; }
-  .social-btn { padding: 12px 24px; font-size: 1rem; gap: 8px; }
-  .social-btn img { width: 22px; height: 22px; }
 }
 
 
