@@ -800,23 +800,22 @@ header .logo span {
 
 
 
-/* ===== CERTIFICATIONS CAROUSEL UPGRADE ===== */
+/* ===== CERTIFICATIONS CAROUSEL ===== */
 #certifications {
   padding: 60px 20px;
   background-color: #0f0f1a;
   color: #fff;
 }
 
-#certifications h2 {
+.certifications-heading {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 40px;
   position: relative;
-  display: inline-block;
   color: #ffd700;
 }
 
-#certifications h2::after {
+.certifications-heading::after {
   content: '';
   position: absolute;
   left: 50%;
@@ -844,13 +843,18 @@ header .logo span {
   padding: 15px 0;
   flex: 1;
   scroll-snap-type: x mandatory;
+  cursor: grab;
+}
+
+.certifications-carousel:active {
+  cursor: grabbing;
 }
 
 .certification-card {
   background: linear-gradient(135deg, #1f1f33, #2a2a48);
   padding: 20px 25px;
   border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   gap: 15px;
@@ -863,7 +867,7 @@ header .logo span {
 
 .certification-card:hover {
   transform: scale(1.08);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
   background: linear-gradient(135deg, #2a2a48, #1f1f33);
 }
 
@@ -901,13 +905,8 @@ header .logo span {
   box-shadow: 0 8px 25px rgba(0,0,0,0.7);
 }
 
-.left-btn {
-  left: 0;
-}
-
-.right-btn {
-  right: 0;
-}
+.left-btn { left: 0; }
+.right-btn { right: 0; }
 
 /* Edge gradient hint */
 .carousel-container::before,
@@ -932,50 +931,9 @@ header .logo span {
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .certification-card {
-    min-width: 260px;
-    padding: 18px 22px;
-  }
-
-  .cert-img {
-    width: 50px;
-    height: 50px;
-  }
-}
-
-@media (max-width: 768px) {
-  .certification-card {
-    min-width: 220px;
-  }
-
-  .cert-img {
-    width: 45px;
-    height: 45px;
-  }
-
-  .carousel-btn {
-    font-size: 1.8rem;
-    padding: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  #certifications h2 {
-    font-size: 2rem;
-  }
-
-  .cert-img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .carousel-btn {
-    font-size: 1.5rem;
-    padding: 8px;
-  }
-}
-
+@media (max-width: 1024px) { .certification-card { min-width: 260px; padding: 18px 22px; } }
+@media (max-width: 768px) { .certification-card { min-width: 220px; } .cert-img { width: 45px; height: 45px; } .carousel-btn { font-size: 1.8rem; padding: 10px; } }
+@media (max-width: 480px) { .certifications-heading { font-size: 2rem; } .cert-img { width: 40px; height: 40px; } .carousel-btn { font-size: 1.5rem; padding: 8px; } }
 
 
 
