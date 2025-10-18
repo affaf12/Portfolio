@@ -1747,13 +1747,13 @@ a.btn-glow:hover {
 }
 
 
-/* ===== ULTRA-MODERN CHATBOT - RIGHT SIDE ===== */
+/* ================= ULTRA-MODERN CHATBOT - RIGHT SIDE ================= */
 
 /* Neon circular floating button - right-hand side */
 #chatbot-toggle {
   position: fixed;
-  bottom: 40px;
-  right: 30px; /* changed from left to right */
+  bottom: 30px;
+  right: 30px;
   width: 65px;
   height: 65px;
   border-radius: 50%;
@@ -1761,7 +1761,7 @@ a.btn-glow:hover {
   outline: none;
   background-color: #111;
   color: #fff;
-  font-size: 30px;
+  font-size: 2rem;
   cursor: pointer;
   z-index: 9999;
   box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff, 0 0 40px rgba(255,255,255,0.1);
@@ -1774,6 +1774,10 @@ a.btn-glow:hover {
   box-shadow: 0 0 25px #ff00ff, 0 0 35px #00ffff, 0 0 50px rgba(255,255,255,0.2);
 }
 
+#chatbot-toggle.pulse {
+  animation: neonPulse 2s infinite alternate;
+}
+
 @keyframes neonPulse {
   0% { box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff; }
   50% { box-shadow: 0 0 25px #ff00ff, 0 0 40px #00ffff; }
@@ -1783,33 +1787,34 @@ a.btn-glow:hover {
 /* Chat window container - right-hand side */
 #chatbot-window {
   position: fixed;
-  bottom: 110px;
-  right: 30px; /* changed from left to right */
-  width: 350px;
+  bottom: 100px;
+  right: 30px;
+  width: 360px;
   max-width: 90%;
-  height: 450px;
+  height: 480px;
   background-color: #1e1e1e;
-  border-radius: 20px;
+  border-radius: 22px;
   box-shadow: 0 0 30px #4b5fff, 0 0 60px #00ffff;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transform: translateY(100%);
+  transform: translateX(110%);
   opacity: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;
-  z-index: 9999;
+  z-index: 9998;
 }
 
+/* Show chat window */
 #chatbot-window.chatbot-visible {
-  transform: translateY(0);
+  transform: translateX(0);
   opacity: 1;
 }
 
 /* Header */
 #chatbot-header {
+  padding: 12px 16px;
   background: linear-gradient(135deg, #4b5fff, #6674ff);
   color: #fff;
-  padding: 12px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1832,9 +1837,44 @@ a.btn-glow:hover {
   padding: 15px;
   background-color: #2c2c2c;
   overflow-y: auto;
-  font-size: 14px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+/* Input container */
+#chatbot-input-container {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #444;
+  background-color: #1e1e1e;
+  gap: 8px;
+}
+
+#chatbot-input-container input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background-color: #333;
+  color: #fff;
+}
+
+#chatbot-input-container button {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #4b5fff;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+#chatbot-input-container button:hover {
+  background-color: #6674ff;
 }
 
 /* Messages */
@@ -1861,51 +1901,27 @@ a.btn-glow:hover {
   align-self: flex-end;
 }
 
-/* Input */
-#chatbot-input-container {
-  display: flex;
-  padding: 10px;
-  border-top: 1px solid #444;
-  background-color: #1e1e1e;
-}
-
-#chatbot-input-container input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 12px;
-  border: none;
-  outline: none;
-  background-color: #333;
-  color: #fff;
-}
-
-#chatbot-input-container button {
-  margin-left: 8px;
-  padding: 10px 16px;
-  border-radius: 12px;
-  border: none;
-  background-color: #4b5fff;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-#chatbot-input-container button:hover {
-  background-color: #6674ff;
-}
-
-/* Message bubble animation */
+/* Bubble animation */
 @keyframes bubbleAppear {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar styling */
+#chatbot-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+#chatbot-body::-webkit-scrollbar-thumb {
+  background: #4b5fff;
+  border-radius: 3px;
 }
 
 /* Responsive */
 @media (max-width: 480px) {
   #chatbot-window {
     width: 90%;
-    right: 5%; /* adjusted for mobile */
+    right: 5%;
     bottom: 90px;
     height: 380px;
   }
@@ -1916,6 +1932,7 @@ a.btn-glow:hover {
     font-size: 26px;
   }
 }
+
 
 
 /* ================= LEFT-HAND CIRCULAR SCROLL BUTTON ================= */
