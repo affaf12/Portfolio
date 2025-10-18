@@ -223,7 +223,7 @@ header .logo span {
   100% { box-shadow: 0 0 60px var(--accent), 0 0 120px rgba(79,70,229,0.8); }
 }
 
-/* ================= HERO RIGHT: TEXT + BUTTONS ================= */
+/* ================= HERO RIGHT: TEXT + BUTTONS UPGRADE ================= */
 .hero-right {
   flex: 1 1 400px;
   margin-top: 3rem;
@@ -244,10 +244,10 @@ header .logo span {
 }
 
 .hero-title .highlight {
-  background: linear-gradient(90deg, var(--accent), #4b5fff);
+  background: linear-gradient(90deg, #4b5fff, #00ffe0, #ff4b5f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientShift 3s ease-in-out infinite alternate;
+  animation: gradientShiftText 3s ease-in-out infinite alternate;
 }
 
 .hero-subtitle {
@@ -281,7 +281,7 @@ header .logo span {
   25%, 75% { background-color: transparent; }
 }
 
-/* HERO BUTTONS */
+/* ================= HERO BUTTONS ================= */
 .hero-buttons {
   display: flex;
   gap: 1rem;
@@ -290,12 +290,12 @@ header .logo span {
   justify-content: flex-start;
 }
 
-/* Base button */
+/* Base button style */
 .hero-buttons .btn {
-  padding: 0.7rem 1.8rem;   /* smaller padding */
+  padding: 0.65rem 1.6rem;       /* smaller and balanced */
   border-radius: 50px;
   font-weight: 600;
-  font-size: 0.95rem;       /* slightly smaller font */
+  font-size: 0.95rem;
   cursor: pointer;
   display: inline-block;
   text-decoration: none;
@@ -305,34 +305,57 @@ header .logo span {
   transition: all 0.3s ease;
 }
 
-/* Primary button style */
+/* Primary gradient button */
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), #4b5fff);
-  color: var(--text-light);
-  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+  background: linear-gradient(135deg, #4b5fff, #a855f7, #ec4899);
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(75, 95, 255, 0.4);
+  background-size: 300% 300%;
+  animation: gradientShift 6s ease infinite;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.6);
+  box-shadow: 0 8px 25px rgba(75, 95, 255, 0.6);
 }
 
-/* Glow button style */
-.btn-glow {
+/* Glowing outline button for Contact Me */
+a.btn-glow {
   background: transparent;
-  color: var(--accent);
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 6px var(--accent);
-  padding: 0.65rem 1.6rem;   /* smaller padding for normal size */
-  font-size: 0.9rem;          /* smaller font */
+  color: #4b5fff;
+  border: 2px solid #4b5fff;
+  box-shadow: 0 0 6px #4b5fff, 0 0 15px #a855f7;
+  padding: 0.65rem 1.6rem;       /* normal size */
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-glow:hover {
+a.btn-glow:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 18px var(--accent);
+  box-shadow: 0 0 18px #4b5fff, 0 0 30px #a855f7, 0 0 50px #ec4899;
 }
 
-/* RESPONSIVE */
+/* ================= GRADIENT ANIMATIONS ================= */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientShiftText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ================= RESPONSIVE HERO ================= */
 @media (max-width: 768px) {
   .hero-container { flex-direction: column; text-align: center; }
   .hero-right { text-align: center; margin-top: 2rem; }
@@ -347,6 +370,7 @@ header .logo span {
   .profile-pic-wrapper { width: 150px; height: 150px; }
   .glow-ring { width: 170px; height: 170px; }
   .hero-buttons .btn { padding: 0.55rem 1.4rem; font-size: 0.85rem; }
+  a.btn-glow { padding: 0.55rem 1.4rem; font-size: 0.85rem; }
 }
 
 
