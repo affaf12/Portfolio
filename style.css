@@ -1845,21 +1845,52 @@ a.btn-glow:hover {
 }
 
 /* ================= SCROLL TO TOP ================= */
+/* ================= SCROLL TO TOP BUTTON ================= */
 #scrollTopBtn {
   position: fixed;
-  bottom: 4rem;
-  right: 2rem;
-  background: var(--accent);
+  left: 20px;           /* Left-hand side */
+  bottom: 40px;         /* Distance from bottom */
+  z-index: 9999;
+  background-color: #ff00ff;
   color: #fff;
   border: none;
-  padding: 0.6rem 0.8rem;
+  outline: none;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   cursor: pointer;
-  display: none;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  font-size: 1.5rem;
+  box-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff, 0 0 50px #ff00ff inset;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
-#scrollTopBtn.show { display: block; transform: translateY(0); }
+
+/* Hover effect */
+#scrollTopBtn:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff, 0 0 75px #ff00ff inset;
+  background-color: #ff77ff;
+}
+
+/* Optional pulse animation */
+@keyframes scrollPulse {
+  0%, 100% { box-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff, 0 0 50px #ff00ff inset; }
+  50% { box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff, 0 0 75px #ff00ff inset; }
+}
+
+#scrollTopBtn {
+  animation: scrollPulse 2s infinite ease-in-out;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  #scrollTopBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    left: 15px;
+    bottom: 30px;
+  }
+}
 
 /* ================= ANIMATIONS ================= */
 [data-animate] {
