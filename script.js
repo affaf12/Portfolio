@@ -437,19 +437,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  
-
-// ===== SCROLL TO TOP BUTTON =====
 // ===== SCROLL TO TOP BUTTON =====
 document.addEventListener("DOMContentLoaded", function() {
   const scrollTopBtn = document.getElementById("scrollTopBtn");
-
-  if (!scrollTopBtn) return; // Safety check
+  if (!scrollTopBtn) return;
 
   // Show/hide button on scroll
   window.addEventListener("scroll", function() {
     if (window.scrollY > 100) {  
-      scrollTopBtn.style.display = "flex"; // use flex since button uses flexbox
+      scrollTopBtn.style.display = "flex"; // flex for proper centering
     } else {
       scrollTopBtn.style.display = "none";
     }
@@ -460,7 +456,6 @@ document.addEventListener("DOMContentLoaded", function() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
-
 
   // ===== CHATBOT =====
   const chatbotToggle = document.getElementById("chatbot-toggle");
