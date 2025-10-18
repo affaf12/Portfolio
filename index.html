@@ -478,19 +478,25 @@
   
 
   
-  <!-- CHATBOT -->
-<button id="chatbot-toggle">💬</button>
-<div id="chatbot-window">
+ <!-- ================= CHATBOT ================= -->
+<button id="chatbot-toggle" title="Chat with us">💬</button>
+
+<div id="chatbot-window" class="chatbot-hidden">
+  <!-- Chatbot Header -->
   <div id="chatbot-header">
-    <span>Chat Bot</span>
-    <button id="chatbot-close">&times;</button>
+    <span>Affaf's Chat Bot</span>
+    <button id="chatbot-close" title="Close">&times;</button>
   </div>
+
+  <!-- Chatbot Body -->
   <div id="chatbot-body">
     <div class="bot-msg">Hi! I’m Affaf’s helper bot. Ask me about projects, skills, or contact info.</div>
   </div>
+
+  <!-- Chatbot Input -->
   <div id="chatbot-input-container">
-    <input type="text" placeholder="Type your message..."/>
-    <button>Send</button>
+    <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off" />
+    <button id="chatbot-send">Send</button>
   </div>
 </div>
 
