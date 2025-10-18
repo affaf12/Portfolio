@@ -438,24 +438,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ===== SCROLL TO TOP BUTTON =====
-document.addEventListener("DOMContentLoaded", function() {
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-  if (!scrollTopBtn) return;
+// Get the button element
+let mybutton = document.getElementById("myBtn");
 
-  // Show/hide button on scroll
-  window.addEventListener("scroll", function() {
-    if (window.scrollY > 100) {  
-      scrollTopBtn.style.display = "block"; // show button
-    } else {
-      scrollTopBtn.style.display = "none";  // hide button
-    }
-  });
+// Show button when user scrolls down 100px
+window.onscroll = function() {scrollFunction()};
 
-  // Smooth scroll to top
-  scrollTopBtn.addEventListener("click", function() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-});
+function scrollFunction() {
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// Smooth scroll to top on click
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 
   // ===== CHATBOT =====
   const chatbotToggle = document.getElementById("chatbot-toggle");
