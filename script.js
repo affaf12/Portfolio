@@ -440,15 +440,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
 // ===== SCROLL TO TOP =====
-// Get the button
 const scrollTopBtn = document.getElementById("scrollTopBtn");
 
 // Show button when user scrolls down 100px
 window.onscroll = function() {
-  scrollTopBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    scrollTopBtn.style.display = "block";
+    scrollTopBtn.classList.add("pulse");  // optional glow pulse
+  } else {
+    scrollTopBtn.style.display = "none";
+    scrollTopBtn.classList.remove("pulse");
+  }
 };
 
-// Scroll to top when clicked
+// Smooth scroll to top
 scrollTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
