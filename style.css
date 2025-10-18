@@ -2020,3 +2020,13 @@ a.btn-glow:hover {
   .skill-circle { width: 100px; height: 100px; }
   .skill-percent { font-size: 1rem; }
 }
+
+
+
+
+
+/* ================= RESET & BASE ================= */
+/* Hidden Keywords Styling */
+.hidden-keyword {
+    display: none; /* completely hidden */
+}
