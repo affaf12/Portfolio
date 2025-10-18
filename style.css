@@ -848,9 +848,8 @@ header .logo span {
 /* ===== CAROUSEL TRACK ===== */
 .certifications-carousel {
   display: flex;
-  gap: 0;
+  transition: transform 0.6s cubic-bezier(.22, .9, .35, 1);
   will-change: transform;
-  transition: transform 0.6s cubic-bezier(.22,.9,.35,1);
   cursor: grab;
   touch-action: pan-y;
 }
@@ -877,6 +876,14 @@ header .logo span {
   border-color: #4b5fff;
   box-shadow: 0 0 35px rgba(75, 95, 255, 0.5),
               0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: pulseBlue 2.5s infinite ease-in-out;
+}
+
+/* ===== BLUE GLOW ANIMATION ===== */
+@keyframes pulseBlue {
+  0% { box-shadow: 0 0 10px rgba(75, 95, 255, 0.5); }
+  50% { box-shadow: 0 0 25px rgba(75, 95, 255, 0.9); }
+  100% { box-shadow: 0 0 10px rgba(75, 95, 255, 0.5); }
 }
 
 /* ===== CERTIFICATION IMAGE ===== */
@@ -931,7 +938,7 @@ header .logo span {
   top: 50%;
   transform: translateY(-50%);
   transition: all 0.3s ease;
-  z-index: 10;
+  z-index: 20;
   box-shadow: 0 0 25px rgba(75, 95, 255, 0.5);
 }
 
@@ -941,7 +948,7 @@ header .logo span {
   box-shadow: 0 0 40px rgba(75, 95, 255, 0.8);
 }
 
-.carousel-btn.disabled {
+.carousel-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
