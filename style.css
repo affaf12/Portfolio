@@ -800,6 +800,86 @@ header .logo span {
 
 
 
+/* ===== CERTIFICATIONS CAROUSEL ===== */
+#certifications {
+  padding: 60px 20px;
+  background-color: #0f0f1a;
+  color: #fff;
+}
+
+#certifications h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #ffd700;
+  display: inline-block;
+  padding-bottom: 10px;
+  color: #ffd700;
+}
+
+.certifications-carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+
+.certifications-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.certifications-carousel::-webkit-scrollbar-thumb {
+  background-color: #ffd700;
+  border-radius: 4px;
+}
+
+.certification-card {
+  background: #1e1e2f;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 280px; /* card width for carousel */
+  flex-shrink: 0;   /* prevent shrinking */
+  font-weight: 500;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.certification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.cert-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cert-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .certification-card {
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  #certifications h2 {
+    font-size: 2rem;
+  }
+}
+
+
+
 
 
 /* ================= ACHIEVEMENTS & PROJECTS ================= */
