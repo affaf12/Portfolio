@@ -259,32 +259,138 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// ===== Certification Carousel (Arrow controlled only) =====
-const carousel = document.querySelector(".certifications-carousel");
-const leftBtn = document.querySelector(".left-btn");
-const rightBtn = document.querySelector(".right-btn");
+/* =======================
+   CERTIFICATIONS CAROUSEL — Modern, Smooth, Looping, Touch + Keyboard
+   ======================= */
+(() => {
+  const track = document.querySelector(".certifications-carousel");
+  const container = document.querySelector(".carousel-container");
+  const prevBtn = document.querySelector(".left-btn");
+  const nextBtn = document.querySelector(".right-btn");
+  const cards = Array.from(track.querySelectorAll(".certification-card"));
+  if (!track || cards.length === 0) return;
 
-const cardWidth = carousel.querySelector(".certification-card").offsetWidth + 25; // card width + gap
+  let index = 0;
+  let cardWidth = 0;
+  let gap = 0;
+  let containerWidth = 0;
+  let isTransitioning = false;
+  let autoSlideTimer;
 
-// Left button click
-leftBtn.addEventListener("click", () => {
-  carousel.scrollBy({ left: -cardWidth, behavior: "smooth" });
-});
+  // Smooth transform transition
+  track.style.transition = "transform 0.6s cubic-bezier(.22,.9,.35,1)";
 
-// Right button click
-rightBtn.addEventListener("click", () => {
-  carousel.scrollBy({ left: cardWidth, behavior: "smooth" });
-});
-
-// Optional: Auto-center last card (loop effect)
-carousel.addEventListener("scroll", () => {
-  const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-  if (carousel.scrollLeft >= maxScroll) {
-    carousel.scrollLeft = 0; // loop back to start
+  // ===== Measure card + container sizes =====
+  function measure() {
+    containerWidth = container.clientWidth;
+    const first = cards[0];
+    const cs = getComputedStyle(first);
+    cardWidth = first.getBoundingClientRect().width;
+    const trackCs = getComputedStyle(track);
+    gap = parseFloat(trackCs.gap) || 30;
   }
-});
 
+  // ===== Compute center position =====
+  function computeTransformForIndex(i) {
+    const step = cardWidth + gap;
+    const centerOffset = (containerWidth - cardWidth) / 2;
+    return -Math.round(i * step - centerOffset);
+  }
 
+  // ===== Go to card index =====
+  function goTo(i, { animate = true } = {}) {
+    if (i < 0) i = cards.length - 1; // loop backward
+    if (i >= cards.length) i = 0; // loop forward
+    index = i;
+
+    if (!animate) {
+      track.style.transition = "none";
+      track.style.transform = `translateX(${computeTransformForIndex(index)}px)`;
+      void track.offsetWidth; // force reflow
+      track.style.transition = "transform 0.6s cubic-bezier(.22,.9,.35,1)";
+    } else {
+      track.style.transform = `translateX(${computeTransformForIndex(index)}px)`;
+    }
+
+    updateActiveCard();
+  }
+
+  // ===== Highlight active card =====
+  function updateActiveCard() {
+    cards.forEach((c, idx) => {
+      c.classList.toggle("active", idx === index);
+    });
+  }
+
+  // ===== Arrow Clicks =====
+  prevBtn.addEventListener("click", () => {
+    if (isTransitioning) return;
+    goTo(index - 1);
+    resetAutoSlide();
+  });
+  nextBtn.addEventListener("click", () => {
+    if (isTransitioning) return;
+    goTo(index + 1);
+    resetAutoSlide();
+  });
+
+  // ===== Auto-slide every few seconds =====
+  function autoSlide() {
+    autoSlideTimer = setInterval(() => {
+      goTo(index + 1);
+    }, 4000);
+  }
+  function resetAutoSlide() {
+    clearInterval(autoSlideTimer);
+    autoSlide();
+  }
+
+  // ===== Keyboard Support =====
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") nextBtn.click();
+    if (e.key === "ArrowLeft") prevBtn.click();
+  });
+
+  // ===== Swipe (Touch) Support =====
+  (function addTouch() {
+    let startX = 0;
+    let startTime = 0;
+    const threshold = 50; // minimum swipe distance
+    const allowedTime = 500; // max ms allowed
+
+    track.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      startTime = Date.now();
+    }, { passive: true });
+
+    track.addEventListener("touchend", (e) => {
+      const dist = e.changedTouches[0].clientX - startX;
+      const elapsed = Date.now() - startTime;
+      if (Math.abs(dist) >= threshold && elapsed <= allowedTime) {
+        dist < 0 ? nextBtn.click() : prevBtn.click();
+      }
+    }, { passive: true });
+  })();
+
+  // ===== Handle resize =====
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      measure();
+      goTo(index, { animate: false });
+    }, 120);
+  });
+
+  // ===== Transition control =====
+  track.addEventListener("transitionstart", () => (isTransitioning = true));
+  track.addEventListener("transitionend", () => (isTransitioning = false));
+
+  // ===== Init =====
+  measure();
+  goTo(0, { animate: false });
+  autoSlide();
+})();
 
 
   
