@@ -335,8 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
  
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
+
 (function() {
   // Initialize EmailJS with your public key
   emailjs.init("xPog1F9WTz3rvgvXbxzsL"); // ✅ Replace with your EmailJS public key
@@ -346,6 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   const statusMsg = document.getElementById("statusMsg");
   const contactSection = document.getElementById("contact");
+  const contactBg = document.querySelector(".contact-bg");
 
   // ===== FLOATING NEON PARTICLES =====
   const particleCount = 40;
@@ -354,11 +354,20 @@ document.addEventListener("DOMContentLoaded", () => {
     particle.classList.add("neon-particle");
     particle.style.left = Math.random() * 100 + "%";
     particle.style.top = Math.random() * 100 + "%";
-    particle.style.animationDuration = 5 + Math.random() * 5 + "s";
     particle.style.width = 2 + Math.random() * 5 + "px";
     particle.style.height = particle.style.width;
-    contactSection.appendChild(particle);
+    particle.style.animationDuration = 5 + Math.random() * 5 + "s";
+    contactBg.appendChild(particle);
   }
+
+  // ===== FLOATING LABELS EFFECT =====
+  const formFields = contactForm.querySelectorAll("input, textarea");
+  formFields.forEach(field => {
+    field.addEventListener("focus", () => field.classList.add("focused"));
+    field.addEventListener("blur", () => {
+      if (!field.value) field.classList.remove("focused");
+    });
+  });
 
   // ===== FORM SUBMISSION =====
   contactForm.addEventListener("submit", async (e) => {
@@ -371,20 +380,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Validation
     if (!fromName || !fromEmail || !message) {
       statusMsg.textContent = "⚠️ Please fill in all fields.";
-      statusMsg.style.color = "#ff4b4b";
+      statusMsg.className = "status-message status-error";
       statusMsg.style.opacity = "1";
-      statusMsg.classList.add("status-error");
       return;
     }
 
     // Sending feedback
     statusMsg.textContent = "📨 Sending...";
+    statusMsg.className = "status-message";
     statusMsg.style.color = "#4b5fff";
     statusMsg.style.opacity = "1";
-    statusMsg.classList.remove("status-error", "status-success");
 
     try {
-      // 1️⃣ Send message to you
+      // 1️⃣ Send message to yourself
       await emailjs.sendForm("service_q9049ro", "template_7seawpc", contactForm);
 
       // 2️⃣ Auto-reply to sender
@@ -396,10 +404,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 3️⃣ Success feedback
       statusMsg.textContent = "✅ Message sent! Auto-reply delivered.";
-      statusMsg.style.color = "#00ff99";
-      statusMsg.classList.add("status-success");
+      statusMsg.className = "status-message status-success";
+      statusMsg.style.opacity = "1";
 
       contactForm.reset();
+      formFields.forEach(f => f.classList.remove("focused"));
 
       // Fade out after 4s
       setTimeout(() => { statusMsg.style.opacity = "0"; }, 4000);
@@ -407,12 +416,13 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("EmailJS Error:", error);
       statusMsg.textContent = "❌ Failed to send. Please try again later.";
-      statusMsg.style.color = "#ff4b4b";
-      statusMsg.classList.add("status-error");
+      statusMsg.className = "status-message status-error";
+      statusMsg.style.opacity = "1";
     }
   });
 });
-</script>
+
+
 
 
 
