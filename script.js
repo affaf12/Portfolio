@@ -335,10 +335,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
  
 
-
 (function() {
-  // Initialize EmailJS with your public key
-  emailjs.init("xPog1F9WTz3rvgvXbxzsL"); // ✅ Replace with your EmailJS public key
+  // Initialize EmailJS
+  emailjs.init("xPog1F9WTz3rvgvXbxzsL");
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -346,17 +345,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusMsg = document.getElementById("statusMsg");
   const contactSection = document.getElementById("contact");
   const contactBg = document.querySelector(".contact-bg");
+  const submitBtn = contactForm.querySelector(".btn-glow");
 
-  // ===== FLOATING NEON PARTICLES =====
-  const particleCount = 40;
+  // ===== VIP FLOATING NEON PARTICLES =====
+  const particleCount = 50; // more particles for VIP effect
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement("div");
     particle.classList.add("neon-particle");
     particle.style.left = Math.random() * 100 + "%";
     particle.style.top = Math.random() * 100 + "%";
-    particle.style.width = 2 + Math.random() * 5 + "px";
+    particle.style.width = 2 + Math.random() * 6 + "px";
     particle.style.height = particle.style.width;
-    particle.style.animationDuration = 5 + Math.random() * 5 + "s";
+    particle.style.animationDuration = 4 + Math.random() * 6 + "s";
+    particle.style.opacity = 0.3 + Math.random() * 0.5;
     contactBg.appendChild(particle);
   }
 
@@ -377,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fromEmail = contactForm.from_email.value.trim();
     const message = contactForm.message.value.trim();
 
-    // Validation
+    // ===== VALIDATION =====
     if (!fromName || !fromEmail || !message) {
       statusMsg.textContent = "⚠️ Please fill in all fields.";
       statusMsg.className = "status-message status-error";
@@ -385,7 +386,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Sending feedback
+    // ===== VIP EFFECTS DURING SENDING =====
+    submitBtn.classList.add("sending"); // button pulse
+    contactForm.style.boxShadow = "0 0 40px rgba(75,95,255,0.6), 0 0 60px rgba(168,85,247,0.4)"; // form glow
+
     statusMsg.textContent = "📨 Sending...";
     statusMsg.className = "status-message";
     statusMsg.style.color = "#4b5fff";
@@ -407,11 +411,9 @@ document.addEventListener("DOMContentLoaded", () => {
       statusMsg.className = "status-message status-success";
       statusMsg.style.opacity = "1";
 
+      // Reset form & floating labels
       contactForm.reset();
       formFields.forEach(f => f.classList.remove("focused"));
-
-      // Fade out after 4s
-      setTimeout(() => { statusMsg.style.opacity = "0"; }, 4000);
 
     } catch (error) {
       console.error("EmailJS Error:", error);
@@ -419,9 +421,15 @@ document.addEventListener("DOMContentLoaded", () => {
       statusMsg.className = "status-message status-error";
       statusMsg.style.opacity = "1";
     }
+
+    // ===== CLEANUP AFTER 4s =====
+    setTimeout(() => {
+      submitBtn.classList.remove("sending");
+      contactForm.style.boxShadow = "0 0 25px rgba(75,95,255,0.2)";
+      statusMsg.style.opacity = "0";
+    }, 4000);
   });
 });
-
 
 
 
