@@ -260,137 +260,134 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* =======================
-   CERTIFICATIONS CAROUSEL — Modern, Smooth, Looping, Touch + Keyboard
-   ======================= */
 (() => {
-  const track = document.querySelector(".certifications-carousel");
   const container = document.querySelector(".carousel-container");
+  const track = document.querySelector(".certifications-carousel");
+  const cards = Array.from(track.querySelectorAll(".certification-card"));
   const prevBtn = document.querySelector(".left-btn");
   const nextBtn = document.querySelector(".right-btn");
-  const cards = Array.from(track.querySelectorAll(".certification-card"));
-  if (!track || cards.length === 0) return;
 
+  if (!container || !track || cards.length === 0) return;
+
+  // ===== SETTINGS =====
   let index = 0;
-  let cardWidth = 0;
-  let gap = 0;
-  let containerWidth = 0;
-  let isTransitioning = false;
-  let autoSlideTimer;
+  let width = container.clientWidth;
+  let isAnimating = false;
+  let autoSlideInterval;
+  let startX = 0, currentX = 0, isDragging = false;
 
-  // Smooth transform transition
+  // ===== STYLE =====
+  track.style.display = "flex";
   track.style.transition = "transform 0.6s cubic-bezier(.22,.9,.35,1)";
+  track.style.willChange = "transform";
 
-  // ===== Measure card + container sizes =====
-  function measure() {
-    containerWidth = container.clientWidth;
-    const first = cards[0];
-    const cs = getComputedStyle(first);
-    cardWidth = first.getBoundingClientRect().width;
-    const trackCs = getComputedStyle(track);
-    gap = parseFloat(trackCs.gap) || 30;
-  }
+  // ===== Update size =====
+  const updateSize = () => {
+    width = container.clientWidth;
+    cards.forEach(card => (card.style.flex = "0 0 100%"));
+    goTo(index, false);
+  };
 
-  // ===== Compute center position =====
-  function computeTransformForIndex(i) {
-    const step = cardWidth + gap;
-    const centerOffset = (containerWidth - cardWidth) / 2;
-    return -Math.round(i * step - centerOffset);
-  }
-
-  // ===== Go to card index =====
-  function goTo(i, { animate = true } = {}) {
-    if (i < 0) i = cards.length - 1; // loop backward
-    if (i >= cards.length) i = 0; // loop forward
+  // ===== Move to card =====
+  const goTo = (i, animate = true) => {
+    if (i < 0) i = cards.length - 1;
+    if (i >= cards.length) i = 0;
     index = i;
 
-    if (!animate) {
-      track.style.transition = "none";
-      track.style.transform = `translateX(${computeTransformForIndex(index)}px)`;
-      void track.offsetWidth; // force reflow
-      track.style.transition = "transform 0.6s cubic-bezier(.22,.9,.35,1)";
-    } else {
-      track.style.transform = `translateX(${computeTransformForIndex(index)}px)`;
-    }
-
+    track.style.transition = animate ? "transform 0.6s cubic-bezier(.22,.9,.35,1)" : "none";
+    track.style.transform = `translateX(${-index * width}px)`;
     updateActiveCard();
-  }
+  };
 
   // ===== Highlight active card =====
-  function updateActiveCard() {
-    cards.forEach((c, idx) => {
-      c.classList.toggle("active", idx === index);
-    });
-  }
+  const updateActiveCard = () => {
+    cards.forEach((c, i) => c.classList.toggle("active", i === index));
+  };
 
-  // ===== Arrow Clicks =====
-  prevBtn.addEventListener("click", () => {
-    if (isTransitioning) return;
-    goTo(index - 1);
+  // ===== Arrows =====
+  prevBtn?.addEventListener("click", () => {
+    if (!isAnimating) goTo(index - 1);
     resetAutoSlide();
   });
-  nextBtn.addEventListener("click", () => {
-    if (isTransitioning) return;
-    goTo(index + 1);
+  nextBtn?.addEventListener("click", () => {
+    if (!isAnimating) goTo(index + 1);
     resetAutoSlide();
   });
 
-  // ===== Auto-slide every few seconds =====
-  function autoSlide() {
-    autoSlideTimer = setInterval(() => {
-      goTo(index + 1);
-    }, 4000);
-  }
-  function resetAutoSlide() {
-    clearInterval(autoSlideTimer);
-    autoSlide();
-  }
-
-  // ===== Keyboard Support =====
+  // ===== Keyboard support =====
   window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") nextBtn.click();
-    if (e.key === "ArrowLeft") prevBtn.click();
+    if (e.key === "ArrowRight") nextBtn?.click();
+    if (e.key === "ArrowLeft") prevBtn?.click();
   });
 
-  // ===== Swipe (Touch) Support =====
-  (function addTouch() {
-    let startX = 0;
-    let startTime = 0;
-    const threshold = 50; // minimum swipe distance
-    const allowedTime = 500; // max ms allowed
+  // ===== Touch swipe =====
+  track.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+    track.style.transition = "none";
+  }, { passive: true });
 
-    track.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
-      startTime = Date.now();
-    }, { passive: true });
+  track.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+    const dx = currentX - startX;
+    track.style.transform = `translateX(${-index * width + dx}px)`;
+  }, { passive: true });
 
-    track.addEventListener("touchend", (e) => {
-      const dist = e.changedTouches[0].clientX - startX;
-      const elapsed = Date.now() - startTime;
-      if (Math.abs(dist) >= threshold && elapsed <= allowedTime) {
-        dist < 0 ? nextBtn.click() : prevBtn.click();
-      }
-    }, { passive: true });
-  })();
+  track.addEventListener("touchend", () => {
+    isDragging = false;
+    const dx = currentX - startX;
+    if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
+    else goTo(index);
+    resetAutoSlide();
+  }, { passive: true });
 
-  // ===== Handle resize =====
-  let resizeTimer;
+  // ===== Mouse drag (optional desktop) =====
+  track.addEventListener("mousedown", (e) => {
+    startX = e.clientX;
+    isDragging = true;
+    track.style.cursor = "grabbing";
+    track.style.transition = "none";
+  });
+  window.addEventListener("mouseup", (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    isDragging = false;
+    track.style.cursor = "grab";
+    if (Math.abs(dx) > 60) goTo(index + (dx < 0 ? 1 : -1));
+    else goTo(index);
+  });
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    track.style.transform = `translateX(${-index * width + dx}px)`;
+  });
+
+  // ===== Looping transition control =====
+  track.addEventListener("transitionstart", () => (isAnimating = true));
+  track.addEventListener("transitionend", () => (isAnimating = false));
+
+  // ===== Auto Slide =====
+  const startAutoSlide = () => {
+    autoSlideInterval = setInterval(() => goTo(index + 1), 5000);
+  };
+  const resetAutoSlide = () => {
+    clearInterval(autoSlideInterval);
+    startAutoSlide();
+  };
+
+  // ===== Resize handling =====
   window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      measure();
-      goTo(index, { animate: false });
-    }, 120);
+    clearTimeout(window._resizeTimeout);
+    window._resizeTimeout = setTimeout(() => updateSize(), 150);
   });
 
-  // ===== Transition control =====
-  track.addEventListener("transitionstart", () => (isTransitioning = true));
-  track.addEventListener("transitionend", () => (isTransitioning = false));
-
-  // ===== Init =====
-  measure();
-  goTo(0, { animate: false });
-  autoSlide();
+  // ===== Initialize =====
+  updateSize();
+  goTo(0, false);
+  startAutoSlide();
 })();
+
 
 
   
