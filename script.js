@@ -259,38 +259,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// ===== Certification =====
+// ===== Certification Carousel (Arrow controlled only) =====
 const carousel = document.querySelector(".certifications-carousel");
 const leftBtn = document.querySelector(".left-btn");
 const rightBtn = document.querySelector(".right-btn");
 
-let isDragging = false;
-let startX, scrollLeft;
+const cardWidth = carousel.querySelector(".certification-card").offsetWidth + 25; // card width + gap
 
-// Drag/Swipe functionality
-carousel.addEventListener('mousedown', e => { isDragging = true; startX = e.pageX - carousel.offsetLeft; scrollLeft = carousel.scrollLeft; });
-carousel.addEventListener('mouseleave', () => isDragging = false);
-carousel.addEventListener('mouseup', () => isDragging = false);
-carousel.addEventListener('mousemove', e => {
-  if(!isDragging) return;
-  e.preventDefault();
-  const x = e.pageX - carousel.offsetLeft;
-  const walk = (x - startX) * 2;
-  carousel.scrollLeft = scrollLeft - walk;
+// Left button click
+leftBtn.addEventListener("click", () => {
+  carousel.scrollBy({ left: -cardWidth, behavior: "smooth" });
 });
 
-// Arrow buttons
-const scrollAmount = 300;
-leftBtn.addEventListener("click", () => { carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" }); });
-rightBtn.addEventListener("click", () => { carousel.scrollBy({ left: scrollAmount, behavior: "smooth" }); });
+// Right button click
+rightBtn.addEventListener("click", () => {
+  carousel.scrollBy({ left: cardWidth, behavior: "smooth" });
+});
 
-// Auto-scroll
-let autoScroll = setInterval(() => { carousel.scrollBy({ left: 1, behavior: "smooth" }); }, 15);
-
-// Pause on hover
-carousel.addEventListener('mouseenter', () => clearInterval(autoScroll));
-carousel.addEventListener('mouseleave', () => {
-  autoScroll = setInterval(() => { carousel.scrollBy({ left: 1, behavior: "smooth" }); }, 15);
+// Optional: Auto-center last card (loop effect)
+carousel.addEventListener("scroll", () => {
+  const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+  if (carousel.scrollLeft >= maxScroll) {
+    carousel.scrollLeft = 0; // loop back to start
+  }
 });
 
 
