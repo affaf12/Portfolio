@@ -1003,28 +1003,187 @@ header .logo span {
 
 
 
+/* ================= PROJECTS SECTION ================= */
+#projects {
+  padding: 80px 20px;
+  background: radial-gradient(circle at top left, #0c0f1a 0%, #0a0c16 100%);
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
 
-/* ================= ACHIEVEMENTS & PROJECTS ================= */
-.achievements-wrapper, .projects-wrapper {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
+/* ========== SECTION TITLE ========== */
+#projects .section-title {
+  font-size: 2.6rem;
+  margin-bottom: 55px;
+  color: #4b5fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(75, 95, 255, 0.6);
 }
-.achievement-card, .project-card {
-  flex: 0 0 300px;
-  padding: 1.2rem;
-  border-radius: var(--radius);
-  background: linear-gradient(145deg, rgba(79,70,229,0.1), rgba(79,70,229,0.05));
-  border: 2px solid rgba(79,70,229,0.3);
-  box-shadow: 0 4px 20px rgba(79,70,229,0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+
+#projects .section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #4b5fff, #a855f7, #ec4899);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(75, 95, 255, 0.6);
 }
-.achievement-card:hover, .project-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(79,70,229,0.5);
-  background: linear-gradient(145deg, rgba(79,70,229,0.15), rgba(79,70,229,0.07));
+
+/* ========== PROJECTS GRID ========== */
+.projects-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 35px;
+  justify-content: center;
+  align-items: stretch;
+  max-width: 1150px;
+  margin: 0 auto;
 }
+
+/* ========== PROJECT CARD ========== */
+.project-card {
+  background: radial-gradient(circle at 30% 30%, #161a35 0%, #0f1224 100%);
+  border: 2px solid rgba(75, 95, 255, 0.2);
+  border-radius: 20px;
+  padding: 35px;
+  text-align: left;
+  box-shadow: 0 0 30px rgba(75, 95, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  animation: projectFadeIn 0.8s ease forwards;
+}
+
+/* ========== GLOW BORDER PULSE ========== */
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background: linear-gradient(120deg, #4b5fff, #a855f7, #ec4899, #4b5fff);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px;
+  opacity: 0.6;
+  animation: borderPulse 4s linear infinite;
+}
+
+/* ========== HOVER EFFECTS ========== */
+.project-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  border-color: rgba(75, 95, 255, 0.6);
+  box-shadow: 0 0 45px rgba(75, 95, 255, 0.4),
+              0 0 20px rgba(168, 85, 247, 0.3),
+              inset 0 0 20px rgba(236, 72, 153, 0.2);
+}
+
+.project-card:hover::before {
+  opacity: 1;
+  animation: borderPulseFast 2.5s linear infinite;
+}
+
+/* ========== TEXT STYLES ========== */
+.project-title {
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(75, 95, 255, 0.6);
+}
+
+.project-location {
+  font-size: 0.95rem;
+  color: #aab2ff;
+  margin-bottom: 18px;
+  font-style: italic;
+}
+
+.project-details {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.project-details li {
+  margin-bottom: 10px;
+  color: #d7d9ff;
+  line-height: 1.6;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.project-details li:hover {
+  color: #ffffff;
+  transform: translateX(5px);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes projectFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes borderPulse {
+  0% {
+    background-position: 0% 50%;
+    opacity: 0.4;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 0.8;
+  }
+  100% {
+    background-position: 0% 50%;
+    opacity: 0.4;
+  }
+}
+
+@keyframes borderPulseFast {
+  0% {
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
+}
+
+/* ========== RESPONSIVE FIX ========== */
+@media (max-width: 768px) {
+  .project-card {
+    padding: 25px;
+  }
+
+  #projects .section-title {
+    font-size: 2rem;
+  }
+}
+
+
+
+
 
 /* ================= CHATBOT ================= */
 .chatbot-window {
