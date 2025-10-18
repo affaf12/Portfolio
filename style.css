@@ -1845,52 +1845,103 @@ a.btn-glow:hover {
 }
 
 /* ================= SCROLL TO TOP ================= */
-/* ================= SCROLL TO TOP BUTTON ================= */
+/* ================= SCROLL TO TOP NEON BUTTON ================= */
 #scrollTopBtn {
   position: fixed;
-  left: 20px;           /* Left-hand side */
-  bottom: 40px;         /* Distance from bottom */
+  left: 20px;              /* Left-hand side */
+  bottom: 40px;            /* Distance from bottom */
   z-index: 9999;
-  background-color: #ff00ff;
-  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   border: none;
   outline: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
   cursor: pointer;
-  font-size: 1.5rem;
-  box-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff, 0 0 50px #ff00ff inset;
-  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+  background-color: #111;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: none;           /* Hidden by default */
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
 }
 
-/* Hover effect */
+/* Rotating neon gradient border like social icons */
+#scrollTopBtn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(#ff00ff, #00ffff, #ff0000, #00ff00, #ff00ff);
+  filter: blur(18px);
+  opacity: 0.7;
+  z-index: 0;
+  animation: neonRotate 5s linear infinite;
+  border-radius: 50%;
+}
+
+/* Inner glow overlay */
+#scrollTopBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Button content on top */
+#scrollTopBtn span {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Hover effects */
 #scrollTopBtn:hover {
-  transform: translateY(-5px) scale(1.1);
+  transform: translateY(-6px) scale(1.2);
+  filter: brightness(1.3);
   box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff, 0 0 75px #ff00ff inset;
-  background-color: #ff77ff;
 }
 
-/* Optional pulse animation */
-@keyframes scrollPulse {
-  0%, 100% { box-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff, 0 0 50px #ff00ff inset; }
-  50% { box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff, 0 0 75px #ff00ff inset; }
+/* Neon rotation keyframe */
+@keyframes neonRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-#scrollTopBtn {
-  animation: scrollPulse 2s infinite ease-in-out;
+/* Electric pulse/glow around the button (optional, advanced) */
+#scrollTopBtn.pulse::after {
+  animation: pulseGlow 2s infinite alternate;
 }
 
-/* Responsive for mobile */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+  50% { box-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff; }
+  100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   #scrollTopBtn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
     left: 15px;
     bottom: 30px;
   }
 }
+
 
 /* ================= ANIMATIONS ================= */
 [data-animate] {
