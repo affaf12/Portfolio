@@ -1747,14 +1747,13 @@ a.btn-glow:hover {
 }
 
 
-/* ================= CHATBOT ================= */
 /* ================= CHATBOT STYLES ================= */
 
-/* Neon floating chat toggle button */
+/* Floating chat toggle button - Right-hand neon style */
 #chatbot-toggle {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 40px;
+  Right: 30px; /* Right side */
   z-index: 9999;
   width: 60px;
   height: 60px;
@@ -1769,13 +1768,14 @@ a.btn-glow:hover {
   transition: transform 0.3s, filter 0.3s, box-shadow 0.3s;
 }
 
+/* Hover effect */
 #chatbot-toggle:hover {
   transform: scale(1.1);
   filter: brightness(1.2);
   box-shadow: 0 0 20px #ff00ff, 0 0 35px #00ffff, 0 0 50px rgba(255,255,255,0.2);
 }
 
-/* Pulsing neon effect */
+/* Pulse animation */
 #chatbot-toggle.pulse {
   animation: pulseGlow 2s infinite alternate;
 }
@@ -1789,29 +1789,32 @@ a.btn-glow:hover {
 /* Chat window container */
 #chatbot-window {
   position: fixed;
-  bottom: 100px;
-  right: 30px;
-  width: 320px;
+  bottom: 110px;
+  left: 30px; /* align with button */
+  width: 340px;
   max-width: 90%;
-  height: 400px;
+  height: 450px;
   background-color: #1e1e1e;
-  border-radius: 15px;
+  border-radius: 18px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transform: translateY(100%);
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease, opacity 0.4s ease;
   z-index: 9999;
+  opacity: 0;
 }
 
+/* Show chat window */
 #chatbot-window.chatbot-visible {
   transform: translateY(0);
+  opacity: 1;
 }
 
 /* Chat header */
 #chatbot-header {
-  background-color: #4b5fff;
+  background: linear-gradient(135deg, #4b5fff, #6674ff);
   color: #fff;
   padding: 12px 15px;
   display: flex;
@@ -1838,6 +1841,8 @@ a.btn-glow:hover {
   overflow-y: auto;
   font-size: 14px;
   color: #eee;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Bot messages */
@@ -1849,6 +1854,19 @@ a.btn-glow:hover {
   margin-bottom: 10px;
   max-width: 85%;
   word-wrap: break-word;
+  align-self: flex-start;
+}
+
+/* User messages */
+.user-msg {
+  background-color: #00bfff;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  max-width: 85%;
+  word-wrap: break-word;
+  align-self: flex-end;
 }
 
 /* Chat input */
@@ -1889,9 +1907,9 @@ a.btn-glow:hover {
 @media (max-width: 480px) {
   #chatbot-window {
     width: 90%;
-    right: 5%;
-    bottom: 80px;
-    height: 350px;
+    left: 5%;
+    bottom: 90px;
+    height: 380px;
   }
 
   #chatbot-toggle {
@@ -1900,7 +1918,6 @@ a.btn-glow:hover {
     font-size: 24px;
   }
 }
-
 
 
 /* ================= LEFT-HAND CIRCULAR SCROLL BUTTON ================= */
