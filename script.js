@@ -440,6 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
 // ===== SCROLL TO TOP BUTTON =====
+// ===== SCROLL TO TOP BUTTON =====
 document.addEventListener("DOMContentLoaded", function() {
   const scrollTopBtn = document.getElementById("scrollTopBtn");
 
@@ -447,12 +448,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Show/hide button on scroll
   window.addEventListener("scroll", function() {
-    if (window.scrollY > 100) {  // More reliable than body.scrollTop
-      scrollTopBtn.style.display = "block";
-      scrollTopBtn.classList.add("pulse"); // Add neon pulse
+    if (window.scrollY > 100) {  
+      scrollTopBtn.style.display = "flex"; // use flex since button uses flexbox
     } else {
       scrollTopBtn.style.display = "none";
-      scrollTopBtn.classList.remove("pulse"); // Remove neon pulse
     }
   });
 
