@@ -1226,7 +1226,194 @@ header .logo span {
 
 
 
-/* ===== NEON PARTICLES ===== */
+/* ================= CONTACT SECTION ================= */
+#contact {
+  padding: 90px 20px;
+  background: radial-gradient(circle at top left, #0c0f1a 0%, #0a0c16 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+#contact .section-title {
+  text-align: center;
+  font-size: 2.6rem;
+  color: #4b5fff;
+  margin-bottom: 60px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(75, 95, 255, 0.6);
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 50px;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ================= CONTACT FORM ================= */
+.contact-form {
+  background: rgba(20, 25, 45, 0.85);
+  padding: 35px;
+  border-radius: 20px;
+  border: 1px solid rgba(75, 95, 255, 0.3);
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 35px rgba(75, 95, 255, 0.4),
+              0 0 45px rgba(168, 85, 247, 0.3);
+}
+
+.contact-form label {
+  display: block;
+  color: #aab2ff;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(75, 95, 255, 0.3);
+  background: rgba(16, 19, 40, 0.9);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 5px rgba(75,95,255,0.2);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #4b5fff;
+  box-shadow: 0 0 10px #4b5fff,
+              0 0 20px #a855f7,
+              0 0 30px #ec4899;
+  background: rgba(15,15,40,0.5);
+}
+
+/* ===== GLOW BUTTON ===== */
+.btn-glow {
+  display: inline-block;
+  width: 100%;
+  padding: 12px 25px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #4b5fff, #a855f7, #ec4899);
+  background-size: 300% 300%;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(75, 95, 255, 0.4),
+              0 0 25px rgba(168, 85, 247, 0.3);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  animation: gradientShift 6s ease infinite;
+}
+
+.btn-glow:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 25px #4b5fff,
+              0 0 45px #a855f7,
+              0 0 70px #ec4899;
+}
+
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.btn-glow:hover::before {
+  animation: glowSlide 1.3s ease-in-out forwards;
+  opacity: 1;
+}
+
+/* ===== STATUS MESSAGE ===== */
+.status-message {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: 12px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s, color 0.3s;
+}
+.status-success {
+  color: #00ff99;
+  text-shadow: 0 0 10px #00ff99;
+}
+.status-error {
+  color: #ff4b4b;
+  text-shadow: 0 0 10px #ff4b4b;
+}
+
+/* ================= CONTACT INFO ================= */
+.contact-info {
+  background: rgba(15, 18, 35, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(75, 95, 255, 0.25);
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.contact-info h3 {
+  color: #4b5fff;
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(75, 95, 255, 0.6);
+}
+
+.contact-detail {
+  font-size: 1rem;
+  color: #d7d9ff;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.contact-detail i {
+  color: #4b5fff;
+  font-size: 1.2rem;
+}
+
+.contact-detail a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-detail a:hover {
+  color: #a855f7;
+}
+
+.contact-detail:hover {
+  transform: translateX(8px);
+}
+
+/* ================= NEON PARTICLES ================= */
 #contact {
   position: relative;
   overflow: hidden;
@@ -1245,22 +1432,28 @@ header .logo span {
   100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
 }
 
-/* ===== STATUS MESSAGE ===== */
-.status-message {
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-top: 12px;
-  opacity: 0;
-  transition: opacity 0.5s, color 0.3s;
-  text-align: center;
+/* ================= ANIMATIONS ================= */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-.status-success {
-  color: #00ff99;
+@keyframes glowSlide {
+  0% { transform: translateX(-120%) rotate(45deg); }
+  100% { transform: translateX(120%) rotate(45deg); }
 }
-.status-error {
-  color: #ff4b4b;
-  text-shadow: 0 0 10px #ff4b4b;
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  #contact .section-title {
+    font-size: 2rem;
+  }
+  .contact-form,
+  .contact-info {
+    padding: 25px;
+  }
 }
+
 
 
 /* ================= CHATBOT ================= */
