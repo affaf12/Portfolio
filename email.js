@@ -1,16 +1,16 @@
-// ================== EMAIL.JS — ULTIMATE CONTACT FORM ==================
+// ================== EMAIL.JS — FULL WORKING VERSION ==================
 (function () {
-  // ✅ Initialize EmailJS
-  emailjs.init("xPog1F9WTz3rvgvXbxzsL"); // Your public key
+  // ✅ Initialize EmailJS with your public key
+  emailjs.init("ILlSd42qf_3o8DE93");
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
   // ===== ELEMENT REFERENCES =====
-  const contactForm = document.getElementById("contactForm") || document.getElementById("contact-form");
-  const statusMsg = document.getElementById("statusMsg") || document.getElementById("status-msg");
+  const contactForm = document.getElementById("contactForm");
+  const statusMsg = document.getElementById("statusMsg");
   const contactBg = document.querySelector(".contact-bg");
-  const submitBtn = contactForm.querySelector(".btn-glow") || document.getElementById("submit-btn");
-  const formFields = contactForm.querySelectorAll("input, textarea, .form-field");
+  const submitBtn = contactForm.querySelector(".btn-glow");
+  const formFields = contactForm.querySelectorAll("input, textarea");
 
   // ===== CREATE NEON PARTICLES =====
   if (contactBg) {
@@ -40,9 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
   contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const fromName = contactForm.from_name?.value.trim() || "";
-    const fromEmail = contactForm.from_email?.value.trim() || "";
-    const message = contactForm.message?.value.trim() || "";
+    const fromName = contactForm.from_name?.value.trim();
+    const fromEmail = contactForm.from_email?.value.trim();
+    const message = contactForm.message?.value.trim();
 
     // ===== VALIDATION =====
     if (!fromName || !fromEmail || !message) {
@@ -50,10 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // ===== VIP EFFECT DURING SENDING =====
+    // ===== VISUAL FEEDBACK DURING SEND =====
     submitBtn.classList.add("sending");
-    contactForm.style.boxShadow = "0 0 40px rgba(75,95,255,0.6), 0 0 60px rgba(168,85,247,0.4)";
-    showStatus("📨 Sending...", "sending");
+    contactForm.style.boxShadow =
+      "0 0 40px rgba(75,95,255,0.6), 0 0 60px rgba(168,85,247,0.4)";
+    showStatus("📨 Sending your message...", "sending");
 
     try {
       // 1️⃣ Send message to yourself
@@ -66,18 +67,18 @@ document.addEventListener("DOMContentLoaded", () => {
         message: message,
       });
 
-      // 3️⃣ Success message
-      showStatus("✅ Message sent! Auto-reply delivered.", "success");
+      // 3️⃣ SUCCESS MESSAGE
+      showStatus("✅ Message sent successfully! Auto-reply delivered.", "success");
 
-      // Reset fields
+      // Reset form
       contactForm.reset();
       formFields.forEach((f) => f.classList.remove("focused"));
     } catch (error) {
       console.error("EmailJS Error:", error);
-      showStatus("❌ Failed to send. Please try again later.", "error");
+      showStatus("❌ Failed to send message. Please try again later.", "error");
     }
 
-    // ===== CLEANUP EFFECTS =====
+    // ===== CLEANUP EFFECT =====
     setTimeout(() => {
       submitBtn.classList.remove("sending");
       contactForm.style.boxShadow = "0 0 25px rgba(75,95,255,0.2)";
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 4000);
   });
 
-  // ===== STATUS DISPLAY FUNCTION =====
+  // ===== STATUS MESSAGE FUNCTION =====
   function showStatus(message, type) {
     statusMsg.textContent = message;
     statusMsg.className = `status-message status-${type}`;
