@@ -473,8 +473,20 @@
 </section>
 
 
+<!-- ================= SUCCESS POPUP ================= -->
+<div id="successPopup" class="popup hidden">
+  <div class="popup-content">
+    <div class="checkmark">
+      <div class="checkmark-stem"></div>
+      <div class="checkmark-kick"></div>
+    </div>
+    <h3>Thanks for reaching out!</h3>
+    <p>I’ll get back to you shortly.</p>
+  </div>
+</div>
+
 <!-- ================= CONTACT SECTION ================= -->
-<section id="contact">
+<section id="contact" class="contact-section">
   <h2 class="section-title">Contact Me</h2>
 
   <!-- Neon Particle Background -->
@@ -486,21 +498,25 @@
       <form id="contactForm">
         <h3>Get in Touch</h3>
 
+        <!-- Name -->
         <div class="form-group">
           <input type="text" id="name" name="from_name" required>
           <label for="name">Your Name</label>
         </div>
 
+        <!-- Email -->
         <div class="form-group">
           <input type="email" id="email" name="from_email" required>
           <label for="email">Your Email</label>
         </div>
 
+        <!-- Message -->
         <div class="form-group">
           <textarea id="message" name="message" rows="5" required></textarea>
           <label for="message">Your Message</label>
         </div>
 
+        <!-- Submit Button -->
         <button type="submit" class="btn-glow">Send Message</button>
         <p id="statusMsg" class="status-message"></p>
       </form>
@@ -640,18 +656,6 @@
 
   
 <!-- ================= EMAIL.JS CDN & SCRIPT ================= -->
-<!-- ✅ SUCCESS POPUP -->
-<div id="successPopup" class="popup hidden">
-<div class="popup-content">
-<div class="checkmark">
-<div class="checkmark-stem"></div>
-<div class="checkmark-kick"></div>
-</div>
-<h3>Thanks for reaching out!</h3>
-<p>I’ll get back to you shortly.</p>
-</div>
-</div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script src="email.js"></script>
