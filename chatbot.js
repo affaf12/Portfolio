@@ -82,20 +82,21 @@ document.addEventListener("DOMContentLoaded", () => {
     return typing;
   };
 
-  // ===== Bot Reply (Only if question matches) =====
+  // ===== Bot Reply (Improved Matching) =====
   const botReply = (message) => {
     const lowerMsg = message.toLowerCase().trim();
     let reply = null;
 
     for (let i = 0; i < questions.length; i++) {
-      if (lowerMsg === questions[i] || lowerMsg.includes(questions[i])) {
+      const q = questions[i];
+      // improved check: whole word or partial (space, punctuation, etc.)
+      if (lowerMsg === q || lowerMsg.includes(q + " ") || lowerMsg.includes(" " + q) || lowerMsg.includes(q + "!") || lowerMsg.includes(q + "?") || lowerMsg.includes(q)) {
         reply = answers[i];
         break;
       }
     }
 
-    // Only reply if we found a match
-    if (!reply) return;
+    if (!reply) return; // don’t show anything if no match
 
     const botMsg = document.createElement("div");
     botMsg.classList.add("bot-msg");
@@ -110,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const msg = input.value.trim();
     if (!msg) return;
 
-    // --- User Message ---
     const userMsg = document.createElement("div");
     userMsg.classList.add("user-msg");
     userMsg.textContent = msg;
@@ -119,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     playSound("user");
     input.value = "";
 
-    // --- Bot Typing ---
     const typing = showTypingAnimation();
 
     setTimeout(() => {
@@ -128,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1200);
   };
 
-  // ===== Event Listeners =====
   sendBtn.addEventListener("click", sendMessage);
   input.addEventListener("keypress", (e) => {
     if (e.key === "Enter") sendMessage();
