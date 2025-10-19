@@ -1,7 +1,7 @@
-// ================== EMAIL.JS — FULL WORKING VERSION WITH SUCCESS POPUP ==================
+// ================== EMAIL.JS — FULL WORKING VERSION WITH AUTO-REPLY & SUCCESS POPUP ==================
 (function () {
   // ✅ Initialize EmailJS with your public key
-  emailjs.init("ILlSd42qf_3o8DE93"); // <-- Replace with your EmailJS Public Key
+  emailjs.init("ILlSd42qf_3o8DE93"); // <-- Your EmailJS Public Key
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -57,8 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
     showStatus("📨 Sending your message...", "sending");
 
     try {
-      // ✅ Send the email
+      // ===== SEND EMAIL TO YOU (ADMIN CONTACT FORM) =====
       await emailjs.sendForm("service_q9049ro", "template_7seawpc", contactForm);
+
+      // ===== SEND AUTO-REPLY TO USER =====
+      await emailjs.send(
+        "service_q9049ro",
+        "template_wehotjb", // Auto-reply template ID
+        {
+          from_name: fromName,
+          from_email: fromEmail,
+          message: message
+        }
+      );
 
       // ✅ SUCCESS MESSAGE
       showStatus("✅ Message sent successfully! Auto-reply delivered.", "success");
@@ -107,10 +118,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function showSuccessPopup() {
     const popup = document.getElementById("successPopup");
     if (!popup) return;
+
     popup.classList.add("show");
 
-    // Hide after 3 seconds or on click
+    // Hide after 3 seconds
     setTimeout(() => popup.classList.remove("show"), 3000);
-    popup.addEventListener("click", () => popup.classList.remove("show"));
+
+    // Remove on click (attach once)
+    if (!popup.dataset.listenerAttached) {
+      popup.addEventListener("click", () => popup.classList.remove("show"));
+      popup.dataset.listenerAttached = "true";
+    }
   }
 });
