@@ -11,28 +11,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const userSound = document.getElementById("user-sound");
   const soundCheckbox = document.getElementById("sound-checkbox");
 
-  // ===== Safety check =====
   if (!toggleBtn || !chatWindow || !sendBtn || !input || !body) return;
 
-  // ===== Custom Q&A List =====
-  // ===== Question List =====
-const questions = [
-  "hello",
-  "hi",
-  "how are you",
-  "what is your name",
-  "help"
-];
+  // ===== Question & Answer Lists =====
+  const questions = [
+    "hello",
+    "hi",
+    "how are you",
+    "what is your name",
+    "help"
+  ];
 
-// ===== Answer List =====
-const answers = [
-  "Hello! How can I help you today?",
-  "Hi there! How can I assist you?",
-  "I’m just a bot, but I’m doing great! How about you?",
-  "I’m your friendly chatbot!",
-  "Sure! I’m here to help. What do you need assistance with?"
-];
-
+  const answers = [
+    "Hello! How can I help you today?",
+    "Hi there! How can I assist you?",
+    "I’m just a bot, but I’m doing great! How about you?",
+    "I’m your friendly chatbot!",
+    "Sure! I’m here to help. What do you need assistance with?"
+  ];
 
   // ===== Helper: Play sound =====
   const playSound = (type) => {
@@ -62,7 +58,6 @@ const answers = [
     toggleBtn.classList.remove("pulse");
   });
 
-  // Close chat when clicking outside
   document.addEventListener("click", (e) => {
     if (!chatWindow.contains(e.target) && !toggleBtn.contains(e.target)) {
       chatWindow.classList.remove("chatbot-visible");
@@ -87,25 +82,20 @@ const answers = [
     return typing;
   };
 
-  // ===== Bot Reply with Q&A support =====
+  // ===== Bot Reply (Only if question matches) =====
   const botReply = (message) => {
     const lowerMsg = message.toLowerCase().trim();
+    let reply = null;
 
-    // Check if message matches any key in qaList
-    let reply = qaList[lowerMsg];
-
-    // If no exact match, check if any keyword exists in the message
-    if (!reply) {
-      for (const key in qaList) {
-        if (lowerMsg.includes(key)) {
-          reply = qaList[key];
-          break;
-        }
+    for (let i = 0; i < questions.length; i++) {
+      if (lowerMsg === questions[i] || lowerMsg.includes(questions[i])) {
+        reply = answers[i];
+        break;
       }
     }
 
-    // Fallback reply
-    if (!reply) reply = `I’m here to help! You asked: ${message}`;
+    // Only reply if we found a match
+    if (!reply) return;
 
     const botMsg = document.createElement("div");
     botMsg.classList.add("bot-msg");
