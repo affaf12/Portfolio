@@ -1,6 +1,6 @@
-// ================= ULTRA-MODERN CHATBOT JS =================
+// ================= ULTRA-MODERN CHATBOT JS (FINAL OPTIMIZED VERSION) =================
 document.addEventListener("DOMContentLoaded", () => {
-  // ===== Get elements =====
+  // ===== GET ELEMENTS =====
   const toggleBtn = document.getElementById("chatbot-toggle");
   const chatWindow = document.getElementById("chatbot-window");
   const closeBtn = document.getElementById("chatbot-close");
@@ -13,94 +13,83 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!toggleBtn || !chatWindow || !sendBtn || !input || !body) return;
 
- // ===== CHATBOT QUESTIONS =====
-const questions = [
-  "hi",
-  "hello",
-  "hey",
-  "power bi",
-  "dashboard",
-  "bi report",
-  "contact",
-  "email",
-  "reach you",
-  "portfolio",
-  "projects",
-  "work",
-  "services",
-  "what do you do",
-  "pricing",
-  "cost",
-  "demo",
-  "show me demo",
-  "hr report",
-  "human resources report",
-  "employee report",
-  "hr dashboard",
-  "hr",
-  "financial report",
-  "finance dashboard",
-  "financial analysis",
-  "finance",
-  "healthcare report",
-  "medical dashboard",
-  "hospital report",
-  "healthcare",
-  "sales report",
-  "sales dashboard",
-  "revenue report",
-  "sales",
-  "marketing report",
-  "marketing dashboard",
-  "campaign report",
-  "marketing",
-  "insurance report",
-  "insurance dashboard",
-  "policy report",
-  "insurance",
-  "real estate report",
-  "property dashboard",
-  "housing report",
-  "real estate analysis",
-  "real estate",
-  "logistics report",
-  "supply chain dashboard",
-  "shipment report"
-];
+  /* ================= CHATBOT QUESTION-ANSWER LIST (CLEAN VERSION) ================= */
+  const chatbotQA = [
+    {
+      question: ["hi", "hello", "hey"],
+      answer: "Hello! How can I help you today?"
+    },
+    {
+      question: ["power bi", "dashboard", "bi report"],
+      answer: "Yes! I build amazing Power BI dashboards. Here is a demo you can check out: [Insert Your Demo Link Here]"
+    },
+    {
+      question: ["contact", "email", "reach you"],
+      answer: "You can reach me at muhammadaffaf746@gmail.com"
+    },
+    {
+      question: ["portfolio", "projects", "work"],
+      answer: "Check out my projects in the Projects section of this site!"
+    },
+    {
+      question: ["services", "what do you do"],
+      answer: "I provide Data Analytics, Power BI, SQL, and Excel consulting services."
+    },
+    {
+      question: ["pricing", "cost"],
+      answer: "For pricing details, please contact me directly via email."
+    },
+    {
+      question: ["demo", "show me demo"],
+      answer: "I can show you live demos of my Power BI dashboards!"
+    },
+    {
+      question: ["hr report", "human resources report", "employee report", "hr dashboard", "hr"],
+      answer: `Yes! I create HR reports.\nHere is a demo you can check out:\n[View HR Report Demo](https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing)`
+    },
+    {
+      question: ["financial report", "finance dashboard", "financial analysis", "finance"],
+      answer: `Yes! I create Financial Reports.\nHere is a demo you can check out:\n[View Financial Reports Demo](https://docs.google.com/spreadsheets/d/1fk0qtcJL0y7kwCffg15sxfU8r54TVQRjTMCBUmxfKAs/edit?usp=sharing)`
+    },
+    {
+      question: ["healthcare report", "medical dashboard", "hospital report", "healthcare"],
+      answer: `Yes! I create Healthcare Reports.\nHere is a demo you can check out:\n[View Healthcare Report Demo](https://docs.google.com/spreadsheets/d/1XDlhtOG2W0MDDav1k7zNzexls8UZHxZJRax52k7mrjs/edit?usp=sharing)`
+    },
+    {
+      question: ["sales report", "sales dashboard", "revenue report", "sales"],
+      answer: `Yes! I create Sales Reports.\nHere is a demo you can check out:\n[View Sales Report Demo](https://docs.google.com/spreadsheets/d/1ujKebcqgvmkDIesR5SPr-6MyskX0x8zfmZ_j36r2uIA/edit?usp=sharing)`
+    },
+    {
+      question: ["marketing report", "marketing dashboard", "campaign report", "marketing"],
+      answer: `Yes! I create Marketing Reports.\nHere is a demo you can check out:\n[View Marketing Report Demo](https://docs.google.com/spreadsheets/d/1VLzDL_6mL7YgnSr_pycnCjF_K0R4GL9IoxJyksVxGmg/edit?usp=sharing)`
+    },
+    {
+      question: ["insurance report", "insurance dashboard", "policy report", "insurance"],
+      answer: `Yes! I create Insurance Reports.\nHere is a demo you can check out:\n[View Insurance Report Demo](https://docs.google.com/spreadsheets/d/1A7XHQKQpI8jqpJg8sYmTR3XgZpAog8HtrxOV-0e9nwg/edit?usp=sharing)`
+    },
+    {
+      question: ["real estate report", "property dashboard", "housing report", "real estate analysis", "real estate"],
+      answer: `Yes! I create Real Estate Reports.\nHere is a demo you can check out:\n[View Real Estate Report Demo](https://docs.google.com/spreadsheets/d/1ZvE4UOfhsbjqa3ITObon1soxBrJPLMUgvCzSHdCYQ6c/edit?usp=sharing)`
+    },
+    {
+      question: ["logistics report", "supply chain dashboard", "shipment report"],
+      answer: `Yes! I create Logistics and Supply Chain Reports.\nHere is a demo you can check out:\n[View Logistics Report Demo](https://docs.google.com/spreadsheets/d/1pFr8wy-9KO1yCyWW5AKpGgKS2b87lF7Exf80skzPaCU/edit?usp=sharing)`
+    }
+  ];
 
-// ===== CHATBOT ANSWERS =====
-const answers = [
-  "Hello! How can I help you today?",
-  "Yes! I build amazing Power BI dashboards. Here is a demo you can check out: [Insert Your Demo Link Here]",
-  "You can reach me at muhammadaffaf746@gmail.com",
-  "Check out my projects in the Projects section of this site!",
-  "I provide Data Analytics, Power BI, SQL, and Excel consulting services.",
-  "For pricing details, please contact me directly via email.",
-  "I can show you live demos of my Power BI dashboards!",
-  "Yes! I create HR reports.\nHere is a demo you can check out:\n[View HR Report Demo](https://docs.google.com/spreadsheets/d/1rD8TMk15laPGiJnlZ1adgiJ0EgNZrB6x9yJDw8eOLcc/edit?usp=sharing)",
-  "Yes! I create Financial Reports.\nHere is a demo you can check out:\n[View Financial Reports Demo](https://docs.google.com/spreadsheets/d/1fk0qtcJL0y7kwCffg15sxfU8r54TVQRjTMCBUmxfKAs/edit?usp=sharing)",
-  "Yes! I create Healthcare Report.\nHere is a demo you can check out:\n[View Healthcare Report Demo](https://docs.google.com/spreadsheets/d/1XDlhtOG2W0MDDav1k7zNzexls8UZHxZJRax52k7mrjs/edit?usp=sharing)",
-  "Yes! I create Sales reports.\nHere is a demo you can check out:\n[View Sales Report Demo](https://docs.google.com/spreadsheets/d/1ujKebcqgvmkDIesR5SPr-6MyskX0x8zfmZ_j36r2uIA/edit?usp=sharing)",
-  "Yes! I create Marketing reports.\nHere is a demo you can check out:\n[View Marketing Report Demo](https://docs.google.com/spreadsheets/d/1VLzDL_6mL7YgnSr_pycnCjF_K0R4GL9IoxJyksVxGmg/edit?usp=sharing)",
-  "Yes! I create Insurance reports.\nHere is a demo you can check out:\n[View Insurance Report Demo](https://docs.google.com/spreadsheets/d/1A7XHQKQpI8jqpJg8sYmTR3XgZpAog8HtrxOV-0e9nwg/edit?usp=sharing)",
-  "Yes! I create Real Estate reports.\nHere is a demo you can check out:\n[View Real Estate Report Demo](https://docs.google.com/spreadsheets/d/1ZvE4UOfhsbjqa3ITObon1soxBrJPLMUgvCzSHdCYQ6c/edit?usp=sharing)",
-  "Yes! I create Logistics & Supply Chain reports.\nHere is a demo you can check out:\n[View Logistics Report Demo](https://docs.google.com/spreadsheets/d/1pFr8wy-9KO1yCyWW5AKpGgKS2b87lF7Exf80skzPaCU/edit?usp=sharing)"
-];
-
-
-  // ===== Helper: Play sound =====
+  // ===== PLAY SOUND =====
   const playSound = (type) => {
     if (!soundCheckbox?.checked) return;
     if (type === "bot") botSound?.play();
     if (type === "user") userSound?.play();
   };
 
-  // ===== Helper: Smooth scroll =====
+  // ===== SCROLL BOTTOM =====
   const scrollToBottom = () => {
     body.scrollTo({ top: body.scrollHeight, behavior: "smooth" });
   };
 
-  // ===== Toggle Chat Window =====
+  // ===== TOGGLE CHAT WINDOW =====
   const toggleChat = () => {
     chatWindow.classList.toggle("chatbot-visible");
     toggleBtn.classList.toggle("pulse");
@@ -123,7 +112,7 @@ const answers = [
     }
   });
 
-  // ===== Bot Typing Animation =====
+  // ===== TYPING ANIMATION =====
   const showTypingAnimation = () => {
     const typing = document.createElement("div");
     typing.classList.add("bot-msg");
@@ -140,31 +129,35 @@ const answers = [
     return typing;
   };
 
-  // ===== Bot Reply (Case-insensitive matching) =====
+  // ===== BOT REPLY =====
   const botReply = (message) => {
-    const lowerMsg = message.toLowerCase().trim(); // convert everything to lowercase
-    let reply = null;
+    const lowerMsg = message.toLowerCase().trim();
+    let reply = "Sorry, I didn’t understand that. Could you rephrase?";
 
-    for (let i = 0; i < questions.length; i++) {
-      const q = questions[i];
-      if (lowerMsg.includes(q)) { // simple, reliable matching
-        reply = answers[i];
+    for (const qa of chatbotQA) {
+      if (qa.question.some(q => lowerMsg.includes(q))) {
+        reply = qa.answer;
         break;
       }
     }
 
-    // Default reply if no match
-    if (!reply) reply = "Sorry, I didn’t understand that. Could you rephrase?";
-
     const botMsg = document.createElement("div");
     botMsg.classList.add("bot-msg");
-    botMsg.textContent = reply;
+
+    // Support Markdown-like link display
+    if (reply.includes("[") && reply.includes("](")) {
+      const formatted = reply.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+      botMsg.innerHTML = formatted.replace(/\n/g, "<br>");
+    } else {
+      botMsg.textContent = reply;
+    }
+
     body.appendChild(botMsg);
     scrollToBottom();
     playSound("bot");
   };
 
-  // ===== Send Message =====
+  // ===== SEND MESSAGE =====
   const sendMessage = () => {
     const msg = input.value.trim();
     if (!msg) return;
@@ -182,7 +175,7 @@ const answers = [
     setTimeout(() => {
       body.removeChild(typing);
       botReply(msg);
-    }, 1200);
+    }, 1000);
   };
 
   sendBtn.addEventListener("click", sendMessage);
