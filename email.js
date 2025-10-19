@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // 1️⃣ Send message to yourself
-      await emailjs.sendForm("service_q9049ro", "template_7seawpc", contactForm);
+      await emailjs.sendForm("service_q9049ro", "template_7seawpc", contact_form);
 
       // ✅ SUCCESS MESSAGE
       showStatus("✅ Message sent successfully! Auto-reply delivered.", "success");
