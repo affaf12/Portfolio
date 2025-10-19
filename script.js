@@ -461,17 +461,27 @@ function scrollToTop() {
   // ===== CHATBOT =====
 // ================= ULTRA-MODERN CHATBOT JS =================
 document.addEventListener("DOMContentLoaded", () => {
-  // Get all required elements
+  // ===== Get all required elements =====
   const chatbotToggle = document.getElementById("chatbot-toggle");
   const chatbotWindow = document.getElementById("chatbot-window");
   const chatbotClose = document.getElementById("chatbot-close");
   const chatbotSend = document.getElementById("chatbot-send");
   const chatbotInput = document.getElementById("chatbot-input");
   const chatbotBody = document.getElementById("chatbot-body");
+  const botSound = document.getElementById("bot-sound");
+  const userSound = document.getElementById("user-sound");
+  const soundCheckbox = document.getElementById("sound-checkbox");
+
+  // ===== Helper: Play Sound =====
+  function playSound(type){
+    if(!soundCheckbox.checked) return;
+    if(type === "bot") botSound.play();
+    if(type === "user") userSound.play();
+  }
 
   // ===== Open/Close Chat Window =====
   chatbotToggle.addEventListener("click", (e) => {
-    e.stopPropagation(); // prevent triggering outside click
+    e.stopPropagation(); // prevent closing from document click
     chatbotWindow.classList.toggle("chatbot-visible");
     chatbotToggle.classList.toggle("pulse"); // neon pulse when active
   });
@@ -481,57 +491,52 @@ document.addEventListener("DOMContentLoaded", () => {
     chatbotToggle.classList.remove("pulse");
   });
 
-  // ===== Send Message =====
+  // ===== Close on outside click =====
+  document.addEventListener("click", (e) => {
+    if (!chatbotWindow.contains(e.target) && !chatbotToggle.contains(e.target) && chatbotWindow.classList.contains("chatbot-visible")) {
+      chatbotWindow.classList.remove("chatbot-visible");
+      chatbotToggle.classList.remove("pulse");
+    }
+  });
+
+  // ===== Send Message Function =====
   function sendMessage() {
     const msg = chatbotInput.value.trim();
-    if (!msg) return;
+    if(!msg) return;
 
-    // --- User message bubble ---
-    const userMsg = document.createElement("div");
-    userMsg.textContent = msg;
-    userMsg.classList.add("user-msg");
-    chatbotBody.appendChild(userMsg);
+    // --- User message ---
+    const userMsgDiv = document.createElement("div");
+    userMsgDiv.classList.add("user-msg");
+    userMsgDiv.textContent = msg;
+    chatbotBody.appendChild(userMsgDiv);
     chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    playSound("user");
     chatbotInput.value = "";
 
     // --- Bot typing indicator ---
-    const botTyping = document.createElement("div");
-    botTyping.textContent = "AI is typing...";
-    botTyping.classList.add("bot-msg");
-    botTyping.style.opacity = 0.6;
-    chatbotBody.appendChild(botTyping);
+    const botTypingDiv = document.createElement("div");
+    botTypingDiv.classList.add("bot-msg");
+    botTypingDiv.textContent = "AI is typing...";
+    botTypingDiv.style.opacity = 0.6;
+    chatbotBody.appendChild(botTypingDiv);
     chatbotBody.scrollTop = chatbotBody.scrollHeight;
 
     // --- Bot reply after delay ---
     setTimeout(() => {
-      chatbotBody.removeChild(botTyping);
-
-      const botReply = document.createElement("div");
-      botReply.textContent = "I’m here to help! You asked: " + msg;
-      botReply.classList.add("bot-msg");
-      chatbotBody.appendChild(botReply);
+      chatbotBody.removeChild(botTypingDiv);
+      const botReplyDiv = document.createElement("div");
+      botReplyDiv.classList.add("bot-msg");
+      botReplyDiv.textContent = "I’m here to help! You asked: " + msg;
+      chatbotBody.appendChild(botReplyDiv);
       chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      playSound("bot");
     }, 1000);
   }
 
   // ===== Event Listeners for Sending =====
   chatbotSend.addEventListener("click", sendMessage);
-
-  // Send on Enter key
   chatbotInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendMessage();
-  });
-
-  // ===== Close on outside click =====
-  document.addEventListener("click", (e) => {
-    if (
-      !chatbotWindow.contains(e.target) &&
-      !chatbotToggle.contains(e.target) &&
-      chatbotWindow.classList.contains("chatbot-visible")
-    ) {
-      chatbotWindow.classList.remove("chatbot-visible");
-      chatbotToggle.classList.remove("pulse");
-    }
+    if(e.key === "Enter") sendMessage();
   });
 });
 
