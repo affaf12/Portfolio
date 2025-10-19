@@ -82,21 +82,21 @@ document.addEventListener("DOMContentLoaded", () => {
     return typing;
   };
 
-  // ===== Bot Reply (Improved Matching) =====
+  // ===== Bot Reply (Case-insensitive matching) =====
   const botReply = (message) => {
-    const lowerMsg = message.toLowerCase().trim();
+    const lowerMsg = message.toLowerCase().trim(); // convert everything to lowercase
     let reply = null;
 
     for (let i = 0; i < questions.length; i++) {
       const q = questions[i];
-      // improved check: whole word or partial (space, punctuation, etc.)
-      if (lowerMsg === q || lowerMsg.includes(q + " ") || lowerMsg.includes(" " + q) || lowerMsg.includes(q + "!") || lowerMsg.includes(q + "?") || lowerMsg.includes(q)) {
+      if (lowerMsg.includes(q)) { // simple, reliable matching
         reply = answers[i];
         break;
       }
     }
 
-    if (!reply) return; // don’t show anything if no match
+    // Default reply if no match
+    if (!reply) reply = "Sorry, I didn’t understand that. Could you rephrase?";
 
     const botMsg = document.createElement("div");
     botMsg.classList.add("bot-msg");
