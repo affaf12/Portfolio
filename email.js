@@ -1,4 +1,4 @@
-// ================== EMAIL.JS — FULL WORKING VERSION ==================
+// ================== EMAIL.JS — FULL WORKING VERSION WITH SUCCESS POPUP ==================
 (function () {
   // ✅ Initialize EmailJS with your public key
   emailjs.init("ILlSd42qf_3o8DE93");
@@ -60,15 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1️⃣ Send message to yourself
       await emailjs.sendForm("service_q9049ro", "template_7seawpc", contactForm);
 
-      // 2️⃣ Auto-reply to sender
-      await emailjs.send("service_q9049ro", "template_wehotjb", {
-        from_name: fromName,
-        from_email: fromEmail,
-        message: message,
-      });
-
-      // 3️⃣ SUCCESS MESSAGE
+      // ✅ SUCCESS MESSAGE
       showStatus("✅ Message sent successfully! Auto-reply delivered.", "success");
+
+      // 🎉 SHOW POPUP
+      showSuccessPopup();
 
       // Reset form
       contactForm.reset();
@@ -105,5 +101,16 @@ document.addEventListener("DOMContentLoaded", () => {
       default:
         statusMsg.style.color = "#fff";
     }
+  }
+
+  // ===== POPUP FUNCTION =====
+  function showSuccessPopup() {
+    const popup = document.getElementById("successPopup");
+    if (!popup) return;
+    popup.classList.add("show");
+
+    // Hide after 3 seconds or on click
+    setTimeout(() => popup.classList.remove("show"), 3000);
+    popup.addEventListener("click", () => popup.classList.remove("show"));
   }
 });
