@@ -2120,6 +2120,92 @@ a.btn-glow:hover {
 
 
 
+/* ================= Email CSS section  ================= */
+/* ================= SUCCESS POPUP ================= */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.popup.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup-content {
+  background: #0e0e2c;
+  color: #fff;
+  padding: 40px 50px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(75, 95, 255, 0.5);
+  animation: popIn 0.5s ease forwards;
+}
+
+.popup-content h3 {
+  margin: 20px 0 5px;
+  font-size: 1.6rem;
+  color: #22c55e;
+}
+
+.popup-content p {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+/* ✅ CHECKMARK ANIMATION */
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 4px #22c55e;
+  position: relative;
+  animation: pulse 1s ease infinite;
+}
+
+.checkmark-stem {
+  position: absolute;
+  width: 4px;
+  height: 25px;
+  background-color: #22c55e;
+  left: 38px;
+  top: 18px;
+  transform: rotate(45deg);
+}
+
+.checkmark-kick {
+  position: absolute;
+  width: 4px;
+  height: 10px;
+  background-color: #22c55e;
+  left: 28px;
+  top: 35px;
+  transform: rotate(-45deg);
+}
+
+/* ANIMATIONS */
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px #22c55e; }
+  50% { box-shadow: 0 0 20px 6px rgba(34, 197, 94, 0.5); }
+}
+
+
 
 /* ================= RESET & BASE ================= */
 /* Hidden Keywords Styling */
