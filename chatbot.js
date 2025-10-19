@@ -15,13 +15,24 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!toggleBtn || !chatWindow || !sendBtn || !input || !body) return;
 
   // ===== Custom Q&A List =====
-  const qaList = {
-    "hello": "Hello! How can I help you today?",
-    "hi": "Hi there! How can I assist you?",
-    "how are you": "I’m just a bot, but I’m doing great! How about you?",
-    "what is your name": "I’m your friendly chatbot!",
-    "help": "Sure! I’m here to help. What do you need assistance with?"
-  };
+  // ===== Question List =====
+const questions = [
+  "hello",
+  "hi",
+  "how are you",
+  "what is your name",
+  "help"
+];
+
+// ===== Answer List =====
+const answers = [
+  "Hello! How can I help you today?",
+  "Hi there! How can I assist you?",
+  "I’m just a bot, but I’m doing great! How about you?",
+  "I’m your friendly chatbot!",
+  "Sure! I’m here to help. What do you need assistance with?"
+];
+
 
   // ===== Helper: Play sound =====
   const playSound = (type) => {
