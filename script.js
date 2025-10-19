@@ -461,7 +461,7 @@ function scrollToTop() {
   // ===== CHATBOT =====
 // ================= ULTRA-MODERN CHATBOT JS =================
 document.addEventListener("DOMContentLoaded", () => {
-  // ===== Get all required elements =====
+  // ===== Get elements =====
   const chatbotToggle = document.getElementById("chatbot-toggle");
   const chatbotWindow = document.getElementById("chatbot-window");
   const chatbotClose = document.getElementById("chatbot-close");
@@ -479,11 +479,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if(type === "user") userSound.play();
   }
 
-  // ===== Open/Close Chat Window =====
-  chatbotToggle.addEventListener("click", (e) => {
-    e.stopPropagation(); // prevent closing from document click
+  // ===== Toggle Chat Window (Open/Close) =====
+  function toggleChat() {
     chatbotWindow.classList.toggle("chatbot-visible");
-    chatbotToggle.classList.toggle("pulse"); // neon pulse when active
+    chatbotToggle.classList.toggle("pulse");
+  }
+
+  chatbotToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleChat();
   });
 
   chatbotClose.addEventListener("click", () => {
@@ -491,43 +495,43 @@ document.addEventListener("DOMContentLoaded", () => {
     chatbotToggle.classList.remove("pulse");
   });
 
-  // ===== Close on outside click =====
+  // ===== Close when clicking outside =====
   document.addEventListener("click", (e) => {
-    if (!chatbotWindow.contains(e.target) && !chatbotToggle.contains(e.target) && chatbotWindow.classList.contains("chatbot-visible")) {
+    if (!chatbotWindow.contains(e.target) && !chatbotToggle.contains(e.target)) {
       chatbotWindow.classList.remove("chatbot-visible");
       chatbotToggle.classList.remove("pulse");
     }
   });
 
-  // ===== Send Message Function =====
+  // ===== Send Message =====
   function sendMessage() {
     const msg = chatbotInput.value.trim();
     if(!msg) return;
 
-    // --- User message ---
-    const userMsgDiv = document.createElement("div");
-    userMsgDiv.classList.add("user-msg");
-    userMsgDiv.textContent = msg;
-    chatbotBody.appendChild(userMsgDiv);
+    // --- User Message ---
+    const userMsg = document.createElement("div");
+    userMsg.classList.add("user-msg");
+    userMsg.textContent = msg;
+    chatbotBody.appendChild(userMsg);
     chatbotBody.scrollTop = chatbotBody.scrollHeight;
     playSound("user");
     chatbotInput.value = "";
 
-    // --- Bot typing indicator ---
-    const botTypingDiv = document.createElement("div");
-    botTypingDiv.classList.add("bot-msg");
-    botTypingDiv.textContent = "AI is typing...";
-    botTypingDiv.style.opacity = 0.6;
-    chatbotBody.appendChild(botTypingDiv);
+    // --- Bot Typing Indicator ---
+    const botTyping = document.createElement("div");
+    botTyping.classList.add("bot-msg");
+    botTyping.textContent = "AI is typing...";
+    botTyping.style.opacity = 0.6;
+    chatbotBody.appendChild(botTyping);
     chatbotBody.scrollTop = chatbotBody.scrollHeight;
 
-    // --- Bot reply after delay ---
+    // --- Bot Reply ---
     setTimeout(() => {
-      chatbotBody.removeChild(botTypingDiv);
-      const botReplyDiv = document.createElement("div");
-      botReplyDiv.classList.add("bot-msg");
-      botReplyDiv.textContent = "I’m here to help! You asked: " + msg;
-      chatbotBody.appendChild(botReplyDiv);
+      chatbotBody.removeChild(botTyping);
+      const botReply = document.createElement("div");
+      botReply.classList.add("bot-msg");
+      botReply.textContent = "I’m here to help! You asked: " + msg;
+      chatbotBody.appendChild(botReply);
       chatbotBody.scrollTop = chatbotBody.scrollHeight;
       playSound("bot");
     }, 1000);
