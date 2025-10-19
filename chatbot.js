@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const questions = [
     "hello",
     "hi",
+    "hy",
     "how are you",
     "what is your name",
     "help"
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const answers = [
     "Hello! How can I help you today?",
     "Hi there! How can I assist you?",
+    "Hy there! How can I help you?",
     "I’m just a bot, but I’m doing great! How about you?",
     "I’m your friendly chatbot!",
     "Sure! I’m here to help. What do you need assistance with?"
