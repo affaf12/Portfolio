@@ -2126,3 +2126,8 @@ a.btn-glow:hover {
 .hidden-keyword {
     display: none; /* completely hidden */
 }
+
+.seo-score {
+  display: none;
+}
+
