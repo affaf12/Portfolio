@@ -14,6 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== Safety check =====
   if (!toggleBtn || !chatWindow || !sendBtn || !input || !body) return;
 
+  // ===== Custom Q&A List =====
+  const qaList = {
+    "hello": "Hello! How can I help you today?",
+    "hi": "Hi there! How can I assist you?",
+    "how are you": "I’m just a bot, but I’m doing great! How about you?",
+    "what is your name": "I’m your friendly chatbot!",
+    "help": "Sure! I’m here to help. What do you need assistance with?"
+  };
+
   // ===== Helper: Play sound =====
   const playSound = (type) => {
     if (!soundCheckbox?.checked) return;
@@ -67,11 +76,29 @@ document.addEventListener("DOMContentLoaded", () => {
     return typing;
   };
 
-  // ===== Bot Reply =====
+  // ===== Bot Reply with Q&A support =====
   const botReply = (message) => {
+    const lowerMsg = message.toLowerCase().trim();
+
+    // Check if message matches any key in qaList
+    let reply = qaList[lowerMsg];
+
+    // If no exact match, check if any keyword exists in the message
+    if (!reply) {
+      for (const key in qaList) {
+        if (lowerMsg.includes(key)) {
+          reply = qaList[key];
+          break;
+        }
+      }
+    }
+
+    // Fallback reply
+    if (!reply) reply = `I’m here to help! You asked: ${message}`;
+
     const botMsg = document.createElement("div");
     botMsg.classList.add("bot-msg");
-    botMsg.textContent = `I’m here to help! You asked: ${message}`;
+    botMsg.textContent = reply;
     body.appendChild(botMsg);
     scrollToBottom();
     playSound("bot");
