@@ -560,41 +560,60 @@
 
   
 <!-- ================= ULTRA-MODERN CHATBOT ================= -->
-<!-- Toggle Button -->
+
+<!-- 💬 Floating Toggle Button -->
 <button id="chatbot-toggle" title="Chat with us">💬</button>
 
-<!-- Chatbot Window -->
+<!-- 💬 Chatbot Window -->
 <div id="chatbot-window">
-  <!-- Chatbot Header -->
+
+  <!-- 🔹 Header Section -->
   <div id="chatbot-header">
-  <div id="chatbot-profile">
-  <img src="images/profile-pic.jpeg" alt="AI Assistant" id="chatbot-avatar">
-    <span>AI Assistant</span>
+
+    <!-- Profile (Avatar + Name) -->
+    <div id="chatbot-profile">
+      <img src="images/profile-pic.jpeg" alt="AI Assistant" id="chatbot-avatar">
+      <span>AI Assistant</span>
+    </div>
+
     <!-- Sound Toggle -->
     <div id="chatbot-sound-toggle">
-      <label>
+      <label for="sound-checkbox">
         🔊 Sound
         <input type="checkbox" id="sound-checkbox" checked>
       </label>
     </div>
-    <button id="chatbot-close" title="Close">&times;</button>
-  </div>
 
-  <!-- Chatbot Body -->
+    <!-- Close Button -->
+    <button id="chatbot-close" title="Close">&times;</button>
+
+  </div>
+  <!-- ✅ End Header -->
+
+  <!-- 🗨️ Chat Body -->
   <div id="chatbot-body">
     <div class="bot-msg">Hi! I’m Affaf’s AI Assistant.</div>
   </div>
 
-  <!-- Chatbot Input -->
+  <!-- 💬 Input Section -->
   <div id="chatbot-input-container">
-    <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off" />
+    <input 
+      type="text" 
+      id="chatbot-input" 
+      placeholder="Type your message..." 
+      autocomplete="off" 
+    />
     <button id="chatbot-send">Send</button>
   </div>
+
 </div>
+<!-- ✅ End Chatbot Window -->
 
-<!-- Sound Files -->
-<audio id="bot-sound" src="https://raw.githubusercontent.com/affaf12/Portfolio/18b30c5312791f12f20ef5770935cc3c9d694b0d/live-chat-353605.mp3"></audio>
-
+<!-- 🔊 Sound File -->
+<audio 
+  id="bot-sound" 
+  src="https://raw.githubusercontent.com/affaf12/Portfolio/18b30c5312791f12f20ef5770935cc3c9d694b0d/live-chat-353605.mp3">
+</audio>
 
 <!-- ================= HIDDEN KEYWORDS SECTION ================= -->
   <div id="hidden-keywords">
