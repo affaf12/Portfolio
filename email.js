@@ -1,7 +1,7 @@
 // ================== EMAIL.JS — FULL WORKING VERSION WITH SUCCESS POPUP ==================
 (function () {
   // ✅ Initialize EmailJS with your public key
-  emailjs.init("ILlSd42qf_3o8DE93");
+  emailjs.init("ILlSd42qf_3o8DE93"); // <-- Replace with your EmailJS Public Key
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -57,8 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     showStatus("📨 Sending your message...", "sending");
 
     try {
-      // 1️⃣ Send message to yourself
-      await emailjs.sendForm("service_q9049ro", "template_7seawpc", contact_form);
+      // ✅ Send the email
+      await emailjs.sendForm("service_q9049ro", "template_7seawpc", contactForm);
 
       // ✅ SUCCESS MESSAGE
       showStatus("✅ Message sent successfully! Auto-reply delivered.", "success");
