@@ -1240,7 +1240,61 @@ a.btn-glow:hover {
   }
 }
 
+/* ================= Service Section ================= */
+.services {
+  padding: 80px 20px;
+  background: #f9f9f9;
+  text-align: center;
+}
 
+.services h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.section-description {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  color: #555;
+  font-size: 1rem;
+}
+
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.service-card {
+  background: #fff;
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.service-card i {
+  font-size: 40px;
+  color: #0078ff;
+  margin-bottom: 15px;
+}
+
+.service-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.service-card p {
+  font-size: 0.95rem;
+  color: #666;
+}
 
 /* ================= CONTACT SECTION ================= */
 #contact {
