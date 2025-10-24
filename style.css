@@ -46,7 +46,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  height: 75px;
+  height: 85px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,12 +67,15 @@ header.sticky {
 /* ================= LOGO ================= */
 .logo {
   display: flex;
+  flex-direction: column; /* stack logo & name vertically */
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  text-align: center;
+  gap: 5px; /* space between logo and name */
 }
 
 .logo img {
-  height: 55px; /* 🔧 adjust size here (40–70px recommended) */
+  height: 55px; /* 🔧 adjust logo size here */
   width: auto;
   border-radius: 10px;
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -85,15 +88,17 @@ header.sticky {
 }
 
 .logo h1 {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   color: #fff;
   margin: 0;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+  line-height: 1.2;
+  font-weight: 600;
 }
 
 .logo h1 span {
   color: var(--accent, #00bcd4);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ================= NAVIGATION ================= */
@@ -111,6 +116,7 @@ header.sticky {
   font-weight: 500;
   transition: color 0.3s ease, transform 0.3s ease;
   font-size: 1rem;
+  letter-spacing: 0.3px;
 }
 
 #nav-menu li a:hover,
@@ -135,11 +141,25 @@ header.sticky {
 }
 
 @media (max-width: 900px) {
+  header {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 1.5rem;
+  }
+
+  .logo {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+
   #nav-menu {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 70px;
+    top: 90px;
     right: 20px;
     background: rgba(10, 12, 22, 0.98);
     padding: 1.5rem;
@@ -153,10 +173,11 @@ header.sticky {
 
   #menu-toggle {
     display: block;
+    align-self: flex-end;
   }
 }
 
-/* ================= THEME TOGGLE (if used) ================= */
+/* ================= THEME TOGGLE (optional) ================= */
 .theme-toggle-wrapper {
   position: fixed;
   bottom: 2rem;
@@ -180,6 +201,7 @@ header.sticky {
   background: #0097a7;
   transform: scale(1.05);
 }
+
 
 
 
