@@ -78,6 +78,58 @@
     <xhtml:link rel="alternate" hreflang="en-in" href="https://affaf12.github.io/Portfolio/in/" />
   </url>
 
+<url>
+    <loc>https://affaf12.github.io/Portfolio/uk/</loc>
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://affaf12.github.io/Portfolio/uk/" />
+  </url>
+
+  <url>
+    <loc>https://affaf12.github.io/Portfolio/us/</loc>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/us/" />
+  </url>
+
+  <!-- ====== MAJOR U.S. CITIES ====== -->
+  <url><loc>https://affaf12.github.io/Portfolio/new-york/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/new-york/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/los-angeles/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/los-angeles/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/chicago/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/chicago/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/houston/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/houston/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/phoenix/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/phoenix/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/philadelphia/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/philadelphia/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/san-antonio/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/san-antonio/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/san-diego/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/san-diego/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/dallas/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/dallas/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/austin/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/austin/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/jacksonville/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/jacksonville/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/san-francisco/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/san-francisco/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/columbus/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/columbus/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/fort-worth/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/fort-worth/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/indianapolis/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/indianapolis/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/charlotte/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/charlotte/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/seattle/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/seattle/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/denver/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/denver/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/washington/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/washington/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/boston/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/boston/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/nashville/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/nashville/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/oklahoma-city/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/oklahoma-city/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/el-paso/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/el-paso/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/portland/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/portland/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/detroit/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/detroit/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/memphis/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/memphis/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/baltimore/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/baltimore/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/louisville/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/louisville/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/milwaukee/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/milwaukee/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/albuquerque/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/albuquerque/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/tucson/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/tucson/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/fresno/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/fresno/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/sacramento/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/sacramento/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/kansas-city/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/kansas-city/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/atlanta/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/atlanta/" /></url>
+  <url><loc>https://affaf12.github.io/Portfolio/miami/</loc><xhtml:link rel="alternate" hreflang="en-us" href="https://affaf12.github.io/Portfolio/miami/" /></url>
+
+</urlset>
+
+
+  
   <url>
     <loc>https://affaf12.github.io/Portfolio/</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://affaf12.github.io/Portfolio/" />
