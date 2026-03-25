@@ -1484,6 +1484,190 @@ a.btn-glow:hover {
   #service .section-title { font-size: 2rem; }
 }
 
+/* ================= PRICING SECTION ================= */
+#pricing {
+  padding: 80px 20px;
+  background: radial-gradient(circle at top right, #0c0f1a 0%, #0a0c16 100%);
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating particles (same effect) */
+#pricing::before,
+#pricing::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(75,95,255,0.3) 2px, transparent 3px),
+              radial-gradient(circle, rgba(168,85,247,0.2) 2px, transparent 3px),
+              radial-gradient(circle, rgba(236,72,153,0.2) 2px, transparent 3px);
+  background-size: 120px 120px, 180px 180px, 240px 240px;
+  animation: floatParticles 60s linear infinite;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+#pricing::after {
+  animation-direction: reverse;
+  animation-duration: 90s;
+  opacity: 0.25;
+}
+
+/* Title */
+#pricing .section-title {
+  font-size: 2.6rem;
+  margin-bottom: 15px;
+  color: #4b5fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(75, 95, 255, 0.6);
+  position: relative;
+  z-index: 2;
+}
+
+#pricing .section-subtitle {
+  color: #d7d9ff;
+  margin-bottom: 50px;
+  z-index: 2;
+  position: relative;
+}
+
+/* Pricing Grid */
+.pricing-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 35px;
+  max-width: 1100px;
+  margin: 0 auto;
+  z-index: 2;
+  position: relative;
+}
+
+/* Pricing Card */
+.pricing-card {
+  background: radial-gradient(circle at 30% 30%, #161a35 0%, #0f1224 100%);
+  border: 2px solid rgba(75, 95, 255, 0.2);
+  border-radius: 20px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(75, 95, 255, 0.1);
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glowing animated border */
+.pricing-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background: linear-gradient(120deg, #4b5fff, #a855f7, #ec4899, #4b5fff);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px;
+  opacity: 0.5;
+  animation: borderPulse 4s linear infinite;
+}
+
+/* Hover effect */
+.pricing-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 40px rgba(75, 95, 255, 0.3),
+              0 0 20px rgba(168, 85, 247, 0.25),
+              inset 0 0 20px rgba(236, 72, 153, 0.2);
+}
+
+.pricing-card:hover::before {
+  opacity: 1;
+  animation: borderPulseFast 2.5s linear infinite;
+}
+
+/* Featured (Standard Plan) */
+.pricing-card.featured {
+  transform: scale(1.08);
+  border: 2px solid #4b5fff;
+  box-shadow: 0 0 40px rgba(75, 95, 255, 0.4);
+}
+
+/* Text styles */
+.pricing-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.pricing-card h2 {
+  font-size: 2rem;
+  color: #4b5fff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(75, 95, 255, 0.6);
+}
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.pricing-card ul li {
+  margin: 10px 0;
+  color: #d7d9ff;
+  font-size: 0.95rem;
+}
+
+/* Button */
+.pricing-card .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #4b5fff, #a855f7);
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.pricing-card .btn:hover {
+  background: linear-gradient(90deg, #a855f7, #ec4899);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+}
+
+/* Custom project */
+.custom-project {
+  margin-top: 50px;
+  z-index: 2;
+  position: relative;
+}
+
+.custom-project h3 {
+  margin-bottom: 10px;
+}
+
+.custom-project p {
+  color: #d7d9ff;
+  margin-bottom: 15px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  #pricing .section-title {
+    font-size: 2rem;
+  }
+
+  .pricing-card {
+    padding: 25px;
+  }
+}
+
 /* ================= CONTACT SECTION ================= */
 #contact {
   padding: 90px 20px;
