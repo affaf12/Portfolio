@@ -1494,7 +1494,6 @@ a.btn-glow:hover {
   overflow: hidden;
 }
 
-/* Floating particles (same effect) */
 #pricing::before,
 #pricing::after {
   content: "";
@@ -1519,8 +1518,7 @@ a.btn-glow:hover {
   opacity: 0.25;
 }
 
-/* Title */
-#pricing .section-title {
+.section-title {
   font-size: 2.6rem;
   margin-bottom: 15px;
   color: #4b5fff;
@@ -1532,14 +1530,13 @@ a.btn-glow:hover {
   z-index: 2;
 }
 
-#pricing .section-subtitle {
+.section-subtitle {
   color: #d7d9ff;
   margin-bottom: 50px;
   z-index: 2;
   position: relative;
 }
 
-/* Pricing Grid */
 .pricing-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -1550,7 +1547,6 @@ a.btn-glow:hover {
   position: relative;
 }
 
-/* Pricing Card */
 .pricing-card {
   background: radial-gradient(circle at 30% 30%, #161a35 0%, #0f1224 100%);
   border: 2px solid rgba(75, 95, 255, 0.2);
@@ -1563,7 +1559,6 @@ a.btn-glow:hover {
   overflow: hidden;
 }
 
-/* Glowing animated border */
 .pricing-card::before {
   content: "";
   position: absolute;
@@ -1580,7 +1575,6 @@ a.btn-glow:hover {
   animation: borderPulse 4s linear infinite;
 }
 
-/* Hover effect */
 .pricing-card:hover {
   transform: translateY(-10px) scale(1.05);
   box-shadow: 0 0 40px rgba(75, 95, 255, 0.3),
@@ -1593,79 +1587,30 @@ a.btn-glow:hover {
   animation: borderPulseFast 2.5s linear infinite;
 }
 
-/* Featured (Standard Plan) */
 .pricing-card.featured {
   transform: scale(1.08);
   border: 2px solid #4b5fff;
   box-shadow: 0 0 40px rgba(75, 95, 255, 0.4);
 }
 
-/* Text styles */
-.pricing-card h3 {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-}
+.pricing-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+.pricing-card h2 { font-size: 2rem; color: #4b5fff; margin-bottom: 15px; text-shadow: 0 0 10px rgba(75, 95, 255, 0.6); }
+.pricing-card ul { list-style: none; padding: 0; margin: 20px 0; }
+.pricing-card ul li { margin: 10px 0; color: #d7d9ff; font-size: 0.95rem; }
+.pricing-card .btn { display: inline-block; padding: 10px 20px; background: linear-gradient(90deg, #4b5fff, #a855f7); color: #fff; border-radius: 6px; text-decoration: none; transition: 0.3s; }
+.pricing-card .btn:hover { background: linear-gradient(90deg, #a855f7, #ec4899); box-shadow: 0 0 15px rgba(168, 85, 247, 0.6); }
 
-.pricing-card h2 {
-  font-size: 2rem;
-  color: #4b5fff;
-  margin-bottom: 15px;
-  text-shadow: 0 0 10px rgba(75, 95, 255, 0.6);
-}
+.custom-project { margin-top: 50px; z-index: 2; position: relative; }
+.custom-project h3 { margin-bottom: 10px; }
+.custom-project p { color: #d7d9ff; margin-bottom: 15px; }
 
-.pricing-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-}
+@keyframes borderPulse { 0% { background-position: 0% 50%; opacity: 0.4; } 50% { background-position: 100% 50%; opacity: 0.8; } 100% { background-position: 0% 50%; opacity: 0.4; } }
+@keyframes borderPulseFast { 0% { background-position: 0% 50%; opacity: 0.8; } 50% { background-position: 100% 50%; opacity: 1; } 100% { background-position: 0% 50%; opacity: 0.8; } }
+@keyframes floatParticles { 0% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(-50px, -30px) rotate(180deg); } 100% { transform: translate(0, 0) rotate(360deg); } }
 
-.pricing-card ul li {
-  margin: 10px 0;
-  color: #d7d9ff;
-  font-size: 0.95rem;
-}
-
-/* Button */
-.pricing-card .btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background: linear-gradient(90deg, #4b5fff, #a855f7);
-  color: #fff;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.pricing-card .btn:hover {
-  background: linear-gradient(90deg, #a855f7, #ec4899);
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
-}
-
-/* Custom project */
-.custom-project {
-  margin-top: 50px;
-  z-index: 2;
-  position: relative;
-}
-
-.custom-project h3 {
-  margin-bottom: 10px;
-}
-
-.custom-project p {
-  color: #d7d9ff;
-  margin-bottom: 15px;
-}
-
-/* Mobile */
 @media (max-width: 768px) {
-  #pricing .section-title {
-    font-size: 2rem;
-  }
-
-  .pricing-card {
-    padding: 25px;
-  }
+  #pricing .section-title { font-size: 2rem; }
+  .pricing-card { padding: 25px; }
 }
 
 /* ================= CONTACT SECTION ================= */
