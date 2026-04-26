@@ -1,14 +1,14 @@
 // ============================================================
-//  NextGen Analytics â€” VIP Main Script  (script.js)
-//  Sections: Utils Â· Scroll Progress Â· Header Â· Theme
-//            Cursor Glow Â· Hero Typing Â· Scroll Reveal
-//            Profile Parallax Â· Skills Â· Experience
-//            Certifications Â· Counters Â· Scroll-to-Top
+//  NextGen Analytics — VIP Main Script  (script.js)
+//  Sections: Utils · Scroll Progress · Header · Theme
+//            Cursor Glow · Hero Typing · Scroll Reveal
+//            Profile Parallax · Skills · Experience
+//            Certifications · Counters · Scroll-to-Top
 // ============================================================
 (() => {
   "use strict";
 
-  // â”€â”€ 1. UTILITIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 1. UTILITIES ─────────────────────────────────────────────
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const debounce = (fn, ms = 100) => {
@@ -24,7 +24,7 @@
   };
 
 
-  // â”€â”€ 2. SCROLL PROGRESS BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 2. SCROLL PROGRESS BAR ───────────────────────────────────
   (() => {
     const bar = document.createElement("div");
     bar.id = "scroll-progress";
@@ -43,7 +43,7 @@
   })();
 
 
-  // â”€â”€ 3. HEADER â€” sticky, active links, mobile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 3. HEADER — sticky, active links, mobile ─────────────────
   (() => {
     const header     = $("#header");
     const toggle     = $("#menu-toggle");
@@ -51,7 +51,7 @@
     const navLinks   = $$("#nav-menu a[href^='#']");
     if (!header) return;
 
-    // â”€ Sticky + active on scroll â”€
+    // ─ Sticky + active on scroll ─
     const onScroll = () => {
       const y = window.scrollY;
       header.classList.toggle("sticky", y > 50);
@@ -68,24 +68,24 @@
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    // â”€ Mobile toggle with animation â”€
+    // ─ Mobile toggle with animation ─
     toggle?.addEventListener("click", (e) => {
       e.stopPropagation();
       const open = nav.classList.toggle("active");
-      toggle.textContent = open ? "âœ•" : "â˜°";
+      toggle.textContent = open ? "✕" : "☰";
       toggle.setAttribute("aria-expanded", open);
     });
 
-    // â”€ Close on outside click â”€
+    // ─ Close on outside click ─
     document.addEventListener("click", (e) => {
       if (nav?.classList.contains("active") &&
           !nav.contains(e.target) && !toggle.contains(e.target)) {
         nav.classList.remove("active");
-        toggle.textContent = "â˜°";
+        toggle.textContent = "☰";
       }
     });
 
-    // â”€ Smooth scroll for nav links â”€
+    // ─ Smooth scroll for nav links ─
     navLinks.forEach(link => {
       link.addEventListener("click", e => {
         e.preventDefault();
@@ -93,31 +93,31 @@
         if (target) {
           window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: "smooth" });
           nav?.classList.remove("active");
-          toggle && (toggle.textContent = "â˜°");
+          toggle && (toggle.textContent = "☰");
         }
       });
     });
   })();
 
 
-  // â”€â”€ 4. THEME TOGGLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 4. THEME TOGGLE ──────────────────────────────────────────
   (() => {
     const btn   = $("#theme-toggle-btn");
     const saved = localStorage.getItem("nga-theme") || "dark";
     document.documentElement.dataset.theme = saved;
-    if (btn) btn.textContent = saved === "dark" ? "ðŸŒ™" : "â˜€ï¸";
+    if (btn) btn.textContent = saved === "dark" ? "🌙" : "☀️";
 
     btn?.addEventListener("click", () => {
       const isDark = document.documentElement.dataset.theme === "dark";
       const next   = isDark ? "light" : "dark";
       document.documentElement.dataset.theme = next;
-      btn.textContent = isDark ? "â˜€ï¸" : "ðŸŒ™";
+      btn.textContent = isDark ? "☀️" : "🌙";
       localStorage.setItem("nga-theme", next);
     });
   })();
 
 
-  // â”€â”€ 5. CUSTOM CURSOR GLOW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 5. CUSTOM CURSOR GLOW ────────────────────────────────────
   (() => {
     // skip on touch devices
     if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -168,17 +168,17 @@
   })();
 
 
-  // â”€â”€ 6. HERO â€” TYPING EFFECT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 6. HERO — TYPING EFFECT ───────────────────────────────────
   ready(() => {
     const el    = $("#typing-text");
     if (!el) return;
 
     const roles = [
-      "Data Analyst ðŸ“Š",
-      "Power BI Developer ðŸ“ˆ",
-      "Business Analyst ðŸ’¼",
-      "Python Enthusiast ðŸ",
-      "BI Consultant ðŸŒ",
+      "Data Analyst 📊",
+      "Power BI Developer 📈",
+      "Business Analyst 💼",
+      "Python Enthusiast 🐍",
+      "BI Consultant 🌐",
     ];
     let wi = 0, ci = 0, deleting = false;
 
@@ -220,7 +220,7 @@
   });
 
 
-  // â”€â”€ 7. SCROLL REVEAL (Intersection Observer) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 7. SCROLL REVEAL (Intersection Observer) ─────────────────
   ready(() => {
     const style = document.createElement("style");
     style.textContent = `
@@ -263,7 +263,7 @@
   });
 
 
-  // â”€â”€ 8. PROFILE PIC â€” 3D PARALLAX WITH SPRING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 8. PROFILE PIC — 3D PARALLAX WITH SPRING ─────────────────
   ready(() => {
     const wrapper = $(".profile-pic-wrapper");
     if (!wrapper || window.matchMedia("(pointer:coarse)").matches) return;
@@ -287,7 +287,7 @@
   });
 
 
-  // â”€â”€ 9. SKILLS â€” RING ANIMATION (on scroll enter) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 9. SKILLS — RING ANIMATION (on scroll enter) ──────────────
   ready(() => {
     const circles = $$(".skill-circle[data-percent]");
     if (!circles.length) return;
@@ -385,7 +385,7 @@
   });
 
 
-  // â”€â”€ 10. EXPERIENCE CARD PARTICLES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 10. EXPERIENCE CARD PARTICLES ────────────────────────────
   ready(() => {
     $$(".experience-card").forEach(card => {
       const box = card.querySelector(".card-particles");
@@ -428,7 +428,7 @@
   });
 
 
-  // â”€â”€ 11. CERTIFICATION CAROUSEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 11. CERTIFICATION CAROUSEL ───────────────────────────────
   ready(() => {
     const container = $(".carousel-container");
     const track     = $(".certifications-carousel");
@@ -495,7 +495,7 @@
   });
 
 
-  // â”€â”€ 12. STATS COUNTER ANIMATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 12. STATS COUNTER ANIMATION ──────────────────────────────
   ready(() => {
     // auto-detect number elements with data-count
     $$("[data-count]").forEach(el => {
@@ -520,7 +520,7 @@
   });
 
 
-  // â”€â”€ 13. SCROLL TO TOP BUTTON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 13. SCROLL TO TOP BUTTON ─────────────────────────────────
   ready(() => {
     const btn = $("#myBtn");
     if (!btn) return;
@@ -538,7 +538,7 @@
   window.scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
 
-  // â”€â”€ 14. PROJECT CARDS â€” TILT ON HOVER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 14. PROJECT CARDS — TILT ON HOVER ────────────────────────
   ready(() => {
     $$(".project-card").forEach(card => {
       card.addEventListener("mousemove", e => {
@@ -552,11 +552,11 @@
   });
 
 
-  // â”€â”€ 15. ACTIVE SECTION HIGHLIGHT IN SIDEBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  // (fires on scroll â€” already handled in section 3 above)
+  // ── 15. ACTIVE SECTION HIGHLIGHT IN SIDEBAR ──────────────────
+  // (fires on scroll — already handled in section 3 above)
 
 
-  // â”€â”€ 16. HIDDEN KEYWORDS (SEO) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 16. HIDDEN KEYWORDS (SEO) ────────────────────────────────
   ready(() => {
     $$(".hidden-keyword").forEach(el => {
       // keep in DOM for SEO crawlers, invisible to users
@@ -565,7 +565,7 @@
   });
 
 
-  // â”€â”€ 17. LAZY LOAD IMAGES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 17. LAZY LOAD IMAGES ─────────────────────────────────────
   ready(() => {
     if (!("IntersectionObserver" in window)) return;
     const obs = new IntersectionObserver(entries => {
@@ -580,7 +580,7 @@
   });
 
 
-  // â”€â”€ 18. SECTION ENTRY GLOW FLASH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── 18. SECTION ENTRY GLOW FLASH ─────────────────────────────
   ready(() => {
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
@@ -595,108 +595,4 @@
     $$("section[id]").forEach(s => obs.observe(s));
   });
 
-})();
-
-
-// â”€â”€ VIP 3D PARTICLE WAVE - BRIGHT COLORS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const init3D = () => {
-    if (!window.THREE) return setTimeout(init3D, 100);
-
-    const canvas = document.getElementById('hero-3d-bg');
-    if (!canvas) return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    // Bright VIP Particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const count = 2000;
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-
-    const color1 = new THREE.Color('#2563eb'); // Blue
-    const color2 = new THREE.Color('#7c3aed'); // Purple
-    const color3 = new THREE.Color('#ec4899'); // Pink
-
-    for(let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      positions[i3] = (Math.random() - 0.5) * 12;
-      positions[i3 + 1] = (Math.random() - 0.5) * 12;
-      positions[i3 + 2] = (Math.random() - 0.5) * 12;
-
-      const mixedColor = color1.clone();
-      mixedColor.lerp(color2, Math.random());
-      mixedColor.lerp(color3, Math.random() * 0.5);
-      
-      colors[i3] = mixedColor.r;
-      colors[i3 + 1] = mixedColor.g;
-      colors[i3 + 2] = mixedColor.b;
-    }
-
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.03,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.6,
-      blending: THREE.AdditiveBlending
-    });
-
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
-    camera.position.z = 4;
-
-    // Mouse interaction
-    let mouseX = 0, mouseY = 0;
-    document.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-    });
-
-    // Animation
-    const clock = new THREE.Clock();
-    const animate = () => {
-      const elapsed = clock.getElapsedTime();
-      
-      particles.rotation.y = elapsed * 0.05;
-      particles.rotation.x = Math.sin(elapsed * 0.3) * 0.2;
-      
-      // Wave effect
-      const positions = particlesGeometry.attributes.position.array;
-      for(let i = 0; i < count; i++) {
-        const i3 = i * 3;
-        const x = positions[i3];
-        positions[i3 + 1] += Math.sin(elapsed + x) * 0.001;
-      }
-      particlesGeometry.attributes.position.needsUpdate = true;
-
-      // Mouse follow
-      particles.rotation.x += (mouseY * 0.3 - particles.rotation.x) * 0.05;
-      particles.rotation.y += (mouseX * 0.3 - particles.rotation.y) * 0.05;
-
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    };
-
-    // Resize handler
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    animate();
-  };
-
-  // Load after page interactive - protects SEO score
-  if (document.readyState === 'complete') setTimeout(init3D, 100);
-  else window.addEventListener('load', () => setTimeout(init3D, 500));
 })();
