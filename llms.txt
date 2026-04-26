@@ -1,7 +1,26 @@
 # NextGen Analytics
 > Data analytics consultancy by Muhammad Affaf specializing in Power BI and business intelligence.
 
-Website: https://affaf12.github.io/portfolio/
-Founder: Muhammad Affaf, Power BI Data Analyst, Karachi Pakistan
-Services: Power BI Dashboards, Data Analytics, ETL Automation, Cloud Data Solutions
-Contact: muhammadaffaf746@gmail.com
+NextGen Analytics is a Karachi-based Power BI and data analytics consultancy founded by Muhammad Affaf. We help SMEs turn raw data into interactive dashboards, automated ETL pipelines, and cloud data solutions.
+
+## Founder
+- Muhammad Affaf — Power BI Data Analyst, Karachi Pakistan
+- Email: muhammadaffaf746@gmail.com
+- Location: Karachi, Sindh, Pakistan
+- Contact Number: +923042365964
+
+## Services
+- [Power BI Dashboards](https://affaf12.github.io/portfolio/#services): Interactive KPI dashboards and data modeling
+- [Data Analytics & Reporting](https://affaf12.github.io/portfolio/#services): SQL, Excel, Power BI analysis
+- [Automation & ETL](https://affaf12.github.io/portfolio/#services): Python, Power Automate pipelines
+- [Cloud Data Solutions](https://affaf12.github.io/portfolio/#services): Azure-based scalable systems
+
+## Featured Projects
+- [Financial Sales & Profitability Dashboard](https://github.com/affaf12/Financial-Sales-Profitability-Dashboard): Finance-ready Power BI model with DAX
+- [Telco Customer Churn Analysis](https://github.com/affaf12/Telco-Customer-Churn-Analysis): Churn prediction dashboard
+- [Delivery Data Chatbot](https://delivery-chatbot-scwqochc7mtnkykkayatxn.streamlit.app): Streamlit AI chatbot for logistics
+
+## Contact
+- [Portfolio](https://affaf12.github.io/portfolio/)
+- [Start Your Project](https://docs.google.com/forms/d/e/...): Custom quote form
+- Email: muhammadaffaf746@gmail.com
