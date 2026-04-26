@@ -1,574 +1,598 @@
-// ================== PORTFOLIO MAIN JS (FULLY UPGRADED) ==================
+// ============================================================
+//  NextGen Analytics — VIP Main Script  (script.js)
+//  Sections: Utils · Scroll Progress · Header · Theme
+//            Cursor Glow · Hero Typing · Scroll Reveal
+//            Profile Parallax · Skills · Experience
+//            Certifications · Counters · Scroll-to-Top
+// ============================================================
 (() => {
   "use strict";
 
-  // ================= HEADER & NAV =================
-const header = document.getElementById("header");
-const menuToggle = document.getElementById("menu-toggle");
-const navMenu = document.getElementById("nav-menu");
+  // ── 1. UTILITIES ─────────────────────────────────────────────
+  const $  = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+  const debounce = (fn, ms = 100) => {
+    let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+  };
+  const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+  const lerp  = (a, b, t) => a + (b - a) * t;
 
-// Mobile menu toggle
-menuToggle?.addEventListener("click", () => {
-  navMenu.classList.toggle("active");
-});
-
-// Scroll events: sticky header & active link
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-
-  // Sticky header
-  header?.classList.toggle("sticky", scrollY > 50);
-
-  // Active nav links
-  document.querySelectorAll("section[id]").forEach(section => {
-    const top = section.offsetTop - header.offsetHeight - 5; // header offset
-    const bottom = top + section.offsetHeight;
-    const link = document.querySelector(`#nav-menu a[href="#${section.id}"]`);
-    if (link) {
-      link.classList.toggle("active", scrollY >= top && scrollY < bottom);
-    }
-  });
-});
-
-// ================= THEME TOGGLE =================
-const themeBtn = document.getElementById("theme-toggle-btn");
-const savedTheme = localStorage.getItem("theme") || "dark";
-document.documentElement.dataset.theme = savedTheme;
-themeBtn.textContent = savedTheme === "dark" ? "🌙" : "☀️";
-
-themeBtn?.addEventListener("click", () => {
-  const isDark = document.documentElement.dataset.theme === "dark";
-  document.documentElement.dataset.theme = isDark ? "light" : "dark";
-  themeBtn.textContent = isDark ? "☀️" : "🌙";
-  localStorage.setItem("theme", document.documentElement.dataset.theme);
-});
-
-  
-  // ================= HERO SCRIPT =================
-document.addEventListener("DOMContentLoaded", () => {
-  /* ---------- TYPING EFFECT ---------- */
-  const typingText = document.getElementById("typing-text");
-  const highlightText = document.querySelector(".hero-title .highlight");
-  const roles = ["Data Analyst", "Business Analyst", "Power BI Developer", "Python Enthusiast"];
-  const typingSpeed = 120;
-  const deletingSpeed = 50;
-  const delayAfterWord = 1200;
-  const nextWordDelay = 500;
-
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-
-  function typeEffect() {
-    if (!typingText || !highlightText) return;
-
-    const currentWord = roles[wordIndex];
-    charIndex += isDeleting ? -1 : 1;
-
-    const displayedText = currentWord.substring(0, charIndex);
-    typingText.textContent = displayedText;
-    highlightText.textContent = displayedText;
-    highlightText.classList.add("highlight-gradient"); // gradient animation
-
-    let timeout = isDeleting ? deletingSpeed : typingSpeed;
-
-    if (!isDeleting && charIndex === currentWord.length) {
-      isDeleting = true;
-      timeout = delayAfterWord;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % roles.length;
-      timeout = nextWordDelay;
-    }
-
-    setTimeout(typeEffect, timeout);
-  }
-
-  typeEffect();
-
-  /* ---------- HERO BUTTONS VISIBILITY ---------- */
-  const heroButtons = document.querySelectorAll(".hero-buttons .btn");
-  heroButtons.forEach(btn => btn.classList.add("visible"));
-
-  /* ---------- SMOOTH SCROLL ---------- */
-  const header = document.getElementById("header");
-  const navMenu = document.getElementById("nav-menu");
-
-  document.querySelectorAll("#nav-menu a").forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      const targetId = link.getAttribute("href")?.slice(1);
-      const targetSection = targetId ? document.getElementById(targetId) : null;
-
-      if (targetSection) {
-        const offset = header ? header.offsetHeight : 0;
-        window.scrollTo({
-          top: targetSection.offsetTop - offset,
-          behavior: "smooth"
-        });
-        if (navMenu) navMenu.classList.remove("active");
-      }
-    });
-  });
-
-  /* ---------- PROFILE PIC 3D PARALLAX ---------- */
-  const wrapper = document.querySelector('.profile-pic-wrapper');
-  if (wrapper) {
-    wrapper.addEventListener('mousemove', (e) => {
-      const rect = wrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const rotateY = ((x / rect.width) - 0.5) * 15; // max tilt 15deg
-      const rotateX = ((y / rect.height) - 0.5) * -15;
-      wrapper.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-    });
-
-    wrapper.addEventListener('mouseleave', () => {
-      wrapper.style.transform = `rotateY(0deg) rotateX(0deg)`;
-    });
-  }
-});
+  // run after DOM ready
+  const ready = fn => {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  };
 
 
-  // ===== Experince section  =====
-document.querySelectorAll('.experience-card').forEach(card => {
-  const particleCount = 15; // particles per card
-  const container = card.querySelector('.card-particles');
+  // ── 2. SCROLL PROGRESS BAR ───────────────────────────────────
+  (() => {
+    const bar = document.createElement("div");
+    bar.id = "scroll-progress";
+    bar.style.cssText = `
+      position:fixed; top:0; left:0; height:3px; width:0%;
+      background:linear-gradient(90deg,#4b5fff,#6c5fff,#ff4bff);
+      z-index:9999; transition:width .1s linear; pointer-events:none;
+      box-shadow:0 0 8px rgba(108,95,255,.7);
+    `;
+    document.body.prepend(bar);
 
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    container.appendChild(particle);
+    window.addEventListener("scroll", () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + "%";
+    }, { passive: true });
+  })();
 
-    // Random initial position
-    particle.style.top = Math.random() * 100 + '%';
-    particle.style.left = Math.random() * 100 + '%';
 
-    // Animate particle randomly
-    const animateParticle = () => {
-      const newTop = Math.random() * 100;
-      const newLeft = Math.random() * 100;
-      const duration = 4000 + Math.random() * 4000; // 4–8s
+  // ── 3. HEADER — sticky, active links, mobile ─────────────────
+  (() => {
+    const header     = $("#header");
+    const toggle     = $("#menu-toggle");
+    const nav        = $("#nav-menu");
+    const navLinks   = $$("#nav-menu a[href^='#']");
+    if (!header) return;
 
-      particle.animate([
-        { top: particle.style.top, left: particle.style.left },
-        { top: newTop + '%', left: newLeft + '%' }
-      ], {
-        duration: duration,
-        iterations: 1,
-        easing: 'ease-in-out'
-      }).onfinish = () => {
-        particle.style.top = newTop + '%';
-        particle.style.left = newLeft + '%';
-        animateParticle();
-      };
+    // ─ Sticky + active on scroll ─
+    const onScroll = () => {
+      const y = window.scrollY;
+      header.classList.toggle("sticky", y > 50);
+
+      // active link
+      let current = "";
+      $$("section[id]").forEach(sec => {
+        if (y >= sec.offsetTop - header.offsetHeight - 10) current = sec.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle("active", a.getAttribute("href") === `#${current}`);
+      });
     };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
 
-    animateParticle();
-  }
-});
+    // ─ Mobile toggle with animation ─
+    toggle?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = nav.classList.toggle("active");
+      toggle.textContent = open ? "✕" : "☰";
+      toggle.setAttribute("aria-expanded", open);
+    });
 
-/* ================= FULL SKILLS NEON UPGRADE ================= */
-document.addEventListener('DOMContentLoaded', () => {
+    // ─ Close on outside click ─
+    document.addEventListener("click", (e) => {
+      if (nav?.classList.contains("active") &&
+          !nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove("active");
+        toggle.textContent = "☰";
+      }
+    });
 
-  const skills = [
-    { selector: '.skill-circle[data-percent="90"]', target: 90 },
-    { selector: '.skill-circle[data-percent="80"]', target: 80 },
-    { selector: '.skill-circle[data-percent="75"]', target: 75 },
-    { selector: '.skill-circle[data-percent="85"]', target: 85 }
-  ];
+    // ─ Smooth scroll for nav links ─
+    navLinks.forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const target = document.getElementById(link.getAttribute("href").slice(1));
+        if (target) {
+          window.scrollTo({ top: target.offsetTop - header.offsetHeight, behavior: "smooth" });
+          nav?.classList.remove("active");
+          toggle && (toggle.textContent = "☰");
+        }
+      });
+    });
+  })();
 
-  skills.forEach(skill => {
-    const circle = document.querySelector(skill.selector);
-    const percentSpan = circle.querySelector('.skill-percent');
-    const ringProgress = circle.querySelector('.ring-progress');
 
-    const radius = ringProgress.r.baseVal.value;
-    const circumference = 2 * Math.PI * radius;
-    ringProgress.style.strokeDasharray = circumference;
-    ringProgress.style.strokeDashoffset = circumference;
+  // ── 4. THEME TOGGLE ──────────────────────────────────────────
+  (() => {
+    const btn   = $("#theme-toggle-btn");
+    const saved = localStorage.getItem("nga-theme") || "dark";
+    document.documentElement.dataset.theme = saved;
+    if (btn) btn.textContent = saved === "dark" ? "🌙" : "☀️";
 
-    let currentPercent = 0;
+    btn?.addEventListener("click", () => {
+      const isDark = document.documentElement.dataset.theme === "dark";
+      const next   = isDark ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      btn.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("nga-theme", next);
+    });
+  })();
 
-    // Animate the ring from 0 to target %
-    function animateRing() {
-      if (currentPercent < skill.target) {
-        currentPercent++;
-        percentSpan.textContent = currentPercent + '%';
-        const offset = circumference - (currentPercent / 100) * circumference;
-        ringProgress.style.strokeDashoffset = offset;
-        requestAnimationFrame(animateRing);
+
+  // ── 5. CUSTOM CURSOR GLOW ────────────────────────────────────
+  (() => {
+    // skip on touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cursor = document.createElement("div");
+    cursor.id = "cursor-glow";
+    cursor.style.cssText = `
+      position:fixed; width:28px; height:28px; border-radius:50%;
+      background:radial-gradient(circle,rgba(108,95,255,.55),transparent 70%);
+      pointer-events:none; z-index:99998; transform:translate(-50%,-50%);
+      transition:transform .12s, opacity .3s, width .2s, height .2s;
+      mix-blend-mode:screen;
+    `;
+    document.body.appendChild(cursor);
+
+    let mx = -100, my = -100, cx = -100, cy = -100;
+
+    document.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
+
+    // spring follow
+    const loop = () => {
+      cx = lerp(cx, mx, 0.18);
+      cy = lerp(cy, my, 0.18);
+      cursor.style.left = cx + "px";
+      cursor.style.top  = cy + "px";
+      requestAnimationFrame(loop);
+    };
+    loop();
+
+    // grow on interactive elements
+    document.addEventListener("mouseover", e => {
+      if (e.target.matches("a,button,.btn,.chip-btn,.proj-btn,.cert-btn")) {
+        cursor.style.width  = "50px";
+        cursor.style.height = "50px";
+        cursor.style.background = "radial-gradient(circle,rgba(255,75,255,.45),transparent 70%)";
+      }
+    });
+    document.addEventListener("mouseout", e => {
+      if (e.target.matches("a,button,.btn,.chip-btn,.proj-btn,.cert-btn")) {
+        cursor.style.width  = "28px";
+        cursor.style.height = "28px";
+        cursor.style.background = "radial-gradient(circle,rgba(108,95,255,.55),transparent 70%)";
+      }
+    });
+
+    document.addEventListener("mouseleave", () => { cursor.style.opacity = "0"; });
+    document.addEventListener("mouseenter", () => { cursor.style.opacity = "1"; });
+  })();
+
+
+  // ── 6. HERO — TYPING EFFECT ───────────────────────────────────
+  ready(() => {
+    const el    = $("#typing-text");
+    if (!el) return;
+
+    const roles = [
+      "Data Analyst 📊",
+      "Power BI Developer 📈",
+      "Business Analyst 💼",
+      "Python Enthusiast 🐍",
+      "BI Consultant 🌐",
+    ];
+    let wi = 0, ci = 0, deleting = false;
+
+    // blinking cursor
+    const cur = document.createElement("span");
+    cur.className = "type-cursor";
+    cur.textContent = "|";
+    cur.style.cssText = "animation:blink .7s step-end infinite;color:#6c5fff;font-weight:300;";
+    el.after(cur);
+
+    const style = document.createElement("style");
+    style.textContent = `@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}`;
+    document.head.appendChild(style);
+
+    const tick = () => {
+      const word = roles[wi];
+      if (!deleting) {
+        ci++;
+        el.textContent = word.slice(0, ci);
+        if (ci === word.length) { deleting = true; return setTimeout(tick, 1800); }
+        return setTimeout(tick, 100);
       } else {
-        percentSpan.textContent = skill.target + '%';
+        ci--;
+        el.textContent = word.slice(0, ci);
+        if (ci === 0) {
+          deleting = false;
+          wi = (wi + 1) % roles.length;
+          return setTimeout(tick, 400);
+        }
+        return setTimeout(tick, 45);
       }
-    }
+    };
+    setTimeout(tick, 600);
 
-    // Start animation with slight random delay for staggered effect
-    setTimeout(animateRing, Math.random() * 500);
+    // hero buttons fade-in
+    $$(".hero-buttons .btn").forEach((b, i) =>
+      setTimeout(() => b.classList.add("visible"), 300 + i * 150)
+    );
+  });
 
-    // ================= NEON PARTICLES =================
-    const particlesContainer = circle.querySelector('.skill-particles');
-    particlesContainer.innerHTML = '';
-    const particleCount = 12;
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.top = Math.random() * 100 + '%';
-      particle.style.left = Math.random() * 100 + '%';
-      const size = Math.random() * 4 + 2;
-      particle.style.width = particle.style.height = size + 'px';
-      particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
-      particle.style.animationDelay = Math.random() * 5 + 's';
-      particle.style.background = `rgba(${75 + Math.random()*180}, ${95 + Math.random()*160}, 255, ${Math.random()*0.5 + 0.3})`;
-      particlesContainer.appendChild(particle);
-    }
 
-    // ================= COLOR GRADIENT & GLOW PULSE =================
-    let hue = Math.random() * 360;
-    let pulse = 0;
+  // ── 7. SCROLL REVEAL (Intersection Observer) ─────────────────
+  ready(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      .sr { opacity:0; transform:translateY(36px); transition:opacity .65s ease, transform .65s ease; }
+      .sr.sr-left  { transform:translateX(-40px); }
+      .sr.sr-right { transform:translateX(40px); }
+      .sr.sr-scale { transform:scale(.92); }
+      .sr.visible  { opacity:1; transform:none; }
+    `;
+    document.head.appendChild(style);
 
-    function animateGlow() {
-      hue = (hue + 1) % 360;
-      ringProgress.style.stroke = `hsl(${hue}, 100%, 60%)`;
-      pulse += 0.05;
-      const glow = 15 + Math.sin(pulse) * 10;
-      circle.style.boxShadow = `0 0 ${glow}px hsl(${hue}, 100%, 60%), inset 0 0 ${glow/2}px hsl(${hue}, 100%, 60%)`;
-      requestAnimationFrame(animateGlow);
-    }
-    animateGlow();
+    // tag elements
+    const map = [
+      { sel: ".about-card",          cls: "sr",       delay: 100 },
+      { sel: ".experience-card",     cls: "sr sr-left",delay: 0  },
+      { sel: ".skill-circle",        cls: "sr sr-scale",delay: 0 },
+      { sel: ".certification-card",  cls: "sr",        delay: 0  },
+      { sel: ".project-card",        cls: "sr sr-right",delay: 0 },
+      { sel: ".service-card",        cls: "sr sr-scale",delay: 0 },
+      { sel: ".pricing-card",        cls: "sr",        delay: 0  },
+    ];
 
-    // ================= HOVER PARTICLE EXPLOSION =================
-    circle.addEventListener('mouseenter', () => {
-      for (let i = 0; i < particleCount; i++) {
-        const particle = particlesContainer.children[i];
-        const angle = Math.random() * 2 * Math.PI;
-        const distance = Math.random() * 50 + 20;
-        particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-        particle.style.opacity = 0;
+    map.forEach(({ sel, cls }) =>
+      $$(sel).forEach((el, i) => {
+        el.classList.add(...cls.split(" "));
+        el.style.transitionDelay = (i * 0.1) + "s";
+      })
+    );
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("visible");
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    $$(".sr").forEach(el => obs.observe(el));
+  });
+
+
+  // ── 8. PROFILE PIC — 3D PARALLAX WITH SPRING ─────────────────
+  ready(() => {
+    const wrapper = $(".profile-pic-wrapper");
+    if (!wrapper || window.matchMedia("(pointer:coarse)").matches) return;
+
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+
+    wrapper.addEventListener("mousemove", e => {
+      const r  = wrapper.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width  - .5) * 22;
+      ty = ((e.clientY - r.top)  / r.height - .5) * -22;
+    });
+    wrapper.addEventListener("mouseleave", () => { tx = 0; ty = 0; });
+
+    const loop = () => {
+      cx = lerp(cx, tx, 0.1);
+      cy = lerp(cy, ty, 0.1);
+      wrapper.style.transform = `perspective(600px) rotateY(${cx}deg) rotateX(${cy}deg)`;
+      requestAnimationFrame(loop);
+    };
+    loop();
+  });
+
+
+  // ── 9. SKILLS — RING ANIMATION (on scroll enter) ──────────────
+  ready(() => {
+    const circles = $$(".skill-circle[data-percent]");
+    if (!circles.length) return;
+
+    circles.forEach(circle => {
+      const target  = +circle.dataset.percent;
+      const ring    = circle.querySelector(".ring-progress");
+      const label   = circle.querySelector(".skill-percent");
+      const pBox    = circle.querySelector(".skill-particles");
+      if (!ring) return;
+
+      const R = ring.r.baseVal.value;
+      const C = 2 * Math.PI * R;
+      ring.style.strokeDasharray  = C;
+      ring.style.strokeDashoffset = C;
+      ring.style.transition = "stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)";
+
+      // particle field
+      if (pBox) {
+        pBox.innerHTML = "";
+        for (let i = 0; i < 14; i++) {
+          const p = document.createElement("div");
+          p.className = "particle";
+          const sz = 2 + Math.random() * 4;
+          p.style.cssText = `
+            position:absolute;
+            width:${sz}px;height:${sz}px;border-radius:50%;
+            top:${Math.random()*100}%;left:${Math.random()*100}%;
+            background:rgba(${75+~~(Math.random()*180)},${95+~~(Math.random()*160)},255,${.3+Math.random()*.5});
+            animation:float ${4+Math.random()*5}s ease-in-out ${Math.random()*4}s infinite alternate;
+            transition:transform .5s, opacity .5s;
+          `;
+          pBox.appendChild(p);
+        }
       }
-    });
-    circle.addEventListener('mouseleave', () => {
-      for (let i = 0; i < particleCount; i++) {
-        const particle = particlesContainer.children[i];
-        particle.style.transform = `translate(0px, 0px)`;
-        particle.style.opacity = 1;
+
+      // floating keyframe (once)
+      if (!document.getElementById("float-kf")) {
+        const s = document.createElement("style");
+        s.id = "float-kf";
+        s.textContent = `@keyframes float{from{transform:translateY(0)}to{transform:translateY(-8px)}}`;
+        document.head.appendChild(s);
       }
-    });
 
-  });
-
-});
-
-
-
-// ===== Certitfication Section  =====
- // ===== Certification Carousel =====
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.querySelector(".carousel-container");
-  const track = document.querySelector(".certifications-carousel");
-  const cards = Array.from(track.querySelectorAll(".certification-card"));
-  const prevBtn = document.querySelector(".left-btn");
-  const nextBtn = document.querySelector(".right-btn");
-
-  if (!container || !track || cards.length === 0) return;
-
-  let index = 0;
-  let width = container.clientWidth;
-  let isAnimating = false;
-
-  // ===== Initialize layout =====
-  track.style.display = "flex";
-  track.style.transition = "transform 0.6s ease";
-  track.style.willChange = "transform";
-
-  cards.forEach((card) => {
-    card.style.flex = "0 0 100%";
-    card.style.maxWidth = "100%";
-  });
-
-  // ===== Move to card =====
-  const goTo = (i, animate = true) => {
-    if (i < 0) i = cards.length - 1;
-    if (i >= cards.length) i = 0;
-    index = i;
-
-    track.style.transition = animate ? "transform 0.6s ease" : "none";
-    track.style.transform = `translateX(${-index * width}px)`;
-    updateActiveCard();
-  };
-
-  // ===== Active card glowing effect =====
-  const updateActiveCard = () => {
-    cards.forEach((card, i) => {
-      if (i === index) {
-        card.classList.add("active");
-      } else {
-        card.classList.remove("active");
-      }
-    });
-  };
-
-  // ===== Arrow button events =====
-  prevBtn.addEventListener("click", () => {
-    if (isAnimating) return;
-    goTo(index - 1);
-  });
-
-  nextBtn.addEventListener("click", () => {
-    if (isAnimating) return;
-    goTo(index + 1);
-  });
-
-  // ===== Transition lock =====
-  track.addEventListener("transitionstart", () => (isAnimating = true));
-  track.addEventListener("transitionend", () => (isAnimating = false));
-
-  // ===== Resize listener =====
-  window.addEventListener("resize", () => {
-    width = container.clientWidth;
-    goTo(index, false);
-  });
-
-  // ===== Init =====
-  goTo(0, false);
-});
-
- 
-
-(function() {
-  // Initialize EmailJS with your public key
-  emailjs.init("xPog1F9WTz3rvgvXbxzsL");
-})();
-
-document.addEventListener("DOMContentLoaded", () => {
-  const contactForm = document.getElementById("contactForm");
-  const statusMsg = document.getElementById("statusMsg");
-  const contactBg = document.querySelector(".contact-bg");
-  const submitBtn = contactForm.querySelector(".btn-glow");
-
-  // ===== VIP FLOATING NEON PARTICLES =====
-  const particleCount = 50;
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement("div");
-    particle.classList.add("neon-particle");
-    particle.style.left = Math.random() * 100 + "%";
-    particle.style.top = Math.random() * 100 + "%";
-    particle.style.width = 2 + Math.random() * 6 + "px";
-    particle.style.height = particle.style.width;
-    particle.style.animationDuration = 4 + Math.random() * 6 + "s";
-    particle.style.opacity = 0.3 + Math.random() * 0.5;
-    contactBg.appendChild(particle);
-  }
-
-  // ===== FLOATING LABELS EFFECT =====
-  const formFields = contactForm.querySelectorAll("input, textarea");
-  formFields.forEach(field => {
-    field.addEventListener("focus", () => field.classList.add("focused"));
-    field.addEventListener("blur", () => {
-      if (!field.value) field.classList.remove("focused");
-    });
-  });
-
-  // ===== FORM SUBMISSION =====
-  contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const fromName = contactForm.from_name.value.trim();
-    const fromEmail = contactForm.from_email.value.trim();
-    const message = contactForm.message.value.trim();
-
-    // ===== VALIDATION =====
-    if (!fromName || !fromEmail || !message) {
-      statusMsg.textContent = "⚠️ Please fill in all fields.";
-      statusMsg.className = "status-message status-error";
-      statusMsg.style.opacity = "1";
-      return;
-    }
-
-    // ===== VIP EFFECTS DURING SENDING =====
-    submitBtn.classList.add("sending"); // button neon pulse
-    contactForm.style.boxShadow = "0 0 40px rgba(75,95,255,0.6), 0 0 60px rgba(168,85,247,0.4)"; // form glow
-    statusMsg.textContent = "📨 Sending...";
-    statusMsg.className = "status-message";
-    statusMsg.style.color = "#4b5fff";
-    statusMsg.style.opacity = "1";
-
-    try {
-      // 1️⃣ Send message to yourself
-      await emailjs.sendForm("service_q9049ro", "template_7seawpc", contactForm);
-
-      // 2️⃣ Auto-reply to sender
-      await emailjs.send("service_q9049ro", "template_wehotjb", {
-        from_name: fromName,
-        from_email: fromEmail,
-        message: message
+      // hover explosion
+      circle.addEventListener("mouseenter", () => {
+        if (!pBox) return;
+        [...pBox.children].forEach(p => {
+          const a = Math.random() * Math.PI * 2;
+          const d = 30 + Math.random() * 40;
+          p.style.transform = `translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`;
+          p.style.opacity   = "0";
+        });
+      });
+      circle.addEventListener("mouseleave", () => {
+        if (!pBox) return;
+        [...pBox.children].forEach(p => {
+          p.style.transform = "translate(0,0)";
+          p.style.opacity   = "1";
+        });
       });
 
-      // 3️⃣ Success feedback
-      statusMsg.textContent = "✅ Message sent! Auto-reply delivered.";
-      statusMsg.className = "status-message status-success";
-      statusMsg.style.opacity = "1";
+      // trigger on scroll
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
 
-      // Reset form & floating labels
-      contactForm.reset();
-      formFields.forEach(f => f.classList.remove("focused"));
+          // ring fill
+          ring.style.strokeDashoffset = C - (target / 100) * C;
 
-    } catch (error) {
-      console.error("EmailJS Error:", error);
-      statusMsg.textContent = "❌ Failed to send. Please try again later.";
-      statusMsg.className = "status-message status-error";
-      statusMsg.style.opacity = "1";
-    }
+          // count-up number
+          let n = 0;
+          const step = () => {
+            n = Math.min(n + 2, target);
+            label && (label.textContent = n + "%");
+            if (n < target) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
 
-    // ===== CLEANUP AFTER 4s =====
-    setTimeout(() => {
-      submitBtn.classList.remove("sending");
-      contactForm.style.boxShadow = "0 0 25px rgba(75,95,255,0.2)";
-      statusMsg.style.opacity = "0";
-    }, 4000);
-  });
-});
+          // hue-rotate glow
+          let hue = Math.random() * 360;
+          const glow = () => {
+            hue = (hue + 0.8) % 360;
+            ring.style.stroke      = `hsl(${hue},100%,62%)`;
+            circle.style.boxShadow = `0 0 18px hsl(${hue},100%,62%)`;
+            requestAnimationFrame(glow);
+          };
+          glow();
 
-
-
-
-
-
-
-
-
-// ===== SCROLL TO TOP BUTTON =====
-// Get the button element
-let mybutton = document.getElementById("myBtn");
-
-// Show button when user scrolls down 100px
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-}
-
-// Smooth scroll to top on click
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-
-  // ===== CHATBOT =====
-// ================= ULTRA-MODERN CHATBOT JS =================
-document.addEventListener("DOMContentLoaded", () => {
-  // ===== Get elements =====
-  const toggleBtn = document.getElementById("chatbot-toggle");
-  const chatWindow = document.getElementById("chatbot-window");
-  const closeBtn = document.getElementById("chatbot-close");
-  const sendBtn = document.getElementById("chatbot-send");
-  const input = document.getElementById("chatbot-input");
-  const body = document.getElementById("chatbot-body");
-  const botSound = document.getElementById("bot-sound");
-  const userSound = document.getElementById("user-sound");
-  const soundCheckbox = document.getElementById("sound-checkbox");
-
-  // ===== Helper: Play sound =====
-  function playSound(type) {
-    if (!soundCheckbox.checked) return;
-    if (type === "bot") botSound.play();
-    if (type === "user") userSound.play();
-  }
-
-  // ===== Helper: Smooth scroll =====
-  function scrollToBottom() {
-    body.scrollTo({ top: body.scrollHeight, behavior: "smooth" });
-  }
-
-  // ===== Toggle Chat Window =====
-  function toggleChat() {
-    chatWindow.classList.toggle("chatbot-visible");
-    toggleBtn.classList.toggle("pulse");
-  }
-
-  toggleBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleChat();
+          obs.unobserve(e.target);
+        });
+      }, { threshold: 0.35 });
+      obs.observe(circle);
+    });
   });
 
-  closeBtn.addEventListener("click", () => {
-    chatWindow.classList.remove("chatbot-visible");
-    toggleBtn.classList.remove("pulse");
+
+  // ── 10. EXPERIENCE CARD PARTICLES ────────────────────────────
+  ready(() => {
+    $$(".experience-card").forEach(card => {
+      const box = card.querySelector(".card-particles");
+      if (!box) return;
+
+      for (let i = 0; i < 18; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        p.style.cssText = `
+          position:absolute;border-radius:50%;pointer-events:none;
+          width:${2+Math.random()*5}px;height:${2+Math.random()*5}px;
+          top:${Math.random()*100}%;left:${Math.random()*100}%;
+          background:rgba(108,95,255,${.3+Math.random()*.5});
+        `;
+        box.appendChild(p);
+
+        const move = () => {
+          const nt = Math.random()*100, nl = Math.random()*100;
+          const dur = 4000 + Math.random()*5000;
+          p.animate([
+            { top:p.style.top, left:p.style.left },
+            { top:nt+"%",      left:nl+"%" }
+          ], { duration:dur, easing:"ease-in-out", fill:"forwards" })
+          .onfinish = () => { p.style.top=nt+"%"; p.style.left=nl+"%"; move(); };
+        };
+        move();
+      }
+
+      // card tilt on hover
+      card.addEventListener("mousemove", e => {
+        const r  = card.getBoundingClientRect();
+        const tx = ((e.clientX - r.left) / r.width  - .5) * 10;
+        const ty = ((e.clientY - r.top)  / r.height - .5) * -10;
+        card.style.transform = `perspective(700px) rotateY(${tx}deg) rotateX(${ty}deg) translateY(-6px)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
   });
 
-  // Close chat when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!chatWindow.contains(e.target) && !toggleBtn.contains(e.target)) {
-      chatWindow.classList.remove("chatbot-visible");
-      toggleBtn.classList.remove("pulse");
-    }
+
+  // ── 11. CERTIFICATION CAROUSEL ───────────────────────────────
+  ready(() => {
+    const container = $(".carousel-container");
+    const track     = $(".certifications-carousel");
+    if (!container || !track) return;
+
+    const cards   = $$(".certification-card", track);
+    const prevBtn = $(".left-btn");
+    const nextBtn = $(".right-btn");
+    if (!cards.length) return;
+
+    let index = 0, w = container.clientWidth, lock = false;
+
+    track.style.cssText = "display:flex;transition:transform .55s cubic-bezier(.4,0,.2,1);will-change:transform;";
+    cards.forEach(c => { c.style.flex = "0 0 100%"; c.style.maxWidth = "100%"; });
+
+    // dot indicators
+    const dots = document.createElement("div");
+    dots.className = "carousel-dots";
+    dots.style.cssText = "display:flex;justify-content:center;gap:8px;margin-top:16px;";
+    cards.forEach((_, i) => {
+      const d = document.createElement("button");
+      d.style.cssText = `
+        width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;
+        background:rgba(255,255,255,0.2);transition:all .3s;padding:0;
+      `;
+      d.addEventListener("click", () => goTo(i));
+      dots.appendChild(d);
+    });
+    container.after(dots);
+
+    const goTo = (i, animate = true) => {
+      if (lock && animate) return;
+      index = ((i % cards.length) + cards.length) % cards.length;
+      track.style.transition = animate ? "transform .55s cubic-bezier(.4,0,.2,1)" : "none";
+      track.style.transform  = `translateX(${-index * w}px)`;
+      cards.forEach((c, n) => c.classList.toggle("active", n === index));
+      [...dots.children].forEach((d, n) => {
+        d.style.background = n === index ? "#6c5fff" : "rgba(255,255,255,0.2)";
+        d.style.transform  = n === index ? "scale(1.3)" : "scale(1)";
+      });
+    };
+
+    track.addEventListener("transitionstart", () => { lock = true; });
+    track.addEventListener("transitionend",   () => { lock = false; });
+
+    prevBtn?.addEventListener("click", () => goTo(index - 1));
+    nextBtn?.addEventListener("click", () => goTo(index + 1));
+
+    // swipe support
+    let sx = 0;
+    track.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener("touchend",   e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? index + 1 : index - 1);
+    });
+
+    // auto-play
+    let auto = setInterval(() => goTo(index + 1), 5000);
+    container.addEventListener("mouseenter", () => clearInterval(auto));
+    container.addEventListener("mouseleave", () => { auto = setInterval(() => goTo(index + 1), 5000); });
+
+    window.addEventListener("resize", debounce(() => { w = container.clientWidth; goTo(index, false); }));
+    goTo(0, false);
   });
 
-  // ===== Bot Typing Indicator =====
-  function showTypingAnimation() {
-    const typing = document.createElement("div");
-    typing.classList.add("bot-msg");
-    typing.textContent = "AI is typing";
 
-    const dots = document.createElement("span");
-    dots.textContent = "...";
-    dots.classList.add("typing-dots");
-    typing.appendChild(dots);
+  // ── 12. STATS COUNTER ANIMATION ──────────────────────────────
+  ready(() => {
+    // auto-detect number elements with data-count
+    $$("[data-count]").forEach(el => {
+      const target = +el.dataset.count;
+      const suffix = el.dataset.suffix || "";
 
-    typing.style.opacity = 0.6;
-    body.appendChild(typing);
-    scrollToBottom();
-    return typing;
-  }
-
-  // ===== Bot Reply =====
-  function botReply(message) {
-    const botMsg = document.createElement("div");
-    botMsg.classList.add("bot-msg");
-    botMsg.textContent = `I’m here to help! You asked: ${message}`;
-    body.appendChild(botMsg);
-    scrollToBottom();
-    playSound("bot");
-  }
-
-  // ===== Send Message =====
-  function sendMessage() {
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    // User message
-    const userMsg = document.createElement("div");
-    userMsg.classList.add("user-msg");
-    userMsg.textContent = msg;
-    body.appendChild(userMsg);
-    scrollToBottom();
-    playSound("user");
-    input.value = "";
-
-    // Bot typing animation
-    const typing = showTypingAnimation();
-
-    setTimeout(() => {
-      body.removeChild(typing);
-      botReply(msg);
-    }, 1200);
-  }
-
-  // ===== Event Listeners =====
-  sendBtn.addEventListener("click", sendMessage);
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendMessage();
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          let n = 0;
+          const step = () => {
+            n = Math.min(n + Math.ceil(target / 60), target);
+            el.textContent = n + suffix;
+            if (n < target) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+          obs.unobserve(e.target);
+        });
+      }, { threshold: 0.5 });
+      obs.observe(el);
+    });
   });
-});
 
 
+  // ── 13. SCROLL TO TOP BUTTON ─────────────────────────────────
+  ready(() => {
+    const btn = $("#myBtn");
+    if (!btn) return;
 
-//================= HIDDEN KEYWORDS SECTION ================= 
-  const keywords = Array.from(document.querySelectorAll('.hidden-keyword')).map(el => el.textContent);
-console.log(keywords); // ["Data Analytics", "Power BI", "Business Intelligence", "SQL"]
+    btn.style.cssText += "transition:opacity .3s,transform .3s;opacity:0;pointer-events:none;";
 
- 
+    window.addEventListener("scroll", () => {
+      const show = window.scrollY > 300;
+      btn.style.opacity       = show ? "1" : "0";
+      btn.style.pointerEvents = show ? "auto" : "none";
+      btn.style.transform     = show ? "translateY(0)" : "translateY(10px)";
+    }, { passive: true });
+  });
+
+  window.scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+
+  // ── 14. PROJECT CARDS — TILT ON HOVER ────────────────────────
+  ready(() => {
+    $$(".project-card").forEach(card => {
+      card.addEventListener("mousemove", e => {
+        const r  = card.getBoundingClientRect();
+        const tx = ((e.clientX - r.left) / r.width  - .5) * 8;
+        const ty = ((e.clientY - r.top)  / r.height - .5) * -8;
+        card.style.transform = `perspective(800px) rotateY(${tx}deg) rotateX(${ty}deg) translateY(-4px)`;
+      });
+      card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+    });
+  });
+
+
+  // ── 15. ACTIVE SECTION HIGHLIGHT IN SIDEBAR ──────────────────
+  // (fires on scroll — already handled in section 3 above)
+
+
+  // ── 16. HIDDEN KEYWORDS (SEO) ────────────────────────────────
+  ready(() => {
+    $$(".hidden-keyword").forEach(el => {
+      // keep in DOM for SEO crawlers, invisible to users
+      el.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;";
+    });
+  });
+
+
+  // ── 17. LAZY LOAD IMAGES ─────────────────────────────────────
+  ready(() => {
+    if (!("IntersectionObserver" in window)) return;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const img = e.target;
+        if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+        obs.unobserve(img);
+      });
+    }, { rootMargin: "200px" });
+    $$("img[data-src]").forEach(img => obs.observe(img));
+  });
+
+
+  // ── 18. SECTION ENTRY GLOW FLASH ─────────────────────────────
+  ready(() => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const h2 = e.target.querySelector("h2");
+        if (!h2) return;
+        h2.style.transition   = "text-shadow .4s";
+        h2.style.textShadow   = "0 0 24px rgba(108,95,255,.8)";
+        setTimeout(() => { h2.style.textShadow = ""; }, 900);
+      });
+    }, { threshold: 0.3 });
+    $$("section[id]").forEach(s => obs.observe(s));
+  });
+
+})();
