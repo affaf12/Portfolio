@@ -1,1 +1,7 @@
+# NextGen Analytics
+> Data analytics consultancy by Muhammad Affaf specializing in Power BI and business intelligence.
 
+Website: https://affaf12.github.io/portfolio/
+Founder: Muhammad Affaf, Power BI Data Analyst, Karachi Pakistan
+Services: Power BI Dashboards, Data Analytics, ETL Automation, Cloud Data Solutions
+Contact: muhammadaffaf746@gmail.com
