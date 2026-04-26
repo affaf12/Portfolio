@@ -1,43 +1,42 @@
 /* ============================================================
-   NextGen Analytics â€” VIP LIGHT THEME  (style.css)
-   Bright Â· Premium Â· SEO-safe Â· 3D-ready
+   NextGen Analytics — VIP Stylesheet  (style.css)
+   Mobile-first · Accessible · Production-grade
    ============================================================ */
 
-/* â”€â”€ 1. DESIGN TOKENS - BRIGHT VIP COLORS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 1. DESIGN TOKENS ────────────────────────────────────────── */
 :root {
-  /* Brand colours - Vibrant & Effective */
-  --c-blue   : #2563eb;
-  --c-purple : #7c3aed;
+  /* Brand colours */
+  --c-blue   : #4b5fff;
+  --c-purple : #6c5fff;
   --c-pink   : #ec4899;
-  --c-cyan   : #06b6d4;
-  --c-orange : #f97316;
+  --c-violet : #a855f7;
+  --c-cyan   : #00e5ff;
 
-  /* Surfaces - Light & Clean */
-  --bg       : #ffffff;
-  --bg-alt   : #f8fafc;
-  --bg-card  : rgba(255,255,255,0.9);
-  --bg-glass : rgba(37,99,235,0.05);
+  /* Surfaces */
+  --bg       : #080b14;
+  --bg-alt   : #0d1120;
+  --bg-card  : rgba(16,20,42,0.85);
+  --bg-glass : rgba(255,255,255,0.04);
 
-  /* Text - High Contrast */
-  --text     : #0f172a;
-  --text-dim : #475569;
-  --text-mute: #64748b;
+  /* Text */
+  --text     : #f0f2ff;
+  --text-dim : #9aa3c2;
+  --text-mute: #5a6382;
 
   /* Borders */
-  --border   : rgba(37,99,235,0.15);
-  --border-h : rgba(124,58,237,0.4);
+  --border   : rgba(75,95,255,0.22);
+  --border-h : rgba(108,95,255,0.55);
 
-  /* Gradients - Bright & Premium */
-  --grad-main: linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
-  --grad-text: linear-gradient(90deg,#2563eb,#7c3aed,#ec4899);
-  --grad-bg   : linear-gradient(180deg,#f8fafc 0%,#ffffff 100%);
+  /* Gradients */
+  --grad-main: linear-gradient(135deg,#4b5fff,#a855f7,#ec4899);
+  --grad-text: linear-gradient(90deg,#4b5fff,#a855f7,#ec4899);
 
-  /* Shadows - Soft */
-  --shadow-sm : 0 2px 8px rgba(37,99,235,0.08);
-  --shadow-md : 0 4px 16px rgba(37,99,235,0.12);
-  --shadow-lg : 0 8px 32px rgba(37,99,235,0.15);
-  --glow-blue : 0 0 24px rgba(37,99,235,0.25);
-  --glow-pink : 0 0 24px rgba(236,72,153,0.2);
+  /* Shadows */
+  --shadow-sm : 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-md : 0 8px 32px rgba(0,0,0,0.55);
+  --shadow-lg : 0 16px 60px rgba(0,0,0,0.65);
+  --glow-blue : 0 0 24px rgba(75,95,255,0.45);
+  --glow-pink : 0 0 24px rgba(236,72,153,0.35);
 
   /* Layout */
   --header-h : 72px;
@@ -55,140 +54,10 @@
   --t-slow   : 0.6s;
 
   /* Typography */
-  --font     : 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font     : 'Poppins', 'Roboto', sans-serif;
 }
 
-/* â”€â”€ 2. RESET & BASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font);
-  background: var(--grad-bg);
-  color: var(--text);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* â”€â”€ 3. VIP 3D CANVAS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-#hero-3d-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.4;
-}
-
-/* â”€â”€ 4. HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: var(--header-h);
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  z-index: 1000;
-  transition: all var(--t-med) var(--ease);
-}
-
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: var(--grad-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* â”€â”€ 5. HERO SECTION - BRIGHT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding-top: var(--header-h);
-  background: var(--grad-bg);
-  overflow: hidden;
-}
-
-.hero-container {
-  position: relative;
-  z-index: 2;
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.hero-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-
-.hero-title .highlight {
-  background: var(--grad-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-subtitle {
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  color: var(--text-dim);
-  margin-bottom: 2rem;
-}
-
-.btn {
-  padding: 1rem 2rem;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  transition: all var(--t-med) var(--ease);
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: var(--grad-main);
-  color: white;
-  box-shadow: var(--shadow-md);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg), var(--glow-blue);
-}
-
-.btn-glow {
-  background: white;
-  color: var(--c-blue);
-  border: 2px solid var(--c-blue);
-}
-
-.btn-glow:hover {
-  background: var(--c-blue);
-  color: white;
-}
-
-/* â”€â”€ 6. CARDS - LIGHT & CLEAN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-.about-card, .project-card, .service-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--t-med) var(--ease);
-}
-
-.about-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border-h);
-}
-
-/* Keep rest of your existing CSS but replace dark colors */
-/* â”€â”€ 2. RESET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 2. RESET ─────────────────────────────────────────────────── */
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
 
 html {
@@ -229,7 +98,7 @@ button { font-family:inherit; }
   border-radius:3px;
 }
 
-/* â”€â”€ 3. UTILITIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 3. UTILITIES ─────────────────────────────────────────────── */
 .container { width:92%; max-width:var(--max-w); margin:0 auto; }
 
 .grad-text {
@@ -330,7 +199,7 @@ button { font-family:inherit; }
   80%      { transform:translateX(5px);  }
 }
 
-/* â”€â”€ 4. HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 4. HEADER ────────────────────────────────────────────────── */
 #header {
   position: fixed;
   inset-inline: 0;
@@ -440,7 +309,7 @@ button { font-family:inherit; }
   transform: scale(1.05);
 }
 
-/* â”€â”€ MOBILE NAV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── MOBILE NAV ──────────────────────────────────────────────── */
 @media (max-width: 900px) {
   #menu-toggle { display: flex; }
 
@@ -492,7 +361,7 @@ button { font-family:inherit; }
 .nav-backdrop.active { display: block; }
 
 
-/* â”€â”€ 5. HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 5. HERO ──────────────────────────────────────────────────── */
 .hero {
   min-height: 100dvh;
   display: flex;
@@ -682,7 +551,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
   .hero-right     { text-align:center; }
 }
 
-/* â”€â”€ 6. ABOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 6. ABOUT ─────────────────────────────────────────────────── */
 #about {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background:
@@ -751,7 +620,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 }
 
 
-/* â”€â”€ 7. EXPERIENCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 7. EXPERIENCE ────────────────────────────────────────────── */
 #experience {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background: var(--bg-alt);
@@ -836,7 +705,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 }
 
 
-/* â”€â”€ 8. SKILLS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 8. SKILLS ────────────────────────────────────────────────── */
 #skills {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background: var(--bg);
@@ -917,7 +786,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 }
 
 
-/* â”€â”€ 9. CERTIFICATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 9. CERTIFICATIONS ────────────────────────────────────────── */
 #certifications {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background:
@@ -983,7 +852,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
   margin-bottom:.4rem;
 }
 .certification-card li::before {
-  content:"â€¢";
+  content:"•";
   position:absolute; left:0;
   color:var(--c-pink);
   font-weight:700;
@@ -1042,7 +911,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 }
 
 
-/* â”€â”€ 10. PROJECTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 10. PROJECTS ─────────────────────────────────────────────── */
 #projects {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background:
@@ -1180,7 +1049,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 .proj-btn:hover::after { transform:translateX(100%); }
 .proj-btn:active { transform:scale(.95); }
 
-/* â”€â”€ 11. SERVICES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 11. SERVICES ─────────────────────────────────────────────── */
 #service {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background: var(--bg-alt);
@@ -1265,7 +1134,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 .service-card p { font-size:.9rem; color:var(--text-dim); line-height:1.65; }
 
 
-/* â”€â”€ 12. PRICING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 12. PRICING ──────────────────────────────────────────────── */
 #pricing {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background:
@@ -1375,7 +1244,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 .custom-project p  { color:var(--text-dim); margin-bottom:1.2rem; font-size:.95rem; }
 
 
-/* â”€â”€ 13. CONTACT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 13. CONTACT ──────────────────────────────────────────────── */
 #contact {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background:
@@ -1582,7 +1451,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 .contact-detail a:hover { color:var(--c-violet); }
 
 
-/* â”€â”€ 14. SOCIAL MEDIA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 14. SOCIAL MEDIA ─────────────────────────────────────────── */
 #social-media {
   padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,2rem);
   background: var(--bg-alt);
@@ -1661,7 +1530,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 .social-icon:hover span { transform:scale(1); opacity:0; }
 
 
-/* â”€â”€ 15. CHATBOT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 15. CHATBOT ──────────────────────────────────────────────── */
 #chatbot-toggle {
   position:fixed;
   bottom:clamp(18px,4vw,30px);
@@ -1965,7 +1834,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 }
 
 
-/* â”€â”€ 16. SCROLL TO TOP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 16. SCROLL TO TOP ────────────────────────────────────────── */
 #myBtn {
   position:fixed;
   bottom:clamp(18px,4vw,30px);
@@ -1994,7 +1863,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 #myBtn:active { transform:scale(.92); }
 
 
-/* â”€â”€ 17. SUCCESS POPUP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 17. SUCCESS POPUP ────────────────────────────────────────── */
 .popup {
   position:fixed; inset:0;
   display:flex; align-items:center; justify-content:center;
@@ -2044,7 +1913,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 }
 
 
-/* â”€â”€ 18. SCROLL REVEAL & ANIMATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 18. SCROLL REVEAL & ANIMATIONS ──────────────────────────── */
 .sr {
   opacity:0; transform:translateY(32px);
   transition:opacity .65s var(--ease), transform .65s var(--ease);
@@ -2061,7 +1930,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 [data-animate].visible { opacity:1; transform:none; }
 
 
-/* â”€â”€ 19. CONFETTI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 19. CONFETTI ─────────────────────────────────────────────── */
 .confetti-piece {
   position:fixed; top:0;
   border-radius:2px; z-index:9998;
@@ -2070,7 +1939,7 @@ a.btn-glow:active, button.btn-glow:active { transform:scale(.95); }
 }
 
 
-/* â”€â”€ 20. HIDDEN SEO / MISC â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 20. HIDDEN SEO / MISC ────────────────────────────────────── */
 .hidden-keyword, .seo-score {
   position:absolute; width:1px; height:1px;
   overflow:hidden; opacity:0; pointer-events:none;
@@ -2098,7 +1967,7 @@ input::placeholder, textarea::placeholder {
 }
 
 
-/* â”€â”€ 21. MOBILE GLOBAL FIXES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 21. MOBILE GLOBAL FIXES ──────────────────────────────────── */
 /* Prevent double-tap zoom on buttons */
 button, a, [role=button] {
   touch-action:manipulation;
