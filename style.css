@@ -2578,6 +2578,51 @@ a.btn-glow:hover {
 
 
 
+
+/* ================= MOBILE BUTTON FIXES ================= */
+.btn,
+.btn-glow,
+.proj-btn,
+.cert-btn {
+  display: inline-block;
+  cursor: pointer;
+  touch-action: manipulation;   /* ensures tap works on mobile */
+  min-height: 44px;             /* larger tap target */
+}
+
+.btn:active,
+.btn-glow:active,
+.proj-btn:active,
+.cert-btn:active {
+  transform: scale(0.96);       /* tap feedback */
+  opacity: 0.85;
+}
+
+/* ================= MOBILE NAV MENU UPGRADE ================= */
+#nav-menu {
+  transition: max-height 0.4s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+
+#nav-menu.active {
+  max-height: 500px; /* enough space for links */
+}
+
+/* ================= RESPONSIVE BUTTON OPTIMIZATION ================= */
+@media (max-width: 480px) {
+  .btn,
+  .btn-glow,
+  .proj-btn,
+  .cert-btn {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.4rem;
+    box-shadow: none; /* reduce lag on low-end devices */
+  }
+}
+
+
+
 /* ================= RESET & BASE ================= */
 /* Hidden Keywords Styling */
 .hidden-keyword {
