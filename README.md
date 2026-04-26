@@ -8,9 +8,9 @@
 </p>
 
 <p align="center">
-  <a href="mailto:affaf12@gmail.com">📧 Email</a> •
-  <a href="#">💼 LinkedIn</a> •
-  <a href="#">🌐 Portfolio</a>
+  <a href="mailto:muhammmadaffaf746@gmail.com">📧 Email</a> •
+  <a href="https://www.linkedin.com/in/muhammadaffaf/">💼 LinkedIn</a> •
+  <a href="https://affaf12.github.io/Portfolio/">🌐 Portfolio</a>
 </p>
 
 ---
