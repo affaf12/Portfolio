@@ -10,7 +10,7 @@
 <p align="center">
   <a href="mailto:muhammmadaffaf746@gmail.com">📧 Email</a> •
   <a href="https://www.linkedin.com/in/muhammadaffaf/">💼 LinkedIn</a> •
-  <a href="https://https://affaf12.github.io/">🌐 Portfolio</a>
+  <a href="https://affaf12.github.io/">🌐 Portfolio</a>
 </p>
 
 ---
