@@ -85,8 +85,12 @@
 
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preload" as="style" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </noscript>
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -97,7 +101,7 @@
   <div class="logo">
     <a href="#hero">
       <img src="images/A_Letter_Logo__creative_A_letter_with_gradient__1_-removebg-preview%20(2).png"
-           alt="NextGen Analytics Logo" loading="lazy">
+           alt="NextGen Analytics Logo" width="44" height="44" loading="eager">
     </a>
     <h2>Muhammad <span>Affaf</span></h2>
   </div>
@@ -120,6 +124,7 @@
   </nav>
 </header>
 
+<main id="main-content">
 
 <!-- ================= HERO SECTION ================= -->
 <section class="hero" id="hero">
@@ -130,7 +135,7 @@
       <div class="profile-pic-wrapper">
         <img src="images/profile-pic.jpeg"
              alt="Muhammad Affaf — Founder of NextGen Analytics, Power BI Developer and Data Analytics Expert in Karachi Pakistan"
-             class="profile-pic" loading="eager">
+             class="profile-pic" width="720" height="721" loading="eager">
         <div class="glow-ring"></div>
       </div>
     </div>
@@ -822,7 +827,7 @@
     <p>All form submissions are processed securely via EmailJS. This website is hosted on GitHub Pages with HTTPS encryption.</p>
 
     <h3 style="color:#fff; margin-top:2rem; margin-bottom:1rem;">4. Contact</h3>
-    <p>For privacy concerns, email: <a href="mailto:muhammadaffaf746@gmail.com" style="color:#6c5fff;">muhammadaffaf746@gmail.com</a></p>
+    <p>For privacy concerns, email: <a href="mailto:muhammadaffaf746@gmail.com" style="color:#6c5fff; text-decoration:underline;">muhammadaffaf746@gmail.com</a></p>
     <p style="margin-top:1rem;"><strong>Address:</strong> Karachi, Sindh, Pakistan</p>
   </div>
 </section><!-- /privacy-policy -->
@@ -846,18 +851,19 @@
     <p>Upon full payment, clients receive full rights to custom Power BI dashboards created. NextGen Analytics retains the right to showcase work in portfolio with client permission.</p>
 
     <h3 style="color:#fff; margin-top:2rem; margin-bottom:1rem;">4. Contact</h3>
-    <p>Questions? Email: <a href="mailto:muhammadaffaf746@gmail.com" style="color:#6c5fff;">muhammadaffaf746@gmail.com</a></p>
+    <p>Questions? Email: <a href="mailto:muhammadaffaf746@gmail.com" style="color:#6c5fff; text-decoration:underline;">muhammadaffaf746@gmail.com</a></p>
   </div>
 </section><!-- /terms -->
 
+</main>
 
 <!-- ================= FOOTER ================= -->
 <footer style="padding:2rem; background:#000; text-align:center; border-top:1px solid #222;">
   <div style="margin-bottom:1rem;">
-    <a href="#about" style="color:#999; margin:0 1rem; text-decoration:none;">About</a>
-    <a href="#contact" style="color:#999; margin:0 1rem; text-decoration:none;">Contact</a>
-    <a href="#privacy-policy" style="color:#999; margin:0 1rem; text-decoration:none;">Privacy Policy</a>
-    <a href="#terms" style="color:#999; margin:0 1rem; text-decoration:none;">Terms of Service</a>
+    <a href="#about" style="color:#999; margin:0 1rem; text-decoration:underline;">About</a>
+    <a href="#contact" style="color:#999; margin:0 1rem; text-decoration:underline;">Contact</a>
+    <a href="#privacy-policy" style="color:#999; margin:0 1rem; text-decoration:underline;">Privacy Policy</a>
+    <a href="#terms" style="color:#999; margin:0 1rem; text-decoration:underline;">Terms of Service</a>
   </div>
   <p style="color:#666; font-size:0.9rem;">
     &copy; <span id="footer-year"></span> NextGen Analytics by <strong style="color:#fff;">Muhammad Affaf</strong>. Karachi, Pakistan.<br>
@@ -872,7 +878,7 @@
 <div id="chatbot-window">
   <div id="chatbot-header">
     <div id="chatbot-profile">
-      <img src="images/profile-pic.jpeg" alt="AI Assistant" id="chatbot-avatar" loading="lazy">
+      <img src="images/profile-pic.jpeg" alt="AI Assistant" id="chatbot-avatar" width="38" height="38" loading="lazy">
       <span>AI Assistant</span>
     </div>
     <div id="chatbot-sound-toggle">
@@ -894,7 +900,7 @@
   </div>
 </div>
 
-<audio id="bot-sound" src="https://raw.githubusercontent.com/affaf12/affaf12.github.io/18b30c5312791f12f20ef5770935cc3c9d694b0d/live-chat-353605.mp3"></audio>
+<audio id="bot-sound" src="live-chat-353605.mp3" preload="none"></audio>
 
 
 <!-- ================= SCROLL TO TOP ================= -->
@@ -905,7 +911,7 @@
 <script>
   document.getElementById('footer-year').textContent = new Date().getFullYear();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script src="chatbot.js" defer></script>
 <script src="script.js" defer></script>
 
